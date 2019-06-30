@@ -4,7 +4,7 @@
 \alias{job_create}
 \title{Create a new project}
 \usage{
-job_create(name)
+job_create(name, ...)
 }
 \arguments{
 \item{name}{name of the project to create}

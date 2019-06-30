@@ -47,3 +47,21 @@ new_job <- function(name, description = "", status = "active", owner = "me",
     note = note
   )
 }
+
+#' List jobs
+#'
+#' @export
+job_list <- function() {
+  jobs <- job_read()
+  cat(names(jobs), sep = "\n")
+}
+
+#' List jobs
+#'
+#' @param name Name of job to delete
+#' @export
+job_delete <- function(name) {
+  jobs <- job_read()
+  jobs[[name]] <- NULL
+  job_write(jobs)
+}

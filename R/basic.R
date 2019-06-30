@@ -40,9 +40,17 @@ job_write <- function(jobs) {
 job_create <- function(name, description, owner, status = "active",
                        members = character(0), priority = 1, deadline = NA, notes = list(),
                        tasks = list()) {
+
+  # parse the names and make sure the owner is on the team
+  owner <- real_name(owner)
+  members <- real_name(members)
+  if(!(owner %in% members)) {
+    members <- c(owner, members)
+  }
+
   jobs <- job_read()
-  jobs[[name]] <- new_job(name = name, description = description, owner = real_name(owner),
-                          status = status, members = real_name(members), priority = priority,
+  jobs[[name]] <- new_job(name = name, description = description, owner = owner,
+                          status = status, members = members, priority = priority,
                           deadline = deadline, notes = notes, tasks = tasks)
   job_write(jobs)
 }

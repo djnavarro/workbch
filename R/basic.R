@@ -34,6 +34,7 @@ job_write <- function(jobs) {
 #' @param team should be a vector of names/nicknames
 #' @param priority numeric
 #' @param deadline a date
+#' @param links list of links
 #' @param notes list of notes
 #' @param tasks list of tasks
 #' @export
@@ -53,6 +54,34 @@ job_create <- function(name, description, owner, status = "active",
   jobs[[name]] <- new_job(name = name, description = description, owner = owner,
                           status = status, team = team, priority = priority,
                           deadline = deadline, links = links, notes = notes, tasks = tasks)
+  job_write(jobs)
+}
+
+# returns a list of expressions
+capture_dots <- function(...) {
+  as.list(substitute(list(...)))[-1L]
+}
+
+#' Edit a job
+#'
+#' @param name name of the project to create
+#' @param ... expressions to be evaluated in the job
+#' @export
+job_edit <- function(name, ...) {
+
+  # capture dots
+  dots <- capture_dots(...)  # list of expressions
+  dots <- purrr::map(dots, eval) # evaluate them
+
+  # read the jobs data
+  jobs <- job_read()
+
+  # overwrite/append fields
+  j <- jobs[[name]]
+  j[names(dots)] <- dots
+  jobs[[name]] <- j
+
+  # write
   job_write(jobs)
 }
 

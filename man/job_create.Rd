@@ -23,6 +23,8 @@ job_create(name, description, owner, status = "active",
 
 \item{deadline}{a date}
 
+\item{links}{list of links}
+
 \item{notes}{list of notes}
 
 \item{tasks}{list of tasks}

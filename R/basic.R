@@ -16,8 +16,8 @@ job_read <- function() {
 }
 
 # write project data to JSON file
-job_write <- function(prj) {
-  job_str <- jsonlite::toJSON(prj, pretty = TRUE)
+job_write <- function(jobs) {
+  job_str <- jsonlite::toJSON(jobs, pretty = TRUE)
   writeLines(job_str, job_file())
 }
 
@@ -25,8 +25,25 @@ job_write <- function(prj) {
 #'
 #' @param name name of the project to create
 #' @export
-job_create <- function(name) {
-  prj <- job_read()
-  prj[[name]] <- list(name = name)
-  job_write(prj)
+job_create <- function(name, ...) {
+  jobs <- job_read()
+  jobs[[name]] <- new_job(name = name, ...)
+  job_write(jobs)
+}
+
+# constructor function for job objects
+new_job <- function(name, description = "", status = "active", owner = "me",
+                    member = "me", priority = 1, deadline = NA, note = list(),
+                    task = list()) {
+  list(
+    name = name,
+    description = description,
+    status = status,
+    owner = owner,
+    member = member,
+    priority = priority,
+    deadline = deadline,
+    task = task,
+    note = note
+  )
 }

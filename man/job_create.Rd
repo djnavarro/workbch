@@ -5,8 +5,8 @@
 \title{Create a new project}
 \usage{
 job_create(name, description, owner, status = "active",
-  team = character(0), priority = 1, deadline = NA, notes = list(),
-  tasks = list())
+  team = character(0), priority = 1, deadline = NA, links = list(),
+  notes = list(), tasks = list())
 }
 \arguments{
 \item{name}{name of the project to create}

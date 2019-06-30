@@ -17,5 +17,6 @@ Imports:
     jsonlite,
     dplyr,
     tibble,
-    readr
+    readr,
+    purrr
 RoxygenNote: 6.1.1

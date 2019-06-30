@@ -38,8 +38,8 @@ job_write <- function(jobs) {
 #' @param tasks list of tasks
 #' @export
 job_create <- function(name, description, owner, status = "active",
-                       team = character(0), priority = 1, deadline = NA, notes = list(),
-                       tasks = list()) {
+                       team = character(0), priority = 1, deadline = NA,
+                       links = list(), notes = list(), tasks = list()) {
 
   # parse the names and make sure the owner is on the team
   owner <- real_name(owner)
@@ -52,14 +52,14 @@ job_create <- function(name, description, owner, status = "active",
   jobs <- job_read()
   jobs[[name]] <- new_job(name = name, description = description, owner = owner,
                           status = status, team = team, priority = priority,
-                          deadline = deadline, notes = notes, tasks = tasks)
+                          deadline = deadline, links = links, notes = notes, tasks = tasks)
   job_write(jobs)
 }
 
 # constructor function for job objects
 new_job <- function(name, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
-                    notes = list(), tasks = list()) {
+                    links = list(), notes = list(), tasks = list()) {
   list(
     name = name,
     description = description,
@@ -68,6 +68,7 @@ new_job <- function(name, description, owner, status = "active",
     team = team,
     priority = priority,
     deadline = deadline,
+    links = links,
     tasks = tasks,
     notes = notes
   )
@@ -78,7 +79,10 @@ new_job <- function(name, description, owner, status = "active",
 #' @export
 job_list <- function() {
   jobs <- job_read()
-  cat(names(jobs), sep = "\n")
+  job_tbl <- purrr::map_df(jobs, function(x){
+    tibble::as_tibble(x[c("name", "owner", "priority", "status", "deadline", "description")])})
+  job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, name)
+  print(job_tbl)
 }
 
 #' Delete a job

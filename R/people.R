@@ -36,3 +36,12 @@ people_add <- function(name, nickname) {
 people_list <- function() {
   ppl_read()
 }
+
+# if name is a nickname, substitute with the real one
+real_name <- function(name) {
+  ppl <- ppl_read()
+  if(name %in% ppl$nickname) {
+    return(ppl$name[ppl$nickname == name])
+  }
+  return(name)
+}

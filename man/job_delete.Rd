@@ -2,7 +2,7 @@
 % Please edit documentation in R/basic.R
 \name{job_delete}
 \alias{job_delete}
-\title{List jobs}
+\title{Delete a job}
 \usage{
 job_delete(name)
 }
@@ -10,5 +10,5 @@ job_delete(name)
 \item{name}{Name of job to delete}
 }
 \description{
-List jobs
+Delete a job
 }

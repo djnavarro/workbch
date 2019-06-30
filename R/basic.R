@@ -80,7 +80,7 @@ job_list <- function() {
   cat(names(jobs), sep = "\n")
 }
 
-#' List jobs
+#' Delete a job
 #'
 #' @param name Name of job to delete
 #' @export

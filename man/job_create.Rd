@@ -5,8 +5,8 @@
 \title{Create a new project}
 \usage{
 job_create(name, description, owner, status = "active",
-  members = character(0), priority = 1, deadline = NA,
-  notes = list(), tasks = list())
+  team = character(0), priority = 1, deadline = NA, notes = list(),
+  tasks = list())
 }
 \arguments{
 \item{name}{name of the project to create}
@@ -17,7 +17,7 @@ job_create(name, description, owner, status = "active",
 
 \item{status}{should be "active", "inactive", "complete", "abandoned"}
 
-\item{members}{should be a vector of names/nicknames}
+\item{team}{should be a vector of names/nicknames}
 
 \item{priority}{numeric}
 

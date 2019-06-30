@@ -37,19 +37,19 @@ job_write <- function(jobs) {
 #' @param note list of notes
 #' @param task list of tasks
 #' @export
-job_create <- function(name, description = "", status = "active", owner = "me",
+job_create <- function(name, description, owner, status = "active",
                        member = "me", priority = 1, deadline = NA, note = list(),
                        task = list()) {
   jobs <- job_read()
-  jobs[[name]] <- new_job(name = name, description = description, status = status,
-                          owner = owner, member = member, priority = priority,
+  jobs[[name]] <- new_job(name = name, description = description, owner = real_name(owner),
+                          status = status, member = real_name(member), priority = priority,
                           deadline = deadline, note = note, task = task)
   job_write(jobs)
 }
 
 # constructor function for job objects
-new_job <- function(name, description = "", status = "active", owner = "me",
-                    member = "me", priority = 1, deadline = NA, note = list(),
+new_job <- function(name, description, owner, status = "active",
+                    member = "", priority = 1, deadline = NA, note = list(),
                     task = list()) {
   list(
     name = name,

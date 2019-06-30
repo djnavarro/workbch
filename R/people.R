@@ -39,9 +39,11 @@ people_list <- function() {
 
 # if name is a nickname, substitute with the real one
 real_name <- function(name) {
-  if(length(name) == 0) {
-    return(name)
-  }
+
+  # if there aren't any names, return early
+  if(length(name) == 0) {return(name)}
+
+  # read the nicknames and substitute
   ppl <- ppl_read()
   for(i in 1:length(name)) {
     if(name[i] %in% ppl$nickname) {

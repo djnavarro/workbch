@@ -48,6 +48,7 @@ job_create <- function(name, description, owner, status = "active",
     team <- c(owner, team)
   }
 
+  # read the jobs data and append the new job
   jobs <- job_read()
   jobs[[name]] <- new_job(name = name, description = description, owner = owner,
                           status = status, team = team, priority = priority,

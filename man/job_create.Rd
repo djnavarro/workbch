@@ -8,6 +8,8 @@ job_create(name, ...)
 }
 \arguments{
 \item{name}{name of the project to create}
+
+\item{...}{other fields}
 }
 \description{
 Create a new project

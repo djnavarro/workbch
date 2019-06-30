@@ -3,3 +3,6 @@
 export(job_create)
 export(job_delete)
 export(job_list)
+export(job_show)
+export(people_add)
+export(people_list)

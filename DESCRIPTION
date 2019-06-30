@@ -1,12 +1,12 @@
 Package: projectr
-Title: What the Package Does (One Line, Title Case)
+Title: Very Simple Project Management
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Danielle",
+           family = "Navarro",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "d.navarro@unsw.edu.au",
+           comment = c(ORCID = "0000-0001-7648-6578"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -14,5 +14,8 @@ LazyData: true
 URL: https://github.com/djnavarro/projectr
 BugReports: https://github.com/djnavarro/projectr/issues
 Imports: 
-    jsonlite
+    jsonlite,
+    dplyr,
+    tibble,
+    readr
 RoxygenNote: 6.1.1

@@ -4,7 +4,11 @@ job_home <- function() {
 }
 
 job_file <- function() {
-  file.path(job_home(), "projectr.json")
+  file.path(job_home(), "projectr_jobs.json")
+}
+
+ppl_file <- function() {
+  file.path(job_home(), "projectr_people.csv")
 }
 
 # read project data from JSON file if it exists
@@ -24,6 +28,7 @@ job_write <- function(jobs) {
 #' Create a new project
 #'
 #' @param name name of the project to create
+#' @param ... other fields
 #' @export
 job_create <- function(name, ...) {
   jobs <- job_read()
@@ -65,3 +70,15 @@ job_delete <- function(name) {
   jobs[[name]] <- NULL
   job_write(jobs)
 }
+
+
+#' Show the details of a job
+#'
+#' @param name Name of job to display
+#' @export
+job_show <- function(name) {
+  jobs <- job_read()
+  print(jobs[[name]])
+}
+
+

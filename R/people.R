@@ -39,9 +39,16 @@ people_list <- function() {
 
 # if name is a nickname, substitute with the real one
 real_name <- function(name) {
+  if(length(name) == 0) {
+    return(name)
+  }
   ppl <- ppl_read()
-  if(name %in% ppl$nickname) {
-    return(ppl$name[ppl$nickname == name])
+  for(i in 1:length(name)) {
+    if(name[i] %in% ppl$nickname) {
+      name[i] <- ppl$name[ppl$nickname == name[i]]
+    } else {
+      warning("'", name[i], "' is not a known nickname", call. = FALSE)
+    }
   }
   return(name)
 }

@@ -1,10 +1,10 @@
 # the directory where project records should be stored
 project_home <- function() {
-  getOption("protrack.home")
+  getOption("projectr.home")
 }
 
 project_file <- function() {
-  file.path(project_home(), "protrack.json")
+  file.path(project_home(), "projectr.json")
 }
 
 # read project data from JSON file if it exists

@@ -28,11 +28,22 @@ job_write <- function(jobs) {
 #' Create a new project
 #'
 #' @param name name of the project to create
-#' @param ... other fields
+#' @param description brief description of the project
+#' @param status should be "active", "inactive", "complete", "abandoned"
+#' @param owner should be a name or a nickname
+#' @param member should be a vector of names/nicknames
+#' @param priority numeric
+#' @param deadline a date
+#' @param note list of notes
+#' @param task list of tasks
 #' @export
-job_create <- function(name, ...) {
+job_create <- function(name, description = "", status = "active", owner = "me",
+                       member = "me", priority = 1, deadline = NA, note = list(),
+                       task = list()) {
   jobs <- job_read()
-  jobs[[name]] <- new_job(name = name, ...)
+  jobs[[name]] <- new_job(name = name, description = description, status = status,
+                          owner = owner, member = member, priority = priority,
+                          deadline = deadline, note = note, task = task)
   job_write(jobs)
 }
 

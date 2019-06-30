@@ -4,12 +4,28 @@
 \alias{job_create}
 \title{Create a new project}
 \usage{
-job_create(name, ...)
+job_create(name, description = "", status = "active", owner = "me",
+  member = "me", priority = 1, deadline = NA, note = list(),
+  task = list())
 }
 \arguments{
 \item{name}{name of the project to create}
 
-\item{...}{other fields}
+\item{description}{brief description of the project}
+
+\item{status}{should be "active", "inactive", "complete", "abandoned"}
+
+\item{owner}{should be a name or a nickname}
+
+\item{member}{should be a vector of names/nicknames}
+
+\item{priority}{numeric}
+
+\item{deadline}{a date}
+
+\item{note}{list of notes}
+
+\item{task}{list of tasks}
 }
 \description{
 Create a new project

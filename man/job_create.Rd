@@ -5,7 +5,7 @@
 \title{Create a new project}
 \usage{
 job_create(name, description, owner, status = "active",
-  team = character(0), priority = 1, deadline = NA, links = list(),
+  team = character(0), priority = 1, deadline = NA, urls = list(),
   notes = list(), tasks = list())
 }
 \arguments{
@@ -23,7 +23,7 @@ job_create(name, description, owner, status = "active",
 
 \item{deadline}{a date}
 
-\item{links}{list of links}
+\item{urls}{list of urls}
 
 \item{notes}{list of notes}
 

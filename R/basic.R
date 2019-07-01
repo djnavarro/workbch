@@ -34,13 +34,13 @@ job_write <- function(jobs) {
 #' @param team should be a vector of names/nicknames
 #' @param priority numeric
 #' @param deadline a date
-#' @param links list of links
+#' @param urls list of urls
 #' @param notes list of notes
 #' @param tasks list of tasks
 #' @export
 job_create <- function(name, description, owner, status = "active",
                        team = character(0), priority = 1, deadline = NA,
-                       links = list(), notes = list(), tasks = list()) {
+                       urls = list(), notes = list(), tasks = list()) {
 
   # parse the names and make sure the owner is on the team
   owner <- real_name(owner)
@@ -53,7 +53,7 @@ job_create <- function(name, description, owner, status = "active",
   jobs <- job_read()
   jobs[[name]] <- new_job(name = name, description = description, owner = owner,
                           status = status, team = team, priority = priority,
-                          deadline = deadline, links = links, notes = notes, tasks = tasks)
+                          deadline = deadline, urls = urls, notes = notes, tasks = tasks)
   job_write(jobs)
 }
 
@@ -64,7 +64,7 @@ capture_dots <- function(...) {
 
 #' Edit a job
 #'
-#' @param name name of the project to create
+#' @param name name of the project to edit
 #' @param ... expressions to be evaluated in the job
 #' @export
 job_edit <- function(name, ...) {
@@ -85,10 +85,53 @@ job_edit <- function(name, ...) {
   job_write(jobs)
 }
 
+
+#' Edit the urls in a job
+#'
+#' @param name name of the project to edit
+#' @param ... expressions to be evaluated within the urls field
+#' @export
+job_edit_urls <- function(name, ...) {
+
+  # capture dots
+  dots <- capture_dots(...)  # list of expressions
+  dots <- purrr::map(dots, eval) # evaluate them
+
+  # read the jobs data
+  jobs <- job_read()
+
+  # overwrite/append fields
+  l <- jobs[[name]]$urls
+  l[names(dots)] <- dots
+  jobs[[name]]$urls <- l
+
+  # write
+  job_write(jobs)
+}
+
+
+#' Open a url linked to a job
+#'
+#' @param name name of the project
+#' @param site label denoting the site (e.g., "github")
+#' @export
+job_browse_url <- function(name, site) {
+
+  jobs <- job_read()
+  url <- jobs[[name]]$url[[site]]
+  utils::browseURL(url)
+
+}
+
+
+
+
+
+
 # constructor function for job objects
 new_job <- function(name, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
-                    links = list(), notes = list(), tasks = list()) {
+                    urls = list(), notes = list(), tasks = list()) {
   list(
     name = name,
     description = description,
@@ -97,7 +140,7 @@ new_job <- function(name, description, owner, status = "active",
     team = team,
     priority = priority,
     deadline = deadline,
-    links = links,
+    urls = urls,
     tasks = tasks,
     notes = notes
   )
@@ -133,5 +176,4 @@ job_show <- function(name) {
   jobs <- job_read()
   print(jobs[[name]])
 }
-
 

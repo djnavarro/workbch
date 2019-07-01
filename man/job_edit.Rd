@@ -7,7 +7,7 @@
 job_edit(name, ...)
 }
 \arguments{
-\item{name}{name of the project to create}
+\item{name}{name of the project to edit}
 
 \item{...}{expressions to be evaluated in the job}
 }

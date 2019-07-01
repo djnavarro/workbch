@@ -148,12 +148,16 @@ new_job <- function(name, description, owner, status = "active",
 
 #' List jobs
 #'
+#' @param ... expression to be passed to dplyr::filter
 #' @export
-job_list <- function() {
+job_list <- function(...) {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     tibble::as_tibble(x[c("name", "owner", "priority", "status", "deadline", "description")])})
   job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, name)
+  if(!is.null(filter)) {
+    job_tbl <- dplyr::filter(job_tbl, ...)
+  }
   print(job_tbl)
 }
 

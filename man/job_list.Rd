@@ -4,7 +4,10 @@
 \alias{job_list}
 \title{List jobs}
 \usage{
-job_list()
+job_list(...)
+}
+\arguments{
+\item{...}{expression to be passed to dplyr::filter}
 }
 \description{
 List jobs

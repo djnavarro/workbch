@@ -30,7 +30,7 @@ library(projectr)
 # set the folder to store data (normally you'd specify this in
 # the .Rprofile to ensure it's always available)
 projectr_home(path = tempdir())
-#> [1] "/tmp/RtmpRSRnGS"
+#> [1] "/tmp/RtmpCZZKyV"
 
 # initially we have no jobs
 job_list()
@@ -133,7 +133,8 @@ A “job” is stored as a list that contains the following fields
   - `description`: brief description of the project
   - `owner`: should be a name or a nickname
   - `status`: should be “active”, “inactive”, “complete”, “abandoned”
-  - `team`: should be a vector of names/nicknames
+  - `team`: should be a vector of names/nicknames (owner is
+    automatically included)
   - `priority`: numeric
   - `deadline`: a date
   - `path`: path to the project home directory

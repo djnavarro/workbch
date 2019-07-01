@@ -113,7 +113,7 @@ A "job" is stored as a list that contains the following fields
 - `description`: brief description of the project
 - `owner`: should be a name or a nickname
 - `status`: should be "active", "inactive", "complete", "abandoned"
-- `team`: should be a vector of names/nicknames
+- `team`: should be a vector of names/nicknames (owner is automatically included)
 - `priority`: numeric
 - `deadline`: a date
 - `path`: path to the project home directory

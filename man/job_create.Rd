@@ -5,8 +5,8 @@
 \title{Create a new project}
 \usage{
 job_create(name, description, owner, status = "active",
-  team = character(0), priority = 1, deadline = NA, urls = list(),
-  notes = list(), tasks = list())
+  team = character(0), priority = 1, deadline = NA, path = NA,
+  urls = list(), notes = list(), tasks = list())
 }
 \arguments{
 \item{name}{name of the project to create}
@@ -22,6 +22,8 @@ job_create(name, description, owner, status = "active",
 \item{priority}{numeric}
 
 \item{deadline}{a date}
+
+\item{path}{path to the project home directory}
 
 \item{urls}{list of urls}
 

@@ -18,5 +18,6 @@ Imports:
     dplyr,
     tibble,
     readr,
-    purrr
+    purrr,
+    rstudioapi
 RoxygenNote: 6.1.1

@@ -1,4 +1,7 @@
 
+# to avoid the 'no visible binding' NOTE:
+utils::globalVariables(c("priority", "status", "owner", "name"))
+
 #' List jobs
 #'
 #' @param ... expression to be passed to dplyr::filter

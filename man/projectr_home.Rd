@@ -7,7 +7,7 @@
 projectr_home(path = NULL)
 }
 \arguments{
-\item{path}{}
+\item{path}{Path to the folder}
 }
 \value{
 Path to the folder

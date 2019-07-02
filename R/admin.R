@@ -1,7 +1,7 @@
 
 #' Get or set the location of projectr files
 #'
-#' @param path
+#' @param path Path to the folder
 #'
 #' @return Path to the folder
 #' @export

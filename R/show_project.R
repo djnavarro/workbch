@@ -17,19 +17,6 @@ job_list <- function(...) {
   print(job_tbl)
 }
 
-#' Open a url linked to a job
-#'
-#' @param name name of the project
-#' @param site label denoting the site (e.g., "github")
-#' @export
-job_browse_url <- function(name, site) {
-
-  jobs <- job_read()
-  url <- jobs[[name]]$url[[site]]
-  utils::browseURL(url)
-
-}
-
 
 #' Show the details of a job
 #'
@@ -38,15 +25,4 @@ job_browse_url <- function(name, site) {
 job_show <- function(name) {
   jobs <- job_read()
   print(jobs[[name]])
-}
-
-#' Open the RStudio project linked to the job
-#'
-#' @param name Name of job to open
-#' @export
-job_open <- function(name) {
-  jobs <- job_read()
-  if(rstudioapi::isAvailable()) {
-    rstudioapi::openProject(jobs[[name]]$path)
-  }
 }

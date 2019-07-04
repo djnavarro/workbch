@@ -1,29 +1,4 @@
 
-#' Get or set the location of projectr files
-#'
-#' @param path Path to the folder
-#'
-#' @return Path to the folder
-#' @export
-projectr_home <- function(path = NULL) {
-  if(!is.null(path)) {
-    options(projectr.home = path)
-  }
-  job_home()
-}
-
-
-
-#' Open the RStudio project linked to the job
-#'
-#' @param name Name of job to open
-#' @export
-open_project <- function(name) {
-  jobs <- job_read()
-  if(rstudioapi::isAvailable()) {
-    rstudioapi::openProject(jobs[[name]]$path)
-  }
-}
 
 #' Navigate to the RStudio project linked with a job
 #'
@@ -48,5 +23,7 @@ goto_url <- function(name, site) {
   utils::browseURL(url)
 
 }
+
+
 
 

@@ -6,7 +6,7 @@ utils::globalVariables(c("priority", "status", "owner", "name"))
 #'
 #' @param ... expression to be passed to dplyr::filter
 #' @export
-job_list <- function(...) {
+view_joblist <- function(...) {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     tibble::as_tibble(x[c("name", "owner", "priority", "status", "deadline", "description")])})
@@ -14,15 +14,28 @@ job_list <- function(...) {
   if(...length() > 0) {
     job_tbl <- dplyr::filter(job_tbl, ...)
   }
-  print(job_tbl)
+  return(job_tbl)
 }
 
+
+#' View jobs by priority
+#'
+#' @param priority numeric vector of priorities to display
+#' @param ... expression to be passed to view_jobs
+#'
+#' @return tibble of jobs
+#' @export
+view_priorities <- function(priority = 1, ...) {
+  jobs <- view_joblist()
+  jobs <- dplyr::filter(jobs, priority %in% {{priority}})
+  return(jobs)
+}
 
 #' Show the details of a job
 #'
 #' @param name Name of job to display
 #' @export
-job_show <- function(name) {
+view_job <- function(name) {
   jobs <- job_read()
   print(jobs[[name]])
 }

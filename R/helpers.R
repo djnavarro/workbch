@@ -42,3 +42,16 @@ ppl_write <- function(ppl) {
 capture_dots <- function(...) {
   as.list(substitute(list(...)))[-1L]
 }
+
+# check the job
+validate_job <- function(job) {
+
+  # more checks here!!!
+
+  # if the owner is not on the team, add them
+  if(!(job$owner %in% job$team)) {
+    job$team <- c(job$owner, job$team)
+  }
+
+  return(job)
+}

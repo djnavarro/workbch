@@ -32,7 +32,7 @@ library(projectr)
 # set the folder to store data (normally you'd specify this in
 # the .Rprofile to ensure it's always available)
 projectr_home(path = tempdir())
-#> [1] "/tmp/Rtmp7jJczS"
+#> [1] "/tmp/RtmpMH96J5"
 
 # initially we have no jobs
 view_joblist()
@@ -68,6 +68,21 @@ view_joblist()
 #>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
 #> 1 findmind Bora Horza Gob…        1 active NA       Find the refugee Cultu…
 #> 2 getback  Bora Horza Gob…        1 active NA       Return to Schaar to fi…
+
+# you can look at a specific job:
+view_job("findmind")
+#> 
+#> findmind : Find the refugee Culture Mind 
+#> 
+#>   owner    : Bora Horza Gobuchul 
+#>   team     : Bora Horza Gobuchul 
+#>   priority : 1 
+#>   status   : active 
+#>   deadline : none 
+#> 
+#>   path = NA 
+#>   0 notes
+#>   0 tasks
 ```
 
 ## Example 2
@@ -124,8 +139,8 @@ A “job” is stored as a list that contains the following fields
   - `deadline`: a date
   - `path`: path to the project home directory
   - `urls`: list of urls
-  - `notes`: list of notes
   - `tasks`: list of tasks
+  - `notes`: list of notes
 
 The intention is to allow jobs to include a set of “tasks” which are
 structured objects in their own right, and to allow jobs and tasks to be
@@ -135,3 +150,11 @@ of a list of tasks due before a specific date). The functionality for
 this into a project log or anything like that. Each project should
 maintain its own logs, readmes, etc: that is deliberately outside the
 scope of projectr\!
+
+Functions are organised as:
+
+  - `job_*` functions create, delete and edit job
+  - `view_*` functions display information about jobs
+  - `goto_*` functions navigate to projects/url
+
+There are a few functions that don’t currently fit this scheme. WIP.

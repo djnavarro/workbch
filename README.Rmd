@@ -60,6 +60,9 @@ job_create(name = "getback",
 
 # now take a look
 view_joblist()
+
+# you can look at a specific job:
+view_job("findmind")
 ```
 
 ## Example 2
@@ -103,8 +106,16 @@ A "job" is stored as a list that contains the following fields
 - `deadline`: a date
 - `path`: path to the project home directory
 - `urls`: list of urls
-- `notes`: list of notes
 - `tasks`: list of tasks
+- `notes`: list of notes
 
 The intention is to allow jobs to include a set of "tasks" which are structured objects in their own right, and to allow jobs and tasks to be filtered by the due date of tasks (e.g., you should be able to pull out of a list of tasks due before a specific date). The functionality for "notes" hasn't been determined yet, but the intention is *not* to turn this into a project log or anything like that. Each project should maintain its own logs, readmes, etc: that is deliberately outside the scope of projectr!
+
+Functions are organised as:
+
+- `job_*` functions create, delete and edit job
+- `view_*` functions display information about jobs
+- `goto_*` functions navigate to projects/url
+
+There are a few functions that don't currently fit this scheme. WIP.
 

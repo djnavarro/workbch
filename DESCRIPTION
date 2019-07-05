@@ -10,7 +10,7 @@ Authors@R:
 Description: Manage projects from within R. 'projectr' stores basic metadata 
     (priority, deadlines, status) about projects, allows filtering and search 
     for projects, stores notes and tasks linked to projects, and assists 
-    navigation to URLs and folders linked to projects.
+    navigation to web pages and folders linked to projects.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -4,12 +4,14 @@
 \alias{job_edit_urls}
 \title{Edit the urls in a job}
 \usage{
-job_edit_urls(name, ...)
+job_edit_urls(name, ..., clean = FALSE)
 }
 \arguments{
 \item{name}{name of the project to edit}
 
 \item{...}{expressions to be evaluated within the urls field}
+
+\item{clean}{delete all existing URLs first? (default = FALSE)}
 }
 \description{
 Edit the urls in a job

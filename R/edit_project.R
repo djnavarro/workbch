@@ -72,8 +72,9 @@ job_edit_team <- function(name, add = NULL, remove = NULL) {
 #'
 #' @param name name of the project to edit
 #' @param ... expressions to be evaluated within the urls field
+#' @param clean delete all existing URLs first? (default = FALSE)
 #' @export
-job_edit_urls <- function(name, ...) {
+job_edit_urls <- function(name, ..., clean = FALSE) {
 
   # capture dots
   dots <- capture_dots(...)  # list of expressions
@@ -83,7 +84,11 @@ job_edit_urls <- function(name, ...) {
   jobs <- job_read()
 
   # overwrite/append fields
-  l <- jobs[[name]]$urls
+  if(clean == FALSE) {
+    l <- jobs[[name]]$urls
+  } else {
+    l <- list()
+  }
   l[names(dots)] <- dots
   jobs[[name]]$urls <- l
 

@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/djnavarro/projectr.svg?branch=master)](https://travis-ci.org/djnavarro/projectr)
 <!-- badges: end -->
 
 The goal of projectr is to let me manage my projects within R. It's very minimal in design, and does not track hours spent. 
@@ -38,7 +39,7 @@ library(projectr)
 projectr_home(path = tempdir())
 
 # initially we have no jobs
-job_list()
+view_joblist()
 
 # initially we know no people
 people_list()
@@ -58,7 +59,7 @@ job_create(name = "getback",
            owner = "horza")
 
 # now take a look
-job_list()
+view_joblist()
 ```
 
 ## Example 2
@@ -79,27 +80,11 @@ job_create(name = "findhorza",
            )
 
 # now take a look
-job_list()
+view_joblist()
 
 # filter the job list (currently doesn't support nicknames)
-job_list(owner == "Bora Horza Gobuchul")
+view_joblist(owner == "Bora Horza Gobuchul")
 ```
-
-## Notes
-
-Current functions implemented (and not particularly well-documented):
-
-- `job_browse_url`: opens a URL associated with a job
-- `job_create`: creates a new job
-- `job_delete`: deletes an existing job
-- `job_edit`: change a field within a job
-- `job_edit_urls`: convenience function to edit a urls within a job
-- `job_list`: list all jobs (allows filtering via dplyr::filter)
-- `job_open`: open the RStudio project located at the job path
-- `job_show`: display all information about a job (currently dumps a list!)
-- `people_add`: add a named person with a nickname to the table
-- `people_list`: display the table of names
-- `projectr_home`: get or set the location where projectr stores files
 
 Everything is stored in plain text files. There is a JSON file containing the jobs, and a CSV file containing the table of names. To avoid the tediousness of calling `projectr_home` every session you can include a line like this in .Rprofile
 

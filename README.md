@@ -7,6 +7,8 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build
+status](https://travis-ci.org/djnavarro/projectr.svg?branch=master)](https://travis-ci.org/djnavarro/projectr)
 <!-- badges: end -->
 
 The goal of projectr is to let me manage my projects within R. It’s very
@@ -30,10 +32,10 @@ library(projectr)
 # set the folder to store data (normally you'd specify this in
 # the .Rprofile to ensure it's always available)
 projectr_home(path = tempdir())
-#> [1] "/tmp/RtmpCZZKyV"
+#> [1] "/tmp/Rtmp7jJczS"
 
 # initially we have no jobs
-job_list()
+view_joblist()
 #> # A tibble: 0 x 0
 
 # initially we know no people
@@ -60,7 +62,7 @@ job_create(name = "getback",
            owner = "horza")
 
 # now take a look
-job_list()
+view_joblist()
 #> # A tibble: 2 x 6
 #>   name     owner           priority status deadline description            
 #>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
@@ -86,7 +88,7 @@ job_create(name = "findhorza",
            )
 
 # now take a look
-job_list()
+view_joblist()
 #> # A tibble: 3 x 6
 #>   name     owner           priority status deadline description            
 #>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
@@ -95,30 +97,13 @@ job_list()
 #> 3 findhor… Perosteck Balv…        1 active NA       Find Horza
 
 # filter the job list (currently doesn't support nicknames)
-job_list(owner == "Bora Horza Gobuchul")
+view_joblist(owner == "Bora Horza Gobuchul")
 #> # A tibble: 2 x 6
 #>   name     owner           priority status deadline description            
 #>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
 #> 1 findmind Bora Horza Gob…        1 active NA       Find the refugee Cultu…
 #> 2 getback  Bora Horza Gob…        1 active NA       Return to Schaar to fi…
 ```
-
-## Notes
-
-Current functions implemented (and not particularly well-documented):
-
-  - `job_browse_url`: opens a URL associated with a job
-  - `job_create`: creates a new job
-  - `job_delete`: deletes an existing job
-  - `job_edit`: change a field within a job
-  - `job_edit_urls`: convenience function to edit a urls within a job
-  - `job_list`: list all jobs (allows filtering via dplyr::filter)
-  - `job_open`: open the RStudio project located at the job path
-  - `job_show`: display all information about a job (currently dumps a
-    list\!)
-  - `people_add`: add a named person with a nickname to the table
-  - `people_list`: display the table of names
-  - `projectr_home`: get or set the location where projectr stores files
 
 Everything is stored in plain text files. There is a JSON file
 containing the jobs, and a CSV file containing the table of names. To

@@ -11,8 +11,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://travis-ci.org/djnavarro/projectr.svg?branch=master)](https://travis-ci.org/djnavarro/projectr)
 <!-- badges: end -->
 
-The goal of projectr is to let me manage my projects within R. It’s very
-minimal in design, and does not track hours spent.
+The goal of projectr is to provide tools for project management within
+R. The design is very minimal at the moment. It allows the user to store
+and edit basic metadata associated with projects. It allows one to
+search, filter and navigate between projects. Prioritisation and
+deadlines are supported, but financial information and time spent on a
+project are not tracked.
 
 ## Installation
 
@@ -32,7 +36,7 @@ library(projectr)
 # set the folder to store data (normally you'd specify this in
 # the .Rprofile to ensure it's always available)
 projectr_home(path = tempdir())
-#> [1] "/tmp/RtmpMH96J5"
+#> [1] "/tmp/RtmpPoGAAU"
 
 # initially we have no jobs
 view_joblist()

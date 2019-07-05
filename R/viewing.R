@@ -37,5 +37,30 @@ view_priorities <- function(priority = 1, ...) {
 #' @export
 view_job <- function(name) {
   jobs <- job_read()
-  print(jobs[[name]])
+  jb <- jobs[[name]]
+
+  cat("\n")
+  cat(jb$name, ":", jb$description, "\n")
+  cat("\n")
+
+  cat("  owner    :", jb$owner, "\n")
+  cat("  team     :", paste(jb$team, collapse = ", "), "\n")
+  cat("  priority :", jb$priority, "\n")
+  cat("  status   :", jb$status, "\n")
+
+  dl <- ifelse(is.na(jb$deadline), "none", jb$deadline)
+  cat("  deadline :", dl, "\n")
+
+  cat("\n")
+  cat("  path =", jb$path, "\n")
+  if(length(jb$urls) > 0) {
+    for(i in 1:length(jb$urls)) {
+      cat(" ", names(jb$urls)[i], "=", jb$urls[[i]], "\n")
+    }
+  }
+  cat(" ", length(jb$notes), "notes\n")
+  cat(" ", length(jb$tasks), "tasks\n")
+
+  cat("\n")
+  return(invisible(jb))
 }

@@ -9,79 +9,136 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
 status](https://travis-ci.org/djnavarro/projectr.svg?branch=master)](https://travis-ci.org/djnavarro/projectr)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/projectr)](https://cran.r-project.org/package=projectr)
 <!-- badges: end -->
 
 The goal of projectr is to provide tools for project management within
 R. The design is very minimal at the moment. It allows the user to store
-and edit basic metadata associated with projects. It allows one to
+and edit basic metadata associated with projects. It allows you to
 search, filter and navigate between projects. Prioritisation and
 deadlines are supported, but financial information and time spent on a
 project are not tracked.
 
 ## Installation
 
-You can install the development version from
-[GitHub](https://github.com/) with:
+The projectr package has not been released on CRAN. However you can
+install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("djnavarro/projectr")
 ```
 
-## Example 1
+The package is built around three families of functions:
+
+  - the `job_*` functions create, delete and edit a job
+  - the `view_*` functions display information about jobs
+  - the `goto_*` functions navigate to projects and webpages
+
+(though there are a few functions that don’t currently fit this scheme)
+
+## Example 1: Getting started
+
+The projectr package stores information about projects in a few files
+stored within a directory referred to as the “projectr home”. The
+easiest way to set this location in a persistent way is to edit the
+.Rprofile file to include the following line:
+
+``` r
+options(projectr.home = "PATH_TO_PROJECT_FOLDER")
+```
+
+This ensures that whenever the projectr package is loaded it knows where
+to find your project information. Once this is done, you can start
+adding *jobs*. A “job” is intended to be much the same as a “project”,
+but to avoid confusion with “RStudio projects” a different term is used.
+Here’s how to add and view the jobs you have stored:
 
 ``` r
 library(projectr)
 
-# set the folder to store data (normally you'd specify this in
-# the .Rprofile to ensure it's always available)
-projectr_home(path = tempdir())
-#> [1] "/tmp/RtmpPoGAAU"
-
-# initially we have no jobs
 view_joblist()
 #> # A tibble: 0 x 0
 
-# initially we know no people
-people_list()
-#> list()
+job_create(
+  name = "workitout", 
+  description = "sip martinis and party in France", 
+  owner = "britney"
+)
+#> Warning: 'britney' is not a known nickname
 
-# add some people
-people_add(name = "Bora Horza Gobuchul", nickname = "horza")
-people_add(name = "Perosteck Balveda", nickname = "balveda")
-people_list()
-#> # A tibble: 2 x 2
-#>   name                nickname
-#>   <chr>               <chr>   
-#> 1 Bora Horza Gobuchul horza   
-#> 2 Perosteck Balveda   balveda
-
-# add a job with the required options only
-job_create(name = "findmind", 
-           description = "Find the refugee Culture Mind", 
-           owner = "horza")
-
-job_create(name = "getback", 
-           description = "Return to Schaar to find her", 
-           owner = "horza")
-
-# now take a look
 view_joblist()
-#> # A tibble: 2 x 6
-#>   name     owner           priority status deadline description            
-#>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
-#> 1 findmind Bora Horza Gob…        1 active NA       Find the refugee Cultu…
-#> 2 getback  Bora Horza Gob…        1 active NA       Return to Schaar to fi…
+#> # A tibble: 1 x 6
+#>   name      owner   priority status deadline description                   
+#>   <chr>     <chr>      <int> <chr>  <lgl>    <chr>                         
+#> 1 workitout britney        1 active NA       sip martinis and party in Fra…
+```
 
-# you can look at a specific job:
-view_job("findmind")
+Projects can be deleted by name:
+
+``` r
+job_delete("workitout")
+view_joblist()
+#> # A tibble: 0 x 0
+```
+
+## Example 2: People, owners and teams
+
+The projectr package stores a data base of names and nicknames, so you
+can specify a person using their nickname instead of needing to type the
+full name:
+
+``` r
+people_add("Beyoncé Knowles", "beyonce")
+people_add("Kelly Rowland", "kelly")
+people_add("Michelle Williams", "michelle")
+people_list()
+#> # A tibble: 3 x 2
+#>   name              nickname
+#>   <chr>             <chr>   
+#> 1 Beyoncé Knowles   beyonce 
+#> 2 Kelly Rowland     kelly   
+#> 3 Michelle Williams michelle
+```
+
+Jobs can consist of multiple people on a *team* but the job must have a
+single *owner*, a named team member who is responsible for the project.
+When used in conjunction with nicknames, the `job_create()` function
+allows you to specify the team efficiently:
+
+``` r
+job_create(
+  name = "survivor",
+  description = "Run a survival analysis",
+  owner = "beyonce",
+  team = c("kelly", "michelle"),
+  priority = 1,
+  status = "inactive"
+)
+```
+
+The owner of a job will automatically be added to the team. As before we
+can use `view_joblist()` to provide a summary of all listed jobs, which
+in this case is only a single job, but you can also use `view_job()` to
+look at a single job in more detail:
+
+``` r
+view_joblist()
+#> # A tibble: 1 x 6
+#>   name     owner           priority status  deadline description           
+#>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
+#> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
+
+
+view_job("survivor")
 #> 
-#> findmind : Find the refugee Culture Mind 
+#> survivor : Run a survival analysis 
 #> 
-#>   owner    : Bora Horza Gobuchul 
-#>   team     : Bora Horza Gobuchul 
+#>   owner    : Beyoncé Knowles 
+#>   team     : Beyoncé Knowles, Kelly Rowland, Michelle Williams 
 #>   priority : 1 
-#>   status   : active 
+#>   status   : inactive 
 #>   deadline : none 
 #> 
 #>   path = NA 
@@ -89,51 +146,11 @@ view_job("findmind")
 #>   0 tasks
 ```
 
-## Example 2
+## Example 3: Editing jobs
 
-Jobs can be specified in more detail
+Internally, a “job” is represented as a list with the following fields
 
-``` r
-job_create(name = "findhorza", 
-           description = "Find Horza", 
-           owner = "balveda",
-           status = "active",
-           priority = 1,
-           deadline = NA,
-           path = "~/myprojects/findhorza",
-           urls = list(
-             github = "https://github.com/balveda/notarealthing",
-             overleaf = "https://overleaf.com/dklgjslkfjaslkfj")
-           )
-
-# now take a look
-view_joblist()
-#> # A tibble: 3 x 6
-#>   name     owner           priority status deadline description            
-#>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
-#> 1 findmind Bora Horza Gob…        1 active NA       Find the refugee Cultu…
-#> 2 getback  Bora Horza Gob…        1 active NA       Return to Schaar to fi…
-#> 3 findhor… Perosteck Balv…        1 active NA       Find Horza
-
-# filter the job list (currently doesn't support nicknames)
-view_joblist(owner == "Bora Horza Gobuchul")
-#> # A tibble: 2 x 6
-#>   name     owner           priority status deadline description            
-#>   <chr>    <chr>              <int> <chr>  <lgl>    <chr>                  
-#> 1 findmind Bora Horza Gob…        1 active NA       Find the refugee Cultu…
-#> 2 getback  Bora Horza Gob…        1 active NA       Return to Schaar to fi…
-```
-
-Everything is stored in plain text files. There is a JSON file
-containing the jobs, and a CSV file containing the table of names. To
-avoid the tediousness of calling `projectr_home` every session you can
-include a line like this in .Rprofile
-
-    options(projectr.home = "~/GitHub/utilities/projects/")
-
-A “job” is stored as a list that contains the following fields
-
-  - `name`: name of the project to create
+  - `name`: name of the project
   - `description`: brief description of the project
   - `owner`: should be a name or a nickname
   - `status`: should be “active”, “inactive”, “complete”, “abandoned”
@@ -143,22 +160,16 @@ A “job” is stored as a list that contains the following fields
   - `deadline`: a date
   - `path`: path to the project home directory
   - `urls`: list of urls
-  - `tasks`: list of tasks
-  - `notes`: list of notes
+  - `tasks`: list of tasks (currently doesn’t work)
+  - `notes`: list of notes (currently doesn’t work)
 
-The intention is to allow jobs to include a set of “tasks” which are
-structured objects in their own right, and to allow jobs and tasks to be
-filtered by the due date of tasks (e.g., you should be able to pull out
-of a list of tasks due before a specific date). The functionality for
-“notes” hasn’t been determined yet, but the intention is *not* to turn
-this into a project log or anything like that. Each project should
-maintain its own logs, readmes, etc: that is deliberately outside the
-scope of projectr\!
+When we added the “survival” job earlier, we specified some of these
+fields but not others. There are three functions that you can use to
+modify the properties of a job:
 
-Functions are organised as:
+  - `job_edit()` can reset the value of any field
+  - `job_edit_team()` makes it easier to edit the team
+  - `job_edit_urls()` makes it easier to edit the list of webpages
+    associated with a job
 
-  - `job_*` functions create, delete and edit job
-  - `view_*` functions display information about jobs
-  - `goto_*` functions navigate to projects/url
-
-There are a few functions that don’t currently fit this scheme. WIP.
+To be continued…

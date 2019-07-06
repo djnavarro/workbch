@@ -60,6 +60,8 @@ view_job <- function(name) {
       cat(" ", names(jb$urls)[i], "=", jb$urls[[i]], "\n")
     }
   }
+
+  cat("\n")
   cat(" ", nrow(jb$notes), "notes\n")
   cat(" ", length(jb$tasks), "tasks\n")
 

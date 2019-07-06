@@ -60,9 +60,27 @@ view_job <- function(name) {
       cat(" ", names(jb$urls)[i], "=", jb$urls[[i]], "\n")
     }
   }
-  cat(" ", length(jb$notes), "notes\n")
+  cat(" ", nrow(jb$notes), "notes\n")
   cat(" ", length(jb$tasks), "tasks\n")
 
   cat("\n")
   return(invisible(jb))
+}
+
+#' View notes associated with a job
+#'
+#' @param name the job
+#'
+#' @return a tibble
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'
+#' view_notes("myjob")
+#' }
+view_notes <- function(name) {
+  jobs <- job_read()
+  nt <- jobs[[name]]$notes
+  return(nt)
 }

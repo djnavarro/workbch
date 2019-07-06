@@ -172,15 +172,137 @@ modify the properties of a job:
   - `job_edit_urls()` makes it easier to edit the list of webpages
     associated with a job
 
-To be continued…
+To illustrate, suppose we create a new job, called “toxic”:
 
-## On the name
+``` r
+people_add("Britney Spears", "britney")
+people_add("Danielle Navarro", "danielle")
 
-The name `workbch` is an abbreviation of "work b\*\*ch". Depending on
-your personal preferences you may wish to pronounce it in one of two
-different ways:
+job_create(
+  name = "toxic",
+  description = "Estimate the LD50 dose",
+  owner = "britney",
+  priority = 2,
+  status = "active",
+  path = "~/projects/toxic",
+  urls = list(
+    github = "https://github.com/djnavarro/toxic",
+    genius = "https://genius.com/Britney-spears-toxic-lyrics"
+  )
+)
 
-  - As a truncation of “work bench”, because it’s supposed to be a
-    metaphorical work bench,
-  - As a reference to the pop song "work b\*\*ch", if you’re a Britney
-    Spears fan.
+view_joblist()
+#> # A tibble: 2 x 6
+#>   name     owner           priority status  deadline description           
+#>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
+#> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
+#> 2 toxic    Britney Spears         2 active  NA       Estimate the LD50 dose
+
+view_job("toxic")
+#> 
+#> toxic : Estimate the LD50 dose 
+#> 
+#>   owner    : Britney Spears 
+#>   team     : Britney Spears 
+#>   priority : 2 
+#>   status   : active 
+#>   deadline : none 
+#> 
+#>   path = ~/projects/toxic 
+#>   github = https://github.com/djnavarro/toxic 
+#>   genius = https://genius.com/Britney-spears-toxic-lyrics 
+#>   0 notes
+#>   0 tasks
+```
+
+If at this point we realise that “Danielle” should have been listed on
+the team (yeah, right) and the priority should have been set at 1:
+
+``` r
+job_edit_team("toxic", add = "danielle")
+job_edit("toxic", priority = 1)
+view_job("toxic")
+#> 
+#> toxic : Estimate the LD50 dose 
+#> 
+#>   owner    : Britney Spears 
+#>   team     : Britney Spears, Danielle Navarro 
+#>   priority : 1 
+#>   status   : active 
+#>   deadline : none 
+#> 
+#>   path = ~/projects/toxic 
+#>   github = https://github.com/djnavarro/toxic 
+#>   genius = https://genius.com/Britney-spears-toxic-lyrics 
+#>   0 notes
+#>   0 tasks
+```
+
+## Example 4: Filtering and prioritising
+
+After a while one can easily end up with a lot of projects, and it can
+be hard to find what you’re looking for (or, if you’re like me, get
+anxious at seeing so many things on the to-do list). For example:
+
+``` r
+view_joblist()
+#> # A tibble: 5 x 6
+#>   name        owner         priority status  deadline description          
+#>   <chr>       <chr>            <int> <chr>   <lgl>    <chr>                
+#> 1 toxic       Britney Spea…        1 active  NA       Estimate the LD50 do…
+#> 2 spinspinsu… Sneaker Pimps        1 active  NA       Check for periodicit…
+#> 3 survivor    Beyoncé Know…        1 inacti… NA       Run a survival analy…
+#> 4 hitmebaby   Britney Spea…        2 active  NA       Signal detection mod…
+#> 5 boys        Lizzo                2 active  NA       Distributional assum…
+```
+
+A simple way to only see the high priority projects:
+
+``` r
+view_priorities()
+#> # A tibble: 3 x 6
+#>   name         owner         priority status  deadline description         
+#>   <chr>        <chr>            <int> <chr>   <lgl>    <chr>               
+#> 1 toxic        Britney Spea…        1 active  NA       Estimate the LD50 d…
+#> 2 spinspinsug… Sneaker Pimps        1 active  NA       Check for periodici…
+#> 3 survivor     Beyoncé Know…        1 inacti… NA       Run a survival anal…
+```
+
+More generally, `view_joblist()` and `view_priorities()` both allow you
+to pass filtering expressions to `dplyr::filter()` to extract the subset
+you’re interested in. Suppose I only want to see the high priority
+active projects:
+
+``` r
+view_joblist(priority == 1 & status == "active")
+#> # A tibble: 2 x 6
+#>   name         owner         priority status deadline description          
+#>   <chr>        <chr>            <int> <chr>  <lgl>    <chr>                
+#> 1 toxic        Britney Spea…        1 active NA       Estimate the LD50 do…
+#> 2 spinspinsug… Sneaker Pimps        1 active NA       Check for periodicit…
+```
+
+Indeed `view_priorities()` function is essentially a helper function to
+avoid having to type `view_joblist(priority == 1)` on a regular basis.
+
+## Example 5: Navigation
+
+To open a webpage associated with a project, it is as simple as using
+the `goto_url()` function:
+
+``` r
+goto_url("toxic", "github")
+```
+
+To open the corresponding RStudio project (assuming that there is an
+RStudio project file located in the directory specified as the project
+path)…
+
+``` r
+goto_project("toxic")
+```
+
+If there is no RStudio project at the relevant location, or the RStudio
+API is not available (i.e., RStudio is not running), all this function
+will do is use `setwd()` to change the working directory (NOTE: not yet
+implemented\!\!\!\!)

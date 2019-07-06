@@ -10,10 +10,17 @@ view_notes(name)
 \item{name}{the job}
 }
 \value{
-a tibble
+Invisibly returns a tibble containing columns for the note,
+the id number, the creation date, and the project name
 }
 \description{
 View notes associated with a job
+}
+\details{
+Displays all notes associated with a job in order of recency. The
+display format is minimal, showing only an id number (to make it easy to
+delete notes later) and the text of each note. Notes are shown in
+chronological order, with most recent notes at the top of the output
 }
 \examples{
 \dontrun{

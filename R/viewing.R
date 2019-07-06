@@ -71,7 +71,12 @@ view_job <- function(name) {
 #'
 #' @param name the job
 #'
-#' @return a tibble
+#' @details Displays all notes associated with a job in order of recency. The
+#' display format is minimal, showing only an id number (to make it easy to
+#' delete notes later) and the text of each note. Notes are shown in
+#' chronological order, with most recent notes at the top of the output
+#' @return Invisibly returns a tibble containing columns for the note,
+#' the id number, the creation date, and the project name
 #' @export
 #'
 #' @examples
@@ -82,5 +87,14 @@ view_job <- function(name) {
 view_notes <- function(name) {
   jobs <- job_read()
   nt <- jobs[[name]]$notes
-  return(nt)
+  if(!is.null(dim(nt))) {
+    if(nrow(nt) > 0) {
+      cat("\n")
+      for(i in 1:nrow(nt)) {
+        cat(nt$id[i], ":  ", nt$note[i], "\n", sep = "")
+      }
+      cat("\n")
+    }
+  }
+  return(invisible(nt))
 }

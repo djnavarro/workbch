@@ -37,3 +37,25 @@ job_add_note <- function(name, note) {
   jobs[[name]] <- jb
   job_write(jobs)
 }
+
+
+#' Delete a note from a job
+#'
+#' @param name the job from which the note should be deleted
+#' @param id the id number assigned to the note
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'
+#' job_delete_note("myjob", 2)
+#' }
+job_delete_note <- function(name, id) {
+  jobs <- job_read()
+  jb <- jobs[[name]]
+
+  jb$notes <- dplyr::filter(jb$notes, id != {{id}})
+  jobs[[name]] <- jb
+  job_write(jobs)
+}

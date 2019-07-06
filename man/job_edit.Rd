@@ -7,10 +7,24 @@
 job_edit(name, ...)
 }
 \arguments{
-\item{name}{name of the project to edit}
+\item{name}{name of the project to edit (character)}
 
 \item{...}{expressions to be evaluated in the job}
 }
 \description{
 Edit a job
+}
+\details{
+The role of \code{job_edit} is to make changes to an existing project,
+specified in the \code{name} argument. Any named expressions in \code{...} are
+evaluated within a list that represents the job. After updating, the results
+are written to the `workbch_jobs.json` file.
+}
+\examples{
+\dontrun{
+
+job_edit("myjob", owner = "hayley")
+job_edit("myjob", status = "inactive")
+job_edit("myjob", priority = 2, description = "Just a job")
+}
 }

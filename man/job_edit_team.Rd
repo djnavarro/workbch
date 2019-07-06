@@ -7,12 +7,37 @@
 job_edit_team(name, add = NULL, remove = NULL)
 }
 \arguments{
-\item{name}{Name of project}
+\item{name}{name of project to be edited}
 
-\item{add}{Vector of names to add to the team}
+\item{add}{character vector of names to add to the team}
 
-\item{remove}{Vector of names to remove from the team}
+\item{remove}{character vector of names to remove from the team}
 }
 \description{
 Add or remove people from a team
+}
+\details{
+The role of \code{job_edit_team()} is to make it a little easier to
+alter the set of names listed in the "team" field of a job. The same task
+could be done with \code{job_edit()} but it is cumbersome to do so. The
+function first appends any names in \code{add} to the team (ignoring
+duplicates), and then removes any names listed in \code{remove}. The function
+checks all elements of \code{add} and \code{remove} against the table of
+known nicknames, and substitutes the full name in place of a nickname.
+Note that it is not possible to remove the "owner" of a job using this
+method, as this would leave the job without an owner. To remove the owner,
+first use \code{job_edit()} to change the owner, and then use
+\code{job_edit_team()} to remove the former owner from the team.
+}
+\examples{
+\dontrun{
+
+job_edit_team("myjob", add = "hayley")
+job_edit_team("myjob", add = c("hayley", "sarah"))
+job_edit_team("myjob", remove = c("hayley", "sarah"))
+
+# if "hayley" is the current owner"
+job_edit("myjob", owner = "sarah") # transfers the ownership to sarah
+job_edit_team("myjob", remove = "hayley") # removes hayley entirely
+}
 }

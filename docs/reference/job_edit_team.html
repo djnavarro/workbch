@@ -121,25 +121,53 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>Name of project</p></td>
+      <td><p>name of project to be edited</p></td>
     </tr>
     <tr>
       <th>add</th>
-      <td><p>Vector of names to add to the team</p></td>
+      <td><p>character vector of names to add to the team</p></td>
     </tr>
     <tr>
       <th>remove</th>
-      <td><p>Vector of names to remove from the team</p></td>
+      <td><p>character vector of names to remove from the team</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>The role of <code>job_edit_team()</code> is to make it a little easier to
+alter the set of names listed in the "team" field of a job. The same task
+could be done with <code><a href='job_edit.html'>job_edit()</a></code> but it is cumbersome to do so. The
+function first appends any names in <code>add</code> to the team (ignoring
+duplicates), and then removes any names listed in <code>remove</code>. The function
+checks all elements of <code>add</code> and <code>remove</code> against the table of
+known nicknames, and substitutes the full name in place of a nickname.
+Note that it is not possible to remove the "owner" of a job using this
+method, as this would leave the job without an owner. To remove the owner,
+first use <code><a href='job_edit.html'>job_edit()</a></code> to change the owner, and then use
+<code>job_edit_team()</code> to remove the former owner from the team.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>job_edit_team</span>(<span class='st'>"myjob"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='st'>"hayley"</span>)
+<span class='fu'>job_edit_team</span>(<span class='st'>"myjob"</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"hayley"</span>, <span class='st'>"sarah"</span>))
+<span class='fu'>job_edit_team</span>(<span class='st'>"myjob"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"hayley"</span>, <span class='st'>"sarah"</span>))
+
+<span class='co'># if "hayley" is the current owner"</span>
+<span class='fu'><a href='job_edit.html'>job_edit</a></span>(<span class='st'>"myjob"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"sarah"</span>) <span class='co'># transfers the ownership to sarah</span>
+<span class='fu'>job_edit_team</span>(<span class='st'>"myjob"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='st'>"hayley"</span>) <span class='co'># removes hayley entirely</span>
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

@@ -23,7 +23,3 @@ goto_url <- function(name, site) {
   utils::browseURL(url)
 
 }
-
-
-
-

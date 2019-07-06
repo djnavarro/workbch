@@ -121,7 +121,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>name of the project to edit</p></td>
+      <td><p>name of the project to edit (character)</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -129,13 +129,30 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
+    <p>The role of <code>job_edit</code> is to make changes to an existing project,
+specified in the <code>name</code> argument. Any named expressions in <code>...</code> are
+evaluated within a list that represents the job. After updating, the results
+are written to the `workbch_jobs.json` file.</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+<span class='fu'>job_edit</span>(<span class='st'>"myjob"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"hayley"</span>)
+<span class='fu'>job_edit</span>(<span class='st'>"myjob"</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='st'>"inactive"</span>)
+<span class='fu'>job_edit</span>(<span class='st'>"myjob"</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='st'>"Just a job"</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

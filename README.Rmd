@@ -129,8 +129,8 @@ Internally, a "job" is represented as a list with the following fields
 - `deadline`: a date
 - `path`: path to the project home directory
 - `urls`: list of urls
-- `tasks`: list of tasks (currently doesn't work)
-- `notes`: list of notes (currently doesn't work)
+- `tasks`: list of tasks (NOT YET IMPLEMENTED)
+- `notes`: list of notes
 
 When we added the "survival" job earlier, we specified some of these fields but not others. There are three functions that you can use to modify the properties of a job:
 
@@ -213,4 +213,29 @@ To open the corresponding RStudio project (assuming that there is an RStudio pro
 goto_project("toxic")
 ```
 
-If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function will do is use `setwd()` to change the working directory (NOTE: not yet implemented!!!!)
+If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function will do is use `setwd()` to change the working directory (NOTE: NOT YET IMPLEMENTED)
+
+## Example 6: Adding, viewing and deleting notes
+
+Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty "notes to self" tool. 
+
+```{r addnotes}
+job_add_note("toxic", "check if this worked")
+job_add_note("toxic", "i wonder if i should circulate this later")
+
+view_notes("toxic")
+```
+
+The output is shown in chronological order (recent at the top). You can remove a note by referring to its number:
+
+```{r deletenotes}
+job_delete_note("toxic", 1)
+view_notes("toxic")
+```
+
+As present the notes themselves do not show up directly when calling `view_job()`. Instead there is a counter that indicates that a job has notes associated with it:
+
+```{r shownotesinjob}
+view_job("toxic")
+```
+

@@ -142,7 +142,8 @@ view_job("survivor")
 #>   deadline : none 
 #> 
 #>   path = NA 
-#>   0 notes
+#> 
+#>   notes
 #>   0 tasks
 ```
 
@@ -160,8 +161,8 @@ Internally, a “job” is represented as a list with the following fields
   - `deadline`: a date
   - `path`: path to the project home directory
   - `urls`: list of urls
-  - `tasks`: list of tasks (currently doesn’t work)
-  - `notes`: list of notes (currently doesn’t work)
+  - `tasks`: list of tasks (NOT YET IMPLEMENTED)
+  - `notes`: list of notes
 
 When we added the “survival” job earlier, we specified some of these
 fields but not others. There are three functions that you can use to
@@ -211,7 +212,8 @@ view_job("toxic")
 #>   path = ~/projects/toxic 
 #>   github = https://github.com/djnavarro/toxic 
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
-#>   0 notes
+#> 
+#>   notes
 #>   0 tasks
 ```
 
@@ -234,7 +236,8 @@ view_job("toxic")
 #>   path = ~/projects/toxic 
 #>   github = https://github.com/djnavarro/toxic 
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
-#>   0 notes
+#> 
+#>   notes
 #>   0 tasks
 ```
 
@@ -304,5 +307,55 @@ goto_project("toxic")
 
 If there is no RStudio project at the relevant location, or the RStudio
 API is not available (i.e., RStudio is not running), all this function
-will do is use `setwd()` to change the working directory (NOTE: not yet
-implemented\!\!\!\!)
+will do is use `setwd()` to change the working directory (NOTE: NOT YET
+IMPLEMENTED)
+
+## Example 6: Adding, viewing and deleting notes
+
+Often it is handy to add small annotations to a job. The intent here is
+not to use this as a substitute for proper documentation (that should
+happen within the project itself) but as a quick and dirty “notes to
+self” tool.
+
+``` r
+job_add_note("toxic", "check if this worked")
+job_add_note("toxic", "i wonder if i should circulate this later")
+
+view_notes("toxic")
+#> 
+#> 2:  i wonder if i should circulate this later
+#> 1:  check if this worked
+```
+
+The output is shown in chronological order (recent at the top). You can
+remove a note by referring to its number:
+
+``` r
+job_delete_note("toxic", 1)
+view_notes("toxic")
+#> 
+#> 2:  i wonder if i should circulate this later
+```
+
+As present the notes themselves do not show up directly when calling
+`view_job()`. Instead there is a counter that indicates that a job has
+notes associated with it:
+
+``` r
+view_job("toxic")
+#> 
+#> toxic : Estimate the LD50 dose 
+#> 
+#>   owner    : Britney Spears 
+#>   team     : Britney Spears, Danielle Navarro 
+#>   priority : 1 
+#>   status   : active 
+#>   deadline : none 
+#> 
+#>   path = ~/projects/toxic 
+#>   github = https://github.com/djnavarro/toxic 
+#>   genius = https://genius.com/Britney-spears-toxic-lyrics 
+#> 
+#>   1 notes
+#>   0 tasks
+```

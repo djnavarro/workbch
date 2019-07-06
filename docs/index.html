@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lightweight Project Management • projectr</title>
+<title>Lightweight Project Management • workbch</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Lightweight Project Management">
-<meta property="og:description" content="Manage projects from within R. projectr stores basic metadata 
+<meta property="og:description" content="Manage projects from within R. workbch stores basic metadata 
     (priority, deadlines, status) about projects, allows filtering and search 
     for projects, stores notes and tasks linked to projects, and assists 
     navigation to web pages and folders linked to projects.">
@@ -33,7 +33,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">projectr</a>
+        <a class="navbar-link" href="index.html">workbch</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -52,7 +52,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/djnavarro/projectr">
+  <a href="https://github.com/djnavarro/workbch">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -74,18 +74,18 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="projectr" class="section level1">
+<div id="workbch" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#projectr" class="anchor"></a>projectr</h1></div>
+<a href="#workbch" class="anchor"></a>workbch</h1></div>
 <!-- badges: start -->
 
-<p>The goal of projectr is to provide tools for project management within R. The design is very minimal at the moment. It allows the user to store and edit basic metadata associated with projects. It allows you to search, filter and navigate between projects. Prioritisation and deadlines are supported, but financial information and time spent on a project are not tracked.</p>
+<p>The goal of workbch is to provide tools for project management within R. The design is very minimal at the moment. It allows the user to store and edit basic metadata associated with projects. It allows you to search, filter and navigate between projects. Prioritisation and deadlines are supported, but financial information and time spent on a project are not tracked.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The projectr package has not been released on CRAN. However you can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<p>The workbch package has not been released on CRAN. However you can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"djnavarro/projectr"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"djnavarro/workbch"</span>)</a></code></pre></div>
 <p>The package is built around three families of functions:</p>
 <ul>
 <li>the <code>job_*</code> functions create, delete and edit a job</li>
@@ -97,10 +97,10 @@
 <div id="example-1-getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-1-getting-started" class="anchor"></a>Example 1: Getting started</h2>
-<p>The projectr package stores information about projects in a few files stored within a directory referred to as the “projectr home”. The easiest way to set this location in a persistent way is to edit the .Rprofile file to include the following line:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">projectr.home =</span> <span class="st">"PATH_TO_PROJECT_FOLDER"</span>)</a></code></pre></div>
-<p>This ensures that whenever the projectr package is loaded it knows where to find your project information. Once this is done, you can start adding <em>jobs</em>. A “job” is intended to be much the same as a “project”, but to avoid confusion with “RStudio projects” a different term is used. Here’s how to add and view the jobs you have stored:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(projectr)</a>
+<p>The workbch package stores information about projects in a few files stored within a directory referred to as the “workbch home”. The easiest way to set this location in a persistent way is to edit the .Rprofile file to include the following line:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">workbch.home =</span> <span class="st">"PATH_TO_PROJECT_FOLDER"</span>)</a></code></pre></div>
+<p>This ensures that whenever the workbch package is loaded it knows where to find your project information. Once this is done, you can start adding <em>jobs</em>. A “job” is intended to be much the same as a “project”, but to avoid confusion with “RStudio projects” a different term is used. Here’s how to add and view the jobs you have stored:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(workbch)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/view_joblist.html">view_joblist</a></span>()</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 0 x 0</span></a>
@@ -125,7 +125,7 @@
 <div id="example-2-people-owners-and-teams" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-2-people-owners-and-teams" class="anchor"></a>Example 2: People, owners and teams</h2>
-<p>The projectr package stores a data base of names and nicknames, so you can specify a person using their nickname instead of needing to type the full name:</p>
+<p>The workbch package stores a data base of names and nicknames, so you can specify a person using their nickname instead of needing to type the full name:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/people_add.html">people_add</a></span>(<span class="st">"Beyoncé Knowles"</span>, <span class="st">"beyonce"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/people_add.html">people_add</a></span>(<span class="st">"Kelly Rowland"</span>, <span class="st">"kelly"</span>)</a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="reference/people_add.html">people_add</a></span>(<span class="st">"Michelle Williams"</span>, <span class="st">"michelle"</span>)</a>
@@ -206,6 +206,15 @@
 </ul>
 <p>To be continued…</p>
 </div>
+<div id="on-the-name" class="section level2">
+<h2 class="hasAnchor">
+<a href="#on-the-name" class="anchor"></a>On the name</h2>
+<p>The name <code>workbch</code> is an abbreviation of "work b**ch". Depending on your personal preferences you may wish to pronounce it in one of two different ways:</p>
+<ul>
+<li>As a truncation of “work bench”, because it’s supposed to be a metaphorical work bench,</li>
+<li>As a reference to the pop song "work b**ch", if you’re a Britney Spears fan.</li>
+</ul>
+</div>
 </div>
   </div>
 
@@ -213,9 +222,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/djnavarro/projectr">https://​github.com/​djnavarro/​projectr</a>
+<li>Browse source code at <br><a href="https://github.com/djnavarro/workbch">https://​github.com/​djnavarro/​workbch</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/djnavarro/projectr/issues">https://​github.com/​djnavarro/​projectr/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/djnavarro/workbch/issues">https://​github.com/​djnavarro/​workbch/​issues</a>
 </li>
 </ul>
 </div>
@@ -237,8 +246,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://travis-ci.org/djnavarro/projectr"><img src="https://travis-ci.org/djnavarro/projectr.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://cran.r-project.org/package=projectr"><img src="https://www.r-pkg.org/badges/version/projectr" alt="CRAN status"></a></li>
+<li><a href="https://travis-ci.org/djnavarro/workbch"><img src="https://travis-ci.org/djnavarro/workbch.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://cran.r-project.org/package=workbch"><img src="https://www.r-pkg.org/badges/version/workbch" alt="CRAN status"></a></li>
 </ul>
 </div>
 </div>

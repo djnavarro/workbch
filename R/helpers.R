@@ -1,14 +1,14 @@
 # the directory where project records should be stored
 job_home <- function() {
-  getOption("projectr.home")
+  getOption("workbch.home")
 }
 
 job_file <- function() {
-  file.path(job_home(), "projectr_jobs.json")
+  file.path(job_home(), "workbch_jobs.json")
 }
 
 ppl_file <- function() {
-  file.path(job_home(), "projectr_people.csv")
+  file.path(job_home(), "workbch_people.csv")
 }
 
 # read project data from JSON file if it exists

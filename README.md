@@ -1,20 +1,20 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# projectr
+# workbch
 
 <!-- badges: start -->
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
-status](https://travis-ci.org/djnavarro/projectr.svg?branch=master)](https://travis-ci.org/djnavarro/projectr)
+status](https://travis-ci.org/djnavarro/workbch.svg?branch=master)](https://travis-ci.org/djnavarro/workbch)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/projectr)](https://cran.r-project.org/package=projectr)
+status](https://www.r-pkg.org/badges/version/workbch)](https://cran.r-project.org/package=workbch)
 <!-- badges: end -->
 
-The goal of projectr is to provide tools for project management within
-R. The design is very minimal at the moment. It allows the user to store
+The goal of workbch is to provide tools for project management within R.
+The design is very minimal at the moment. It allows the user to store
 and edit basic metadata associated with projects. It allows you to
 search, filter and navigate between projects. Prioritisation and
 deadlines are supported, but financial information and time spent on a
@@ -22,12 +22,12 @@ project are not tracked.
 
 ## Installation
 
-The projectr package has not been released on CRAN. However you can
+The workbch package has not been released on CRAN. However you can
 install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("djnavarro/projectr")
+remotes::install_github("djnavarro/workbch")
 ```
 
 The package is built around three families of functions:
@@ -40,23 +40,23 @@ The package is built around three families of functions:
 
 ## Example 1: Getting started
 
-The projectr package stores information about projects in a few files
-stored within a directory referred to as the “projectr home”. The
-easiest way to set this location in a persistent way is to edit the
-.Rprofile file to include the following line:
+The workbch package stores information about projects in a few files
+stored within a directory referred to as the “workbch home”. The easiest
+way to set this location in a persistent way is to edit the .Rprofile
+file to include the following line:
 
 ``` r
-options(projectr.home = "PATH_TO_PROJECT_FOLDER")
+options(workbch.home = "PATH_TO_PROJECT_FOLDER")
 ```
 
-This ensures that whenever the projectr package is loaded it knows where
+This ensures that whenever the workbch package is loaded it knows where
 to find your project information. Once this is done, you can start
 adding *jobs*. A “job” is intended to be much the same as a “project”,
 but to avoid confusion with “RStudio projects” a different term is used.
 Here’s how to add and view the jobs you have stored:
 
 ``` r
-library(projectr)
+library(workbch)
 
 view_joblist()
 #> # A tibble: 0 x 0
@@ -85,7 +85,7 @@ view_joblist()
 
 ## Example 2: People, owners and teams
 
-The projectr package stores a data base of names and nicknames, so you
+The workbch package stores a data base of names and nicknames, so you
 can specify a person using their nickname instead of needing to type the
 full name:
 
@@ -173,3 +173,14 @@ modify the properties of a job:
     associated with a job
 
 To be continued…
+
+## On the name
+
+The name `workbch` is an abbreviation of "work b\*\*ch". Depending on
+your personal preferences you may wish to pronounce it in one of two
+different ways:
+
+  - As a truncation of “work bench”, because it’s supposed to be a
+    metaphorical work bench,
+  - As a reference to the pop song "work b\*\*ch", if you’re a Britney
+    Spears fan.

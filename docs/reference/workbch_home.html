@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show the details of a job — view_job • workbch</title>
+<title>Get or set the location of workbch files — workbch_home • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Show the details of a job — view_job" />
+<meta property="og:title" content="Get or set the location of workbch files — workbch_home" />
 
-<meta property="og:description" content="Show the details of a job" />
+<meta property="og:description" content="Get or set the location of workbch files" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,27 +103,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show the details of a job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/viewing.R'><code>R/viewing.R</code></a></small>
-    <div class="hidden name"><code>view_job.Rd</code></div>
+    <h1>Get or set the location of workbch files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/admin.R'><code>R/admin.R</code></a></small>
+    <div class="hidden name"><code>workbch_home.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Show the details of a job</p>
+    <p>Get or set the location of workbch files</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>view_job</span>(<span class='no'>name</span>)</pre>
+    <pre class="usage"><span class='fu'>workbch_home</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>Name of job to display</p></td>
+      <th>path</th>
+      <td><p>Path to the folder</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Path to the folder</p>
     
 
   </div>
@@ -131,7 +135,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

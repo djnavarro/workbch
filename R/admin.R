@@ -1,13 +1,13 @@
 
-#' Get or set the location of projectr files
+#' Get or set the location of workbch files
 #'
 #' @param path Path to the folder
 #'
 #' @return Path to the folder
 #' @export
-projectr_home <- function(path = NULL) {
+workbch_home <- function(path = NULL) {
   if(!is.null(path)) {
-    options(projectr.home = path)
+    options(workbch.home = path)
   }
   job_home()
 }

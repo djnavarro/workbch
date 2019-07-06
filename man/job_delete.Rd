@@ -7,8 +7,18 @@
 job_delete(name)
 }
 \arguments{
-\item{name}{Name of job to delete}
+\item{name}{name of the job to delete}
 }
 \description{
 Delete a job
+}
+\details{
+Deletes a job from the JSON file. At the moment, it does so without
+asking for the user to confirm, so be careful.
+}
+\examples{
+\dontrun{
+
+job_delete("myjob")
+}
 }

@@ -7,8 +7,14 @@
 goto_project(name)
 }
 \arguments{
-\item{name}{Name of job to open}
+\item{name}{name of job to open}
 }
 \description{
 Navigate to the RStudio project linked with a job
+}
+\examples{
+\dontrun{
+
+goto_project("myjob")
+}
 }

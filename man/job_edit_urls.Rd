@@ -2,7 +2,7 @@
 % Please edit documentation in R/edit_project.R
 \name{job_edit_urls}
 \alias{job_edit_urls}
-\title{Edit the urls in a job}
+\title{Edit the urls associated with a job}
 \usage{
 job_edit_urls(name, ..., clean = FALSE)
 }
@@ -14,5 +14,30 @@ job_edit_urls(name, ..., clean = FALSE)
 \item{clean}{delete all existing URLs first? (default = FALSE)}
 }
 \description{
-Edit the urls in a job
+Edit the urls associated with a job
+}
+\details{
+The role of \code{job_edit_urls()} is to make it a easier to
+change the URLs associated with a job. This task can be done with
+\code{job_edit()} but it is cumbersome. The arguments specified using
+\code{...} are used to set the name of the URL (e.g., "github") and the
+URL itself. When \code{clean = FALSE} any existing URLs are retained,
+overwriting only those URLs listed in \code{...}, whereas if
+\code{clean = TRUE} all pre-existing URLs are removed before adding any
+new ones
+}
+\examples{
+\dontrun{
+
+# add a single new URL for github
+job_edit_urls("myjob", github = "https://github.com/myusername/myrepo")
+
+# add two new URLs and remove any existing ones
+job_edit_urls(
+  name = "myjob",
+  github = "https://github.com/myusername/myrepo",
+  overleaf = "https://www.overleaf.com/xxxxxxxxxxx",
+  clean = TRUE
+)
+}
 }

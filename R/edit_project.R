@@ -1,5 +1,5 @@
 
-#' Edit a job
+#' Edit the details of a job
 #'
 #' @param name name of the project to edit (character)
 #' @param ... expressions to be evaluated in the job
@@ -101,12 +101,35 @@ job_edit_team <- function(name, add = NULL, remove = NULL) {
 }
 
 
-#' Edit the urls in a job
+#' Edit the urls associated with a job
 #'
 #' @param name name of the project to edit
 #' @param ... expressions to be evaluated within the urls field
 #' @param clean delete all existing URLs first? (default = FALSE)
 #' @export
+#' @details The role of \code{job_edit_urls()} is to make it a easier to
+#' change the URLs associated with a job. This task can be done with
+#' \code{job_edit()} but it is cumbersome. The arguments specified using
+#' \code{...} are used to set the name of the URL (e.g., "github") and the
+#' URL itself. When \code{clean = FALSE} any existing URLs are retained,
+#' overwriting only those URLs listed in \code{...}, whereas if
+#' \code{clean = TRUE} all pre-existing URLs are removed before adding any
+#' new ones
+#' @examples
+#' \dontrun{
+#'
+#' # add a single new URL for github
+#' job_edit_urls("myjob", github = "https://github.com/myusername/myrepo")
+#'
+#' # add two new URLs and remove any existing ones
+#' job_edit_urls(
+#'   name = "myjob",
+#'   github = "https://github.com/myusername/myrepo",
+#'   overleaf = "https://www.overleaf.com/xxxxxxxxxxx",
+#'   clean = TRUE
+#' )
+#' }
+#
 job_edit_urls <- function(name, ..., clean = FALSE) {
 
   # capture dots
@@ -134,8 +157,15 @@ job_edit_urls <- function(name, ..., clean = FALSE) {
 
 #' Delete a job
 #'
-#' @param name Name of job to delete
+#' @param name name of the job to delete
 #' @export
+#' @details Deletes a job from the JSON file. At the moment, it does so without
+#' asking for the user to confirm, so be careful.
+#' @examples
+#' \dontrun{
+#'
+#' job_delete("myjob")
+#' }
 job_delete <- function(name) {
   jobs <- job_read()
   jobs[[name]] <- NULL

@@ -31,6 +31,8 @@ view_priorities <- function(priority = 1, ...) {
   return(jobs)
 }
 
+
+
 #' Show the details of a job
 #'
 #' @param name Name of job to display

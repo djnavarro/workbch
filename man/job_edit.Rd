@@ -2,7 +2,7 @@
 % Please edit documentation in R/edit_project.R
 \name{job_edit}
 \alias{job_edit}
-\title{Edit a job}
+\title{Edit the details of a job}
 \usage{
 job_edit(name, ...)
 }
@@ -12,7 +12,7 @@ job_edit(name, ...)
 \item{...}{expressions to be evaluated in the job}
 }
 \description{
-Edit a job
+Edit the details of a job
 }
 \details{
 The role of \code{job_edit} is to make changes to an existing project,

@@ -2,8 +2,13 @@
 
 #' Navigate to the RStudio project linked with a job
 #'
-#' @param name Name of job to open
+#' @param name name of job to open
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' goto_project("myjob")
+#' }
 goto_project <- function(name) {
   jobs <- job_read()
   if(rstudioapi::isAvailable()) {
@@ -16,6 +21,11 @@ goto_project <- function(name) {
 #' @param name name of the project
 #' @param site label denoting the site (e.g., "github")
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' goto_url("myjob", "github")
+#' }
 goto_url <- function(name, site) {
 
   jobs <- job_read()

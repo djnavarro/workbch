@@ -14,3 +14,9 @@ goto_url(name, site)
 \description{
 Navigate to a URL linked to a job
 }
+\examples{
+\dontrun{
+
+goto_url("myjob", "github")
+}
+}

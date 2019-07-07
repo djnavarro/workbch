@@ -143,7 +143,7 @@ view_job("survivor")
 #> 
 #>   path = NA 
 #> 
-#>   notes
+#>   0 notes
 #>   0 tasks
 ```
 
@@ -213,7 +213,7 @@ view_job("toxic")
 #>   github = https://github.com/djnavarro/toxic 
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
 #> 
-#>   notes
+#>   0 notes
 #>   0 tasks
 ```
 
@@ -237,7 +237,7 @@ view_job("toxic")
 #>   github = https://github.com/djnavarro/toxic 
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
 #> 
-#>   notes
+#>   0 notes
 #>   0 tasks
 ```
 
@@ -314,12 +314,16 @@ will do is use `setwd()` to change the working directory.
 Often it is handy to add small annotations to a job. The intent here is
 not to use this as a substitute for proper documentation (that should
 happen within the project itself) but as a quick and dirty “notes to
-self” tool.
+self” tool. You can add jobs using `job_add_note()`:
 
 ``` r
 job_add_note("toxic", "check if this worked")
 job_add_note("toxic", "i wonder if i should circulate this later")
+```
 
+You can view the notes linked to a job with `view_notes()`:
+
+``` r
 view_notes("toxic")
 #> 
 #> 2:  i wonder if i should circulate this later

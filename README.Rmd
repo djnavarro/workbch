@@ -217,12 +217,16 @@ If there is no RStudio project at the relevant location, or the RStudio API is n
 
 ## Example 6: Adding, viewing and deleting notes
 
-Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty "notes to self" tool. 
+Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty "notes to self" tool. You can add jobs using `job_add_note()`:
 
 ```{r addnotes}
 job_add_note("toxic", "check if this worked")
 job_add_note("toxic", "i wonder if i should circulate this later")
+```
 
+You can view the notes linked to a job with `view_notes()`:
+
+```{r viewnotes}
 view_notes("toxic")
 ```
 

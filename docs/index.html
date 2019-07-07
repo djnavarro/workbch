@@ -166,7 +166,7 @@
 <a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;   path = NA </span></a>
 <a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;   notes</span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;   0 notes</span></a>
 <a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 </div>
 <div id="example-3-editing-jobs" class="section level2">
@@ -244,7 +244,7 @@
 <a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
 <a class="sourceLine" id="cb8-36" data-line-number="36"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
 <a class="sourceLine" id="cb8-37" data-line-number="37"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">#&gt;   notes</span></a>
+<a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">#&gt;   0 notes</span></a>
 <a class="sourceLine" id="cb8-39" data-line-number="39"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 <p>If at this point we realise that “Danielle” should have been listed on the team (yeah, right) and the priority should have been set at 1:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/job_edit_team.html">job_edit_team</a></span>(<span class="st">"toxic"</span>, <span class="dt">add =</span> <span class="st">"danielle"</span>)</a>
@@ -263,7 +263,7 @@
 <a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
 <a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
 <a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt;   notes</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt;   0 notes</span></a>
 <a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 </div>
 <div id="example-4-filtering-and-prioritising" class="section level2">
@@ -308,36 +308,36 @@
 <div id="example-6-adding-viewing-and-deleting-notes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-6-adding-viewing-and-deleting-notes" class="anchor"></a>Example 6: Adding, viewing and deleting notes</h2>
-<p>Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty “notes to self” tool.</p>
+<p>Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty “notes to self” tool. You can add jobs using <code><a href="reference/job_add_note.html">job_add_note()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="reference/job_add_note.html">job_add_note</a></span>(<span class="st">"toxic"</span>, <span class="st">"check if this worked"</span>)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="reference/job_add_note.html">job_add_note</a></span>(<span class="st">"toxic"</span>, <span class="st">"i wonder if i should circulate this later"</span>)</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw"><a href="reference/view_notes.html">view_notes</a></span>(<span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; 2:  i wonder if i should circulate this later</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt; 1:  check if this worked</span></a></code></pre></div>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="reference/job_add_note.html">job_add_note</a></span>(<span class="st">"toxic"</span>, <span class="st">"i wonder if i should circulate this later"</span>)</a></code></pre></div>
+<p>You can view the notes linked to a job with <code><a href="reference/view_notes.html">view_notes()</a></code>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="reference/view_notes.html">view_notes</a></span>(<span class="st">"toxic"</span>)</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt; 2:  i wonder if i should circulate this later</span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; 1:  check if this worked</span></a></code></pre></div>
 <p>The output is shown in chronological order (recent at the top). You can remove a note by referring to its number:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="reference/job_delete_note.html">job_delete_note</a></span>(<span class="st">"toxic"</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="reference/view_notes.html">view_notes</a></span>(<span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; 2:  i wonder if i should circulate this later</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="reference/job_delete_note.html">job_delete_note</a></span>(<span class="st">"toxic"</span>, <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw"><a href="reference/view_notes.html">view_notes</a></span>(<span class="st">"toxic"</span>)</a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; 2:  i wonder if i should circulate this later</span></a></code></pre></div>
 <p>As present the notes themselves do not show up directly when calling <code><a href="reference/view_job.html">view_job()</a></code>. Instead there is a counter that indicates that a job has notes associated with it:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="reference/view_job.html">view_job</a></span>(<span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; toxic : Estimate the LD50 dose </span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;   owner    : Britney Spears </span></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt;   team     : Britney Spears, Danielle Navarro </span></a>
-<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt;   priority : 1 </span></a>
-<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;   status   : active </span></a>
-<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt;   deadline : none </span></a>
-<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
-<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
-<a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
-<a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co">#&gt;   1 notes</span></a>
-<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw"><a href="reference/view_job.html">view_job</a></span>(<span class="st">"toxic"</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="co">#&gt; toxic : Estimate the LD50 dose </span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-5" data-line-number="5"><span class="co">#&gt;   owner    : Britney Spears </span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt;   team     : Britney Spears, Danielle Navarro </span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt;   priority : 1 </span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt;   status   : active </span></a>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;   deadline : none </span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt;   1 notes</span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 </div>
 </div>
   </div>

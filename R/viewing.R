@@ -61,8 +61,15 @@ view_job <- function(name) {
     }
   }
 
+  # legacy to deal with jobs that initialised notes
+  # with an empty list rather than an empty tibble
+  n_notes <- nrow(jb$notes)
+  if(is.null(n_notes)) {
+    n_notes <- 0
+  }
+
   cat("\n")
-  cat(" ", nrow(jb$notes), "notes\n")
+  cat(" ", n_notes, "notes\n")
   cat(" ", length(jb$tasks), "tasks\n")
 
   cat("\n")

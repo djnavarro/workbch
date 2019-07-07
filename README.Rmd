@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/djnavarro/workbch.svg?branch=master)](https://travis-ci.org/djnavarro/workbch)
 [![CRAN status](https://www.r-pkg.org/badges/version/workbch)](https://cran.r-project.org/package=workbch)
-[![Codecov test coverage](https://codecov.io/gh/djnavarro/projectr/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/projectr?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/workbch?branch=master)
 <!-- badges: end -->
 
 The goal of workbch is to provide tools for project management within R. The 

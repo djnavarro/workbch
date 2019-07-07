@@ -12,7 +12,7 @@ status](https://travis-ci.org/djnavarro/workbch.svg?branch=master)](https://trav
 [![CRAN
 status](https://www.r-pkg.org/badges/version/workbch)](https://cran.r-project.org/package=workbch)
 [![Codecov test
-coverage](https://codecov.io/gh/djnavarro/projectr/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/projectr?branch=master)
+coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/workbch?branch=master)
 <!-- badges: end -->
 
 The goal of workbch is to provide tools for project management within R.

@@ -9,10 +9,24 @@
 #'
 #' goto_project("myjob")
 #' }
+
 goto_project <- function(name) {
   jobs <- job_read()
+
+  use_rstdio <- FALSE
   if(rstudioapi::isAvailable()) {
+    files <- list.files(jobs[[name]]$path)
+    rproj <- grep(".*\\.Rproj$", files)
+    if(length(rproj) > 0) {
+      use_rstdio <- TRUE
+    }
+  }
+
+  if(use_rstdio) {
     rstudioapi::openProject(jobs[[name]]$path)
+  } else {
+    message("setting working directory to ", jobs[[name]]$path)
+    setwd(jobs[[name]]$path)
   }
 }
 

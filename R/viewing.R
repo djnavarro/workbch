@@ -57,7 +57,7 @@ remove_hiddenjobs <- function(jobs, job_tbl) {
 #' @return tibble of jobs
 #' @export
 view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
-  jobs <- view_joblist(..., show_hidden)
+  jobs <- view_joblist(..., show_hidden = show_hidden)
   jobs <- dplyr::filter(jobs, priority %in% {{priority}})
   return(jobs)
 }

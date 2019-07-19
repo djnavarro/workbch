@@ -4,12 +4,14 @@
 \alias{view_priorities}
 \title{View jobs by priority}
 \usage{
-view_priorities(priority = 1, ...)
+view_priorities(priority = 1, ..., show_hidden = FALSE)
 }
 \arguments{
 \item{priority}{numeric vector of priorities to display}
 
 \item{...}{expression to be passed to view_jobs}
+
+\item{show_hidden}{should hidden jobs be included}
 }
 \value{
 tibble of jobs

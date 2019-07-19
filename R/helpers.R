@@ -53,5 +53,10 @@ validate_job <- function(job) {
     job$team <- c(job$owner, job$team)
   }
 
+  # if it lacks a hidden attribute, set it as false
+  if(is.null(job$hidden)) {
+    job$hidden <- FALSE
+  }
+
   return(job)
 }

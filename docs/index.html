@@ -281,12 +281,9 @@
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 5 boys        Lizzo                2 active  NA       Distributional assum…</span></a></code></pre></div>
 <p>A simple way to only see the high priority projects:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="reference/view_priorities.html">view_priorities</a></span>()</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 6</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;   name         owner         priority status  deadline description         </span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;               </span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 1 toxic        Britney Spea…        1 active  NA       Estimate the LD50 d…</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsug… Sneaker Pimps        1 active  NA       Check for periodici…</span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 3 survivor     Beyoncé Know…        1 inacti… NA       Run a survival anal…</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; # A tibble: 0 x 6</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt; # … with 6 variables: name &lt;chr&gt;, owner &lt;chr&gt;, priority &lt;int&gt;,</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; #   status &lt;chr&gt;, deadline &lt;lgl&gt;, description &lt;chr&gt;</span></a></code></pre></div>
 <p>More generally, <code><a href="reference/view_joblist.html">view_joblist()</a></code> and <code><a href="reference/view_priorities.html">view_priorities()</a></code> both allow you to pass filtering expressions to <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to extract the subset you’re interested in. Suppose I only want to see the high priority active projects:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="reference/view_joblist.html">view_joblist</a></span>(priority <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>status <span class="op">==</span><span class="st"> "active"</span>)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 6</span></a>

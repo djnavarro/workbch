@@ -5,28 +5,59 @@ utils::globalVariables(c("priority", "status", "owner", "name"))
 #' List jobs
 #'
 #' @param ... expression to be passed to dplyr::filter
+#' @param show_hidden should hidden jobs be included
 #' @export
-view_joblist <- function(...) {
+view_joblist <- function(..., show_hidden = FALSE) {
+
+  # read jobs and construct tibble listing them
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     tibble::as_tibble(x[c("name", "owner", "priority", "status", "deadline", "description")])})
   job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, name)
+
+  # filter according to user expression
   if(...length() > 0) {
     job_tbl <- dplyr::filter(job_tbl, ...)
   }
+
+  # remove the hidden jobs if need be
+  if(!show_hidden) {
+    job_tbl <- remove_hiddenjobs(jobs, job_tbl)
+  }
+
   return(job_tbl)
 }
 
+
+remove_hiddenjobs <- function(jobs, job_tbl) {
+
+  # find them
+  hidden <- purrr::map_chr(jobs, function(x) {
+    if(!is.null(x$hidden)) {
+      if(x$hidden == TRUE) {
+        return(x$name)
+      }
+    }
+    return("")
+  })
+  hidden <- hidden[hidden != ""]
+
+  # remove them
+  job_tbl <- dplyr::filter(job_tbl, !(name %in% hidden))
+
+  return(job_tbl)
+}
 
 #' View jobs by priority
 #'
 #' @param priority numeric vector of priorities to display
 #' @param ... expression to be passed to view_jobs
+#' @param show_hidden should hidden jobs be included
 #'
 #' @return tibble of jobs
 #' @export
-view_priorities <- function(priority = 1, ...) {
-  jobs <- view_joblist()
+view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
+  jobs <- view_joblist(..., show_hidden)
   jobs <- dplyr::filter(jobs, priority %in% {{priority}})
   return(jobs)
 }
@@ -107,3 +138,52 @@ view_notes <- function(name) {
   }
   return(invisible(nt))
 }
+
+
+#' List the project folders known to workbch
+#'
+#' @param show_hidden should hidden jobs be included
+#'
+#' @return A tibble
+#' @export
+view_projects <- function(show_hidden = FALSE) {
+  jobs <- job_read()
+  job_tbl <- purrr::map_df(jobs, function(x){
+    if(!is.null(x$path)) {
+      return(tibble::as_tibble(x[c("name", "path")]))
+    } else {
+      return(tibble::tibble(name = character(0), path = character(0)))
+    }
+  })
+  job_tbl <- dplyr::arrange(job_tbl, name)
+  job_tbl <- dplyr::filter(job_tbl, !is.na(path))
+
+  # remove the hidden jobs if need be
+  if(!show_hidden) {
+    job_tbl <- remove_hiddenjobs(jobs, job_tbl)
+  }
+
+  return(job_tbl)
+}
+
+
+
+#' List names of jobs known to workbch
+#'
+#' @param show_hidden should hidden jobs be included
+#'
+#' @return A character vector of names, in alphabetical order
+#' @export
+view_jobnames <- function(show_hidden = FALSE) {
+  jobs <- job_read()
+  job_names <- purrr::map_dfr(jobs, function(x){tibble::tibble(name = x$name)})
+  job_names <- dplyr::arrange(job_names, name)
+
+  if(!show_hidden) {
+    job_names <- remove_hiddenjobs(jobs, job_names)
+  }
+
+  return(dplyr::pull(job_names, name))
+}
+
+

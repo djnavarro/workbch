@@ -12,10 +12,12 @@
 #' @param urls list of urls
 #' @param notes list of notes
 #' @param tasks list of tasks
+#' @param hidden hide project (default = FALSE)
 #' @export
 job_create <- function(name, description, owner, status = "active",
                        team = character(0), priority = 1, deadline = NA,
-                       path = NA, urls = list(), notes = list(), tasks = list()) {
+                       path = NA, urls = list(), notes = list(), tasks = list(),
+                       hidden = FALSE) {
 
   # parse the names and make sure the owner is on the team
   owner <- real_name(owner)
@@ -29,7 +31,7 @@ job_create <- function(name, description, owner, status = "active",
   jobs[[name]] <- new_job(name = name, description = description, owner = owner,
                           status = status, team = team, priority = priority,
                           deadline = deadline, path = path, urls = urls,
-                          notes = notes, tasks = tasks)
+                          notes = notes, tasks = tasks, hidden = hidden)
   job_write(jobs)
 }
 
@@ -38,7 +40,8 @@ job_create <- function(name, description, owner, status = "active",
 # constructor function for job objects
 new_job <- function(name, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
-                    path = NA, urls = list(), notes = list(), tasks = list()) {
+                    path = NA, urls = list(), notes = list(), tasks = list(),
+                    hidden = hidden) {
   list(
     name = name,
     description = description,
@@ -50,7 +53,8 @@ new_job <- function(name, description, owner, status = "active",
     path = path,
     urls = urls,
     tasks = tasks,
-    notes = notes
+    notes = notes,
+    hidden = hidden
   )
 }
 

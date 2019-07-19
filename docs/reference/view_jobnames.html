@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a new project — job_create • workbch</title>
+<title>List names of jobs known to workbch — view_jobnames • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Create a new project — job_create" />
+<meta property="og:title" content="List names of jobs known to workbch — view_jobnames" />
 
-<meta property="og:description" content="Create a new project" />
+<meta property="og:description" content="List names of jobs known to workbch" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,73 +103,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a new project</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/make_project.R'><code>R/make_project.R</code></a></small>
-    <div class="hidden name"><code>job_create.Rd</code></div>
+    <h1>List names of jobs known to workbch</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/viewing.R'><code>R/viewing.R</code></a></small>
+    <div class="hidden name"><code>view_jobnames.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create a new project</p>
+    <p>List names of jobs known to workbch</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>job_create</span>(<span class='no'>name</span>, <span class='no'>description</span>, <span class='no'>owner</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='st'>"active"</span>,
-  <span class='kw'>team</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>), <span class='kw'>priority</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>urls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>notes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>tasks</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>hidden</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>view_jobnames</span>(<span class='kw'>show_hidden</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>name of the project to create</p></td>
-    </tr>
-    <tr>
-      <th>description</th>
-      <td><p>brief description of the project</p></td>
-    </tr>
-    <tr>
-      <th>owner</th>
-      <td><p>should be a name or a nickname</p></td>
-    </tr>
-    <tr>
-      <th>status</th>
-      <td><p>should be "active", "inactive", "complete", "abandoned"</p></td>
-    </tr>
-    <tr>
-      <th>team</th>
-      <td><p>should be a vector of names/nicknames</p></td>
-    </tr>
-    <tr>
-      <th>priority</th>
-      <td><p>numeric</p></td>
-    </tr>
-    <tr>
-      <th>deadline</th>
-      <td><p>a date</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>path to the project home directory</p></td>
-    </tr>
-    <tr>
-      <th>urls</th>
-      <td><p>list of urls</p></td>
-    </tr>
-    <tr>
-      <th>notes</th>
-      <td><p>list of notes</p></td>
-    </tr>
-    <tr>
-      <th>tasks</th>
-      <td><p>list of tasks</p></td>
-    </tr>
-    <tr>
-      <th>hidden</th>
-      <td><p>hide project (default = FALSE)</p></td>
+      <th>show_hidden</th>
+      <td><p>should hidden jobs be included</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A character vector of names, in alphabetical order</p>
     
 
   </div>
@@ -177,7 +135,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

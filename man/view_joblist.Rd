@@ -4,10 +4,12 @@
 \alias{view_joblist}
 \title{List jobs}
 \usage{
-view_joblist(...)
+view_joblist(..., show_hidden = FALSE)
 }
 \arguments{
 \item{...}{expression to be passed to dplyr::filter}
+
+\item{show_hidden}{should hidden jobs be included}
 }
 \description{
 List jobs

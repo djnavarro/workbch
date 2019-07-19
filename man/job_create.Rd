@@ -6,7 +6,7 @@
 \usage{
 job_create(name, description, owner, status = "active",
   team = character(0), priority = 1, deadline = NA, path = NA,
-  urls = list(), notes = list(), tasks = list())
+  urls = list(), notes = list(), tasks = list(), hidden = FALSE)
 }
 \arguments{
 \item{name}{name of the project to create}
@@ -30,6 +30,8 @@ job_create(name, description, owner, status = "active",
 \item{notes}{list of notes}
 
 \item{tasks}{list of tasks}
+
+\item{hidden}{hide project (default = FALSE)}
 }
 \description{
 Create a new project

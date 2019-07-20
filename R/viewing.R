@@ -140,7 +140,7 @@ view_notes <- function(name) {
 }
 
 
-#' List the project folders known to workbch
+#' View the project folder locations known to workbch
 #'
 #' @param show_hidden should hidden jobs be included
 #'
@@ -168,7 +168,7 @@ view_projects <- function(show_hidden = FALSE) {
 
 
 
-#' List names of jobs known to workbch
+#' List the job names known to workbch
 #'
 #' @param show_hidden should hidden jobs be included
 #'

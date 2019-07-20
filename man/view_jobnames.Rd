@@ -2,7 +2,7 @@
 % Please edit documentation in R/viewing.R
 \name{view_jobnames}
 \alias{view_jobnames}
-\title{List names of jobs known to workbch}
+\title{List the job names known to workbch}
 \usage{
 view_jobnames(show_hidden = FALSE)
 }
@@ -13,5 +13,5 @@ view_jobnames(show_hidden = FALSE)
 A character vector of names, in alphabetical order
 }
 \description{
-List names of jobs known to workbch
+List the job names known to workbch
 }

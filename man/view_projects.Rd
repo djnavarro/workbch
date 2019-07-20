@@ -2,7 +2,7 @@
 % Please edit documentation in R/viewing.R
 \name{view_projects}
 \alias{view_projects}
-\title{List the project folders known to workbch}
+\title{View the project folder locations known to workbch}
 \usage{
 view_projects(show_hidden = FALSE)
 }
@@ -13,5 +13,5 @@ view_projects(show_hidden = FALSE)
 A tibble
 }
 \description{
-List the project folders known to workbch
+View the project folder locations known to workbch
 }

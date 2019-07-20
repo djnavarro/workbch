@@ -4,13 +4,15 @@
 \alias{view_gitstatus}
 \title{Check the git status of projects}
 \usage{
-view_gitstatus(show_hidden = FALSE)
+view_gitstatus(show_hidden = FALSE, show_clean = FALSE)
 }
 \arguments{
-\item{show_hidden}{should hidden jobs be included}
+\item{show_hidden}{should hidden jobs be included?}
+
+\item{show_clean}{should clean repos be included?}
 }
 \value{
-A character vector of names, in alphabetical order
+A tibble
 }
 \description{
 Check the git status of projects

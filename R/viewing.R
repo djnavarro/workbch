@@ -187,3 +187,67 @@ view_jobnames <- function(show_hidden = FALSE) {
 }
 
 
+#' Check the git status of projects
+#'
+#' @param show_hidden should hidden jobs be included?
+#' @param show_clean should clean repos be included?
+#'
+#' @return A tibble
+#' @export
+view_gitstatus <- function(show_hidden = FALSE, show_clean = FALSE) {
+
+  # get the project locations
+  proj <- view_projects(show_hidden = show_hidden)
+  x <- list()
+
+  for(i in 1:nrow(proj)) {
+
+    # for the sake of my sanity
+    pp <- proj$path[i]
+    pn <- proj$name[i]
+
+    if(git2r::in_repository(pp)) {
+
+      # get the branch
+      repo_head <- git2r::repository_head(pp)
+      upstream_head <- git2r::branch_get_upstream(repo_head)
+
+      # number of commits ahead and behind
+      if(is.null(upstream_head)) {
+        repo_ab <- c(NA, NA)
+      } else {
+        repo_ab <- git2r::ahead_behind(
+          local = repo_head,
+          upstream = upstream_head
+        )
+      }
+
+      # get the repo git status
+      repo_status <- purrr::map_dfr(unclass(git2r::status(pp)), length)
+
+      # put it all together in a tibble
+      x[[i]] <- dplyr::bind_cols(
+        tibble::tibble(name = pn),
+        repo_status,
+        tibble::tibble(ahead = repo_ab[1], behind = repo_ab[2])
+      )
+    }
+  }
+
+  # collapse to a single tibble
+  gitst <- dplyr::bind_rows(x)
+
+  if(!show_clean) {
+    gitst <- dplyr::filter(gitst,
+      !(staged == 0 & unstaged == 0 & untracked == 0 &
+        (is.na(ahead) | ahead == 0) & (is.na(behind) | behind == 0))
+    )
+  }
+
+  return(gitst)
+
+}
+
+
+
+

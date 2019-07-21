@@ -1,3 +1,7 @@
+# miscellaneous helper functions used throughout the
+# package. none of these are exported, so the interface
+# hasn't been thought through
+
 # the directory where project records should be stored
 job_home <- function() {
   getOption("workbch.home")
@@ -73,5 +77,55 @@ validate_job <- function(job) {
   # more checks here!!!
 
   return(job)
+}
+
+# retrieve the largest known task number
+current_max_task_id <- function(jobs) {
+  task_ids <- purrr::map_dbl(jobs, function(j) {
+    tsk <- j$tasks
+    if(!is.null(tsk) & length(tsk$id) > 0) {
+      return(max(tsk$id))
+    }
+    return(0)
+  })
+  return(max(task_ids))
+}
+
+# if name is a nickname, substitute with the real one
+real_name <- function(name) {
+
+  # if there aren't any names, return early
+  if(length(name) == 0) {return(name)}
+
+  # read the nicknames and substitute
+  ppl <- ppl_read()
+  for(i in 1:length(name)) {
+    if(name[i] %in% ppl$nickname) {
+      name[i] <- ppl$name[ppl$nickname == name[i]]
+    } else {
+      warning("'", name[i], "' is not a known nickname", call. = FALSE)
+    }
+  }
+  return(name)
+}
+
+# find the jobs that need to be hidden and hide them
+hide_jobs <- function(jobs, job_tbl) {
+
+  # find them
+  hidden <- purrr::map_chr(jobs, function(x) {
+    if(!is.null(x$hidden)) {
+      if(x$hidden == TRUE) {
+        return(x$name)
+      }
+    }
+    return("")
+  })
+  hidden <- hidden[hidden != ""]
+
+  # remove them
+  job_tbl <- dplyr::filter(job_tbl, !(name %in% hidden))
+
+  return(job_tbl)
 }
 

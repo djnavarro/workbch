@@ -1,3 +1,4 @@
+# defines the "view" family of functions
 
 #' View a list of jobs
 #'
@@ -252,23 +253,5 @@ view_tasks <- function(..., show_hidden = FALSE) {
 }
 
 
-hide_jobs <- function(jobs, job_tbl) {
-
-  # find them
-  hidden <- purrr::map_chr(jobs, function(x) {
-    if(!is.null(x$hidden)) {
-      if(x$hidden == TRUE) {
-        return(x$name)
-      }
-    }
-    return("")
-  })
-  hidden <- hidden[hidden != ""]
-
-  # remove them
-  job_tbl <- dplyr::filter(job_tbl, !(name %in% hidden))
-
-  return(job_tbl)
-}
 
 

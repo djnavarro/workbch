@@ -1,4 +1,4 @@
-
+# defines the "goto" family of functions
 
 #' Navigate to the RStudio project linked with a job
 #'
@@ -9,7 +9,6 @@
 #'
 #' goto_project("myjob")
 #' }
-
 goto_project <- function(name) {
   jobs <- job_read()
 
@@ -29,6 +28,9 @@ goto_project <- function(name) {
     setwd(jobs[[name]]$path)
   }
 }
+
+
+
 
 #' Navigate to a URL linked to a job
 #'

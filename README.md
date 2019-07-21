@@ -15,12 +15,11 @@ status](https://www.r-pkg.org/badges/version/workbch)](https://cran.r-project.or
 coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/workbch?branch=master)
 <!-- badges: end -->
 
-The goal of workbch is to provide tools for project management within R.
-The design is very minimal at the moment. It allows the user to store
-and edit basic metadata associated with projects. It allows you to
-search, filter and navigate between projects. Prioritisation and
-deadlines are supported, but financial information and time spent on a
-project are not tracked.
+The goal of workbch is to provide a “work bench” of tools for project
+management within R. It allows the user to store and edit basic metadata
+associated with projects. It allows you to search, filter and navigate
+between projects. Prioritisation and deadlines are supported, but
+financial information and time spent on a project are not tracked.
 
 ## Installation
 
@@ -32,13 +31,12 @@ install the development version from [GitHub](https://github.com/) with:
 remotes::install_github("djnavarro/workbch")
 ```
 
-The package is built around three families of functions:
+The package is built from four families of functions:
 
-  - the `set_*` functions create, delete and edit a job
+  - the `set_*` functions create and edit jobs, tasks, etc.
   - the `view_*` functions display information about jobs
   - the `goto_*` functions navigate to projects and webpages
-
-(though there are a few functions that don’t currently fit this scheme)
+  - the `delete_*` functions delete jobs, tasks, etc.
 
 ## Example 1: Getting started
 

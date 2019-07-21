@@ -1,5 +1,5 @@
-# to avoid the 'no visible binding' NOTE:
+# to avoid the 'no visible binding' note during check:
 utils::globalVariables(
   c("priority", "status", "owner", "name", "staged", "unstaged", "untracked",
-    "ahead", "behind", "path")
+    "ahead", "behind", "path", "deadline", "hidden")
 )

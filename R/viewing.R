@@ -96,9 +96,16 @@ view_job <- function(name) {
     n_notes <- 0
   }
 
+  # legacy to deal with jobs that initialised tasks
+  # with an empty list rather than an empty tibble
+  n_tasks <- nrow(jb$tasks)
+  if(is.null(n_tasks)) {
+    n_tasks <- 0
+  }
+
   cat("\n")
   cat(" ", n_notes, "notes\n")
-  cat(" ", length(jb$tasks), "tasks\n")
+  cat(" ", n_tasks, "tasks\n")
 
   cat("\n")
   return(invisible(jb))
@@ -247,4 +254,33 @@ view_gitstatus <- function(show_hidden = FALSE, show_clean = FALSE) {
 
 
 
+#' View tasks
+#'
+#' @param ... filtering expression to pass to dplyr::filter
+#' @param show_hidden should hidden tasks be shown (default = FALSE)
+#'
+#' @details Displays all tasks, sorted by deadline then priority
+#' @return A tibble containing the tasks
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#'
+#' view_tasks()
+#' }
+view_tasks <- function(..., show_hidden = FALSE) {
+
+  tasks <- task_read()
+
+  if(...length() > 0) {
+    tasks <- dplyr::filter(tasks, ...)
+  }
+  tasks <- dplyr::arrange(tasks, deadline, priority)
+  if(!show_hidden) {
+    tasks <- dplyr::filter(tasks, hidden == FALSE)
+  }
+  tasks$hidden <- NULL
+
+  return(tasks)
+}
 

@@ -19,6 +19,13 @@ job_read <- function() {
   return(list())
 }
 
+# read the tasks
+task_read <- function() {
+  jobs <- job_read()
+  tasks <- purrr::map_dfr(jobs, function(j) {j$tasks})
+  return(tasks)
+}
+
 # write project data to JSON file
 job_write <- function(jobs) {
   job_str <- jsonlite::toJSON(jobs, pretty = TRUE)

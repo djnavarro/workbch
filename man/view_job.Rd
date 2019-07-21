@@ -2,7 +2,7 @@
 % Please edit documentation in R/viewing.R
 \name{view_job}
 \alias{view_job}
-\title{Show the details of a job}
+\title{View the details of a job}
 \usage{
 view_job(name)
 }
@@ -10,5 +10,5 @@ view_job(name)
 \item{name}{Name of job to display}
 }
 \description{
-Show the details of a job
+View the details of a job
 }

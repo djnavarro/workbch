@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>View the details of a job — view_job • workbch</title>
+<title>Set a new job, or modify an existing one — set_job • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="View the details of a job — view_job" />
+<meta property="og:title" content="Set a new job, or modify an existing one — set_job" />
 
-<meta property="og:description" content="View the details of a job" />
+<meta property="og:description" content="Set a new job, or modify an existing one" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,25 +103,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>View the details of a job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/viewing.R'><code>R/viewing.R</code></a></small>
-    <div class="hidden name"><code>view_job.Rd</code></div>
+    <h1>Set a new job, or modify an existing one</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/make_project.R'><code>R/make_project.R</code></a></small>
+    <div class="hidden name"><code>set_job.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>View the details of a job</p>
+    <p>Set a new job, or modify an existing one</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>view_job</span>(<span class='no'>name</span>)</pre>
+    <pre class="usage"><span class='fu'>set_job</span>(<span class='no'>name</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>team</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hidden</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>Name of job to display</p></td>
+      <td><p>name of the job to create</p></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><p>brief description of the job</p></td>
+    </tr>
+    <tr>
+      <th>owner</th>
+      <td><p>should be a name or a nickname</p></td>
+    </tr>
+    <tr>
+      <th>status</th>
+      <td><p>should be "active", "inactive", "complete", "abandoned"</p></td>
+    </tr>
+    <tr>
+      <th>team</th>
+      <td><p>should be a vector of names/nicknames</p></td>
+    </tr>
+    <tr>
+      <th>priority</th>
+      <td><p>numeric</p></td>
+    </tr>
+    <tr>
+      <th>deadline</th>
+      <td><p>a date</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>path to the project home directory</p></td>
+    </tr>
+    <tr>
+      <th>hidden</th>
+      <td><p>hide job (default = FALSE)</p></td>
     </tr>
     </table>
     

@@ -1,10 +1,10 @@
 
-#' List jobs
+#' View a list of jobs
 #'
 #' @param ... expression to be passed to dplyr::filter
 #' @param show_hidden should hidden jobs be included
 #' @export
-view_joblist <- function(..., show_hidden = FALSE) {
+view_jobs <- function(..., show_hidden = FALSE) {
 
   # read jobs and construct tibble listing them
   jobs <- job_read()
@@ -13,37 +13,22 @@ view_joblist <- function(..., show_hidden = FALSE) {
   job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, name)
 
   # filter according to user expression
-  if(...length() > 0) {
-    job_tbl <- dplyr::filter(job_tbl, ...)
-  }
+  if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {
-    job_tbl <- remove_hiddenjobs(jobs, job_tbl)
-  }
+  if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
 
   return(job_tbl)
 }
 
 
-remove_hiddenjobs <- function(jobs, job_tbl) {
-
-  # find them
-  hidden <- purrr::map_chr(jobs, function(x) {
-    if(!is.null(x$hidden)) {
-      if(x$hidden == TRUE) {
-        return(x$name)
-      }
-    }
-    return("")
-  })
-  hidden <- hidden[hidden != ""]
-
-  # remove them
-  job_tbl <- dplyr::filter(job_tbl, !(name %in% hidden))
-
-  return(job_tbl)
+#' View the list of known people
+#'
+#' @export
+view_people <- function() {
+  ppl_read()
 }
+
 
 #' View jobs by priority
 #'
@@ -54,14 +39,14 @@ remove_hiddenjobs <- function(jobs, job_tbl) {
 #' @return tibble of jobs
 #' @export
 view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
-  jobs <- view_joblist(..., show_hidden = show_hidden)
+  jobs <- view_jobs(..., show_hidden = show_hidden)
   jobs <- dplyr::filter(jobs, priority %in% {{priority}})
   return(jobs)
 }
 
 
 
-#' Show the details of a job
+#' View the details of a job
 #'
 #' @param name Name of job to display
 #' @export
@@ -149,42 +134,38 @@ view_projects <- function(show_hidden = FALSE) {
   job_tbl <- dplyr::filter(job_tbl, !is.na(path))
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {
-    job_tbl <- remove_hiddenjobs(jobs, job_tbl)
-  }
+  if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
 
   return(job_tbl)
 }
 
 
 
-#' List the job names known to workbch
+#' View job names known to workbch
 #'
 #' @param show_hidden should hidden jobs be included
 #'
 #' @return A character vector of names, in alphabetical order
 #' @export
-view_jobnames <- function(show_hidden = FALSE) {
+view_job_names <- function(show_hidden = FALSE) {
   jobs <- job_read()
   job_names <- purrr::map_dfr(jobs, function(x){tibble::tibble(name = x$name)})
   job_names <- dplyr::arrange(job_names, name)
 
-  if(!show_hidden) {
-    job_names <- remove_hiddenjobs(jobs, job_names)
-  }
+  if(!show_hidden) {job_names <- hide_jobs(jobs, job_names)}
 
   return(dplyr::pull(job_names, name))
 }
 
 
-#' Check the git status of projects
+#' View the git status of projects
 #'
 #' @param show_hidden should hidden jobs be included?
 #' @param show_clean should clean repos be included?
 #'
 #' @return A tibble
 #' @export
-view_gitstatus <- function(show_hidden = FALSE, show_clean = FALSE) {
+view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 
   # get the project locations
   proj <- view_projects(show_hidden = show_hidden)
@@ -269,4 +250,25 @@ view_tasks <- function(..., show_hidden = FALSE) {
 
   return(tasks)
 }
+
+
+hide_jobs <- function(jobs, job_tbl) {
+
+  # find them
+  hidden <- purrr::map_chr(jobs, function(x) {
+    if(!is.null(x$hidden)) {
+      if(x$hidden == TRUE) {
+        return(x$name)
+      }
+    }
+    return("")
+  })
+  hidden <- hidden[hidden != ""]
+
+  # remove them
+  job_tbl <- dplyr::filter(job_tbl, !(name %in% hidden))
+
+  return(job_tbl)
+}
+
 

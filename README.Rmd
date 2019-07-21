@@ -39,7 +39,7 @@ remotes::install_github("djnavarro/workbch")
 
 The package is built around three families of functions:
 
-- the `job_*` functions create, delete and edit a job
+- the `set_*` functions create, delete and edit a job
 - the `view_*` functions display information about jobs
 - the `goto_*` functions navigate to projects and webpages
 
@@ -57,7 +57,7 @@ options(workbch.home = "PATH_TO_PROJECT_FOLDER")
 ```
 ```{r, include=FALSE}
 # for the purposes of the demo, set the workbch home to a temp directory 
-workbch::workbch_home(path = tempdir())
+workbch::set_home(path = tempdir())
 ```
 
 This ensures that whenever the workbch package is loaded it knows where to find your project information. Once this is done, you can start adding *jobs*. A "job" is intended to be much the same as a "project", but to avoid confusion with "RStudio projects" a different term is used. Here's how to add and view the jobs you have stored:
@@ -65,22 +65,22 @@ This ensures that whenever the workbch package is loaded it knows where to find 
 ```{r createprojects}
 library(workbch)
 
-view_joblist()
+view_jobs()
 
-job_create(
+set_job(
   name = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
 )
 
-view_joblist()
+view_jobs()
 ```
 
 Projects can be deleted by name:
 
 ```{r deleteprojects}
-job_delete("workitout")
-view_joblist()
+delete_job("workitout")
+view_jobs()
 ```
 
 ## Example 2: People, owners and teams
@@ -88,16 +88,16 @@ view_joblist()
 The workbch package stores a data base of names and nicknames, so you can specify a person using their nickname instead of needing to type the full name:
 
 ```{r managepeople}
-people_add("Beyoncé Knowles", "beyonce")
-people_add("Kelly Rowland", "kelly")
-people_add("Michelle Williams", "michelle")
-people_list()
+set_person("Beyoncé Knowles", "beyonce")
+set_person("Kelly Rowland", "kelly")
+set_person("Michelle Williams", "michelle")
+view_people()
 ```
 
-Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for the project. When used in conjunction with nicknames, the `job_create()` function allows you to specify the team efficiently:
+Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for the project. When used in conjunction with nicknames, the `set_job()` function allows you to specify the team efficiently:
 
 ```{r addbynickmame}
-job_create(
+set_job(
   name = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
@@ -107,10 +107,10 @@ job_create(
 )
 ```
 
-The owner of a job will automatically be added to the team. As before we can use `view_joblist()` to provide a summary of all listed jobs, which in this case is only a single job, but you can also use `view_job()` to look at a single job in more detail:
+The owner of a job will automatically be added to the team. As before we can use `view_jobs()` to provide a summary of all listed jobs, which in this case is only a single job, but you can also use `view_job()` to look at a single job in more detail:
 
 ```{r viewjob}
-view_joblist()
+view_jobs()
 
 view_job("survivor")
 ```
@@ -134,17 +134,19 @@ Internally, a "job" is represented as a list with the following fields
 
 When we added the "survival" job earlier, we specified some of these fields but not others. There are three functions that you can use to modify the properties of a job:
 
-- `job_edit()` can reset the value of any field
-- `job_edit_team()` makes it easier to edit the team
-- `job_edit_url()` makes it easier to edit a webpage associated with a job
+- `set_job()` 
+- `set_team()` makes it easier to edit the team
+- `set_url()` makes it easier to edit a webpage associated with a job
+- `set_note()`
+- `set_task()`
 
 To illustrate, suppose we create a new job, called "toxic":
 
 ```{r maketoxic}
-people_add("Britney Spears", "britney")
-people_add("Danielle Navarro", "danielle")
+set_person("Britney Spears", "britney")
+set_person("Danielle Navarro", "danielle")
 
-job_create(
+set_job(
   name = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",
@@ -153,7 +155,7 @@ job_create(
   path = "~/projects/toxic"
 )
 
-view_joblist()
+view_jobs()
 
 view_job("toxic")
 ```
@@ -161,10 +163,10 @@ view_job("toxic")
 If at this point we realise that "Danielle" should have been listed on the team (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ```{r editteam}
-job_edit("toxic", priority = 1)
-job_edit_team("toxic", add = "danielle")
-job_edit_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-job_edit_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+set_job("toxic", priority = 1)
+set_team("toxic", add = "danielle")
+set_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+set_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 
 view_job("toxic")
 ```
@@ -175,14 +177,14 @@ view_job("toxic")
 After a while one can easily end up with a lot of projects, and it can be hard to find what you're looking for (or, if you're like me, get anxious at seeing so many things on the to-do list). For example:
 
 ```{r include=FALSE}
-people_add("Sneaker Pimps", "sneaker")
-people_add("Lizzo", "lizzo")
-job_create("hitmebaby", "Signal detection modelling", "britney", priority = 2)
-job_create("spinspinsugar", "Check for periodicities", "sneaker", priority = 1)
-job_create("boys", "Distributional assumptions", "lizzo", priority = 2)
+set_person("Sneaker Pimps", "sneaker")
+set_person("Lizzo", "lizzo")
+set_job("hitmebaby", "Signal detection modelling", "britney", priority = 2)
+set_job("spinspinsugar", "Check for periodicities", "sneaker", priority = 1)
+set_job("boys", "Distributional assumptions", "lizzo", priority = 2)
 ```
 ```{r busystate}
-view_joblist()
+view_jobs()
 ```
 
 A simple way to only see the high priority projects:
@@ -191,13 +193,13 @@ A simple way to only see the high priority projects:
 view_priorities()
 ```
 
-More generally, `view_joblist()` and `view_priorities()` both allow you to pass filtering expressions to `dplyr::filter()` to extract the subset you're interested in. Suppose I only want to see the high priority active projects:
+More generally, `view_jobs()` and `view_priorities()` both allow you to pass filtering expressions to `dplyr::filter()` to extract the subset you're interested in. Suppose I only want to see the high priority active projects:
 
 ```{r filtering}
-view_joblist(priority == 1 & status == "active")
+view_jobs(priority == 1 & status == "active")
 ```
 
-Indeed `view_priorities()` function is essentially a helper function to avoid having to type `view_joblist(priority == 1)` on a regular basis. 
+Indeed `view_priorities()` function is essentially a helper function to avoid having to type `view_jobs(priority == 1)` on a regular basis. 
 
 ## Example 5: Navigation
 
@@ -217,11 +219,11 @@ If there is no RStudio project at the relevant location, or the RStudio API is n
 
 ## Example 6: Adding, viewing and deleting notes
 
-Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty "notes to self" tool. You can add jobs using `job_add_note()`:
+Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty "notes to self" tool. You can add jobs using `set_note()`:
 
 ```{r addnotes}
-job_add_note("toxic", "check if this worked")
-job_add_note("toxic", "i wonder if i should circulate this later")
+set_note("toxic", "check if this worked")
+set_note("toxic", "i wonder if i should circulate this later")
 ```
 
 You can view the notes linked to a job with `view_notes()`:
@@ -233,7 +235,7 @@ view_notes("toxic")
 The output is shown in chronological order (recent at the top). You can remove a note by referring to its number:
 
 ```{r deletenotes}
-job_delete_note("toxic", 1)
+delete_note("toxic", 1)
 view_notes("toxic")
 ```
 

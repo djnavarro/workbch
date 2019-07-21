@@ -1,19 +1,5 @@
-new_note <- function(name, note, id = NA, date = as.character(Sys.Date())) {
-  tibble::tibble(
-    name = name,  # name of the job it is linked to
-    note = note,  # the message text
-    id = id,      # unique identifier
-    date = date   # the time stamp
-  )
-}
 
-empty_note <- function() {
-  new_note(name = character(0), note = character(0), id = numeric(0),
-           date = character(0))
-}
-
-
-#' Append a note to a job
+#' Set a note linked to a job
 #'
 #' @param name the job to which the note should be added
 #' @param note the text of the note
@@ -23,9 +9,9 @@ empty_note <- function() {
 #' @examples
 #' \dontrun{
 #'
-#' job_add_note("myjob", "susan wanted me to notify her when done")
+#' set_note("myjob", "susan wanted me to notify her when done")
 #' }
-job_add_note <- function(name, note) {
+set_note <- function(name, note) {
   jobs <- job_read()
   jb <- jobs[[name]]
 
@@ -57,7 +43,7 @@ job_add_note <- function(name, note) {
 #'
 #' job_delete_note("myjob", 2)
 #' }
-job_delete_note <- function(name, id) {
+delete_note <- function(name, id) {
   jobs <- job_read()
   jb <- jobs[[name]]
 
@@ -65,3 +51,19 @@ job_delete_note <- function(name, id) {
   jobs[[name]] <- jb
   job_write(jobs)
 }
+
+
+new_note <- function(name, note, id = NA, date = as.character(Sys.Date())) {
+  tibble::tibble(
+    name = name,  # name of the job it is linked to
+    note = note,  # the message text
+    id = id,      # unique identifier
+    date = date   # the time stamp
+  )
+}
+
+empty_note <- function() {
+  new_note(name = character(0), note = character(0), id = numeric(0),
+           date = character(0))
+}
+

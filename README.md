@@ -34,7 +34,7 @@ remotes::install_github("djnavarro/workbch")
 
 The package is built around three families of functions:
 
-  - the `job_*` functions create, delete and edit a job
+  - the `set_*` functions create, delete and edit a job
   - the `view_*` functions display information about jobs
   - the `goto_*` functions navigate to projects and webpages
 
@@ -60,17 +60,17 @@ Here’s how to add and view the jobs you have stored:
 ``` r
 library(workbch)
 
-view_joblist()
+view_jobs()
 #> # A tibble: 0 x 0
 
-job_create(
+set_job(
   name = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
 )
 #> Warning: 'britney' is not a known nickname
 
-view_joblist()
+view_jobs()
 #> # A tibble: 1 x 6
 #>   name      owner   priority status deadline description                   
 #>   <chr>     <chr>      <int> <chr>  <lgl>    <chr>                         
@@ -80,8 +80,8 @@ view_joblist()
 Projects can be deleted by name:
 
 ``` r
-job_delete("workitout")
-view_joblist()
+delete_job("workitout")
+view_jobs()
 #> # A tibble: 0 x 0
 ```
 
@@ -92,10 +92,10 @@ can specify a person using their nickname instead of needing to type the
 full name:
 
 ``` r
-people_add("Beyoncé Knowles", "beyonce")
-people_add("Kelly Rowland", "kelly")
-people_add("Michelle Williams", "michelle")
-people_list()
+set_person("Beyoncé Knowles", "beyonce")
+set_person("Kelly Rowland", "kelly")
+set_person("Michelle Williams", "michelle")
+view_people()
 #> # A tibble: 3 x 2
 #>   name              nickname
 #>   <chr>             <chr>   
@@ -106,11 +106,11 @@ people_list()
 
 Jobs can consist of multiple people on a *team* but the job must have a
 single *owner*, a named team member who is responsible for the project.
-When used in conjunction with nicknames, the `job_create()` function
-allows you to specify the team efficiently:
+When used in conjunction with nicknames, the `set_job()` function allows
+you to specify the team efficiently:
 
 ``` r
-job_create(
+set_job(
   name = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
@@ -121,12 +121,12 @@ job_create(
 ```
 
 The owner of a job will automatically be added to the team. As before we
-can use `view_joblist()` to provide a summary of all listed jobs, which
-in this case is only a single job, but you can also use `view_job()` to
+can use `view_jobs()` to provide a summary of all listed jobs, which in
+this case is only a single job, but you can also use `view_job()` to
 look at a single job in more detail:
 
 ``` r
-view_joblist()
+view_jobs()
 #> # A tibble: 1 x 6
 #>   name     owner           priority status  deadline description           
 #>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
@@ -169,18 +169,19 @@ When we added the “survival” job earlier, we specified some of these
 fields but not others. There are three functions that you can use to
 modify the properties of a job:
 
-  - `job_edit()` can reset the value of any field
-  - `job_edit_team()` makes it easier to edit the team
-  - `job_edit_url()` makes it easier to edit a webpage associated with a
-    job
+  - `set_job()`
+  - `set_team()` makes it easier to edit the team
+  - `set_url()` makes it easier to edit a webpage associated with a job
+  - `set_note()`
+  - `set_task()`
 
 To illustrate, suppose we create a new job, called “toxic”:
 
 ``` r
-people_add("Britney Spears", "britney")
-people_add("Danielle Navarro", "danielle")
+set_person("Britney Spears", "britney")
+set_person("Danielle Navarro", "danielle")
 
-job_create(
+set_job(
   name = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",
@@ -189,7 +190,7 @@ job_create(
   path = "~/projects/toxic"
 )
 
-view_joblist()
+view_jobs()
 #> # A tibble: 2 x 6
 #>   name     owner           priority status  deadline description           
 #>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
@@ -217,10 +218,10 @@ the team (yeah, right) and the priority should have been set at 1, we
 can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
-job_edit("toxic", priority = 1)
-job_edit_team("toxic", add = "danielle")
-job_edit_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-job_edit_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+set_job("toxic", priority = 1)
+set_team("toxic", add = "danielle")
+set_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+set_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 
 view_job("toxic")
 #> 
@@ -247,7 +248,7 @@ be hard to find what you’re looking for (or, if you’re like me, get
 anxious at seeing so many things on the to-do list). For example:
 
 ``` r
-view_joblist()
+view_jobs()
 #> # A tibble: 5 x 6
 #>   name        owner         priority status  deadline description          
 #>   <chr>       <chr>            <int> <chr>   <lgl>    <chr>                
@@ -270,13 +271,13 @@ view_priorities()
 #> 3 survivor     Beyoncé Know…        1 inacti… NA       Run a survival anal…
 ```
 
-More generally, `view_joblist()` and `view_priorities()` both allow you
-to pass filtering expressions to `dplyr::filter()` to extract the subset
+More generally, `view_jobs()` and `view_priorities()` both allow you to
+pass filtering expressions to `dplyr::filter()` to extract the subset
 you’re interested in. Suppose I only want to see the high priority
 active projects:
 
 ``` r
-view_joblist(priority == 1 & status == "active")
+view_jobs(priority == 1 & status == "active")
 #> # A tibble: 2 x 6
 #>   name         owner         priority status deadline description          
 #>   <chr>        <chr>            <int> <chr>  <lgl>    <chr>                
@@ -285,7 +286,7 @@ view_joblist(priority == 1 & status == "active")
 ```
 
 Indeed `view_priorities()` function is essentially a helper function to
-avoid having to type `view_joblist(priority == 1)` on a regular basis.
+avoid having to type `view_jobs(priority == 1)` on a regular basis.
 
 ## Example 5: Navigation
 
@@ -313,11 +314,11 @@ will do is use `setwd()` to change the working directory.
 Often it is handy to add small annotations to a job. The intent here is
 not to use this as a substitute for proper documentation (that should
 happen within the project itself) but as a quick and dirty “notes to
-self” tool. You can add jobs using `job_add_note()`:
+self” tool. You can add jobs using `set_note()`:
 
 ``` r
-job_add_note("toxic", "check if this worked")
-job_add_note("toxic", "i wonder if i should circulate this later")
+set_note("toxic", "check if this worked")
+set_note("toxic", "i wonder if i should circulate this later")
 ```
 
 You can view the notes linked to a job with `view_notes()`:
@@ -333,7 +334,7 @@ The output is shown in chronological order (recent at the top). You can
 remove a note by referring to its number:
 
 ``` r
-job_delete_note("toxic", 1)
+delete_note("toxic", 1)
 view_notes("toxic")
 #> 
 #> 2:  i wonder if i should circulate this later

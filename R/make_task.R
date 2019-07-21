@@ -1,27 +1,5 @@
 
-# constructor function for task objects
-new_task <- function(name, id, description, owner, status = "active",
-                     priority = 1, deadline = NA, hidden = FALSE) {
-  tibble::tibble(
-    name = name,
-    id = id,
-    description = description,
-    owner = owner,
-    status = status,
-    priority = priority,
-    deadline = deadline,
-    hidden = hidden
-  )
-}
-
-
-empty_task <- function() {
-  new_task(name = character(0), id = numeric(0), description = character(0),
-           owner = character(0), status = character(0), priority = numeric(0),
-           deadline = as.Date(character(0)), hidden = logical(0))
-}
-
-#' Attach a new task to job
+#' Set a task attached to a job
 #'
 #' @param jobname name of the job the task attaches to
 #' @param description brief description of the task
@@ -31,7 +9,7 @@ empty_task <- function() {
 #' @param deadline a date (default is to match the job)
 #' @param hidden hide the task (default is to match the job)
 #' @export
-job_addtask <- function(jobname, description, owner = NULL, status = "active",
+set_task <- function(jobname, description, owner = NULL, status = "active",
                         priority = NULL, deadline = NULL, hidden = NULL) {
 
   # read the jobs
@@ -75,6 +53,29 @@ job_addtask <- function(jobname, description, owner = NULL, status = "active",
   # write it to the jobs list
   jobs[[jobname]] <- jb
   job_write(jobs)
+}
+
+
+# constructor function for task objects
+new_task <- function(name, id, description, owner, status = "active",
+                     priority = 1, deadline = NA, hidden = FALSE) {
+  tibble::tibble(
+    name = name,
+    id = id,
+    description = description,
+    owner = owner,
+    status = status,
+    priority = priority,
+    deadline = deadline,
+    hidden = hidden
+  )
+}
+
+# create an empty task
+empty_task <- function() {
+  new_task(name = character(0), id = numeric(0), description = character(0),
+           owner = character(0), status = character(0), priority = numeric(0),
+           deadline = as.Date(character(0)), hidden = logical(0))
 }
 
 # retrieve the largest known task number

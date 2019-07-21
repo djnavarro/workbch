@@ -1,10 +1,10 @@
 
-#' Add a new person
+#' Sets details for a new person
 #'
 #' @param name the name of the person
 #' @param nickname a nickname for the person
 #' @export
-people_add <- function(name, nickname) {
+set_person <- function(name, nickname) {
   ppl <- ppl_read()
   ppl <- dplyr::bind_rows(
     ppl,
@@ -15,13 +15,6 @@ people_add <- function(name, nickname) {
   ppl_write(ppl)
 }
 
-
-#' List all known people
-#'
-#' @export
-people_list <- function() {
-  ppl_read()
-}
 
 # if name is a nickname, substitute with the real one
 real_name <- function(name) {

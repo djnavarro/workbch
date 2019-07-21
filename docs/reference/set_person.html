@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>View the details of a job — view_job • workbch</title>
+<title>Sets details for a new person — set_person • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="View the details of a job — view_job" />
+<meta property="og:title" content="Sets details for a new person — set_person" />
 
-<meta property="og:description" content="View the details of a job" />
+<meta property="og:description" content="Sets details for a new person" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,25 +103,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>View the details of a job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/viewing.R'><code>R/viewing.R</code></a></small>
-    <div class="hidden name"><code>view_job.Rd</code></div>
+    <h1>Sets details for a new person</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/people.R'><code>R/people.R</code></a></small>
+    <div class="hidden name"><code>set_person.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>View the details of a job</p>
+    <p>Sets details for a new person</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>view_job</span>(<span class='no'>name</span>)</pre>
+    <pre class="usage"><span class='fu'>set_person</span>(<span class='no'>name</span>, <span class='no'>nickname</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>Name of job to display</p></td>
+      <td><p>the name of the person</p></td>
+    </tr>
+    <tr>
+      <th>nickname</th>
+      <td><p>a nickname for the person</p></td>
     </tr>
     </table>
     

@@ -11,10 +11,27 @@ ppl_file <- function() {
   file.path(job_home(), "workbch_people.csv")
 }
 
-# read project data from JSON file if it exists
+# read project data from JSON file if it exists, and preprocess to deal with
+# limitations to JSON storage
 job_read <- function() {
   if(file.exists(job_file())) {
-    return(jsonlite::fromJSON(job_file()))
+
+    jobs <- jsonlite::fromJSON(job_file())
+    jobs <- purrr::map(jobs, function(j) {
+
+      # empty lists become data frames
+      if(class(j$urls) == "list") {j$urls <- empty_url()}
+      if(class(j$notes) == "list") {j$notes <- empty_note()}
+      if(class(j$tasks) == "list") {j$tasks <- empty_task()}
+
+      # coerce to tibbles
+      j$urls <- tibble::as_tibble(j$urls)
+      j$notes <- tibble::as_tibble(j$notes)
+      j$tasks <- tibble::as_tibble(j$tasks)
+
+      return(j)
+    })
+    return(jobs)
   }
   return(list())
 }
@@ -55,15 +72,6 @@ validate_job <- function(job) {
 
   # more checks here!!!
 
-  # if the owner is not on the team, add them
-  if(!(job$owner %in% job$team)) {
-    job$team <- c(job$owner, job$team)
-  }
-
-  # if it lacks a hidden attribute, set it as false
-  if(is.null(job$hidden)) {
-    job$hidden <- FALSE
-  }
-
   return(job)
 }
+

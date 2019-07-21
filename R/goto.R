@@ -43,7 +43,11 @@ goto_project <- function(name) {
 goto_url <- function(name, site) {
 
   jobs <- job_read()
-  url <- jobs[[name]]$url[[site]]
-  utils::browseURL(url)
+  urls <- jobs[[name]]$urls
+  if(!(site %in% urls$site)) {
+    stop("'", name, "' does not have a link for site '", site, "'", call. = FALSE)
+  }
+  link <- urls$link[urls$site == site]
+  utils::browseURL(link)
 
 }

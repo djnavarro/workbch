@@ -132,7 +132,6 @@ view_joblist()
 #>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
 #> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
 
-
 view_job("survivor")
 #> 
 #> survivor : Run a survival analysis 
@@ -162,9 +161,9 @@ Internally, a “job” is represented as a list with the following fields
   - `priority`: numeric
   - `deadline`: a date
   - `path`: path to the project home directory
-  - `urls`: list of urls
-  - `tasks`: list of tasks (NOT YET IMPLEMENTED)
-  - `notes`: list of notes
+  - `urls`: a tibble specifying urls linked to the job
+  - `tasks`: a tibble specifying tasks linked to the job
+  - `notes`: a tibble specifying notes linked to the job
 
 When we added the “survival” job earlier, we specified some of these
 fields but not others. There are three functions that you can use to
@@ -172,8 +171,8 @@ modify the properties of a job:
 
   - `job_edit()` can reset the value of any field
   - `job_edit_team()` makes it easier to edit the team
-  - `job_edit_urls()` makes it easier to edit the list of webpages
-    associated with a job
+  - `job_edit_url()` makes it easier to edit a webpage associated with a
+    job
 
 To illustrate, suppose we create a new job, called “toxic”:
 
@@ -187,11 +186,7 @@ job_create(
   owner = "britney",
   priority = 2,
   status = "active",
-  path = "~/projects/toxic",
-  urls = list(
-    github = "https://github.com/djnavarro/toxic",
-    genius = "https://genius.com/Britney-spears-toxic-lyrics"
-  )
+  path = "~/projects/toxic"
 )
 
 view_joblist()
@@ -212,19 +207,21 @@ view_job("toxic")
 #>   deadline : none 
 #> 
 #>   path = ~/projects/toxic 
-#>   github = https://github.com/djnavarro/toxic 
-#>   genius = https://genius.com/Britney-spears-toxic-lyrics 
 #> 
 #>   0 notes
 #>   0 tasks
 ```
 
 If at this point we realise that “Danielle” should have been listed on
-the team (yeah, right) and the priority should have been set at 1:
+the team (yeah, right) and the priority should have been set at 1, we
+can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
-job_edit_team("toxic", add = "danielle")
 job_edit("toxic", priority = 1)
+job_edit_team("toxic", add = "danielle")
+job_edit_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+job_edit_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+
 view_job("toxic")
 #> 
 #> toxic : Estimate the LD50 dose 
@@ -236,8 +233,8 @@ view_job("toxic")
 #>   deadline : none 
 #> 
 #>   path = ~/projects/toxic 
-#>   github = https://github.com/djnavarro/toxic 
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
+#>   github = https://github.com/djnavarro/toxic 
 #> 
 #>   0 notes
 #>   0 tasks
@@ -358,8 +355,8 @@ view_job("toxic")
 #>   deadline : none 
 #> 
 #>   path = ~/projects/toxic 
-#>   github = https://github.com/djnavarro/toxic 
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
+#>   github = https://github.com/djnavarro/toxic 
 #> 
 #>   1 notes
 #>   0 tasks

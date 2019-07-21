@@ -16,8 +16,13 @@
 #' @export
 job_create <- function(name, description, owner, status = "active",
                        team = character(0), priority = 1, deadline = NA,
-                       path = NA, urls = list(), notes = list(), tasks = list(),
+                       path = NA, urls = NULL, notes = NULL, tasks = NULL,
                        hidden = FALSE) {
+
+  # specify defaults for more complicated fields
+  if(is.null(urls)) {urls = empty_url()}
+  if(is.null(notes)) {notes = empty_note()}
+  if(is.null(tasks)) {tasks = empty_task()}
 
   # parse the names and make sure the owner is on the team
   owner <- real_name(owner)
@@ -36,12 +41,28 @@ job_create <- function(name, description, owner, status = "active",
 }
 
 
+new_url <- function(site = character(0), link = character(0)) {
+  tibble::tibble(
+    site = site,
+    link = link
+  )
+}
+
+empty_url <- function() {
+  new_url(site = character(0), link = character(0))
+}
+
 
 # constructor function for job objects
 new_job <- function(name, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
-                    path = NA, urls = list(), notes = list(), tasks = list(),
-                    hidden = hidden) {
+                    path = NA, urls = NULL, notes = NULL,
+                    tasks = NULL, hidden = FALSE) {
+
+  if(is.null(urls)) {urls = empty_url()}
+  if(is.null(notes)) {notes = empty_note()}
+  if(is.null(tasks)) {tasks = empty_task()}
+
   list(
     name = name,
     description = description,

@@ -14,6 +14,13 @@ new_task <- function(name, id, description, owner, status = "active",
   )
 }
 
+
+empty_task <- function() {
+  new_task(name = character(0), id = numeric(0), description = character(0),
+           owner = character(0), status = character(0), priority = numeric(0),
+           deadline = as.Date(character(0)), hidden = logical(0))
+}
+
 #' Attach a new task to job
 #'
 #' @param jobname name of the job the task attaches to

@@ -83,29 +83,15 @@ view_job <- function(name) {
 
   cat("\n")
   cat("  path =", jb$path, "\n")
-  if(length(jb$urls) > 0) {
-    for(i in 1:length(jb$urls)) {
-      cat(" ", names(jb$urls)[i], "=", jb$urls[[i]], "\n")
+  if(nrow(jb$urls) > 0) {
+    for(i in 1:nrow(jb$urls)) {
+      cat(" ", jb$urls$site[i], "=", jb$urls$link[i], "\n")
     }
   }
 
-  # legacy to deal with jobs that initialised notes
-  # with an empty list rather than an empty tibble
-  n_notes <- nrow(jb$notes)
-  if(is.null(n_notes)) {
-    n_notes <- 0
-  }
-
-  # legacy to deal with jobs that initialised tasks
-  # with an empty list rather than an empty tibble
-  n_tasks <- nrow(jb$tasks)
-  if(is.null(n_tasks)) {
-    n_tasks <- 0
-  }
-
   cat("\n")
-  cat(" ", n_notes, "notes\n")
-  cat(" ", n_tasks, "tasks\n")
+  cat(" ", nrow(jb$notes), "notes\n")
+  cat(" ", nrow(jb$tasks), "tasks\n")
 
   cat("\n")
   return(invisible(jb))

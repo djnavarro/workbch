@@ -101,52 +101,40 @@ job_edit_team <- function(name, add = NULL, remove = NULL) {
 }
 
 
-#' Edit the urls associated with a job
+#' Add or edit urls associated with a job
 #'
 #' @param name name of the project to edit
-#' @param ... expressions to be evaluated within the urls field
-#' @param clean delete all existing URLs first? (default = FALSE)
+#' @param site string with the site nickname (e.g., "github")
+#' @param link string with the link to the site
 #' @export
-#' @details The role of \code{job_edit_urls()} is to make it a easier to
-#' change the URLs associated with a job. This task can be done with
-#' \code{job_edit()} but it is cumbersome. The arguments specified using
-#' \code{...} are used to set the name of the URL (e.g., "github") and the
-#' URL itself. When \code{clean = FALSE} any existing URLs are retained,
-#' overwriting only those URLs listed in \code{...}, whereas if
-#' \code{clean = TRUE} all pre-existing URLs are removed before adding any
-#' new ones
+#' @details The role of \code{job_edit_url()} is to make it a easier to
+#' change a URL associated with a job.
 #' @examples
 #' \dontrun{
 #'
-#' # add a single new URL for github
-#' job_edit_urls("myjob", github = "https://github.com/myusername/myrepo")
+#' job_edit_url("myjob", "github", "https://github.com/myusername/myrepo")
 #'
-#' # add two new URLs and remove any existing ones
-#' job_edit_urls(
-#'   name = "myjob",
-#'   github = "https://github.com/myusername/myrepo",
-#'   overleaf = "https://www.overleaf.com/xxxxxxxxxxx",
-#'   clean = TRUE
-#' )
 #' }
 #
-job_edit_urls <- function(name, ..., clean = FALSE) {
-
-  # capture dots
-  dots <- capture_dots(...)  # list of expressions
-  dots <- purrr::map(dots, eval) # evaluate them
+job_edit_url <- function(name, site, link) {
 
   # read the jobs data
   jobs <- job_read()
+  urls <- jobs[[name]]$urls
 
-  # overwrite/append fields
-  if(clean == FALSE) {
-    l <- jobs[[name]]$urls
+  # add or overwrite the url
+  ind <- which(urls$site == site)
+  if(length(ind) == 0) {
+    urls <- dplyr::bind_rows(urls, new_url(site, link))
+  } else if(length(ind) == 1) {
+    urls$link[ind] <- link
   } else {
-    l <- list()
+    stop("how did i get here???")
   }
-  l[names(dots)] <- dots
-  jobs[[name]]$urls <- l
+
+  # arrange alphabetically and reinsert
+  urls <- dplyr::arrange(urls, site)
+  jobs[[name]]$urls <- urls
 
   # ensure that the edits produce a valid job state
   jobs[[name]] <- validate_job(jobs[[name]])

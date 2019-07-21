@@ -6,7 +6,7 @@
 \usage{
 job_create(name, description, owner, status = "active",
   team = character(0), priority = 1, deadline = NA, path = NA,
-  urls = list(), notes = list(), tasks = list(), hidden = FALSE)
+  urls = NULL, notes = NULL, tasks = NULL, hidden = FALSE)
 }
 \arguments{
 \item{name}{name of the project to create}

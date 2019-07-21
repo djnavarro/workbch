@@ -7,6 +7,12 @@ new_note <- function(name, note, id = NA, date = as.character(Sys.Date())) {
   )
 }
 
+empty_note <- function() {
+  new_note(name = character(0), note = character(0), id = numeric(0),
+           date = character(0))
+}
+
+
 #' Append a note to a job
 #'
 #' @param name the job to which the note should be added

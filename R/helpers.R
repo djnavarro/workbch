@@ -37,7 +37,7 @@ job_read <- function() {
     })
     return(jobs)
   }
-  return(list())
+  return(empty_job())
 }
 
 # read the tasks
@@ -156,4 +156,14 @@ default_person <- function() {
   ppl <- ppl_read()
   def <- ppl$fullname[1]
   return(def)
+}
+
+get_jobnames <- function(jobs) {
+  if(length(jobs) == 0) {return(character(0))}
+  return(purrr::map_chr(jobs, function(j) {j$jobname}))
+}
+
+get_paths <- function(jobs) {
+  if(length(jobs) == 0) {return(character(0))}
+  return(purrr::map_chr(jobs, function(j) {j$path}))
 }

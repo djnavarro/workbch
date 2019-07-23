@@ -93,8 +93,8 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
 
   # load the existing jobs
   jobs <- job_read()
-  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
-  job_paths <- purrr::map_chr(jobs, function(j) {j$path})
+  job_names <- get_jobnames(jobs)
+  job_paths <- get_paths(jobs)
   job_paths <- suppressWarnings(normalizePath(job_paths)) # suppress b/c some jobs may have no path
 
   # initialise output
@@ -104,7 +104,7 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
   n_created <- 0
 
   # add jobs
-  for(i in seq_along(job_paths)) {
+  for(i in seq_along(found_paths)) {
 
     # if the path is already mapped to a job, skip it
     if(found_paths[i] %in% job_paths) {
@@ -190,8 +190,8 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
         )
 
         # update list of known paths/jobnames
-        job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
-        job_paths <- purrr::map_chr(jobs, function(j) {j$path})
+        job_names <- get_jobnames(jobs)
+        job_paths <- get_paths(jobs)
         job_paths <- suppressWarnings(normalizePath(job_paths)) # suppress b/c some jobs may have no path
 
         message("    ... done! new job created!")

@@ -72,3 +72,7 @@ empty_url <- function() {
   new_url(site = character(0), link = character(0))
 }
 
+
+empty_job <- function() {
+  list()
+}

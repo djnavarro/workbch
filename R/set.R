@@ -2,7 +2,7 @@
 
 #' Set a new job, or modify an existing one
 #'
-#' @param name name of the job to create
+#' @param jobname name of the job to create
 #' @param description brief description of the job
 #' @param status should be "active", "inactive", "complete", "abandoned"
 #' @param owner should be a name or a nickname
@@ -12,16 +12,16 @@
 #' @param path path to the job home directory
 #' @param hidden hide job (default = FALSE)
 #' @export
-set_job <- function(name, description = NULL, owner = NULL, status = NULL,
+set_job <- function(jobname, description = NULL, owner = NULL, status = NULL,
                     team = NULL, priority = NULL, deadline = NULL,
                     path = NULL, hidden = NULL) {
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
-  job_names <- purrr::map_chr(jobs, function(j) {j$name})
+  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
 
   # if it doesn't exist, create the job
-  if(!(name %in% job_names)) {
+  if(!(jobname %in% job_names)) {
 
     # check for mandatory fields
     if(is.null("description")) {
@@ -47,8 +47,8 @@ set_job <- function(name, description = NULL, owner = NULL, status = NULL,
     }
 
     # append the new job
-    jobs[[name]] <- new_job(
-      name = name,
+    jobs[[jobname]] <- new_job(
+      jobname = jobname,
       description = description,
       owner = owner,
       status = status,
@@ -64,7 +64,7 @@ set_job <- function(name, description = NULL, owner = NULL, status = NULL,
 
   } else {
 
-    job <- jobs[[name]]
+    job <- jobs[[jobname]]
 
     # edit fields per user specification
     if(!is.null(owner)) {job$owner <- real_name(owner)}
@@ -76,7 +76,7 @@ set_job <- function(name, description = NULL, owner = NULL, status = NULL,
     if(!is.null(hidden)) {job$hidden <- hidden}
 
     # ensure that the edits produce a valid job state
-    jobs[[name]] <- validate_job(job)
+    jobs[[jobname]] <- validate_job(job)
 
   }
 
@@ -123,7 +123,7 @@ set_task <- function(jobname, description, owner = NULL, status = "active",
   id <- current_max_task_id(jobs) + 1
 
   # create the task object
-  tsk <- new_task(name = jobname, id = id, description = description,
+  tsk <- new_task(jobname = jobname, id = id, description = description,
                   owner = owner, status = status, priority = priority,
                   deadline = deadline, hidden = hidden)
 
@@ -161,7 +161,7 @@ set_home <- function(path = NULL) {
 
 #' Set the members of a team
 #'
-#' @param name name of job to be edited
+#' @param jobname name of job to be edited
 #' @param add character vector of names to add to the team
 #' @param remove character vector of names to remove from the team
 #' @details The role of \code{set_team()} is to make it a little easier to
@@ -188,28 +188,28 @@ set_home <- function(path = NULL) {
 #' set_job("myjob", owner = "sarah") # transfers the ownership to sarah
 #' set_team("myjob", remove = "hayley") # removes hayley entirely
 #' }
-set_team <- function(name, add = NULL, remove = NULL) {
+set_team <- function(jobname, add = NULL, remove = NULL) {
 
   jobs <- job_read()
 
   if(!is.null(add)) {
     add <- real_name(add)
-    jobs[[name]]$team <- unique(c(jobs[[name]]$team, add))
+    jobs[[jobname]]$team <- unique(c(jobs[[jobname]]$team, add))
   }
 
   if(!is.null(remove)) {
     remove <- real_name(remove)
 
     # cannot remove owner
-    if(jobs[[name]]$owner %in% remove) {
+    if(jobs[[jobname]]$owner %in% remove) {
       warning(
         "cannot remove owner from a team: use job_edit() to change owner first",
         call. = FALSE
       )
-      remove <- setdiff(remove, jobs[[name]]$owner)
+      remove <- setdiff(remove, jobs[[jobname]]$owner)
     }
 
-    jobs[[name]]$team <- setdiff(jobs[[name]]$team, remove)
+    jobs[[jobname]]$team <- setdiff(jobs[[jobname]]$team, remove)
   }
 
   job_write(jobs)
@@ -220,7 +220,7 @@ set_team <- function(name, add = NULL, remove = NULL) {
 
 #' Set a URL associated with a job
 #'
-#' @param name name of the job to edit
+#' @param jobname name of the job to edit
 #' @param site string with the site nickname (e.g., "github")
 #' @param link string with the link to the site
 #' @export
@@ -233,11 +233,11 @@ set_team <- function(name, add = NULL, remove = NULL) {
 #'
 #' }
 #
-set_url <- function(name, site, link) {
+set_url <- function(jobname, site, link) {
 
   # read the jobs data
   jobs <- job_read()
-  urls <- jobs[[name]]$urls
+  urls <- jobs[[jobname]]$urls
 
   # add or overwrite the url
   ind <- which(urls$site == site)
@@ -251,10 +251,10 @@ set_url <- function(name, site, link) {
 
   # arrange alphabetically and reinsert
   urls <- dplyr::arrange(urls, site)
-  jobs[[name]]$urls <- urls
+  jobs[[jobname]]$urls <- urls
 
   # ensure that the edits produce a valid job state
-  jobs[[name]] <- validate_job(jobs[[name]])
+  jobs[[jobname]] <- validate_job(jobs[[jobname]])
 
   # write
   job_write(jobs)
@@ -264,7 +264,7 @@ set_url <- function(name, site, link) {
 
 #' Set a note linked to a job
 #'
-#' @param name the job to which the note should be added
+#' @param jobname the job to which the note should be added
 #' @param note the text of the note
 #'
 #' @export
@@ -274,22 +274,22 @@ set_url <- function(name, site, link) {
 #'
 #' set_note("myjob", "susan wanted me to notify her when done")
 #' }
-set_note <- function(name, note) {
+set_note <- function(jobname, note) {
   jobs <- job_read()
-  jb <- jobs[[name]]
+  jb <- jobs[[jobname]]
 
   if(is.null(dim(jb$notes))) {
-    nt <- new_note(name, note, id = 1)
+    nt <- new_note(jobname, note, id = 1)
   } else if(nrow(jb$notes) == 0) {
-    nt <- new_note(name, note, id = 1)
+    nt <- new_note(jobname, note, id = 1)
   } else {
     id <- max(jb$notes$id) + 1
-    nt <- new_note(name, note, id = id)
+    nt <- new_note(jobname, note, id = id)
   }
 
   jb$notes <- dplyr::bind_rows(jb$notes, nt)
   jb$notes <- dplyr::arrange(jb$notes, dplyr::desc(date), dplyr::desc(id))
-  jobs[[name]] <- jb
+  jobs[[jobname]] <- jb
   job_write(jobs)
 }
 
@@ -298,15 +298,15 @@ set_note <- function(name, note) {
 
 #' Sets details for a new person
 #'
-#' @param name the name of the person
-#' @param nickname a nickname for the person
+#' @param fullname the full name of the person
+#' @param nickname a short name for the person
 #' @export
-set_person <- function(name, nickname) {
+set_person <- function(fullname, nickname) {
   ppl <- ppl_read()
   ppl <- dplyr::bind_rows(
     ppl,
     tibble::tibble(
-      name = name,
+      fullname = fullname,
       nickname = nickname
     ))
   ppl_write(ppl)

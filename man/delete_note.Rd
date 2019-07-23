@@ -4,10 +4,10 @@
 \alias{delete_note}
 \title{Delete a note from a job}
 \usage{
-delete_note(name, id)
+delete_note(jobname, id)
 }
 \arguments{
-\item{name}{the job from which the note should be deleted}
+\item{jobname}{the job from which the note should be deleted}
 
 \item{id}{the id number assigned to the note}
 }

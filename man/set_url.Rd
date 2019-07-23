@@ -4,10 +4,10 @@
 \alias{set_url}
 \title{Set a URL associated with a job}
 \usage{
-set_url(name, site, link)
+set_url(jobname, site, link)
 }
 \arguments{
-\item{name}{name of the job to edit}
+\item{jobname}{name of the job to edit}
 
 \item{site}{string with the site nickname (e.g., "github")}
 

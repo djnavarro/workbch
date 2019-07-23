@@ -4,12 +4,12 @@
 \alias{set_person}
 \title{Sets details for a new person}
 \usage{
-set_person(name, nickname)
+set_person(fullname, nickname)
 }
 \arguments{
-\item{name}{the name of the person}
+\item{fullname}{the full name of the person}
 
-\item{nickname}{a nickname for the person}
+\item{nickname}{a short name for the person}
 }
 \description{
 Sets details for a new person

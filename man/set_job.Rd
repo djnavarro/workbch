@@ -4,12 +4,12 @@
 \alias{set_job}
 \title{Set a new job, or modify an existing one}
 \usage{
-set_job(name, description = NULL, owner = NULL, status = NULL,
+set_job(jobname, description = NULL, owner = NULL, status = NULL,
   team = NULL, priority = NULL, deadline = NULL, path = NULL,
   hidden = NULL)
 }
 \arguments{
-\item{name}{name of the job to create}
+\item{jobname}{name of the job to create}
 
 \item{description}{brief description of the job}
 

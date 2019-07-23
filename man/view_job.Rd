@@ -4,10 +4,10 @@
 \alias{view_job}
 \title{View the details of a job}
 \usage{
-view_job(name)
+view_job(jobname)
 }
 \arguments{
-\item{name}{Name of job to display}
+\item{jobname}{Name of job to display}
 }
 \description{
 View the details of a job

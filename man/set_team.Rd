@@ -4,10 +4,10 @@
 \alias{set_team}
 \title{Set the members of a team}
 \usage{
-set_team(name, add = NULL, remove = NULL)
+set_team(jobname, add = NULL, remove = NULL)
 }
 \arguments{
-\item{name}{name of job to be edited}
+\item{jobname}{name of job to be edited}
 
 \item{add}{character vector of names to add to the team}
 

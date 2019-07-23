@@ -4,10 +4,10 @@
 \alias{delete_job}
 \title{Delete a job}
 \usage{
-delete_job(name)
+delete_job(jobname)
 }
 \arguments{
-\item{name}{name of the job to delete}
+\item{jobname}{name of the job to delete}
 }
 \description{
 Delete a job

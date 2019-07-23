@@ -67,7 +67,7 @@ view_jobs()
 #> # A tibble: 0 x 0
 
 set_job(
-  name = "workitout", 
+  jobname = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
 )
@@ -75,9 +75,9 @@ set_job(
 
 view_jobs()
 #> # A tibble: 1 x 6
-#>   name      owner   priority status deadline description                   
-#>   <chr>     <chr>      <int> <chr>  <lgl>    <chr>                         
-#> 1 workitout britney        1 active NA       sip martinis and party in Fra…
+#>   jobname   owner priority status deadline description                     
+#>   <chr>     <chr>    <int> <chr>  <lgl>    <chr>                           
+#> 1 workitout ""           1 active NA       sip martinis and party in France
 ```
 
 Jobs can be deleted by name:
@@ -100,7 +100,7 @@ set_person("Kelly Rowland", "kelly")
 set_person("Michelle Williams", "michelle")
 view_people()
 #> # A tibble: 3 x 2
-#>   name              nickname
+#>   fullname          nickname
 #>   <chr>             <chr>   
 #> 1 Beyoncé Knowles   beyonce 
 #> 2 Kelly Rowland     kelly   
@@ -114,7 +114,7 @@ you to specify the team efficiently:
 
 ``` r
 set_job(
-  name = "survivor",
+  jobname = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
   team = c("kelly", "michelle"),
@@ -131,7 +131,7 @@ look at a single job in more detail:
 ``` r
 view_jobs()
 #> # A tibble: 1 x 6
-#>   name     owner           priority status  deadline description           
+#>   jobname  owner           priority status  deadline description           
 #>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
 #> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
 
@@ -155,7 +155,7 @@ view_job("survivor")
 
 Internally, a job is represented as a list with the following fields
 
-  - `name`: name of the project
+  - `jobname`: name of the project
   - `description`: brief description of the project
   - `owner`: should be a name or a nickname
   - `status`: should be “active”, “inactive”, “complete”, “abandoned”
@@ -185,7 +185,7 @@ set_person("Britney Spears", "britney")
 set_person("Danielle Navarro", "danielle")
 
 set_job(
-  name = "toxic",
+  jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",
   priority = 2,
@@ -195,7 +195,7 @@ set_job(
 
 view_jobs()
 #> # A tibble: 2 x 6
-#>   name     owner           priority status  deadline description           
+#>   jobname  owner           priority status  deadline description           
 #>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
 #> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
 #> 2 toxic    Britney Spears         2 active  NA       Estimate the LD50 dose
@@ -253,13 +253,13 @@ at seeing so many things that you have to do). For example:
 ``` r
 view_jobs()
 #> # A tibble: 5 x 6
-#>   name        owner         priority status  deadline description          
-#>   <chr>       <chr>            <int> <chr>   <lgl>    <chr>                
-#> 1 toxic       Britney Spea…        1 active  NA       Estimate the LD50 do…
-#> 2 spinspinsu… Sneaker Pimps        1 active  NA       Check for periodicit…
-#> 3 survivor    Beyoncé Know…        1 inacti… NA       Run a survival analy…
-#> 4 hitmebaby   Britney Spea…        2 active  NA       Signal detection mod…
-#> 5 boys        Lizzo                2 active  NA       Distributional assum…
+#>   jobname      owner        priority status  deadline description          
+#>   <chr>        <chr>           <int> <chr>   <lgl>    <chr>                
+#> 1 toxic        Britney Spe…        1 active  NA       Estimate the LD50 do…
+#> 2 spinspinsug… Sneaker Pim…        1 active  NA       Check for periodicit…
+#> 3 survivor     Beyoncé Kno…        1 inacti… NA       Run a survival analy…
+#> 4 hitmebaby    Britney Spe…        2 active  NA       Signal detection mod…
+#> 5 boys         Lizzo               2 active  NA       Distributional assum…
 ```
 
 A simple way to only see the high priority jobs:
@@ -267,7 +267,7 @@ A simple way to only see the high priority jobs:
 ``` r
 view_priorities()
 #> # A tibble: 3 x 6
-#>   name         owner         priority status  deadline description         
+#>   jobname      owner         priority status  deadline description         
 #>   <chr>        <chr>            <int> <chr>   <lgl>    <chr>               
 #> 1 toxic        Britney Spea…        1 active  NA       Estimate the LD50 d…
 #> 2 spinspinsug… Sneaker Pimps        1 active  NA       Check for periodici…
@@ -282,10 +282,10 @@ active jobs:
 ``` r
 view_jobs(priority == 1 & status == "active")
 #> # A tibble: 2 x 6
-#>   name         owner         priority status deadline description          
-#>   <chr>        <chr>            <int> <chr>  <lgl>    <chr>                
-#> 1 toxic        Britney Spea…        1 active NA       Estimate the LD50 do…
-#> 2 spinspinsug… Sneaker Pimps        1 active NA       Check for periodicit…
+#>   jobname       owner        priority status deadline description          
+#>   <chr>         <chr>           <int> <chr>  <lgl>    <chr>                
+#> 1 toxic         Britney Spe…        1 active NA       Estimate the LD50 do…
+#> 2 spinspinsugar Sneaker Pim…        1 active NA       Check for periodicit…
 ```
 
 Indeed `view_priorities()` function is essentially a helper function to

@@ -70,7 +70,7 @@ library(workbch)
 view_jobs()
 
 set_job(
-  name = "workitout", 
+  jobname = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
 )
@@ -100,7 +100,7 @@ Jobs can consist of multiple people on a *team* but the job must have a single *
 
 ```{r addbynickmame}
 set_job(
-  name = "survivor",
+  jobname = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
   team = c("kelly", "michelle"),
@@ -122,7 +122,7 @@ view_job("survivor")
 
 Internally, a job is represented as a list with the following fields
 
-- `name`: name of the project
+- `jobname`: name of the project
 - `description`: brief description of the project
 - `owner`: should be a name or a nickname
 - `status`: should be "active", "inactive", "complete", "abandoned"
@@ -149,7 +149,7 @@ set_person("Britney Spears", "britney")
 set_person("Danielle Navarro", "danielle")
 
 set_job(
-  name = "toxic",
+  jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",
   priority = 2,

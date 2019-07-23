@@ -58,7 +58,7 @@ ppl_read <- function() {
   if(file.exists(ppl_file())) {
     return(suppressMessages(readr::read_csv(ppl_file())))
   }
-  return(list())
+  return(tibble::tibble(fullname = character(0), nickname = character(0)))
 }
 
 # write people data to CSV file
@@ -92,21 +92,24 @@ current_max_task_id <- function(jobs) {
 }
 
 # if name is a nickname, substitute with the real one
-real_name <- function(name) {
+real_name <- function(nickname) {
 
   # if there aren't any names, return early
-  if(length(name) == 0) {return(name)}
+  if(length(nickname) == 0) {return(nickname)}
 
   # read the nicknames and substitute
   ppl <- ppl_read()
-  for(i in 1:length(name)) {
-    if(name[i] %in% ppl$nickname) {
-      name[i] <- ppl$name[ppl$nickname == name[i]]
+
+  # search for the name
+  fullname <- character(length(nickname))
+  for(i in 1:length(nickname)) {
+    if(nickname[i] %in% ppl$nickname) {
+      fullname[i] <- ppl$fullname[ppl$nickname == nickname[i]]
     } else {
-      warning("'", name[i], "' is not a known nickname", call. = FALSE)
+      warning("'", nickname[i], "' is not a known nickname", call. = FALSE)
     }
   }
-  return(name)
+  return(fullname)
 }
 
 # find the jobs that need to be hidden and hide them
@@ -116,7 +119,7 @@ hide_jobs <- function(jobs, job_tbl) {
   hidden <- purrr::map_chr(jobs, function(x) {
     if(!is.null(x$hidden)) {
       if(x$hidden == TRUE) {
-        return(x$name)
+        return(x$jobname)
       }
     }
     return("")
@@ -124,7 +127,7 @@ hide_jobs <- function(jobs, job_tbl) {
   hidden <- hidden[hidden != ""]
 
   # remove them
-  job_tbl <- dplyr::filter(job_tbl, !(name %in% hidden))
+  job_tbl <- dplyr::filter(job_tbl, !(jobname %in% hidden))
 
   return(job_tbl)
 }

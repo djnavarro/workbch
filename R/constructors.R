@@ -2,7 +2,7 @@
 # helper functions specifying empty tasks, notes and urls. none of these
 # functions should be exported
 
-new_job <- function(name, description, owner, status = "active",
+new_job <- function(jobname, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
                     path = NA, urls = NULL, notes = NULL,
                     tasks = NULL, hidden = FALSE) {
@@ -12,7 +12,7 @@ new_job <- function(name, description, owner, status = "active",
   if(is.null(tasks)) {tasks = empty_task()}
 
   list(
-    name = name,
+    jobname = jobname,
     description = description,
     owner = owner,
     status = status,
@@ -27,10 +27,10 @@ new_job <- function(name, description, owner, status = "active",
   )
 }
 
-new_task <- function(name, id, description, owner, status = "active",
+new_task <- function(jobname, id, description, owner, status = "active",
                      priority = 1, deadline = NA, hidden = FALSE) {
   tibble::tibble(
-    name = name,
+    jobname = jobname,
     id = id,
     description = description,
     owner = owner,
@@ -41,9 +41,9 @@ new_task <- function(name, id, description, owner, status = "active",
   )
 }
 
-new_note <- function(name, note, id = NA, date = as.character(Sys.Date())) {
+new_note <- function(jobname, note, id = NA, date = as.character(Sys.Date())) {
   tibble::tibble(
-    name = name,  # name of the job it is linked to
+    jobname = jobname,  # name of the job it is linked to
     note = note,  # the message text
     id = id,      # unique identifier
     date = date   # the time stamp
@@ -58,13 +58,13 @@ new_url <- function(site = character(0), link = character(0)) {
 }
 
 empty_task <- function() {
-  new_task(name = character(0), id = numeric(0), description = character(0),
+  new_task(jobname = character(0), id = numeric(0), description = character(0),
            owner = character(0), status = character(0), priority = numeric(0),
            deadline = as.Date(character(0)), hidden = logical(0))
 }
 
 empty_note <- function() {
-  new_note(name = character(0), note = character(0), id = numeric(0),
+  new_note(jobname = character(0), note = character(0), id = numeric(0),
            date = character(0))
 }
 

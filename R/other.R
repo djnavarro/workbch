@@ -28,7 +28,7 @@ initialise_by_git <- function(proj_dir, workbch_dir = getOption("workbch.home"))
     .f = function(.x, .y) {
       cat("adding: ", .x, "\n")
       set_job(
-        name = .y,
+        jobname = .y,
         description = .y,
         owner = "me",
         path = .x

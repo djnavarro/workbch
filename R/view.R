@@ -10,8 +10,8 @@ view_jobs <- function(..., show_hidden = FALSE) {
   # read jobs and construct tibble listing them
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
-    tibble::as_tibble(x[c("name", "owner", "priority", "status", "deadline", "description")])})
-  job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, name)
+    tibble::as_tibble(x[c("jobname", "owner", "priority", "status", "deadline", "description")])})
+  job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
 
   # filter according to user expression
   if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
@@ -49,14 +49,14 @@ view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
 
 #' View the details of a job
 #'
-#' @param name Name of job to display
+#' @param jobname Name of job to display
 #' @export
-view_job <- function(name) {
+view_job <- function(jobname) {
   jobs <- job_read()
-  jb <- jobs[[name]]
+  jb <- jobs[[jobname]]
 
   cat("\n")
-  cat(jb$name, ":", jb$description, "\n")
+  cat(jb$jobname, ":", jb$description, "\n")
   cat("\n")
 
   cat("  owner    :", jb$owner, "\n")
@@ -85,7 +85,7 @@ view_job <- function(name) {
 
 #' View notes associated with a job
 #'
-#' @param name the job
+#' @param jobname the job
 #'
 #' @details Displays all notes associated with a job in order of recency. The
 #' display format is minimal, showing only an id number (to make it easy to
@@ -100,9 +100,9 @@ view_job <- function(name) {
 #'
 #' view_notes("myjob")
 #' }
-view_notes <- function(name) {
+view_notes <- function(jobname) {
   jobs <- job_read()
-  nt <- jobs[[name]]$notes
+  nt <- jobs[[jobname]]$notes
   if(!is.null(dim(nt))) {
     if(nrow(nt) > 0) {
       cat("\n")
@@ -126,12 +126,12 @@ view_paths <- function(show_hidden = FALSE) {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     if(!is.null(x$path)) {
-      return(tibble::as_tibble(x[c("name", "path")]))
+      return(tibble::as_tibble(x[c("jobname", "path")]))
     } else {
-      return(tibble::tibble(name = character(0), path = character(0)))
+      return(tibble::tibble(jobname = character(0), path = character(0)))
     }
   })
-  job_tbl <- dplyr::arrange(job_tbl, name)
+  job_tbl <- dplyr::arrange(job_tbl, jobname)
   job_tbl <- dplyr::filter(job_tbl, !is.na(path))
 
   # remove the hidden jobs if need be
@@ -150,12 +150,12 @@ view_paths <- function(show_hidden = FALSE) {
 #' @export
 view_job_names <- function(show_hidden = FALSE) {
   jobs <- job_read()
-  job_names <- purrr::map_dfr(jobs, function(x){tibble::tibble(name = x$name)})
-  job_names <- dplyr::arrange(job_names, name)
+  job_names <- purrr::map_dfr(jobs, function(x){tibble::tibble(jobname = x$jobname)})
+  job_names <- dplyr::arrange(job_names, jobname)
 
   if(!show_hidden) {job_names <- hide_jobs(jobs, job_names)}
 
-  return(dplyr::pull(job_names, name))
+  return(dplyr::pull(job_names, jobname))
 }
 
 
@@ -176,7 +176,7 @@ view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 
     # for the sake of my sanity
     pp <- proj$path[i]
-    pn <- proj$name[i]
+    pn <- proj$jobname[i]
 
     if(git2r::in_repository(pp)) {
 
@@ -199,7 +199,7 @@ view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 
       # put it all together in a tibble
       x[[i]] <- dplyr::bind_cols(
-        tibble::tibble(name = pn),
+        tibble::tibble(jobname = pn),
         repo_status,
         tibble::tibble(ahead = repo_ab[1], behind = repo_ab[2])
       )

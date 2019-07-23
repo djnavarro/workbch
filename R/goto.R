@@ -2,19 +2,19 @@
 
 #' Navigate to a job
 #'
-#' @param name name of job to open
+#' @param jobname name of job to open
 #' @export
 #' @examples
 #' \dontrun{
 #'
 #' goto_job("myjob")
 #' }
-goto_job <- function(name) {
+goto_job <- function(jobname) {
   jobs <- job_read()
 
   use_rstdio <- FALSE
   if(rstudioapi::isAvailable()) {
-    files <- list.files(jobs[[name]]$path)
+    files <- list.files(jobs[[jobname]]$path)
     rproj <- grep(".*\\.Rproj$", files)
     if(length(rproj) > 0) {
       use_rstdio <- TRUE
@@ -22,10 +22,10 @@ goto_job <- function(name) {
   }
 
   if(use_rstdio) {
-    rstudioapi::openProject(jobs[[name]]$path)
+    rstudioapi::openProject(jobs[[jobname]]$path)
   } else {
-    message("setting working directory to ", jobs[[name]]$path)
-    setwd(jobs[[name]]$path)
+    message("setting working directory to ", jobs[[jobname]]$path)
+    setwd(jobs[[jobname]]$path)
   }
 }
 
@@ -34,7 +34,7 @@ goto_job <- function(name) {
 
 #' Navigate to a URL linked to a job
 #'
-#' @param name name of the job
+#' @param jobname name of the job
 #' @param site label denoting the site (e.g., "github")
 #' @export
 #' @examples
@@ -42,12 +42,12 @@ goto_job <- function(name) {
 #'
 #' goto_url("myjob", "github")
 #' }
-goto_url <- function(name, site) {
+goto_url <- function(jobname, site) {
 
   jobs <- job_read()
-  urls <- jobs[[name]]$urls
+  urls <- jobs[[jobname]]$urls
   if(!(site %in% urls$site)) {
-    stop("'", name, "' does not have a link for site '", site, "'", call. = FALSE)
+    stop("'", jobname, "' does not have a link for site '", site, "'", call. = FALSE)
   }
   link <- urls$link[urls$site == site]
   utils::browseURL(link)

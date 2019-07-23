@@ -4,10 +4,10 @@
 \alias{view_notes}
 \title{View notes associated with a job}
 \usage{
-view_notes(name)
+view_notes(jobname)
 }
 \arguments{
-\item{name}{the job}
+\item{jobname}{the job}
 }
 \value{
 Invisibly returns a tibble containing columns for the note,

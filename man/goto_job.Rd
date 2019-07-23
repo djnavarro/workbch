@@ -4,10 +4,10 @@
 \alias{goto_job}
 \title{Navigate to a job}
 \usage{
-goto_job(name)
+goto_job(jobname)
 }
 \arguments{
-\item{name}{name of job to open}
+\item{jobname}{name of job to open}
 }
 \description{
 Navigate to a job

@@ -107,7 +107,7 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 0 x 0</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">name =</span> <span class="st">"workitout"</span>, </a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"workitout"</span>, </a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"sip martinis and party in France"</span>, </a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"britney"</span></a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">)</a>
@@ -115,9 +115,9 @@
 <a class="sourceLine" id="cb3-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb3-13" data-line-number="13"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt; # A tibble: 1 x 6</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   name      owner   priority status deadline description                   </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                         </span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 1 workitout britney        1 active NA       sip martinis and party in Fra…</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   jobname   owner priority status deadline description                     </span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                           </span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 1 workitout ""           1 active NA       sip martinis and party in France</span></a></code></pre></div>
 <p>Jobs can be deleted by name:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/delete_job.html">delete_job</a></span>(<span class="st">"workitout"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
@@ -132,14 +132,14 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Michelle Williams"</span>, <span class="st">"michelle"</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="reference/view_people.html">view_people</a></span>()</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;   name              nickname</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;   fullname          nickname</span></a>
 <a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   </span></a>
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce </span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 2 Kelly Rowland     kelly   </span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 3 Michelle Williams michelle</span></a></code></pre></div>
 <p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for that job. When used in conjunction with nicknames, the <code><a href="reference/set_job.html">set_job()</a></code> function allows you to specify the team efficiently:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">name =</span> <span class="st">"survivor"</span>,</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">jobname =</span> <span class="st">"survivor"</span>,</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">description =</span> <span class="st">"Run a survival analysis"</span>,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">owner =</span> <span class="st">"beyonce"</span>,</a>
 <a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="dt">team =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"kelly"</span>, <span class="st">"michelle"</span>),</a>
@@ -149,7 +149,7 @@
 <p>The owner of a job will automatically be added to the team. As before we can use <code><a href="reference/view_jobs.html">view_jobs()</a></code> to provide a summary of all listed jobs, which in this case is only a single job, but you can also use <code><a href="reference/view_job.html">view_job()</a></code> to look at a single job in more detail:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; # A tibble: 1 x 6</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;   name     owner           priority status  deadline description           </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;   jobname  owner           priority status  deadline description           </span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;                 </span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…</span></a>
 <a class="sourceLine" id="cb7-6" data-line-number="6"></a>
@@ -174,7 +174,7 @@
 <p>Internally, a job is represented as a list with the following fields</p>
 <ul>
 <li>
-<code>name</code>: name of the project</li>
+<code>jobname</code>: name of the project</li>
 <li>
 <code>description</code>: brief description of the project</li>
 <li>
@@ -212,7 +212,7 @@
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Danielle Navarro"</span>, <span class="st">"danielle"</span>)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">name =</span> <span class="st">"toxic"</span>,</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">jobname =</span> <span class="st">"toxic"</span>,</a>
 <a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="dt">description =</span> <span class="st">"Estimate the LD50 dose"</span>,</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">owner =</span> <span class="st">"britney"</span>,</a>
 <a class="sourceLine" id="cb8-8" data-line-number="8">  <span class="dt">priority =</span> <span class="dv">2</span>,</a>
@@ -222,7 +222,7 @@
 <a class="sourceLine" id="cb8-12" data-line-number="12"></a>
 <a class="sourceLine" id="cb8-13" data-line-number="13"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;   name     owner           priority status  deadline description           </span></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;   jobname  owner           priority status  deadline description           </span></a>
 <a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;                 </span></a>
 <a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…</span></a>
 <a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; 2 toxic    Britney Spears         2 active  NA       Estimate the LD50 dose</span></a>
@@ -270,17 +270,17 @@
 <p>After a while one can easily end up with a lot of jobs, and it can be hard to find what you’re looking for (or, if you’re like me, get anxious at seeing so many things that you have to do). For example:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5 x 6</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;   name        owner         priority status  deadline description          </span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;                </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; 1 toxic       Britney Spea…        1 active  NA       Estimate the LD50 do…</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsu… Sneaker Pimps        1 active  NA       Check for periodicit…</span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 3 survivor    Beyoncé Know…        1 inacti… NA       Run a survival analy…</span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 4 hitmebaby   Britney Spea…        2 active  NA       Signal detection mod…</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 5 boys        Lizzo                2 active  NA       Distributional assum…</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;   jobname      owner        priority status  deadline description          </span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;                </span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; 1 toxic        Britney Spe…        1 active  NA       Estimate the LD50 do…</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsug… Sneaker Pim…        1 active  NA       Check for periodicit…</span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 3 survivor     Beyoncé Kno…        1 inacti… NA       Run a survival analy…</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 4 hitmebaby    Britney Spe…        2 active  NA       Signal detection mod…</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 5 boys         Lizzo               2 active  NA       Distributional assum…</span></a></code></pre></div>
 <p>A simple way to only see the high priority jobs:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="reference/view_priorities.html">view_priorities</a></span>()</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 6</span></a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;   name         owner         priority status  deadline description         </span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;   jobname      owner         priority status  deadline description         </span></a>
 <a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;               </span></a>
 <a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 1 toxic        Britney Spea…        1 active  NA       Estimate the LD50 d…</span></a>
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsug… Sneaker Pimps        1 active  NA       Check for periodici…</span></a>
@@ -288,10 +288,10 @@
 <p>More generally, <code><a href="reference/view_jobs.html">view_jobs()</a></code> and <code><a href="reference/view_priorities.html">view_priorities()</a></code> both allow you to pass filtering expressions to <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to extract the subset you’re interested in. Suppose I only want to see the high priority active jobs:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>(priority <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>status <span class="op">==</span><span class="st"> "active"</span>)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;   name         owner         priority status deadline description          </span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                </span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; 1 toxic        Britney Spea…        1 active NA       Estimate the LD50 do…</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsug… Sneaker Pimps        1 active NA       Check for periodicit…</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;   jobname       owner        priority status deadline description          </span></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                </span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; 1 toxic         Britney Spe…        1 active NA       Estimate the LD50 do…</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsugar Sneaker Pim…        1 active NA       Check for periodicit…</span></a></code></pre></div>
 <p>Indeed <code><a href="reference/view_priorities.html">view_priorities()</a></code> function is essentially a helper function to avoid having to type <code><a href="reference/view_jobs.html">view_jobs(priority == 1)</a></code> on a regular basis.</p>
 </div>
 <div id="example-5-navigation" class="section level2">

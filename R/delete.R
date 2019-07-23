@@ -3,7 +3,7 @@
 
 #' Delete a job
 #'
-#' @param name name of the job to delete
+#' @param jobname name of the job to delete
 #' @export
 #' @details Deletes a job from the JSON file. At the moment, it does so without
 #' asking for the user to confirm, so be careful.
@@ -12,16 +12,16 @@
 #'
 #' delete_job("myjob")
 #' }
-delete_job <- function(name) {
+delete_job <- function(jobname) {
   jobs <- job_read()
-  jobs[[name]] <- NULL
+  jobs[[jobname]] <- NULL
   job_write(jobs)
 }
 
 
 #' Delete a note from a job
 #'
-#' @param name the job from which the note should be deleted
+#' @param jobname the job from which the note should be deleted
 #' @param id the id number assigned to the note
 #'
 #' @export
@@ -31,25 +31,25 @@ delete_job <- function(name) {
 #'
 #' delete_note("myjob", 2)
 #' }
-delete_note <- function(name, id) {
+delete_note <- function(jobname, id) {
   jobs <- job_read()
-  jb <- jobs[[name]]
+  jb <- jobs[[jobname]]
 
   if(id %in% jb$notes$id) {
 
     jb$notes <- dplyr::filter(jb$notes, id != {{id}})
-    jobs[[name]] <- jb
+    jobs[[jobname]] <- jb
     job_write(jobs)
 
   } else {
-    warning("Note ", id, " does not exist in job '", name, "'", call. = FALSE)
+    warning("Note ", id, " does not exist in job '", jobname, "'", call. = FALSE)
   }
 }
 
 
 #' Delete a task from a job
 #'
-#' @param name the job from which the task should be deleted
+#' @param jobname the job from which the task should be deleted
 #' @param id the id number assigned to the task
 #'
 #' @export
@@ -59,19 +59,19 @@ delete_note <- function(name, id) {
 #'
 #' delete_task("myjob", 2)
 #' }
-delete_task <- function(name, id) {
+delete_task <- function(jobname, id) {
   jobs <- job_read()
-  jb <- jobs[[name]]
+  jb <- jobs[[jobname]]
 
   if(id %in% jb$tasks$id) {
 
     jb$tasks <- dplyr::filter(jb$tasks, id != {{id}})
-    jobs[[name]] <- jb
+    jobs[[jobname]] <- jb
     job_write(jobs)
 
 
   } else {
-    warning("Task ", id, " does not exist in job '", name, "'", call. = FALSE)
+    warning("Task ", id, " does not exist in job '", jobname, "'", call. = FALSE)
   }
 }
 
@@ -79,7 +79,7 @@ delete_task <- function(name, id) {
 
 #' Delete a URL from a job
 #'
-#' @param name the job from which the URL should be deleted
+#' @param jobname the job from which the URL should be deleted
 #' @param site the name of the site to which the URL should be deleted
 #'
 #' @export
@@ -89,18 +89,18 @@ delete_task <- function(name, id) {
 #'
 #' delete_url("myjob", "github")
 #' }
-delete_url <- function(name, site) {
+delete_url <- function(jobname, site) {
   jobs <- job_read()
-  jb <- jobs[[name]]
+  jb <- jobs[[jobname]]
 
   if(site %in% jb$urls$site) {
 
     jb$urls <- dplyr::filter(jb$urls, site != {{site}})
-    jobs[[name]] <- jb
+    jobs[[jobname]] <- jb
     job_write(jobs)
 
 
   } else {
-    warning("Site '", site, "' is not listed in job '", name, "'", call. = FALSE)
+    warning("Site '", site, "' is not listed in job '", jobname, "'", call. = FALSE)
   }
 }

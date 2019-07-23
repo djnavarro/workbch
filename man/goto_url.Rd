@@ -4,10 +4,10 @@
 \alias{goto_url}
 \title{Navigate to a URL linked to a job}
 \usage{
-goto_url(name, site)
+goto_url(jobname, site)
 }
 \arguments{
-\item{name}{name of the job}
+\item{jobname}{name of the job}
 
 \item{site}{label denoting the site (e.g., "github")}
 }

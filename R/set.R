@@ -9,7 +9,7 @@
 #' @param team should be a vector of names/nicknames
 #' @param priority numeric
 #' @param deadline a date
-#' @param path path to the project home directory
+#' @param path path to the job home directory
 #' @param hidden hide job (default = FALSE)
 #' @export
 set_job <- function(name, description = NULL, owner = NULL, status = NULL,
@@ -161,7 +161,7 @@ set_home <- function(path = NULL) {
 
 #' Set the members of a team
 #'
-#' @param name name of project to be edited
+#' @param name name of job to be edited
 #' @param add character vector of names to add to the team
 #' @param remove character vector of names to remove from the team
 #' @details The role of \code{set_team()} is to make it a little easier to
@@ -220,7 +220,7 @@ set_team <- function(name, add = NULL, remove = NULL) {
 
 #' Set a URL associated with a job
 #'
-#' @param name name of the project to edit
+#' @param name name of the job to edit
 #' @param site string with the site nickname (e.g., "github")
 #' @param link string with the link to the site
 #' @export

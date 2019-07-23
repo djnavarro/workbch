@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Navigate to a URL linked to a job — goto_url • workbch</title>
+<title>Delete a URL from a job — delete_url • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Navigate to a URL linked to a job — goto_url" />
+<meta property="og:title" content="Delete a URL from a job — delete_url" />
 
-<meta property="og:description" content="Navigate to a URL linked to a job" />
+<meta property="og:description" content="Delete a URL from a job" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,36 +103,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Navigate to a URL linked to a job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/goto.R'><code>R/goto.R</code></a></small>
-    <div class="hidden name"><code>goto_url.Rd</code></div>
+    <h1>Delete a URL from a job</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/delete.R'><code>R/delete.R</code></a></small>
+    <div class="hidden name"><code>delete_url.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Navigate to a URL linked to a job</p>
+    <p>Delete a URL from a job</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>goto_url</span>(<span class='no'>name</span>, <span class='no'>site</span>)</pre>
+    <pre class="usage"><span class='fu'>delete_url</span>(<span class='no'>name</span>, <span class='no'>site</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>name</th>
-      <td><p>name of the job</p></td>
+      <td><p>the job from which the URL should be deleted</p></td>
     </tr>
     <tr>
       <th>site</th>
-      <td><p>label denoting the site (e.g., "github")</p></td>
+      <td><p>the name of the site to which the URL should be deleted</p></td>
     </tr>
     </table>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'>goto_url</span>(<span class='st'>"myjob"</span>, <span class='st'>"github"</span>)
+<span class='fu'>delete_url</span>(<span class='st'>"myjob"</span>, <span class='st'>"github"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

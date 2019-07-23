@@ -2,7 +2,7 @@
 % Please edit documentation in R/view.R
 \name{view_git_status}
 \alias{view_git_status}
-\title{View the git status of projects}
+\title{View the git status of jobs}
 \usage{
 view_git_status(show_hidden = FALSE, show_clean = FALSE)
 }
@@ -15,5 +15,5 @@ view_git_status(show_hidden = FALSE, show_clean = FALSE)
 A tibble
 }
 \description{
-View the git status of projects
+View the git status of jobs
 }

@@ -7,7 +7,7 @@
 goto_url(name, site)
 }
 \arguments{
-\item{name}{name of the project}
+\item{name}{name of the job}
 
 \item{site}{label denoting the site (e.g., "github")}
 }

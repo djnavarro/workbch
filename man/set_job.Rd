@@ -23,7 +23,7 @@ set_job(name, description = NULL, owner = NULL, status = NULL,
 
 \item{deadline}{a date}
 
-\item{path}{path to the project home directory}
+\item{path}{path to the job home directory}
 
 \item{hidden}{hide job (default = FALSE)}
 }

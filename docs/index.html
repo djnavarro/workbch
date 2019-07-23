@@ -80,7 +80,7 @@
 <a href="#workbch" class="anchor"></a>workbch</h1></div>
 <!-- badges: start -->
 
-<p>The goal of workbch is to provide a “work bench” of tools for project management within R. It allows the user to store and edit basic metadata associated with projects. It allows you to search, filter and navigate between projects. Prioritisation and deadlines are supported, but financial information and time spent on a project are not tracked.</p>
+<p>The goal of workbch is to provide a “work bench” of tools for project management within R, based around the concept of a “job” (which might map to a single RStudio project or a single git repository). Jobs can be linked to multiple URLs, be associated with multiple “tasks”, etc. In addition to basic tracking, searching and filtering, the package provides some tools to navigate between jobs, browse relevant websites, and check the git status of repositories linked to a job. Priority levels and deadlines are supported for both jobs and tasks, but financial information and time allocation is not.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -98,9 +98,9 @@
 <div id="example-1-getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-1-getting-started" class="anchor"></a>Example 1: Getting started</h2>
-<p>The workbch package stores information about projects in a few files stored within a directory referred to as the “workbch home”. The easiest way to set this location in a persistent way is to edit the .Rprofile file to include the following line:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">workbch.home =</span> <span class="st">"PATH_TO_PROJECT_FOLDER"</span>)</a></code></pre></div>
-<p>This ensures that whenever the workbch package is loaded it knows where to find your project information. Once this is done, you can start adding <em>jobs</em>. A “job” is intended to be much the same as a “project”, but to avoid confusion with “RStudio projects” a different term is used. Here’s how to add and view the jobs you have stored:</p>
+<p>The workbch package stores information in a few files that are stored within a directory referred to as the “workbch home”. The easiest way to set this location in a persistent way is to edit the .Rprofile file to include the following line:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">workbch.home =</span> <span class="st">"PATH_TO_FOLDER"</span>)</a></code></pre></div>
+<p>This ensures that whenever the workbch package is loaded it knows where to find information about jobs. Once this is done, you can start adding jobs! A “job” is intended to have roughly the same meaning as a “project” in everyday life (i.e., a self-contained body of work of some kind), but to avoid confusion with “RStudio projects” I’ve used a different term. Here’s how to add and view the jobs you have stored:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(workbch)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
@@ -118,7 +118,7 @@
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   name      owner   priority status deadline description                   </span></a>
 <a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                         </span></a>
 <a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; 1 workitout britney        1 active NA       sip martinis and party in Fra…</span></a></code></pre></div>
-<p>Projects can be deleted by name:</p>
+<p>Jobs can be deleted by name:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/delete_job.html">delete_job</a></span>(<span class="st">"workitout"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; # A tibble: 0 x 0</span></a></code></pre></div>
@@ -137,7 +137,7 @@
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce </span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 2 Kelly Rowland     kelly   </span></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 3 Michelle Williams michelle</span></a></code></pre></div>
-<p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for the project. When used in conjunction with nicknames, the <code><a href="reference/set_job.html">set_job()</a></code> function allows you to specify the team efficiently:</p>
+<p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for that job. When used in conjunction with nicknames, the <code><a href="reference/set_job.html">set_job()</a></code> function allows you to specify the team efficiently:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">name =</span> <span class="st">"survivor"</span>,</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">description =</span> <span class="st">"Run a survival analysis"</span>,</a>
@@ -171,7 +171,7 @@
 <div id="example-3-editing-jobs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-3-editing-jobs" class="anchor"></a>Example 3: Editing jobs</h2>
-<p>Internally, a “job” is represented as a list with the following fields</p>
+<p>Internally, a job is represented as a list with the following fields</p>
 <ul>
 <li>
 <code>name</code>: name of the project</li>
@@ -196,9 +196,10 @@
 <li>
 <code>notes</code>: a tibble specifying notes linked to the job</li>
 </ul>
-<p>When we added the “survival” job earlier, we specified some of these fields but not others. There are three functions that you can use to modify the properties of a job:</p>
+<p>When we added the “survival” job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:</p>
 <ul>
-<li><code><a href="reference/set_job.html">set_job()</a></code></li>
+<li>
+<code><a href="reference/set_job.html">set_job()</a></code> allows you to reset name, descript</li>
 <li>
 <code><a href="reference/set_team.html">set_team()</a></code> makes it easier to edit the team</li>
 <li>
@@ -240,7 +241,7 @@
 <a class="sourceLine" id="cb8-31" data-line-number="31"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt;   0 notes</span></a>
 <a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
-<p>If at this point we realise that “Danielle” should have been listed on the team (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:</p>
+<p>If at this point we realise that “Danielle” should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(<span class="st">"toxic"</span>, <span class="dt">priority =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/set_team.html">set_team</a></span>(<span class="st">"toxic"</span>, <span class="dt">add =</span> <span class="st">"danielle"</span>)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="reference/set_url.html">set_url</a></span>(<span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"github"</span>, <span class="dt">link =</span> <span class="st">"https://github.com/djnavarro/toxic"</span>)</a>
@@ -266,7 +267,7 @@
 <div id="example-4-filtering-and-prioritising" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-4-filtering-and-prioritising" class="anchor"></a>Example 4: Filtering and prioritising</h2>
-<p>After a while one can easily end up with a lot of projects, and it can be hard to find what you’re looking for (or, if you’re like me, get anxious at seeing so many things on the to-do list). For example:</p>
+<p>After a while one can easily end up with a lot of jobs, and it can be hard to find what you’re looking for (or, if you’re like me, get anxious at seeing so many things that you have to do). For example:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; # A tibble: 5 x 6</span></a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;   name        owner         priority status  deadline description          </span></a>
@@ -276,7 +277,7 @@
 <a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt; 3 survivor    Beyoncé Know…        1 inacti… NA       Run a survival analy…</span></a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; 4 hitmebaby   Britney Spea…        2 active  NA       Signal detection mod…</span></a>
 <a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; 5 boys        Lizzo                2 active  NA       Distributional assum…</span></a></code></pre></div>
-<p>A simple way to only see the high priority projects:</p>
+<p>A simple way to only see the high priority jobs:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="reference/view_priorities.html">view_priorities</a></span>()</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; # A tibble: 3 x 6</span></a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;   name         owner         priority status  deadline description         </span></a>
@@ -284,7 +285,7 @@
 <a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 1 toxic        Britney Spea…        1 active  NA       Estimate the LD50 d…</span></a>
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 2 spinspinsug… Sneaker Pimps        1 active  NA       Check for periodici…</span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 3 survivor     Beyoncé Know…        1 inacti… NA       Run a survival anal…</span></a></code></pre></div>
-<p>More generally, <code><a href="reference/view_jobs.html">view_jobs()</a></code> and <code><a href="reference/view_priorities.html">view_priorities()</a></code> both allow you to pass filtering expressions to <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to extract the subset you’re interested in. Suppose I only want to see the high priority active projects:</p>
+<p>More generally, <code><a href="reference/view_jobs.html">view_jobs()</a></code> and <code><a href="reference/view_priorities.html">view_priorities()</a></code> both allow you to pass filtering expressions to <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to extract the subset you’re interested in. Suppose I only want to see the high priority active jobs:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>(priority <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>status <span class="op">==</span><span class="st"> "active"</span>)</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;   name         owner         priority status deadline description          </span></a>
@@ -296,16 +297,16 @@
 <div id="example-5-navigation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-5-navigation" class="anchor"></a>Example 5: Navigation</h2>
-<p>To open a webpage associated with a project, it is as simple as using the <code><a href="reference/goto_url.html">goto_url()</a></code> function:</p>
+<p>To open a webpage associated with a job, it is as simple as using the <code><a href="reference/goto_url.html">goto_url()</a></code> function:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="reference/goto_url.html">goto_url</a></span>(<span class="st">"toxic"</span>, <span class="st">"github"</span>)</a></code></pre></div>
 <p>To open the corresponding RStudio project (assuming that there is an RStudio project file located in the directory specified as the project path)…</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="reference/goto_project.html">goto_project</a></span>(<span class="st">"toxic"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">goto_project</span>(<span class="st">"toxic"</span>)</a></code></pre></div>
 <p>If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function will do is use <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> to change the working directory.</p>
 </div>
 <div id="example-6-adding-viewing-and-deleting-notes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-6-adding-viewing-and-deleting-notes" class="anchor"></a>Example 6: Adding, viewing and deleting notes</h2>
-<p>Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation (that should happen within the project itself) but as a quick and dirty “notes to self” tool. You can add jobs using <code><a href="reference/set_note.html">set_note()</a></code>:</p>
+<p>Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation but as a quick and dirty “notes to self” tool. You can add jobs using <code><a href="reference/set_note.html">set_note()</a></code>:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="reference/set_note.html">set_note</a></span>(<span class="st">"toxic"</span>, <span class="st">"check if this worked"</span>)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="reference/set_note.html">set_note</a></span>(<span class="st">"toxic"</span>, <span class="st">"i wonder if i should circulate this later"</span>)</a></code></pre></div>
 <p>You can view the notes linked to a job with <code><a href="reference/view_notes.html">view_notes()</a></code>:</p>

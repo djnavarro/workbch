@@ -16,10 +16,14 @@ coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)
 <!-- badges: end -->
 
 The goal of workbch is to provide a “work bench” of tools for project
-management within R. It allows the user to store and edit basic metadata
-associated with projects. It allows you to search, filter and navigate
-between projects. Prioritisation and deadlines are supported, but
-financial information and time spent on a project are not tracked.
+management within R, based around the concept of a “job” (which might
+map to a single RStudio project or a single git repository). Jobs can be
+linked to multiple URLs, be associated with multiple “tasks”, etc. In
+addition to basic tracking, searching and filtering, the package
+provides some tools to navigate between jobs, browse relevant websites,
+and check the git status of repositories linked to a job. Priority
+levels and deadlines are supported for both jobs and tasks, but
+financial information and time allocation is not.
 
 ## Installation
 
@@ -40,20 +44,21 @@ The package is built from four families of functions:
 
 ## Example 1: Getting started
 
-The workbch package stores information about projects in a few files
-stored within a directory referred to as the “workbch home”. The easiest
-way to set this location in a persistent way is to edit the .Rprofile
-file to include the following line:
+The workbch package stores information in a few files that are stored
+within a directory referred to as the “workbch home”. The easiest way to
+set this location in a persistent way is to edit the .Rprofile file to
+include the following line:
 
 ``` r
-options(workbch.home = "PATH_TO_PROJECT_FOLDER")
+options(workbch.home = "PATH_TO_FOLDER")
 ```
 
 This ensures that whenever the workbch package is loaded it knows where
-to find your project information. Once this is done, you can start
-adding *jobs*. A “job” is intended to be much the same as a “project”,
-but to avoid confusion with “RStudio projects” a different term is used.
-Here’s how to add and view the jobs you have stored:
+to find information about jobs. Once this is done, you can start adding
+jobs\! A “job” is intended to have roughly the same meaning as a
+“project” in everyday life (i.e., a self-contained body of work of
+some kind), but to avoid confusion with “RStudio projects” I’ve used a
+different term. Here’s how to add and view the jobs you have stored:
 
 ``` r
 library(workbch)
@@ -75,7 +80,7 @@ view_jobs()
 #> 1 workitout britney        1 active NA       sip martinis and party in Fra…
 ```
 
-Projects can be deleted by name:
+Jobs can be deleted by name:
 
 ``` r
 delete_job("workitout")
@@ -103,7 +108,7 @@ view_people()
 ```
 
 Jobs can consist of multiple people on a *team* but the job must have a
-single *owner*, a named team member who is responsible for the project.
+single *owner*, a named team member who is responsible for that job.
 When used in conjunction with nicknames, the `set_job()` function allows
 you to specify the team efficiently:
 
@@ -148,7 +153,7 @@ view_job("survivor")
 
 ## Example 3: Editing jobs
 
-Internally, a “job” is represented as a list with the following fields
+Internally, a job is represented as a list with the following fields
 
   - `name`: name of the project
   - `description`: brief description of the project
@@ -164,10 +169,10 @@ Internally, a “job” is represented as a list with the following fields
   - `notes`: a tibble specifying notes linked to the job
 
 When we added the “survival” job earlier, we specified some of these
-fields but not others. There are three functions that you can use to
+fields but not others. There are a numver of functions you can use to
 modify the properties of a job:
 
-  - `set_job()`
+  - `set_job()` allows you to reset name, descript
   - `set_team()` makes it easier to edit the team
   - `set_url()` makes it easier to edit a webpage associated with a job
   - `set_note()`
@@ -212,8 +217,8 @@ view_job("toxic")
 ```
 
 If at this point we realise that “Danielle” should have been listed on
-the team (yeah, right) and the priority should have been set at 1, we
-can edit the job. Similarly, if we want to add some URLS:
+the team for toxic (yeah, right) and the priority should have been set
+at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
 set_job("toxic", priority = 1)
@@ -241,9 +246,9 @@ view_job("toxic")
 
 ## Example 4: Filtering and prioritising
 
-After a while one can easily end up with a lot of projects, and it can
-be hard to find what you’re looking for (or, if you’re like me, get
-anxious at seeing so many things on the to-do list). For example:
+After a while one can easily end up with a lot of jobs, and it can be
+hard to find what you’re looking for (or, if you’re like me, get anxious
+at seeing so many things that you have to do). For example:
 
 ``` r
 view_jobs()
@@ -257,7 +262,7 @@ view_jobs()
 #> 5 boys        Lizzo                2 active  NA       Distributional assum…
 ```
 
-A simple way to only see the high priority projects:
+A simple way to only see the high priority jobs:
 
 ``` r
 view_priorities()
@@ -272,7 +277,7 @@ view_priorities()
 More generally, `view_jobs()` and `view_priorities()` both allow you to
 pass filtering expressions to `dplyr::filter()` to extract the subset
 you’re interested in. Suppose I only want to see the high priority
-active projects:
+active jobs:
 
 ``` r
 view_jobs(priority == 1 & status == "active")
@@ -288,8 +293,8 @@ avoid having to type `view_jobs(priority == 1)` on a regular basis.
 
 ## Example 5: Navigation
 
-To open a webpage associated with a project, it is as simple as using
-the `goto_url()` function:
+To open a webpage associated with a job, it is as simple as using the
+`goto_url()` function:
 
 ``` r
 goto_url("toxic", "github")
@@ -310,9 +315,8 @@ will do is use `setwd()` to change the working directory.
 ## Example 6: Adding, viewing and deleting notes
 
 Often it is handy to add small annotations to a job. The intent here is
-not to use this as a substitute for proper documentation (that should
-happen within the project itself) but as a quick and dirty “notes to
-self” tool. You can add jobs using `set_note()`:
+not to use this as a substitute for proper documentation but as a quick
+and dirty “notes to self” tool. You can add jobs using `set_note()`:
 
 ``` r
 set_note("toxic", "check if this worked")

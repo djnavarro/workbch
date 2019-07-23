@@ -92,7 +92,7 @@ view_job <- function(name) {
 #' delete notes later) and the text of each note. Notes are shown in
 #' chronological order, with most recent notes at the top of the output
 #' @return Invisibly returns a tibble containing columns for the note,
-#' the id number, the creation date, and the project name
+#' the id number, the creation date, and the job name
 #' @export
 #'
 #' @examples
@@ -116,13 +116,13 @@ view_notes <- function(name) {
 }
 
 
-#' View the project folder locations known to workbch
+#' View the job folder locations known to workbch
 #'
 #' @param show_hidden should hidden jobs be included
 #'
 #' @return A tibble
 #' @export
-view_projects <- function(show_hidden = FALSE) {
+view_paths <- function(show_hidden = FALSE) {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     if(!is.null(x$path)) {
@@ -159,7 +159,7 @@ view_job_names <- function(show_hidden = FALSE) {
 }
 
 
-#' View the git status of projects
+#' View the git status of jobs
 #'
 #' @param show_hidden should hidden jobs be included?
 #' @param show_clean should clean repos be included?
@@ -168,8 +168,8 @@ view_job_names <- function(show_hidden = FALSE) {
 #' @export
 view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 
-  # get the project locations
-  proj <- view_projects(show_hidden = show_hidden)
+  # get the job locations
+  proj <- view_jobs(show_hidden = show_hidden)
   x <- list()
 
   for(i in 1:nrow(proj)) {

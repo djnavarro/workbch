@@ -7,7 +7,7 @@
 set_url(name, site, link)
 }
 \arguments{
-\item{name}{name of the project to edit}
+\item{name}{name of the job to edit}
 
 \item{site}{string with the site nickname (e.g., "github")}
 

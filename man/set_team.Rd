@@ -7,7 +7,7 @@
 set_team(name, add = NULL, remove = NULL)
 }
 \arguments{
-\item{name}{name of project to be edited}
+\item{name}{name of job to be edited}
 
 \item{add}{character vector of names to add to the team}
 

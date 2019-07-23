@@ -1,15 +1,15 @@
 # defines the "goto" family of functions
 
-#' Navigate to the RStudio project linked with a job
+#' Navigate to a job
 #'
 #' @param name name of job to open
 #' @export
 #' @examples
 #' \dontrun{
 #'
-#' goto_project("myjob")
+#' goto_job("myjob")
 #' }
-goto_project <- function(name) {
+goto_job <- function(name) {
   jobs <- job_read()
 
   use_rstdio <- FALSE
@@ -34,7 +34,7 @@ goto_project <- function(name) {
 
 #' Navigate to a URL linked to a job
 #'
-#' @param name name of the project
+#' @param name name of the job
 #' @param site label denoting the site (e.g., "github")
 #' @export
 #' @examples

@@ -11,7 +11,7 @@ view_notes(name)
 }
 \value{
 Invisibly returns a tibble containing columns for the note,
-the id number, the creation date, and the project name
+the id number, the creation date, and the job name
 }
 \description{
 View notes associated with a job

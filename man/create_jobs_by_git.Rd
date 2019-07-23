@@ -4,12 +4,25 @@
 \alias{create_jobs_by_git}
 \title{Create in bulk by searching for git repos}
 \usage{
-create_jobs_by_git(proj_dir, workbch_dir = getOption("workbch.home"))
+create_jobs_by_git(dir, owner, status = "active", priority = 1,
+  deadline = NA, hidden = FALSE)
 }
 \arguments{
-\item{proj_dir}{where to look for git repositories}
+\item{dir}{where to look for git repositories}
 
-\item{workbch_dir}{where to store workbench files}
+\item{owner}{the owner for created jobs (a nick name)}
+
+\item{status}{the status for created jobs}
+
+\item{priority}{the priority of created jobs}
+
+\item{deadline}{the deadline of created jobs}
+
+\item{hidden}{the visibility of created jobs
+
+\dontrun{
+create_jobs_by_git(dir = "~/my_projects", owner = "me")
+}}
 }
 \description{
 Create in bulk by searching for git repos

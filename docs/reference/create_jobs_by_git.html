@@ -114,18 +114,36 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>create_jobs_by_git</span>(<span class='no'>proj_dir</span>, <span class='kw'>workbch_dir</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"workbch.home"</span>))</pre>
+    <pre class="usage"><span class='fu'>create_jobs_by_git</span>(<span class='no'>dir</span>, <span class='no'>owner</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='st'>"active"</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>hidden</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>proj_dir</th>
+      <th>dir</th>
       <td><p>where to look for git repositories</p></td>
     </tr>
     <tr>
-      <th>workbch_dir</th>
-      <td><p>where to store workbench files</p></td>
+      <th>owner</th>
+      <td><p>the owner for created jobs (a nick name)</p></td>
+    </tr>
+    <tr>
+      <th>status</th>
+      <td><p>the status for created jobs</p></td>
+    </tr>
+    <tr>
+      <th>priority</th>
+      <td><p>the priority of created jobs</p></td>
+    </tr>
+    <tr>
+      <th>deadline</th>
+      <td><p>the deadline of created jobs</p></td>
+    </tr>
+    <tr>
+      <th>hidden</th>
+      <td><p>the visibility of created jobs</p>
+<p>create_jobs_by_git(dir = "~/my_projects", owner = "me")</p></td>
     </tr>
     </table>
     

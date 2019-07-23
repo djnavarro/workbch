@@ -83,7 +83,7 @@ create_jobs_by_git <- function(proj_dir, workbch_dir = getOption("workbch.home")
   job_names <- gsub("^.*[/\\]", "", paths)
 
   # create minimal person listing
-  set_person("me", "me")
+  set_person(fullname = "myself", nickname = "me")
 
   # now create
   purrr::walk2(

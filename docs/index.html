@@ -84,7 +84,7 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>The workbch package has not been released on CRAN. However you can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
+<p>The workbch package has not been released on CRAN. You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"djnavarro/workbch"</span>)</a></code></pre></div>
 <p>The package is built from four families of functions:</p>
@@ -128,15 +128,21 @@
 <a href="#example-2-people-owners-and-teams" class="anchor"></a>Example 2: People, owners and teams</h2>
 <p>The workbch package stores a data base of names and nicknames, so you can specify a person using their nickname instead of needing to type the full name:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Beyoncé Knowles"</span>, <span class="st">"beyonce"</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Kelly Rowland"</span>, <span class="st">"kelly"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Michelle Williams"</span>, <span class="st">"michelle"</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="reference/view_people.html">view_people</a></span>()</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;   fullname          nickname</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 2 Kelly Rowland     kelly   </span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 3 Michelle Williams michelle</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; added 'Beyoncé Knowles' with nickname 'beyonce'</span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Kelly Rowland"</span>, <span class="st">"kelly"</span>)</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; added 'Kelly Rowland' with nickname 'kelly'</span></a>
+<a class="sourceLine" id="cb5-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Michelle Williams"</span>, <span class="st">"michelle"</span>)</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; added 'Michelle Williams' with nickname 'michelle'</span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw"><a href="reference/view_people.html">view_people</a></span>()</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   fullname          nickname</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   </span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 2 Kelly Rowland     kelly   </span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 3 Michelle Williams michelle</span></a></code></pre></div>
 <p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for that job. When used in conjunction with nicknames, the <code><a href="reference/set_job.html">set_job()</a></code> function allows you to specify the team efficiently:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">jobname =</span> <span class="st">"survivor"</span>,</a>
@@ -209,38 +215,40 @@
 </ul>
 <p>To illustrate, suppose we create a new job, called “toxic”:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Britney Spears"</span>, <span class="st">"britney"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Danielle Navarro"</span>, <span class="st">"danielle"</span>)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  <span class="dt">jobname =</span> <span class="st">"toxic"</span>,</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="dt">description =</span> <span class="st">"Estimate the LD50 dose"</span>,</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">owner =</span> <span class="st">"britney"</span>,</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">  <span class="dt">priority =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="dt">status =</span> <span class="st">"active"</span>,</a>
-<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="dt">path =</span> <span class="st">"~/projects/toxic"</span></a>
-<a class="sourceLine" id="cb8-11" data-line-number="11">)</a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;   jobname  owner           priority status  deadline description           </span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;                 </span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt; 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…</span></a>
-<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt; 2 toxic    Britney Spears         2 active  NA       Estimate the LD50 dose</span></a>
-<a class="sourceLine" id="cb8-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="kw"><a href="reference/view_job.html">view_job</a></span>(<span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb8-21" data-line-number="21"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="co">#&gt; toxic : Estimate the LD50 dose </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; added 'Britney Spears' with nickname 'britney'</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Danielle Navarro"</span>, <span class="st">"danielle"</span>)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; added 'Danielle Navarro' with nickname 'danielle'</span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
+<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"toxic"</span>,</a>
+<a class="sourceLine" id="cb8-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"Estimate the LD50 dose"</span>,</a>
+<a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"britney"</span>,</a>
+<a class="sourceLine" id="cb8-10" data-line-number="10">  <span class="dt">priority =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">  <span class="dt">status =</span> <span class="st">"active"</span>,</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">  <span class="dt">path =</span> <span class="st">"~/projects/toxic"</span></a>
+<a class="sourceLine" id="cb8-13" data-line-number="13">)</a>
+<a class="sourceLine" id="cb8-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
+<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt; # A tibble: 2 x 6</span></a>
+<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;   jobname  owner           priority status  deadline description           </span></a>
+<a class="sourceLine" id="cb8-18" data-line-number="18"><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;   &lt;lgl&gt;    &lt;chr&gt;                 </span></a>
+<a class="sourceLine" id="cb8-19" data-line-number="19"><span class="co">#&gt; 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…</span></a>
+<a class="sourceLine" id="cb8-20" data-line-number="20"><span class="co">#&gt; 2 toxic    Britney Spears         2 active  NA       Estimate the LD50 dose</span></a>
+<a class="sourceLine" id="cb8-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb8-22" data-line-number="22"><span class="kw"><a href="reference/view_job.html">view_job</a></span>(<span class="st">"toxic"</span>)</a>
 <a class="sourceLine" id="cb8-23" data-line-number="23"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt;   owner    : Britney Spears </span></a>
-<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt;   team     : Britney Spears </span></a>
-<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt;   priority : 2 </span></a>
-<a class="sourceLine" id="cb8-27" data-line-number="27"><span class="co">#&gt;   status   : active </span></a>
-<a class="sourceLine" id="cb8-28" data-line-number="28"><span class="co">#&gt;   deadline : none </span></a>
-<a class="sourceLine" id="cb8-29" data-line-number="29"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-30" data-line-number="30"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
+<a class="sourceLine" id="cb8-24" data-line-number="24"><span class="co">#&gt; toxic : Estimate the LD50 dose </span></a>
+<a class="sourceLine" id="cb8-25" data-line-number="25"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-26" data-line-number="26"><span class="co">#&gt;   owner    : Britney Spears </span></a>
+<a class="sourceLine" id="cb8-27" data-line-number="27"><span class="co">#&gt;   team     : Britney Spears </span></a>
+<a class="sourceLine" id="cb8-28" data-line-number="28"><span class="co">#&gt;   priority : 2 </span></a>
+<a class="sourceLine" id="cb8-29" data-line-number="29"><span class="co">#&gt;   status   : active </span></a>
+<a class="sourceLine" id="cb8-30" data-line-number="30"><span class="co">#&gt;   deadline : none </span></a>
 <a class="sourceLine" id="cb8-31" data-line-number="31"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt;   0 notes</span></a>
-<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
+<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co">#&gt;   0 notes</span></a>
+<a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 <p>If at this point we realise that “Danielle” should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(<span class="st">"toxic"</span>, <span class="dt">priority =</span> <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/set_team.html">set_team</a></span>(<span class="st">"toxic"</span>, <span class="dt">add =</span> <span class="st">"danielle"</span>)</a>

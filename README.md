@@ -27,8 +27,8 @@ financial information and time allocation is not.
 
 ## Installation
 
-The workbch package has not been released on CRAN. However you can
-install the development version from [GitHub](https://github.com/) with:
+The workbch package has not been released on CRAN. You can install the
+development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
@@ -96,8 +96,14 @@ full name:
 
 ``` r
 set_person("Beyoncé Knowles", "beyonce")
+#> added 'Beyoncé Knowles' with nickname 'beyonce'
+
 set_person("Kelly Rowland", "kelly")
+#> added 'Kelly Rowland' with nickname 'kelly'
+
 set_person("Michelle Williams", "michelle")
+#> added 'Michelle Williams' with nickname 'michelle'
+
 view_people()
 #> # A tibble: 3 x 2
 #>   fullname          nickname
@@ -182,7 +188,9 @@ To illustrate, suppose we create a new job, called “toxic”:
 
 ``` r
 set_person("Britney Spears", "britney")
+#> added 'Britney Spears' with nickname 'britney'
 set_person("Danielle Navarro", "danielle")
+#> added 'Danielle Navarro' with nickname 'danielle'
 
 set_job(
   jobname = "toxic",

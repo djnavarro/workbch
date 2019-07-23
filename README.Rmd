@@ -32,7 +32,7 @@ but financial information and time allocation is not.
 
 ## Installation
 
-The workbch package has not been released on CRAN. However you can install the
+The workbch package has not been released on CRAN. You can install the
 development version from [GitHub](https://github.com/) with:
 
 ``` r
@@ -91,8 +91,11 @@ The workbch package stores a data base of names and nicknames, so you can specif
 
 ```{r managepeople}
 set_person("Beyoncé Knowles", "beyonce")
+
 set_person("Kelly Rowland", "kelly")
+
 set_person("Michelle Williams", "michelle")
+
 view_people()
 ```
 

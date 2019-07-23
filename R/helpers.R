@@ -103,10 +103,18 @@ real_name <- function(nickname) {
   # search for the name
   fullname <- character(length(nickname))
   for(i in 1:length(nickname)) {
+
+    # if it's a known nickname, substitute the full
     if(nickname[i] %in% ppl$nickname) {
       fullname[i] <- ppl$fullname[ppl$nickname == nickname[i]]
+
     } else {
-      warning("'", nickname[i], "' is not a known nickname", call. = FALSE)
+      if(nickname[i] %in% ppl$fullname) {
+        nn <- ppl$nickname[ppl$fullname == nickname[i]]
+        warning("'", nickname[i], "' has a known nick name '", nn, "'", call. = FALSE)
+      } else{
+        warning("'", nickname[i], "' is not a known nick name", call. = FALSE)
+      }
     }
   }
   return(fullname)

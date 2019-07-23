@@ -42,7 +42,8 @@ remotes::install_github("djnavarro/workbch")
 
 The package is built from four families of functions:
 
-- the `set_*` functions create and edit jobs, tasks, etc. 
+- the `create_*` functions create jobs
+- the `set_*` functions edit jobs, tasks, etc. 
 - the `view_*` functions display information about jobs
 - the `goto_*` functions navigate to projects and webpages
 - the `delete_*` functions delete jobs, tasks, etc.
@@ -69,7 +70,7 @@ library(workbch)
 
 view_jobs()
 
-set_job(
+create_job(
   jobname = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
@@ -102,7 +103,7 @@ view_people()
 Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for that job. When used in conjunction with nicknames, the `set_job()` function allows you to specify the team efficiently:
 
 ```{r addbynickmame}
-set_job(
+create_job(
   jobname = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
@@ -139,11 +140,12 @@ Internally, a job is represented as a list with the following fields
 
 When we added the "survival" job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:
 
-- `set_job()` allows you to reset name, descript 
+- `set_jobname()` allows you to reset name, 
 - `set_team()` makes it easier to edit the team
 - `set_url()` makes it easier to edit a webpage associated with a job
 - `set_note()`
 - `set_task()`
+- etc
 
 To illustrate, suppose we create a new job, called "toxic":
 
@@ -151,7 +153,7 @@ To illustrate, suppose we create a new job, called "toxic":
 set_person("Britney Spears", "britney")
 set_person("Danielle Navarro", "danielle")
 
-set_job(
+create_job(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",
@@ -168,7 +170,7 @@ view_job("toxic")
 If at this point we realise that "Danielle" should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ```{r editteam}
-set_job("toxic", priority = 1)
+set_priority("toxic", 1)
 set_team("toxic", add = "danielle")
 set_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 set_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
@@ -184,9 +186,9 @@ After a while one can easily end up with a lot of jobs, and it can be hard to fi
 ```{r include=FALSE}
 set_person("Sneaker Pimps", "sneaker")
 set_person("Lizzo", "lizzo")
-set_job("hitmebaby", "Signal detection modelling", "britney", priority = 2)
-set_job("spinspinsugar", "Check for periodicities", "sneaker", priority = 1)
-set_job("boys", "Distributional assumptions", "lizzo", priority = 2)
+create_job("hitmebaby", "Signal detection modelling", "britney", priority = 2)
+create_job("spinspinsugar", "Check for periodicities", "sneaker", priority = 1)
+create_job("boys", "Distributional assumptions", "lizzo", priority = 2)
 ```
 ```{r busystate}
 view_jobs()

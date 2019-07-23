@@ -68,7 +68,7 @@ create_job <- function(jobname, description, owner, status = NULL,
 #' @param workbch_dir where to store workbench files
 #'
 #' @export
-create_by_git <- function(proj_dir, workbch_dir = getOption("workbch.home")) {
+create_jobs_by_git <- function(proj_dir, workbch_dir = getOption("workbch.home")) {
 
   # ensure that we have set the workbench home directory
   set_home(workbch_dir)
@@ -91,7 +91,7 @@ create_by_git <- function(proj_dir, workbch_dir = getOption("workbch.home")) {
     .y = job_names,
     .f = function(.x, .y) {
       cat("adding: ", .x, "\n")
-      set_job(
+      create_job(
         jobname = .y,
         description = .y,
         owner = "me",

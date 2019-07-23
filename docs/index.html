@@ -89,7 +89,8 @@
 <a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"djnavarro/workbch"</span>)</a></code></pre></div>
 <p>The package is built from four families of functions:</p>
 <ul>
-<li>the <code>set_*</code> functions create and edit jobs, tasks, etc.</li>
+<li>the <code>create_*</code> functions create jobs</li>
+<li>the <code>set_*</code> functions edit jobs, tasks, etc.</li>
 <li>the <code>view_*</code> functions display information about jobs</li>
 <li>the <code>goto_*</code> functions navigate to projects and webpages</li>
 <li>the <code>delete_*</code> functions delete jobs, tasks, etc.</li>
@@ -106,7 +107,7 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 0 x 0</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/create_job.html">create_job</a></span>(</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"workitout"</span>, </a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"sip martinis and party in France"</span>, </a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"britney"</span></a>
@@ -143,8 +144,8 @@
 <a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce </span></a>
 <a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 2 Kelly Rowland     kelly   </span></a>
 <a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 3 Michelle Williams michelle</span></a></code></pre></div>
-<p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for that job. When used in conjunction with nicknames, the <code><a href="reference/set_job.html">set_job()</a></code> function allows you to specify the team efficiently:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
+<p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for that job. When used in conjunction with nicknames, the <code>set_job()</code> function allows you to specify the team efficiently:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/create_job.html">create_job</a></span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">jobname =</span> <span class="st">"survivor"</span>,</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3">  <span class="dt">description =</span> <span class="st">"Run a survival analysis"</span>,</a>
 <a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="dt">owner =</span> <span class="st">"beyonce"</span>,</a>
@@ -205,13 +206,14 @@
 <p>When we added the “survival” job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:</p>
 <ul>
 <li>
-<code><a href="reference/set_job.html">set_job()</a></code> allows you to reset name, descript</li>
+<code><a href="reference/set_jobname.html">set_jobname()</a></code> allows you to reset name,</li>
 <li>
 <code><a href="reference/set_team.html">set_team()</a></code> makes it easier to edit the team</li>
 <li>
 <code><a href="reference/set_url.html">set_url()</a></code> makes it easier to edit a webpage associated with a job</li>
 <li><code><a href="reference/set_note.html">set_note()</a></code></li>
 <li><code><a href="reference/set_task.html">set_task()</a></code></li>
+<li>etc</li>
 </ul>
 <p>To illustrate, suppose we create a new job, called “toxic”:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Britney Spears"</span>, <span class="st">"britney"</span>)</a>
@@ -219,7 +221,7 @@
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw"><a href="reference/set_person.html">set_person</a></span>(<span class="st">"Danielle Navarro"</span>, <span class="st">"danielle"</span>)</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; added 'Danielle Navarro' with nickname 'danielle'</span></a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(</a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="kw"><a href="reference/create_job.html">create_job</a></span>(</a>
 <a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"toxic"</span>,</a>
 <a class="sourceLine" id="cb8-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"Estimate the LD50 dose"</span>,</a>
 <a class="sourceLine" id="cb8-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"britney"</span>,</a>
@@ -250,7 +252,7 @@
 <a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co">#&gt;   0 notes</span></a>
 <a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 <p>If at this point we realise that “Danielle” should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_job.html">set_job</a></span>(<span class="st">"toxic"</span>, <span class="dt">priority =</span> <span class="dv">1</span>)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_priority.html">set_priority</a></span>(<span class="st">"toxic"</span>, <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/set_team.html">set_team</a></span>(<span class="st">"toxic"</span>, <span class="dt">add =</span> <span class="st">"danielle"</span>)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="reference/set_url.html">set_url</a></span>(<span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"github"</span>, <span class="dt">link =</span> <span class="st">"https://github.com/djnavarro/toxic"</span>)</a>
 <a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="reference/set_url.html">set_url</a></span>(<span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"genius"</span>, <span class="dt">link =</span> <span class="st">"https://genius.com/Britney-spears-toxic-lyrics"</span>)</a>

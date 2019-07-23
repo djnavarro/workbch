@@ -137,14 +137,14 @@
 
     <p>The role of <code>set_team()</code> is to make it a little easier to
 alter the set of names listed in the "team" field of a job. The same task
-could be done with <code><a href='set_job.html'>set_job()</a></code> but it is cumbersome to do so. The
+could be done with <code>set_job()</code> but it is cumbersome to do so. The
 function first appends any names in <code>add</code> to the team (ignoring
 duplicates), and then removes any names listed in <code>remove</code>. The function
 checks all elements of <code>add</code> and <code>remove</code> against the table of
 known nicknames, and substitutes the full name in place of a nickname.
 Note that it is not possible to remove the "owner" of a job using this
 method, as this would leave the job without an owner. To remove the owner,
-first use <code><a href='set_job.html'>set_job()</a></code> to change the owner, and then use
+first use <code>set_job()</code> to change the owner, and then use
 <code>set_team()</code> to remove the former owner from the team.</p>
     
 
@@ -155,7 +155,7 @@ first use <code><a href='set_job.html'>set_job()</a></code> to change the owner,
 <span class='fu'>set_team</span>(<span class='st'>"myjob"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"hayley"</span>, <span class='st'>"sarah"</span>))
 
 <span class='co'># if "hayley" is the current owner"</span>
-<span class='fu'><a href='set_job.html'>set_job</a></span>(<span class='st'>"myjob"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"sarah"</span>) <span class='co'># transfers the ownership to sarah</span>
+<span class='fu'>set_job</span>(<span class='st'>"myjob"</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>"sarah"</span>) <span class='co'># transfers the ownership to sarah</span>
 <span class='fu'>set_team</span>(<span class='st'>"myjob"</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='st'>"hayley"</span>) <span class='co'># removes hayley entirely</span>
 <span class='co'># }</span></pre>
   </div>

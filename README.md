@@ -37,7 +37,8 @@ remotes::install_github("djnavarro/workbch")
 
 The package is built from four families of functions:
 
-  - the `set_*` functions create and edit jobs, tasks, etc.
+  - the `create_*` functions create jobs
+  - the `set_*` functions edit jobs, tasks, etc.
   - the `view_*` functions display information about jobs
   - the `goto_*` functions navigate to projects and webpages
   - the `delete_*` functions delete jobs, tasks, etc.
@@ -66,12 +67,12 @@ library(workbch)
 view_jobs()
 #> # A tibble: 0 x 0
 
-set_job(
+create_job(
   jobname = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
 )
-#> Warning: 'britney' is not a known nickname
+#> Warning: 'britney' is not a known nick name
 
 view_jobs()
 #> # A tibble: 1 x 6
@@ -119,7 +120,7 @@ When used in conjunction with nicknames, the `set_job()` function allows
 you to specify the team efficiently:
 
 ``` r
-set_job(
+create_job(
   jobname = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
@@ -178,11 +179,12 @@ When we added the “survival” job earlier, we specified some of these
 fields but not others. There are a numver of functions you can use to
 modify the properties of a job:
 
-  - `set_job()` allows you to reset name, descript
+  - `set_jobname()` allows you to reset name,
   - `set_team()` makes it easier to edit the team
   - `set_url()` makes it easier to edit a webpage associated with a job
   - `set_note()`
   - `set_task()`
+  - etc
 
 To illustrate, suppose we create a new job, called “toxic”:
 
@@ -192,7 +194,7 @@ set_person("Britney Spears", "britney")
 set_person("Danielle Navarro", "danielle")
 #> added 'Danielle Navarro' with nickname 'danielle'
 
-set_job(
+create_job(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",
@@ -229,7 +231,7 @@ the team for toxic (yeah, right) and the priority should have been set
 at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
-set_job("toxic", priority = 1)
+set_priority("toxic", 1)
 set_team("toxic", add = "danielle")
 set_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 set_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")

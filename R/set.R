@@ -1,87 +1,166 @@
 # defines the "set" family of functions
 
-#' Set a new job, or modify an existing one
+#' Sets the name of a job
 #'
-#' @param jobname name of the job to create
-#' @param description brief description of the job
-#' @param status should be "active", "inactive", "complete", "abandoned"
-#' @param owner should be a name or a nickname
-#' @param team should be a vector of names/nicknames
-#' @param priority numeric
-#' @param deadline a date
-#' @param path path to the job home directory
-#' @param hidden hide job (default = FALSE)
+#' @param from the current name for the job
+#' @param to the new name for the job
+#'
 #' @export
-set_job <- function(jobname, description = NULL, owner = NULL, status = NULL,
-                    team = NULL, priority = NULL, deadline = NULL,
-                    path = NULL, hidden = NULL) {
+set_jobname <- function(from, to) {
 
-  # read jobs file and check the names of the jobs
   jobs <- job_read()
-  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
 
-  # if it doesn't exist, create the job
-  if(!(jobname %in% job_names)) {
+  # check that the job you want to change actually exists
+  verify_jobname(from, jobs)
 
-    # check for mandatory fields
-    if(is.null("description")) {
-      stop("new jobs must have a description", call. = FALSE)
-    }
-    if(is.null("owner")) {
-      stop("new jobs must have an owner", call. = FALSE)
-    }
-
-    # specify the defaults for other fields
-    if(is.null(status)) {status <- "active"}
-    if(is.null(team)) {team <- character(0)}
-    if(is.null(priority)) {priority <- 1}
-    if(is.null(deadline)) {deadline <- NA_character_}
-    if(is.null(path)) {path <- NA_character_}
-    if(is.null(hidden)) {hidden <- FALSE}
-
-    # parse the names and make sure the owner is on the team
-    owner <- real_name(owner)
-    team <- real_name(team)
-    if(!(owner %in% team)) {
-      team <- c(owner, team)
-    }
-
-    # append the new job
-    jobs[[jobname]] <- new_job(
-      jobname = jobname,
-      description = description,
-      owner = owner,
-      status = status,
-      team = team,
-      priority = priority,
-      deadline = deadline,
-      path = path,
-      urls = empty_url(),
-      notes = empty_note(),
-      tasks = empty_task(),
-      hidden = hidden
-    )
-
-  } else {
-
-    job <- jobs[[jobname]]
-
-    # edit fields per user specification
-    if(!is.null(owner)) {job$owner <- real_name(owner)}
-    if(!is.null(team)) {job$team <- real_name(team)}
-    if(!is.null(status)) {job$status <- status}
-    if(!is.null(priority)) {job$priority <- priority}
-    if(!is.null(deadline)) {job$deadline <- deadline}
-    if(!is.null(path)) {job$path <- path}
-    if(!is.null(hidden)) {job$hidden <- hidden}
-
-    # ensure that the edits produce a valid job state
-    jobs[[jobname]] <- validate_job(job)
-
+  # don't let the user overwrite an existing job
+  if(to %in% job_names) {
+    stop("job '", to, "' already exists", call. = FALSE)
   }
+
+  # rename the list entry itself
+  job_names <- names(jobs)
+  ind <- which(job_names == from)
+  names(jobs)[ind] <- to
+
+  # rename within the field
+  jobs[[to]]$jobname <- to
 
   # write the file and return
   job_write(jobs)
+}
+
+
+#' Sets the description of a job
+#'
+#' @param jobname Name of the job
+#' @param description String specifying the description
+#'
+#' @export
+set_description <- function(jobname, description) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # write new value
+  jobs[[jobname]]$description <- description
+  job_write(jobs)
+
+}
+
+
+#' Sets the status of a job
+#'
+#' @param jobname Name of the job
+#' @param status The new status
+#' @export
+set_status <- function(jobname, status) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # write new value
+  jobs[[jobname]]$status <- status
+  job_write(jobs)
+
+
+}
+
+#' Sets the owner of a job
+#'
+#' @param jobname Name of the job
+#' @param owner Nick name for the new owner
+#' @export
+set_owner <- function(jobname, owner) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # set new owner
+  jb <- jobs[[jobname]]
+  jb$owner <- real_name(owner)
+
+  # add new owner to team if needed
+  if(!(jb$owner %in% jb$team)) {
+    jb$team <- c(jb$owner, jb$team)
+  }
+
+  # write new values
+  jobs[[jobname]] <- jb
+  job_write(jobs)
+
+}
+
+#' Sets the priority of a job
+#'
+#' @param jobname Name of the job
+#' @param priority The new priority
+#' @export
+set_priority <- function(jobname, priority) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # write new value
+  jobs[[jobname]]$priority <- priority
+  job_write(jobs)
+
+}
+
+#' Sets the deadline for a job
+#'
+#' @param jobname Name of the job
+#' @param deadline The new deadline
+#' @export
+set_deadline <- function(jobname, deadline) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # write new value
+  jobs[[jobname]]$deadline <- deadline
+  job_write(jobs)
+
+
+}
+
+#' Sets the path of a job
+#'
+#' @param jobname Name of the job
+#' @param path The path to the job folder
+#' @export
+set_path <- function(jobname, path) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # write new value
+  jobs[[jobname]]$path <- path
+  job_write(jobs)
+
+}
+
+#' Sets the visibility of a job
+#'
+#' @param jobname Name of the job
+#' @param hidden Logical
+#' @export
+set_hidden <- function(jobname, hidden) {
+
+  # read the jobs & verify the name
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+
+  # write new value
+  jobs[[jobname]]$hidden <- hidden
+  job_write(jobs)
+
 }
 
 

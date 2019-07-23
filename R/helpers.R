@@ -150,3 +150,10 @@ verify_jobname <- function(jobname, jobs) {
   }
   return(invisible(NULL))
 }
+
+# get the default person - currently it's just the first person (TODO make this better)
+default_person <- function() {
+  ppl <- ppl_read()
+  def <- ppl$fullname[1]
+  return(def)
+}

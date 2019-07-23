@@ -169,7 +169,7 @@ view_jobnames <- function(show_hidden = FALSE) {
 view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 
   # get the job locations
-  proj <- view_jobs(show_hidden = show_hidden)
+  proj <- view_paths(show_hidden = show_hidden)
   x <- list()
 
   for(i in 1:nrow(proj)) {

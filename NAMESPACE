@@ -2,8 +2,11 @@
 
 export(delete_job)
 export(delete_note)
+export(delete_task)
+export(delete_url)
 export(goto_project)
 export(goto_url)
+export(initialise_by_git)
 export(set_home)
 export(set_job)
 export(set_note)

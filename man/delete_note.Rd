@@ -17,6 +17,6 @@ Delete a note from a job
 \examples{
 \dontrun{
 
-job_delete_note("myjob", 2)
+delete_note("myjob", 2)
 }
 }

@@ -140,3 +140,13 @@ hide_jobs <- function(jobs, job_tbl) {
   return(job_tbl)
 }
 
+
+
+# throw error if the job doesn't exist
+verify_jobname <- function(jobname, jobs) {
+  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
+  if(!(jobname %in% job_names)) {
+    stop("there is no job named '", jobname, "'", call. = FALSE)
+  }
+  return(invisible(NULL))
+}

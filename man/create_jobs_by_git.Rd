@@ -18,12 +18,15 @@ create_jobs_by_git(dir, owner, status = "active", priority = 1,
 
 \item{deadline}{the deadline of created jobs}
 
-\item{hidden}{the visibility of created jobs
-
-\dontrun{
-create_jobs_by_git(dir = "~/my_projects", owner = "me")
-}}
+\item{hidden}{the visibility of created jobs}
 }
 \description{
 Create in bulk by searching for git repos
+}
+\examples{
+\dontrun{
+
+create_jobs_by_git(dir = "~/my_projects", owner = "me")
+}
+
 }

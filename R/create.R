@@ -71,7 +71,9 @@ create_job <- function(jobname, description, owner, status = NULL,
 #' @param deadline the deadline of created jobs
 #' @param hidden the visibility of created jobs
 #'
+#' @examples
 #' \dontrun{
+#'
 #' create_jobs_by_git(dir = "~/my_projects", owner = "me")
 #' }
 #'
@@ -89,7 +91,9 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
   found_paths <- normalizePath(gsub("\\.git$", "", found_paths))
 
   # guess the job name from the path
-  found_jobnames <- gsub("^.*[/\\]", "", found_paths)
+  found_jobnames <- strsplit(found_paths, .Platform$file.sep, fixed = TRUE)
+  found_jobnames <- purrr::map_chr(found_jobnames, ~ .x[length(.x)])
+  found_jobnames <- janitor::make_clean_names(found_jobnames)
 
   # load the existing jobs
   jobs <- job_read()

@@ -88,7 +88,8 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
   found_paths <- list.files(
     path = dir, pattern = "\\.git$", full.names = TRUE,
     recursive = TRUE, include.dirs = TRUE, all.files = TRUE)
-  found_paths <- normalizePath(gsub("\\.git$", "", found_paths))
+  found_paths <- gsub("\\.git$", "", found_paths)
+  found_paths <- normalizePath(found_paths, winslash = .Platform$file.sep)
 
   # guess the job name from the path
   found_jobnames <- strsplit(found_paths, .Platform$file.sep, fixed = TRUE)
@@ -99,7 +100,7 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
   jobs <- job_read()
   job_names <- get_jobnames(jobs)
   job_paths <- get_paths(jobs)
-  job_paths <- suppressWarnings(normalizePath(job_paths)) # suppress b/c some jobs may have no path
+  job_paths <- suppressWarnings(normalizePath(job_paths, winslash = .Platform$file.sep)) # suppress b/c some jobs may have no path
 
   # initialise output
   created_jobs <- tibble::tibble(jobname = character(0), path = character(0))

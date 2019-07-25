@@ -65,6 +65,7 @@ different term. Here’s how to add and view the jobs you have stored:
 library(workbch)
 
 view_jobs()
+#> Warning: Unknown or uninitialised column: 'path'.
 #> # A tibble: 0 x 0
 
 create_job(
@@ -86,6 +87,7 @@ Jobs can be deleted by name:
 ``` r
 delete_job("workitout")
 view_jobs()
+#> Warning: Unknown or uninitialised column: 'path'.
 #> # A tibble: 0 x 0
 ```
 
@@ -204,6 +206,8 @@ create_job(
 )
 
 view_jobs()
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 #> # A tibble: 2 x 6
 #>   jobname  owner           priority status  deadline description           
 #>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
@@ -224,6 +228,8 @@ view_job("toxic")
 #> 
 #>   0 notes
 #>   0 tasks
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 ```
 
 If at this point we realise that “Danielle” should have been listed on
@@ -252,6 +258,8 @@ view_job("toxic")
 #> 
 #>   0 notes
 #>   0 tasks
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 ```
 
 ## Example 4: Filtering and prioritising
@@ -262,6 +270,8 @@ at seeing so many things that you have to do). For example:
 
 ``` r
 view_jobs()
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 #> # A tibble: 5 x 6
 #>   jobname      owner        priority status  deadline description          
 #>   <chr>        <chr>           <int> <chr>   <lgl>    <chr>                
@@ -276,6 +286,8 @@ A simple way to only see the high priority jobs:
 
 ``` r
 view_priorities()
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 #> # A tibble: 3 x 6
 #>   jobname      owner         priority status  deadline description         
 #>   <chr>        <chr>            <int> <chr>   <lgl>    <chr>               
@@ -291,6 +303,8 @@ active jobs:
 
 ``` r
 view_jobs(priority == 1 & status == "active")
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 #> # A tibble: 2 x 6
 #>   jobname       owner        priority status deadline description          
 #>   <chr>         <chr>           <int> <chr>  <lgl>    <chr>                
@@ -373,4 +387,6 @@ view_job("toxic")
 #> 
 #>   1 notes
 #>   0 tasks
+#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
+#> exist
 ```

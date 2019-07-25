@@ -100,7 +100,7 @@ set_person("Michelle Williams", "michelle")
 view_people()
 ```
 
-Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for that job. When used in conjunction with nicknames, the `set_job()` function allows you to specify the team efficiently:
+Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for that job. When used in conjunction with nicknames, the `set_job()` function allows you to specify the team efficiently: 
 
 ```{r addbynickmame}
 create_job(

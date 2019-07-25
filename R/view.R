@@ -10,7 +10,8 @@ view_jobs <- function(..., show_hidden = FALSE) {
   # read jobs and construct tibble listing them
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
-    tibble::as_tibble(x[c("jobname", "owner", "priority", "status", "deadline", "description")])})
+    tibble::as_tibble(x[c("jobname", "owner", "priority", "status", "deadline",
+                          "description", "path")])})
   job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
 
   # filter according to user expression
@@ -19,6 +20,8 @@ view_jobs <- function(..., show_hidden = FALSE) {
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
 
+  verify_paths(job_tbl$jobname, job_tbl$path)
+  job_tbl$path <- NULL
   return(job_tbl)
 }
 
@@ -80,6 +83,8 @@ view_job <- function(jobname) {
   cat(" ", nrow(jb$tasks), "tasks\n")
 
   cat("\n")
+
+  verify_paths(jb$jobname, jb$path)
   return(invisible(jb))
 }
 
@@ -137,6 +142,8 @@ view_paths <- function(show_hidden = FALSE) {
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
 
+  # throw warnings
+  verify_paths(job_tbl$jobname, job_tbl$path)
   return(job_tbl)
 }
 

@@ -140,6 +140,22 @@ hide_jobs <- function(jobs, job_tbl) {
   return(job_tbl)
 }
 
+# throw warning if a job path does not exist
+verify_paths <- function(jobname, path) {
+  if(!is.null(path)) {
+    if(length(path) > 0) {
+      bad <- which(!dir.exists(as.character(path)))
+      if(length(bad) > 0) {
+        for(b in bad) {
+          if(!is.na(path[b])) {
+            warning("The path for job '", jobname[b], "' is set to '",
+                    path[b], "' but does not exist", call. = FALSE)
+          }
+        }
+      }
+    }
+  }
+}
 
 
 # throw error if the job doesn't exist

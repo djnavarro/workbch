@@ -259,6 +259,18 @@ view_tasks <- function(..., show_hidden = FALSE) {
   return(tasks)
 }
 
+#' View job status as an HTML file
+#'
+#' @export
+view_site <- function() {
+  rmarkdown::render(
+    input = system.file("extdata", "status.Rmd", package = "workbch"),
+    output_file = "workbch_status.html",
+    output_dir = getOption("workbch.home"),
+    params = list(path = getOption("workbch.home"))
+  )
+  utils::browseURL(url = file.path(getOption("workbch.home"), "workbch_status.html"))
+}
 
 
 

@@ -1,0 +1,17 @@
+---
+title: "Job Status"
+output: html_document
+params:
+  path: blah
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(workbch)
+set_workbch_home(path = params$path)
+```
+
+```{r check}
+view_jobs()
+view_tasks()
+```

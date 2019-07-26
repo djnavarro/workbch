@@ -10,7 +10,7 @@
 #' @param path path to the job home directory
 #' @param hidden hide job (default = FALSE)
 #' @export
-create_job <- function(jobname, description, owner, status = NULL,
+make_job <- function(jobname, description, owner, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
                        path = NULL, hidden = NULL) {
 
@@ -74,11 +74,11 @@ create_job <- function(jobname, description, owner, status = NULL,
 #' @examples
 #' \dontrun{
 #'
-#' create_jobs_by_git(dir = "~/my_projects", owner = "me")
+#' make_jobs_by_git(dir = "~/my_projects", owner = "me")
 #' }
 #'
 #' @export
-create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
+make_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
                                deadline = NA, hidden = FALSE) {
 
   # get real name of owner

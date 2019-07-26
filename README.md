@@ -37,7 +37,7 @@ remotes::install_github("djnavarro/workbch")
 
 The package is built from four families of functions:
 
-  - the `create_*` functions create jobs
+  - the `make_*` functions make jobs
   - the `set_*` functions edit jobs, tasks, etc.
   - the `view_*` functions display information about jobs
   - the `goto_*` functions navigate to projects and webpages
@@ -68,7 +68,7 @@ view_jobs()
 #> Warning: Unknown or uninitialised column: 'path'.
 #> # A tibble: 0 x 0
 
-create_job(
+make_job(
   jobname = "workitout", 
   description = "sip martinis and party in France", 
   owner = "britney"
@@ -122,7 +122,7 @@ When used in conjunction with nicknames, the `set_job()` function allows
 you to specify the team efficiently:
 
 ``` r
-create_job(
+make_job(
   jobname = "survivor",
   description = "Run a survival analysis",
   owner = "beyonce",
@@ -188,7 +188,7 @@ modify the properties of a job:
   - `set_task()`
   - etc
 
-To illustrate, suppose we create a new job, called “toxic”:
+To illustrate, suppose we make a new job, called “toxic”:
 
 ``` r
 set_person("Britney Spears", "britney")
@@ -196,7 +196,7 @@ set_person("Britney Spears", "britney")
 set_person("Danielle Navarro", "danielle")
 #> added 'Danielle Navarro' with nickname 'danielle'
 
-create_job(
+make_job(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "britney",

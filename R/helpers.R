@@ -183,3 +183,12 @@ get_paths <- function(jobs) {
   if(length(jobs) == 0) {return(character(0))}
   return(purrr::map_chr(jobs, function(j) {j$path}))
 }
+
+# used in generating the markdown output
+prettify <- function(x) {
+  kableExtra::kable_styling(
+    knitr::kable(x),
+    "striped",
+    font_size = 12)
+}
+

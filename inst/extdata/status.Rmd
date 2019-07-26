@@ -7,11 +7,51 @@ params:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+options(knitr.kable.NA = '')
 library(workbch)
 set_workbch_home(path = params$path)
+prettify <- workbch:::prettify
 ```
 
-```{r check}
-view_jobs()
-view_tasks()
+## {.tabset .tabset-fade}
+
+### Tasks
+
+```{r tasks, echo=FALSE, results='asis'}
+prettify(view_tasks())
+```
+
+### Jobs
+
+#### Priority Jobs
+
+```{r priorities, echo=FALSE, results='asis'}
+prettify(view_priorities())
+```
+
+<br><br>
+
+#### All Jobs
+
+```{r alljobs, echo=FALSE, results='asis'}
+prettify(view_jobs(show_hidden = TRUE))
+```
+
+
+### Details
+
+```{r details, echo=FALSE, results='asis'}
+jobs <- view_jobs(show_hidden = FALSE)
+for(i in 1:nrow(jobs)) {
+  cat("<details>")
+  cat("<summary><span style='font-size:120%'>", jobs$jobname[i], "</span></summary>")
+  view_job(jobs$jobname[i])
+  cat("</details>")
+}
+```
+
+### People
+
+```{r people, echo=FALSE, results='asis'}
+prettify(view_people())
 ```

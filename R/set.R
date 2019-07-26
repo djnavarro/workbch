@@ -228,7 +228,11 @@ set_task <- function(jobname, description, owner = NULL, status = "active",
 #'
 #' @return Path to the folder
 #' @export
-set_home <- function(path = NULL) {
+set_workbch_home <- function(path = NULL) {
+  if(!dir.exists(path)) {
+    dir.create(path)
+    message("new directory '", path, "' created")
+  }
   if(!is.null(path)) {
     options(workbch.home = path)
   }

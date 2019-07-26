@@ -91,7 +91,7 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
   found_paths <- gsub("\\.git$", "", found_paths)
   found_paths <- normalizePath(found_paths, winslash = .Platform$file.sep)
 
-  # guess the job name from the path
+  # guess the job name by splitting the path to find terminal folder
   found_jobnames <- strsplit(found_paths, .Platform$file.sep, fixed = TRUE)
   found_jobnames <- purrr::map_chr(found_jobnames, ~ .x[length(.x)])
   found_jobnames <- janitor::make_clean_names(found_jobnames)
@@ -100,7 +100,9 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
   jobs <- job_read()
   job_names <- get_jobnames(jobs)
   job_paths <- get_paths(jobs)
-  job_paths <- suppressWarnings(normalizePath(job_paths, winslash = .Platform$file.sep)) # suppress b/c some jobs may have no path
+  job_paths <- suppressWarnings( # suppress b/c some jobs may have no path
+    normalizePath(job_paths, winslash = .Platform$file.sep)
+  )
 
   # initialise output
   created_jobs <- tibble::tibble(jobname = character(0), path = character(0))
@@ -116,31 +118,39 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
       n_known <- n_known + 1
       message("repo at '", found_paths[i], "' is listed... skipping")
 
-      # for an unknown path, make some guesses and ask the user
+    # for a new path, make guesses and ask the user
     } else {
 
-      # check the found job name doesn't already exist
+      # ensure the found job name doesn't already exist
       while(found_jobnames[i] %in% job_names) {
         found_jobnames[i] <- paste0(found_jobnames[i], "X") # ... TODO: do this better!!!
       }
 
-      # guess the github URL
-      found_github <- git2r::remote_url(found_paths[i]) # ... TODO: what if there are multiples?
-      found_github <- gsub(
-        pattern = "git@github.com:",
-        replacement = "https://github.com/",
-        x = found_github,
-        fixed = TRUE
-      )
-      found_github <- gsub("\\.git$", "/", found_github)
+      # guess url for git repo
+      found_remote <- git2r::remote_url(found_paths[i])[1] # use first
+      site <- NA
+      if(grepl("bitbucket|github|gitlab", found_remote)) { # if it's bb/gh/gl..
+        site <- gsub(".*(bitbucket|github|gitlab).*", "\\1", found_remote)
+        found_remote <- strsplit(found_remote, "/")[[1]]
+        user <- found_remote[length(found_remote)-1]
+        repo <- found_remote[length(found_remote)]
+        repo <- gsub("\\.git$", "/", repo)
+        if(site == "bitbucket") prefix <- "https://bitbucket.org/"
+        if(site == "github") prefix <- "https://github.com/"
+        if(site == "gitlab") prefix <- "https://gitlab.com/"
+        url_path <- paste0(prefix, user, "/", repo)
+      }
 
+      # construct message to the for the user
       message("")
       message("unlisted repository found:")
       message("    ")
       message("    jobname:     ", found_jobnames[i])
       message("    owner:       ", owner)
       message("    path:        ", found_paths[i])
-      message("    github url:  ", found_github)
+      if(!is.na(site)){
+        message("    ", site, " url:  ", url_path)
+      }
       message("    status:      ", status)
       message("    priority:    ", priority)
       message("    deadline:    ", deadline)
@@ -166,21 +176,39 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
       if(acc == "y") {
         n_created <- n_created + 1
 
-        # create new job
-        jobs[[found_jobnames[i]]] <- new_job(
-          jobname = found_jobnames[i],
-          description = found_jobnames[i],
-          owner = owner,
-          status = status,
-          team = owner,
-          priority = priority,
-          deadline = deadline,
-          path = found_paths[i],
-          urls = new_url(site = "github", link = found_github),
-          notes = empty_note(),
-          tasks = empty_task(),
-          hidden = hidden
-        )
+        # create new job... without url
+        if(is.na(site)) {
+          jobs[[found_jobnames[i]]] <- new_job(
+            jobname = found_jobnames[i],
+            description = found_jobnames[i],
+            owner = owner,
+            status = status,
+            team = owner,
+            priority = priority,
+            deadline = deadline,
+            path = found_paths[i],
+            notes = empty_note(),
+            tasks = empty_task(),
+            hidden = hidden
+          )
+
+        # or else create new job... with a url
+        } else {
+          jobs[[found_jobnames[i]]] <- new_job(
+            jobname = found_jobnames[i],
+            description = found_jobnames[i],
+            owner = owner,
+            status = status,
+            team = owner,
+            priority = priority,
+            deadline = deadline,
+            path = found_paths[i],
+            urls = new_url(site = site, link = url_path),
+            notes = empty_note(),
+            tasks = empty_task(),
+            hidden = hidden
+          )
+        }
 
         # write it now, in case user aborts later
         job_write(jobs)
@@ -197,7 +225,9 @@ create_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
         # update list of known paths/jobnames
         job_names <- get_jobnames(jobs)
         job_paths <- get_paths(jobs)
-        job_paths <- suppressWarnings(normalizePath(job_paths)) # suppress b/c some jobs may have no path
+        job_paths <- suppressWarnings(
+          normalizePath(job_paths)
+        )
 
         message("    ... done! new job created!")
       }

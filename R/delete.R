@@ -20,26 +20,35 @@ delete_job <- function(jobname) {
     stop("Job '", jobname, "' does not exist", call. = FALSE)
   }
 
-  # make the user confurm deleting
-  acc <- ""
-  while(acc != "y" & acc != "n") {
-    acc <- readline(paste0("Delete the workbch entry for job '", jobname , "'? [y/n] "))
-    acc <- tolower(acc)
-    acc <- trimws(acc, "both")
-  }
-
-  # delete if need be
-  if(acc == "y") {
+  # not interactive, just do it
+  if(!interactive()) {
     jobs[[jobname]] <- NULL
     job_write(jobs)
-    message("Job '", jobname, "' deleted")
-    return(invisible(NULL))
-  }
 
-  # tell the user it was aborted
-  if(acc == "n") {
-    message("Aborted. Nothing deleted.")
-    return(invisible(NULL))
+  # if interactive, ask user
+  } else {
+
+    # make the user confurm deleting
+    acc <- ""
+    while(acc != "y" & acc != "n") {
+      acc <- readline(paste0("Delete the workbch entry for job '", jobname , "'? [y/n] "))
+      acc <- tolower(acc)
+      acc <- trimws(acc, "both")
+    }
+
+    # delete if need be
+    if(acc == "y") {
+      jobs[[jobname]] <- NULL
+      job_write(jobs)
+      message("Job '", jobname, "' deleted")
+      return(invisible(NULL))
+    }
+
+    # tell the user it was aborted
+    if(acc == "n") {
+      message("Aborted. Nothing deleted.")
+      return(invisible(NULL))
+    }
   }
 }
 

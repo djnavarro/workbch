@@ -128,6 +128,7 @@ view_job <- function(jobname) {
   cat("  team     :", paste(jb$team, collapse = ", "), "\n")
   cat("  priority :", jb$priority, "\n")
   cat("  status   :", jb$status, "\n")
+  cat("  tags     :", paste(jb$tags, collapse = ", "), "\n")
 
   dl <- ifelse(is.na(jb$deadline), "none", jb$deadline)
   cat("  deadline :", dl, "\n")

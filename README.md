@@ -108,12 +108,12 @@ set_person("Michelle Williams", "michelle")
 #> added 'Michelle Williams' with nickname 'michelle'
 
 view_people()
-#> # A tibble: 3 x 2
-#>   fullname          nickname
-#>   <chr>             <chr>   
-#> 1 Beyoncé Knowles   beyonce 
-#> 2 Kelly Rowland     kelly   
-#> 3 Michelle Williams michelle
+#> # A tibble: 3 x 3
+#>   fullname          nickname default
+#>   <chr>             <chr>    <lgl>  
+#> 1 Beyoncé Knowles   beyonce  FALSE  
+#> 2 Kelly Rowland     kelly    FALSE  
+#> 3 Michelle Williams michelle FALSE
 ```
 
 Jobs can consist of multiple people on a *team* but the job must have a

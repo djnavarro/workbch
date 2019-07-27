@@ -58,7 +58,12 @@ ppl_read <- function() {
   if(file.exists(ppl_file())) {
     return(suppressMessages(readr::read_csv(ppl_file())))
   }
-  return(tibble::tibble(fullname = character(0), nickname = character(0)))
+  return(
+    tibble::tibble(
+      fullname = character(0),
+      nickname = character(0),
+      default = logical(0))
+    )
 }
 
 # write people data to CSV file

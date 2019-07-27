@@ -383,10 +383,18 @@ set_note <- function(jobname, note) {
 #'
 #' @param fullname the full name of the person
 #' @param nickname a short name for the person
+#' @param make_default should this person be set as the "default"
 #' @export
-set_person <- function(fullname, nickname) {
+set_person <- function(fullname, nickname, make_default = FALSE) {
   ppl <- ppl_read()
 
+  # remove an old default person if need be
+  if(make_default == TRUE) {
+    old_def <- which(ppl$default == TRUE)
+    ppl$default[old_def] <- FALSE
+  }
+
+  # see if the nickname exists and/or the full name exists
   fn_ind <- which(ppl$fullname == fullname)
   nn_ind <- which(ppl$nickname == nickname)
 
@@ -399,7 +407,8 @@ set_person <- function(fullname, nickname) {
       ppl,
       tibble::tibble(
         fullname = fullname,
-        nickname = nickname
+        nickname = nickname,
+        default = make_default
       ))
     ppl_write(ppl)
     return(invisible(ppl))
@@ -415,6 +424,7 @@ set_person <- function(fullname, nickname) {
 
     # update the people file
     ppl$fullname[nn_ind] <- fullname
+    ppl$default[nn_ind] <- make_default
     ppl_write(ppl)
 
     # update the jobs file
@@ -435,14 +445,18 @@ set_person <- function(fullname, nickname) {
     message("changed nickname of '", fullname, "' from '",
             ppl$nickname[fn_ind], "' to '", nickname, "'")
     ppl$nickname[fn_ind] <- nickname
+    ppl$default[fn_ind] <- make_default
     ppl_write(ppl)
     return(invisible(ppl))
 
   }
 
-  # if both exist and are the same index do nothing
+  # if both exist and are the same index do nothing except possibly
+  # update the default status
   if(identical(fn_ind, nn_ind)) {
     message("'", fullname, "' already has nickname '", nickname, "'")
+    ppl$default[fn_ind] <- make_default
+    ppl_write(ppl)
     return(invisible(ppl))
   }
 

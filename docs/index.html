@@ -140,12 +140,12 @@
 <a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt; added 'Michelle Williams' with nickname 'michelle'</span></a>
 <a class="sourceLine" id="cb5-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb5-10" data-line-number="10"><span class="kw"><a href="reference/view_people.html">view_people</a></span>()</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   fullname          nickname</span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;   </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce </span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 2 Kelly Rowland     kelly   </span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 3 Michelle Williams michelle</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt; # A tibble: 3 x 3</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;   fullname          nickname default</span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;             &lt;chr&gt;    &lt;lgl&gt;  </span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt; 1 Beyoncé Knowles   beyonce  FALSE  </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt; 2 Kelly Rowland     kelly    FALSE  </span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt; 3 Michelle Williams michelle FALSE</span></a></code></pre></div>
 <p>Jobs can consist of multiple people on a <em>team</em> but the job must have a single <em>owner</em>, a named team member who is responsible for that job. When used in conjunction with nicknames, the <code>set_job()</code> function allows you to specify the team efficiently:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/make_job.html">make_job</a></span>(</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">  <span class="dt">jobname =</span> <span class="st">"survivor"</span>,</a>

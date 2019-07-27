@@ -4,12 +4,14 @@
 \alias{set_person}
 \title{Sets details for a new person}
 \usage{
-set_person(fullname, nickname)
+set_person(fullname, nickname, make_default = FALSE)
 }
 \arguments{
 \item{fullname}{the full name of the person}
 
 \item{nickname}{a short name for the person}
+
+\item{make_default}{should this person be set as the "default"}
 }
 \description{
 Sets details for a new person

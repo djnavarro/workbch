@@ -28,7 +28,7 @@ URLs, be associated with multiple "tasks", etc. In addition to basic tracking,
 searching and filtering, the package provides some tools to navigate between
 jobs, browse relevant websites, and check the git status of repositories linked
 to a job. Priority levels and deadlines are supported for both jobs and tasks,
-but financial information and time allocation is not. 
+but financial information and time allocation is not.
 
 ## Installation
 

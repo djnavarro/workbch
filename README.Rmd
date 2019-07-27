@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/workbch?branch=master)
 <!-- badges: end -->
 
-The goal of workbch is to provide a "work bench" of tools for project management 
+The workbch package provides a "work bench" of tools for project management 
 within R, based around the concept of a "job" (which might map to a single 
 RStudio project or a single git repository). Jobs can be linked to multiple 
 URLs, be associated with multiple "tasks", etc. In addition to basic tracking,

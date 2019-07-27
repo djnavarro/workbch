@@ -10,7 +10,7 @@
 #' @param path path to the job home directory
 #' @param hidden hide job (default = FALSE)
 #' @export
-make_job <- function(jobname, description, owner, status = NULL,
+make_job <- function(jobname, description, owner = NULL, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
                        path = NULL, hidden = NULL) {
 
@@ -18,7 +18,7 @@ make_job <- function(jobname, description, owner, status = NULL,
   jobs <- job_read()
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
 
-  # if it already exists, throw error
+  # if a job with this name already exists, throw error
   if(jobname %in% job_names) {
     stop("a job already exists with name '", jobname, "'", call. = FALSE)
   }
@@ -31,8 +31,14 @@ make_job <- function(jobname, description, owner, status = NULL,
   if(is.null(path)) {path <- NA_character_}
   if(is.null(hidden)) {hidden <- FALSE}
 
-  # parse the names and make sure the owner is on the team
-  owner <- real_name(owner)
+  # set the owner
+  if(is.null(owner)) {
+    owner <- default_person()
+  } else {
+    owner <- real_name(owner)
+  }
+
+  # set the team
   team <- real_name(team)
   if(!(owner %in% team)) {
     team <- c(owner, team)
@@ -78,11 +84,15 @@ make_job <- function(jobname, description, owner, status = NULL,
 #' }
 #'
 #' @export
-make_jobs_by_git <- function(dir, owner, status = "active", priority = 1,
+make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
                                deadline = NA, hidden = FALSE) {
 
-  # get real name of owner
-  owner <- real_name(owner)
+  # set owner
+  if(is.null(owner)) {
+    owner <- default_person()
+  } else {
+    owner <- real_name(owner)
+  }
 
   # find all git repositories
   found_paths <- list.files(

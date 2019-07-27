@@ -4,7 +4,7 @@
 \alias{make_jobs_by_git}
 \title{Create in bulk by searching for git repos}
 \usage{
-make_jobs_by_git(dir, owner, status = "active", priority = 1,
+make_jobs_by_git(dir, owner = NULL, status = "active", priority = 1,
   deadline = NA, hidden = FALSE)
 }
 \arguments{

@@ -172,10 +172,14 @@ verify_jobname <- function(jobname, jobs) {
   return(invisible(NULL))
 }
 
-# get the default person - currently it's just the first person (TODO make this better)
-default_person <- function() {
+# get the default person and throw
+default_person <- function(strict = TRUE) {
   ppl <- ppl_read()
-  def <- ppl$fullname[1]
+  def <- ppl$fullname[ppl$default == TRUE]
+  if(strict & length(def) == 0) {
+    stop("'owner' argument must be specified if default person is set",
+         call. = FALSE)
+  }
   return(def)
 }
 

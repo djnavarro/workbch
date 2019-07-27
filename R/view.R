@@ -294,7 +294,7 @@ view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 #' View tasks
 #'
 #' @param ... filtering expression to pass to dplyr::filter
-#' @param show_hidden should hidden tasks be shown (default = FALSE)
+#' @param show_hidden should hidden tasks be shown (default = TRUE)
 #'
 #' @details Displays all tasks, sorted by deadline then priority
 #' @return A tibble containing the tasks
@@ -305,14 +305,14 @@ view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
 #'
 #' view_tasks()
 #' }
-view_tasks <- function(..., show_hidden = FALSE) {
+view_tasks <- function(..., show_hidden = TRUE) {
 
   tasks <- task_read()
 
   if(...length() > 0) {
     tasks <- dplyr::filter(tasks, ...)
   }
-  tasks <- dplyr::arrange(tasks, deadline, priority)
+  tasks <- dplyr::arrange(tasks, lubridate::dmy(deadline), priority)
   if(!show_hidden) {
     tasks <- dplyr::filter(tasks, hidden == FALSE)
   }

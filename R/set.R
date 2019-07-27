@@ -111,24 +111,6 @@ set_priority <- function(jobname, priority) {
 
 }
 
-#' Sets the deadline for a job
-#'
-#' @param jobname Name of the job
-#' @param deadline The new deadline
-#' @export
-set_deadline <- function(jobname, deadline) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  verify_jobname(jobname, jobs)
-
-  # write new value
-  jobs[[jobname]]$deadline <- deadline
-  job_write(jobs)
-
-
-}
-
 #' Sets the path of a job
 #'
 #' @param jobname Name of the job
@@ -189,8 +171,14 @@ set_task <- function(jobname, description, owner = NULL, status = "active",
   # set defaults as needed
   if(is.null(owner)) {owner <- jb$owner}
   if(is.null(priority)) {priority <- jb$priority}
-  if(is.null(deadline)) {deadline <- jb$deadline}
   if(is.null(hidden)) {hidden <- jb$hidden}
+
+  # parse the deadline
+  if(is.null(deadline)) {
+    deadline <- jb$deadline
+  } else {
+    deadline <- format_date(deadline)
+  }
 
   # parse the owner name and throw warning if not in team
   owner <- real_name(owner)
@@ -493,5 +481,35 @@ set_tag <- function(jobname, add = NULL, remove = NULL) {
   }
   job_write(jobs)
 }
+
+
+#' Set the deadline for a job
+#'
+#' @param jobname name of job(s) to be edited
+#' @param date character string to be parsed by lubridate::dmy
+#' @export
+set_deadline <- function(jobname, date) {
+  jobs <- job_read()
+  verify_jobname(jobname, jobs)
+  date <- format_date(date)
+  jobs[[jobname]]$deadline <- date
+  job_write(jobs)
+}
+
+
+#' Set the deadline for a taskjob
+#'
+#' @param jobname name of job(s) to be edited
+#' @param id id number of the task to be edited
+#' @param date character string to be parsed by lubridate::dmy
+#' @export
+set_task_deadline <- function(jobname, id, date) {
+  jobs <- job_read()
+  date <- format_date(date)
+  ind <- jobs[[jobname]]$tasks$id == id
+  jobs[[jobname]]$tasks$deadline[ind] <- date
+  job_write(jobs)
+}
+
 
 

@@ -4,12 +4,12 @@
 \alias{view_tasks}
 \title{View tasks}
 \usage{
-view_tasks(..., show_hidden = FALSE)
+view_tasks(..., show_hidden = TRUE)
 }
 \arguments{
 \item{...}{filtering expression to pass to dplyr::filter}
 
-\item{show_hidden}{should hidden tasks be shown (default = FALSE)}
+\item{show_hidden}{should hidden tasks be shown (default = TRUE)}
 }
 \value{
 A tibble containing the tasks

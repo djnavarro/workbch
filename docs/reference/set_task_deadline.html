@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set the deadline for a job — set_deadline • workbch</title>
+<title>Set the deadline for a taskjob — set_task_deadline • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Set the deadline for a job — set_deadline" />
+<meta property="og:title" content="Set the deadline for a taskjob — set_task_deadline" />
 
-<meta property="og:description" content="Set the deadline for a job" />
+<meta property="og:description" content="Set the deadline for a taskjob" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,18 +103,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set the deadline for a job</h1>
+    <h1>Set the deadline for a taskjob</h1>
     <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/set.R'><code>R/set.R</code></a></small>
-    <div class="hidden name"><code>set_deadline.Rd</code></div>
+    <div class="hidden name"><code>set_task_deadline.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Set the deadline for a job</p>
+    <p>Set the deadline for a taskjob</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>set_deadline</span>(<span class='no'>jobname</span>, <span class='no'>date</span>)</pre>
+    <pre class="usage"><span class='fu'>set_task_deadline</span>(<span class='no'>jobname</span>, <span class='no'>id</span>, <span class='no'>date</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -122,6 +122,10 @@
     <tr>
       <th>jobname</th>
       <td><p>name of job(s) to be edited</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>id number of the task to be edited</p></td>
     </tr>
     <tr>
       <th>date</th>

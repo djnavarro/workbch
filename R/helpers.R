@@ -204,3 +204,9 @@ prettify <- function(x) {
     font_size = 12)
 }
 
+format_date <- function(date) {
+  date <- lubridate::dmy(date)
+  date <- format(date, format = "%d %b %Y")
+  return(date)
+}
+

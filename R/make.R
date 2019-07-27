@@ -141,7 +141,7 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
       site <- NA
       if(grepl("bitbucket|github|gitlab", found_remote)) { # if it's bb/gh/gl..
         site <- gsub(".*(bitbucket|github|gitlab).*", "\\1", found_remote)
-        found_remote <- strsplit(found_remote, "/")[[1]]
+        found_remote <- strsplit(found_remote, "[/:]")[[1]]
         user <- found_remote[length(found_remote)-1]
         repo <- found_remote[length(found_remote)]
         repo <- gsub("\\.git$", "/", repo)

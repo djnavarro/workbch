@@ -155,7 +155,7 @@ view_paths <- function(show_hidden = FALSE) {
 #'
 #' @return A character vector of names, in alphabetical order
 #' @export
-view_jobnames <- function(show_hidden = FALSE) {
+view_jobnames <- function(show_hidden = TRUE) {
   jobs <- job_read()
   job_names <- purrr::map_dfr(jobs, function(x){tibble::tibble(jobname = x$jobname)})
   job_names <- dplyr::arrange(job_names, jobname)

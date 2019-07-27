@@ -4,7 +4,7 @@
 \alias{view_jobnames}
 \title{View job names known to workbch}
 \usage{
-view_jobnames(show_hidden = FALSE)
+view_jobnames(show_hidden = TRUE)
 }
 \arguments{
 \item{show_hidden}{should hidden jobs be included}

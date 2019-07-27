@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a new job — make_job • workbch</title>
+<title>View the list of tags — view_taglist • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Create a new job — make_job" />
+<meta property="og:title" content="View the list of tags — view_taglist" />
 
-<meta property="og:description" content="Create a new job" />
+<meta property="og:description" content="View the list of tags" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,72 +103,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a new job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/make.R'><code>R/make.R</code></a></small>
-    <div class="hidden name"><code>make_job.Rd</code></div>
+    <h1>View the list of tags</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/view.R'><code>R/view.R</code></a></small>
+    <div class="hidden name"><code>view_taglist.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Create a new job</p>
+    <p>View the list of tags</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>make_job</span>(<span class='no'>jobname</span>, <span class='no'>description</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>team</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>hidden</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>jobname</th>
-      <td><p>name of the job to create</p></td>
-    </tr>
-    <tr>
-      <th>description</th>
-      <td><p>brief description of the job</p></td>
-    </tr>
-    <tr>
-      <th>owner</th>
-      <td><p>should be a name or a nickname</p></td>
-    </tr>
-    <tr>
-      <th>status</th>
-      <td><p>should be "active", "inactive", "complete", "abandoned"</p></td>
-    </tr>
-    <tr>
-      <th>team</th>
-      <td><p>should be a vector of names/nicknames</p></td>
-    </tr>
-    <tr>
-      <th>priority</th>
-      <td><p>numeric</p></td>
-    </tr>
-    <tr>
-      <th>deadline</th>
-      <td><p>a date</p></td>
-    </tr>
-    <tr>
-      <th>tags</th>
-      <td><p>character vector of tags</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>path to the job home directory</p></td>
-    </tr>
-    <tr>
-      <th>hidden</th>
-      <td><p>hide job (default = FALSE)</p></td>
-    </tr>
-    </table>
-    
+    <pre class="usage"><span class='fu'>view_taglist</span>()</pre>
+        
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

@@ -466,3 +466,32 @@ set_person <- function(fullname, nickname, make_default = FALSE) {
   return(invisible(ppl))
 
 }
+
+
+#' Set the tags for a job
+#'
+#' @param jobname name of job(s) to be edited
+#' @param add character vector of tags to add to jobs
+#' @param remove character vector of tags to remove from jobd
+#' @details The role of \code{set_tags()} is to...
+#' @export
+set_tag <- function(jobname, add = NULL, remove = NULL) {
+
+  jobs <- job_read()
+
+  for(jbnm in jobname) {
+
+    # if there are tags to add, add them
+    if(!is.null(add)) {
+      jobs[[jbnm]]$tags <- unique(c(jobs[[jbnm]]$tags, add))
+    }
+
+    # if there are tags to remove, remove them
+    if(!is.null(remove)) {
+      jobs[[jbnm]]$tags <- setdiff(jobs[[jbnm]]$tags, remove)
+    }
+  }
+  job_write(jobs)
+}
+
+

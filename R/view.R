@@ -26,6 +26,63 @@ view_jobs <- function(..., show_hidden = FALSE) {
 }
 
 
+#' View a list of jobs that possess a tag
+#'
+#' @param tag what tag to display
+#' @param show_hidden should hidden jobs be included
+#' @param invert if TRUE, return jobs without the tag
+#' @export
+view_tag <- function(tag, show_hidden = TRUE, invert = FALSE) {
+
+  jobs <- job_read()
+
+  # construct tibble
+  has_tag <- purrr::map_lgl(jobs, function(x) {tag %in% x$tags})
+  job_tbl <- purrr::map_df(jobs, function(x){
+    tibble::as_tibble(x[c("jobname", "owner", "priority", "status", "deadline",
+                          "description", "path")])})
+
+  # subset of jobs that have (or dont have) the tag
+  if(invert == FALSE) {
+    job_tbl <- job_tbl[which(has_tag == TRUE), ]
+  } else {
+    job_tbl <- job_tbl[which(has_tag == FALSE), ]
+  }
+
+  # arrange
+  job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
+
+  # remove the hidden jobs if need be
+  if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
+
+  verify_paths(job_tbl$jobname, job_tbl$path)
+  job_tbl$path <- NULL
+  return(job_tbl)
+}
+
+
+
+#' View the list of tags
+#'
+#' @export
+view_taglist <- function() {
+
+  jobs <- job_read()
+
+  all_tags <- purrr::map(jobs, ~ .x$tags)
+  all_tags <- unlist(all_tags)
+
+  freq_tags <- table(all_tags)
+  tag_tbl <- tibble::tibble(
+    tag = names(freq_tags),
+    jobs = unname(freq_tags)
+  )
+
+  return(tag_tbl)
+}
+
+
+
 #' View the list of known people
 #'
 #' @export

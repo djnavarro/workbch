@@ -28,6 +28,9 @@ job_read <- function() {
       if(class(j$notes) == "list") {j$notes <- empty_note()}
       if(class(j$tasks) == "list") {j$tasks <- empty_task()}
 
+      # don't let tags become matrices
+      if(class(j$tags) == "matrix") {j$tags <- as.vector(j$tags)}
+
       # coerce to tibbles
       j$urls <- tibble::as_tibble(j$urls)
       j$notes <- tibble::as_tibble(j$notes)

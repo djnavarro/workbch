@@ -3,12 +3,11 @@ rebuild_job <- function(job) {
 
   # start from scratch including only the mandatory fields
   jb <- workbch:::new_job(
-    name = job$name,
+    jobname = job$jobname,
     description = job$description,
     owner = job$owner
   )
 
-  # if they exist, replace the simple attributes
   if(!is.null(job$status)) {jb$status <- job$status}
   if(!is.null(job$team)) {jb$team <- job$team}
   if(!is.null(job$priority)) {jb$priority <- job$priority}
@@ -32,13 +31,8 @@ rebuild_job <- function(job) {
 
   # fix urls
   if(!is.null(job$urls)) {
-    if(length(job$urls) > 0) {
-      if(length(names(job$urls)) > 0 & names(job$urls)[1] != "urls") {
-
-        jb$urls <- tibble::tibble(
-          site = names(job$urls),
-          link = unlist(unname(job$urls)))
-      }
+    if(is(job$urls, "data.frame")) {
+      jb$urls <- job$urls
     }
   }
   return(jb)
@@ -48,7 +42,7 @@ rebuild_job <- function(job) {
 jobs <- workbch:::job_read()
 for(i in 1:length(jobs)) {
   j <- jobs[[i]]
-  print(j$name)
+  print(j$jobname)
   jobs[[i]] <- rebuild_job(j)
 }
 

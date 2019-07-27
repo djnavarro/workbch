@@ -4,7 +4,7 @@
 
 new_job <- function(jobname, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
-                    path = NA, urls = NULL, notes = NULL,
+                    tags = character(0), path = NA, urls = NULL, notes = NULL,
                     tasks = NULL, hidden = FALSE) {
 
   if(is.null(urls)) {urls = empty_url()}
@@ -19,6 +19,7 @@ new_job <- function(jobname, description, owner, status = "active",
     team = team,
     priority = priority,
     deadline = deadline,
+    tags = tags,
     path = path,
     urls = urls,
     tasks = tasks,

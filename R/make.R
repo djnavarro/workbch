@@ -7,12 +7,13 @@
 #' @param team should be a vector of names/nicknames
 #' @param priority numeric
 #' @param deadline a date
+#' @param tags character vector of tags
 #' @param path path to the job home directory
 #' @param hidden hide job (default = FALSE)
 #' @export
 make_job <- function(jobname, description, owner = NULL, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
-                       path = NULL, hidden = NULL) {
+                       tags = NULL, path = NULL, hidden = NULL) {
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
@@ -26,6 +27,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   # specify the defaults for other fields
   if(is.null(status)) {status <- "active"}
   if(is.null(team)) {team <- character(0)}
+  if(is.null(tags)) {tags <- character(0)}
   if(is.null(priority)) {priority <- 1}
   if(is.null(deadline)) {deadline <- NA_character_}
   if(is.null(path)) {path <- NA_character_}
@@ -53,6 +55,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
     team = team,
     priority = priority,
     deadline = deadline,
+    tags = tags,
     path = path,
     urls = empty_url(),
     notes = empty_note(),

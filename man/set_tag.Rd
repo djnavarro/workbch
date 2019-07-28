@@ -4,14 +4,14 @@
 \alias{set_tag}
 \title{Set the tags for a job}
 \usage{
-set_tag(jobname, add = NULL, remove = NULL)
+set_tag(add = NULL, remove = NULL, jobname = NULL)
 }
 \arguments{
-\item{jobname}{name of job(s) to be edited}
-
 \item{add}{character vector of tags to add to jobs}
 
 \item{remove}{character vector of tags to remove from jobd}
+
+\item{jobname}{name of job(s) to be edited}
 }
 \description{
 Set the tags for a job

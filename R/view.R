@@ -120,8 +120,15 @@ view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
 #'
 #' @param jobname Name of job to display
 #' @export
-view_job <- function(jobname) {
+
+view_job <- function(jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
+  # get job
   jb <- jobs[[jobname]]
 
   cat("\n")

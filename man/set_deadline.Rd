@@ -4,12 +4,12 @@
 \alias{set_deadline}
 \title{Set the deadline for a job}
 \usage{
-set_deadline(jobname, date)
+set_deadline(date, jobname = NULL)
 }
 \arguments{
-\item{jobname}{name of job(s) to be edited}
-
 \item{date}{character string to be parsed by lubridate::dmy}
+
+\item{jobname}{name of job(s) to be edited}
 }
 \description{
 Set the deadline for a job

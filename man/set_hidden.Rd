@@ -4,12 +4,12 @@
 \alias{set_hidden}
 \title{Sets the visibility of a job}
 \usage{
-set_hidden(jobname, hidden)
+set_hidden(hidden, jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of the job}
-
 \item{hidden}{Logical}
+
+\item{jobname}{Name of the job}
 }
 \description{
 Sets the visibility of a job

@@ -4,12 +4,12 @@
 \alias{set_path}
 \title{Sets the path of a job}
 \usage{
-set_path(jobname, path)
+set_path(path, jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of the job}
-
 \item{path}{The path to the job folder}
+
+\item{jobname}{Name of the job}
 }
 \description{
 Sets the path of a job

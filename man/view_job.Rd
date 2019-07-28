@@ -4,7 +4,7 @@
 \alias{view_job}
 \title{View the details of a job}
 \usage{
-view_job(jobname)
+view_job(jobname = NULL)
 }
 \arguments{
 \item{jobname}{Name of job to display}

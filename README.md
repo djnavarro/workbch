@@ -152,6 +152,7 @@ view_job("survivor")
 #>   team     : Beyoncé Knowles, Kelly Rowland, Michelle Williams 
 #>   priority : 1 
 #>   status   : inactive 
+#>   tags     :  
 #>   deadline : none 
 #> 
 #>   path = NA 
@@ -222,6 +223,7 @@ view_job("toxic")
 #>   team     : Britney Spears 
 #>   priority : 2 
 #>   status   : active 
+#>   tags     :  
 #>   deadline : none 
 #> 
 #>   path = ~/projects/toxic 
@@ -237,10 +239,10 @@ the team for toxic (yeah, right) and the priority should have been set
 at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
-set_priority("toxic", 1)
-set_team("toxic", add = "danielle")
-set_url("toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-set_url("toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+set_priority(priority = 1, jobname = "toxic")
+set_team(add = "danielle", jobname = "toxic")
+set_url(site = "github", link = "https://github.com/djnavarro/toxic", jobname = "toxic")
+set_url(site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics", jobname = "toxic")
 
 view_job("toxic")
 #> 
@@ -250,6 +252,7 @@ view_job("toxic")
 #>   team     : Britney Spears, Danielle Navarro 
 #>   priority : 1 
 #>   status   : active 
+#>   tags     :  
 #>   deadline : none 
 #> 
 #>   path = ~/projects/toxic 
@@ -261,6 +264,11 @@ view_job("toxic")
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
 ```
+
+If `jobname` argument is not specified, the workbch package attempts to
+see if the use is working within a known job. It checks for this in two
+ways. If the current RStudio project matches a known job, then that job
+is used by default. Failing that, the working directory is checked.
 
 ## Example 4: Filtering and prioritising
 
@@ -343,8 +351,8 @@ not to use this as a substitute for proper documentation but as a quick
 and dirty “notes to self” tool. You can add jobs using `set_note()`:
 
 ``` r
-set_note("toxic", "check if this worked")
-set_note("toxic", "i wonder if i should circulate this later")
+set_note("check if this worked", "toxic")
+set_note("i wonder if i should circulate this later", "toxic")
 ```
 
 You can view the notes linked to a job with `view_notes()`:
@@ -379,6 +387,7 @@ view_job("toxic")
 #>   team     : Britney Spears, Danielle Navarro 
 #>   priority : 1 
 #>   status   : active 
+#>   tags     :  
 #>   deadline : none 
 #> 
 #>   path = ~/projects/toxic 

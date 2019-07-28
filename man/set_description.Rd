@@ -4,12 +4,12 @@
 \alias{set_description}
 \title{Sets the description of a job}
 \usage{
-set_description(jobname, description)
+set_description(description, jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of the job}
-
 \item{description}{String specifying the description}
+
+\item{jobname}{Name of the job}
 }
 \description{
 Sets the description of a job

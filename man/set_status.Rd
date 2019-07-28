@@ -4,12 +4,12 @@
 \alias{set_status}
 \title{Sets the status of a job}
 \usage{
-set_status(jobname, status)
+set_status(status, jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of the job}
-
 \item{status}{The new status}
+
+\item{jobname}{Name of the job}
 }
 \description{
 Sets the status of a job

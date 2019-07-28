@@ -4,12 +4,12 @@
 \alias{set_priority}
 \title{Sets the priority of a job}
 \usage{
-set_priority(jobname, priority)
+set_priority(priority, jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of the job}
-
 \item{priority}{The new priority}
+
+\item{jobname}{Name of the job}
 }
 \description{
 Sets the priority of a job

@@ -4,13 +4,14 @@
 \alias{set_task}
 \title{Set a task attached to a job}
 \usage{
-set_task(jobname, description, owner = NULL, status = "active",
-  priority = NULL, deadline = NULL, hidden = NULL)
+set_task(description, jobname = NULL, owner = NULL,
+  status = "active", priority = NULL, deadline = NULL,
+  hidden = NULL)
 }
 \arguments{
-\item{jobname}{name of the job the task attaches to}
-
 \item{description}{brief description of the task}
+
+\item{jobname}{name of the job the task attaches to}
 
 \item{owner}{should be a name or a nickname (defaults to job owner)}
 

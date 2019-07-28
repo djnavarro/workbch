@@ -4,14 +4,14 @@
 \alias{set_task_deadline}
 \title{Set the deadline for a taskjob}
 \usage{
-set_task_deadline(jobname, id, date)
+set_task_deadline(date, id, jobname = NULL)
 }
 \arguments{
-\item{jobname}{name of job(s) to be edited}
+\item{date}{character string to be parsed by lubridate::dmy}
 
 \item{id}{id number of the task to be edited}
 
-\item{date}{character string to be parsed by lubridate::dmy}
+\item{jobname}{name of job(s) to be edited}
 }
 \description{
 Set the deadline for a taskjob

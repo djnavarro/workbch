@@ -4,12 +4,12 @@
 \alias{set_note}
 \title{Set a note linked to a job}
 \usage{
-set_note(jobname, note)
+set_note(note, jobname = NULL)
 }
 \arguments{
-\item{jobname}{the job to which the note should be added}
-
 \item{note}{the text of the note}
+
+\item{jobname}{the job to which the note should be added}
 }
 \description{
 Set a note linked to a job

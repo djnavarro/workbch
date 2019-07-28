@@ -4,12 +4,12 @@
 \alias{set_owner}
 \title{Sets the owner of a job}
 \usage{
-set_owner(jobname, owner)
+set_owner(owner, jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of the job}
-
 \item{owner}{Nick name for the new owner}
+
+\item{jobname}{Name of the job}
 }
 \description{
 Sets the owner of a job

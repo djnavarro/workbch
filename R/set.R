@@ -9,8 +9,6 @@
 set_jobname <- function(from, to) {
 
   jobs <- job_read()
-
-  # check that the job you want to change actually exists
   verify_jobname(from, jobs)
 
   # don't let the user overwrite an existing job
@@ -41,6 +39,7 @@ set_description <- function(description, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
 
   # write new value
@@ -59,6 +58,7 @@ set_status <- function(status, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
 
   # write new value
@@ -77,6 +77,7 @@ set_owner <- function(owner, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
 
   # set new owner
@@ -103,6 +104,7 @@ set_priority <- function(priority, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
 
   # write new value
@@ -120,6 +122,7 @@ set_path <- function(path, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
 
   # write new value
@@ -137,6 +140,7 @@ set_hidden <- function(hidden, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
 
   # write new value
@@ -159,8 +163,12 @@ set_hidden <- function(hidden, jobname = NULL) {
 set_task <- function(description, jobname = NULL, owner = NULL, status = "active",
                      priority = NULL, deadline = NULL, hidden = NULL) {
 
-  # read the jobs
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
+  # get this job
   jb <- jobs[[jobname]]
 
   # throw error if the job doesn't exist
@@ -261,7 +269,10 @@ set_workbch_home <- function(path = NULL) {
 #' }
 set_team <- function(add = NULL, remove = NULL, jobname = NULL) {
 
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
 
   if(!is.null(add)) {
     add <- real_name(add)
@@ -306,8 +317,12 @@ set_team <- function(add = NULL, remove = NULL, jobname = NULL) {
 #
 set_url <- function(site, link, jobname = NULL) {
 
-  # read the jobs data
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
+  # get the urls
   urls <- jobs[[jobname]]$urls
 
   # add or overwrite the url
@@ -346,7 +361,13 @@ set_url <- function(site, link, jobname = NULL) {
 #' set_note("myjob", "susan wanted me to notify her when done")
 #' }
 set_note <- function(note, jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
+  # get the current job
   jb <- jobs[[jobname]]
 
   if(is.null(dim(jb$notes))) {
@@ -466,8 +487,12 @@ set_person <- function(fullname, nickname, make_default = FALSE) {
 set_tag <- function(add = NULL, remove = NULL, jobname = NULL) {
 
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
 
   for(jbnm in jobname) {
+
+    # check the name
+    verify_jobname(jbnm, jobs)
 
     # if there are tags to add, add them
     if(!is.null(add)) {
@@ -489,8 +514,12 @@ set_tag <- function(add = NULL, remove = NULL, jobname = NULL) {
 #' @param jobname name of job(s) to be edited
 #' @export
 set_deadline <- function(date, jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
   verify_jobname(jobname, jobs)
+
   date <- format_date(date)
   jobs[[jobname]]$deadline <- date
   job_write(jobs)
@@ -504,7 +533,12 @@ set_deadline <- function(date, jobname = NULL) {
 #' @param jobname name of job(s) to be edited
 #' @export
 set_task_deadline <- function(date, id, jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
   date <- format_date(date)
   ind <- jobs[[jobname]]$tasks$id == id
   jobs[[jobname]]$tasks$deadline[ind] <- date

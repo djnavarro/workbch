@@ -22,7 +22,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
 
   verify_paths(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
-  return(job_tbl)
+  return(as_wkbch_tbl(job_tbl))
 }
 
 
@@ -61,7 +61,7 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
 
   verify_paths(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
-  return(job_tbl)
+  return(as_wkbch_tbl(job_tbl))
 }
 
 
@@ -87,7 +87,7 @@ view_taglist <- function() {
   # arrange
   tag_tbl <- dplyr::arrange(tag_tbl, dplyr::desc(jobs), tag)
 
-  return(tag_tbl)
+  return(as_wkbch_tbl(tag_tbl))
 }
 
 
@@ -96,7 +96,7 @@ view_taglist <- function() {
 #'
 #' @export
 view_people <- function() {
-  ppl_read()
+  as_wkbch_tbl(ppl_read())
 }
 
 
@@ -111,7 +111,7 @@ view_people <- function() {
 view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
   jobs <- view_jobs(..., show_hidden = show_hidden)
   jobs <- dplyr::filter(jobs, priority %in% {{priority}})
-  return(jobs)
+  return(as_wkbch_tbl(jobs))
 }
 
 
@@ -211,7 +211,7 @@ view_paths <- function(show_hidden = FALSE) {
 
   # throw warnings
   verify_paths(job_tbl$jobname, job_tbl$path)
-  return(job_tbl)
+  return(as_wkbch_tbl(job_tbl))
 }
 
 
@@ -290,7 +290,7 @@ view_git_status <- function(show_hidden = TRUE, show_clean = FALSE) {
     )
   }
 
-  return(gitst)
+  return(as_wkbch_tbl(gitst))
 
 }
 
@@ -323,7 +323,7 @@ view_tasks <- function(..., show_hidden = TRUE) {
   }
   tasks$hidden <- NULL
 
-  return(tasks)
+  return(as_wkbch_tbl(tasks))
 }
 
 #' View job status as an HTML file

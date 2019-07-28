@@ -217,8 +217,8 @@ format_date <- function(date) {
 get_current_jobname <- function(jobs) {
 
   # get all job names and paths
-  job_names <- purrr:::map_chr(jobs, ~ .x$jobname)
-  job_paths <- purrr:::map_chr(jobs, ~ .x$path)
+  job_names <- purrr::map_chr(jobs, ~ .x$jobname)
+  job_paths <- purrr::map_chr(jobs, ~ .x$path)
 
   # restrict to jobs with non-NA paths & normalise
   known <- !is.na(job_paths)

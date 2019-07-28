@@ -4,7 +4,7 @@
 \alias{delete_note}
 \title{Delete a note from a job}
 \usage{
-delete_note(id, jobname)
+delete_note(id, jobname = NULL)
 }
 \arguments{
 \item{id}{the id number assigned to the note}

@@ -368,7 +368,7 @@ The output is shown in chronological order (recent at the top). You can
 remove a note by referring to its number:
 
 ``` r
-delete_note("toxic", 1)
+delete_note(1, "toxic")
 view_notes("toxic")
 #> 
 #> 2:  i wonder if i should circulate this later

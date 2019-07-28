@@ -65,8 +65,13 @@ delete_job <- function(jobname) {
 #'
 #' delete_note(2, "myjob")
 #' }
-delete_note <- function(id, jobname) {
+delete_note <- function(id, jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
   jb <- jobs[[jobname]]
 
   if(id %in% jb$notes$id) {
@@ -93,8 +98,13 @@ delete_note <- function(id, jobname) {
 #'
 #' delete_task(2, "myjob")
 #' }
-delete_task <- function(id, jobname) {
+delete_task <- function(id, jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
   jb <- jobs[[jobname]]
 
   if(id %in% jb$tasks$id) {
@@ -117,8 +127,13 @@ delete_task <- function(id, jobname) {
 #' @param jobname the job from which the URL should be deleted
 #'
 #' @export
-delete_url <- function(site, jobname) {
+delete_url <- function(site, jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
   jb <- jobs[[jobname]]
 
   if(site %in% jb$urls$site) {

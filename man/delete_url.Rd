@@ -4,7 +4,7 @@
 \alias{delete_url}
 \title{Delete a URL from a job}
 \usage{
-delete_url(site, jobname)
+delete_url(site, jobname = NULL)
 }
 \arguments{
 \item{site}{the name of the site to which the URL should be deleted}

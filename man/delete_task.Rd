@@ -4,7 +4,7 @@
 \alias{delete_task}
 \title{Delete a task from a job}
 \usage{
-delete_task(id, jobname)
+delete_task(id, jobname = NULL)
 }
 \arguments{
 \item{id}{the id number assigned to the task}

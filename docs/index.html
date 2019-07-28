@@ -170,12 +170,13 @@
 <a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt;   team     : Beyoncé Knowles, Kelly Rowland, Michelle Williams </span></a>
 <a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;   priority : 1 </span></a>
 <a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;   status   : inactive </span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;   deadline : none </span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;   path = NA </span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt;   0 notes</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;   tags     :  </span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt;   deadline : none </span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;   path = NA </span></a>
+<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;   0 notes</span></a>
+<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt;   0 tasks</span></a></code></pre></div>
 </div>
 <div id="example-3-editing-jobs" class="section level2">
 <h2 class="hasAnchor">
@@ -249,14 +250,15 @@
 <a class="sourceLine" id="cb8-29" data-line-number="29"><span class="co">#&gt;   team     : Britney Spears </span></a>
 <a class="sourceLine" id="cb8-30" data-line-number="30"><span class="co">#&gt;   priority : 2 </span></a>
 <a class="sourceLine" id="cb8-31" data-line-number="31"><span class="co">#&gt;   status   : active </span></a>
-<a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt;   deadline : none </span></a>
-<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
-<a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb8-36" data-line-number="36"><span class="co">#&gt;   0 notes</span></a>
-<a class="sourceLine" id="cb8-37" data-line-number="37"><span class="co">#&gt;   0 tasks</span></a>
-<a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
-<a class="sourceLine" id="cb8-39" data-line-number="39"><span class="co">#&gt; exist</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-32" data-line-number="32"><span class="co">#&gt;   tags     :  </span></a>
+<a class="sourceLine" id="cb8-33" data-line-number="33"><span class="co">#&gt;   deadline : none </span></a>
+<a class="sourceLine" id="cb8-34" data-line-number="34"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-35" data-line-number="35"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
+<a class="sourceLine" id="cb8-36" data-line-number="36"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-37" data-line-number="37"><span class="co">#&gt;   0 notes</span></a>
+<a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">#&gt;   0 tasks</span></a>
+<a class="sourceLine" id="cb8-39" data-line-number="39"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
+<a class="sourceLine" id="cb8-40" data-line-number="40"><span class="co">#&gt; exist</span></a></code></pre></div>
 <p>If at this point we realise that “Danielle” should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_priority.html">set_priority</a></span>(<span class="st">"toxic"</span>, <span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/set_team.html">set_team</a></span>(<span class="st">"toxic"</span>, <span class="dt">add =</span> <span class="st">"danielle"</span>)</a>
@@ -271,16 +273,17 @@
 <a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt;   team     : Britney Spears, Danielle Navarro </span></a>
 <a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;   priority : 1 </span></a>
 <a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;   status   : active </span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;   deadline : none </span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
-<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt;   0 notes</span></a>
-<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt;   0 tasks</span></a>
-<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
-<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt; exist</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;   tags     :  </span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt;   deadline : none </span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
+<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
+<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
+<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt;   0 notes</span></a>
+<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt;   0 tasks</span></a>
+<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
+<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt; exist</span></a></code></pre></div>
 </div>
 <div id="example-4-filtering-and-prioritising" class="section level2">
 <h2 class="hasAnchor">
@@ -352,16 +355,17 @@
 <a class="sourceLine" id="cb18-6" data-line-number="6"><span class="co">#&gt;   team     : Britney Spears, Danielle Navarro </span></a>
 <a class="sourceLine" id="cb18-7" data-line-number="7"><span class="co">#&gt;   priority : 1 </span></a>
 <a class="sourceLine" id="cb18-8" data-line-number="8"><span class="co">#&gt;   status   : active </span></a>
-<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;   deadline : none </span></a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
-<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt;   1 notes</span></a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;   0 tasks</span></a>
-<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
-<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; exist</span></a></code></pre></div>
+<a class="sourceLine" id="cb18-9" data-line-number="9"><span class="co">#&gt;   tags     :  </span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="co">#&gt;   deadline : none </span></a>
+<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="co">#&gt;   path = ~/projects/toxic </span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="co">#&gt;   genius = https://genius.com/Britney-spears-toxic-lyrics </span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="co">#&gt;   github = https://github.com/djnavarro/toxic </span></a>
+<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="co">#&gt;   1 notes</span></a>
+<a class="sourceLine" id="cb18-17" data-line-number="17"><span class="co">#&gt;   0 tasks</span></a>
+<a class="sourceLine" id="cb18-18" data-line-number="18"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
+<a class="sourceLine" id="cb18-19" data-line-number="19"><span class="co">#&gt; exist</span></a></code></pre></div>
 </div>
 </div>
   </div>

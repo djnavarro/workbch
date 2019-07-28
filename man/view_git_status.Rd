@@ -4,7 +4,7 @@
 \alias{view_git_status}
 \title{View the git status of jobs}
 \usage{
-view_git_status(show_hidden = FALSE, show_clean = FALSE)
+view_git_status(show_hidden = TRUE, show_clean = FALSE)
 }
 \arguments{
 \item{show_hidden}{should hidden jobs be included?}

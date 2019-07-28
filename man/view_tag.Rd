@@ -4,10 +4,12 @@
 \alias{view_tag}
 \title{View a list of jobs that possess a tag}
 \usage{
-view_tag(tag, show_hidden = TRUE, invert = FALSE)
+view_tag(tag, ..., show_hidden = TRUE, invert = FALSE)
 }
 \arguments{
 \item{tag}{what tag to display}
+
+\item{...}{filtering expression to pass to dplyr::filter}
 
 \item{show_hidden}{should hidden jobs be included}
 

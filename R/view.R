@@ -29,10 +29,11 @@ view_jobs <- function(..., show_hidden = FALSE) {
 #' View a list of jobs that possess a tag
 #'
 #' @param tag what tag to display
+#' @param ... filtering expression to pass to dplyr::filter
 #' @param show_hidden should hidden jobs be included
 #' @param invert if TRUE, return jobs without the tag
 #' @export
-view_tag <- function(tag, show_hidden = TRUE, invert = FALSE) {
+view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
 
   jobs <- job_read()
 
@@ -51,6 +52,9 @@ view_tag <- function(tag, show_hidden = TRUE, invert = FALSE) {
 
   # arrange
   job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
+
+  # filter according to user expression
+  if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
 
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
@@ -236,7 +240,7 @@ view_jobnames <- function(show_hidden = TRUE) {
 #'
 #' @return A tibble
 #' @export
-view_git_status <- function(show_hidden = FALSE, show_clean = FALSE) {
+view_git_status <- function(show_hidden = TRUE, show_clean = FALSE) {
 
   # get the job locations
   proj <- view_paths(show_hidden = show_hidden)

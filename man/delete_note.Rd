@@ -4,12 +4,12 @@
 \alias{delete_note}
 \title{Delete a note from a job}
 \usage{
-delete_note(jobname, id)
+delete_note(id, jobname)
 }
 \arguments{
-\item{jobname}{the job from which the note should be deleted}
-
 \item{id}{the id number assigned to the note}
+
+\item{jobname}{the job from which the note should be deleted}
 }
 \description{
 Delete a note from a job
@@ -17,6 +17,6 @@ Delete a note from a job
 \examples{
 \dontrun{
 
-delete_note("myjob", 2)
+delete_note(2, "myjob")
 }
 }

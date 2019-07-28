@@ -4,12 +4,12 @@
 \alias{delete_task}
 \title{Delete a task from a job}
 \usage{
-delete_task(jobname, id)
+delete_task(id, jobname)
 }
 \arguments{
-\item{jobname}{the job from which the task should be deleted}
-
 \item{id}{the id number assigned to the task}
+
+\item{jobname}{the job from which the task should be deleted}
 }
 \description{
 Delete a task from a job
@@ -17,6 +17,6 @@ Delete a task from a job
 \examples{
 \dontrun{
 
-delete_task("myjob", 2)
+delete_task(2, "myjob")
 }
 }

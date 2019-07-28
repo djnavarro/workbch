@@ -55,17 +55,17 @@ delete_job <- function(jobname) {
 
 #' Delete a note from a job
 #'
-#' @param jobname the job from which the note should be deleted
 #' @param id the id number assigned to the note
+#' @param jobname the job from which the note should be deleted
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #'
-#' delete_note("myjob", 2)
+#' delete_note(2, "myjob")
 #' }
-delete_note <- function(jobname, id) {
+delete_note <- function(id, jobname) {
   jobs <- job_read()
   jb <- jobs[[jobname]]
 
@@ -83,17 +83,17 @@ delete_note <- function(jobname, id) {
 
 #' Delete a task from a job
 #'
-#' @param jobname the job from which the task should be deleted
 #' @param id the id number assigned to the task
+#' @param jobname the job from which the task should be deleted
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{
 #'
-#' delete_task("myjob", 2)
+#' delete_task(2, "myjob")
 #' }
-delete_task <- function(jobname, id) {
+delete_task <- function(id, jobname) {
   jobs <- job_read()
   jb <- jobs[[jobname]]
 
@@ -113,17 +113,11 @@ delete_task <- function(jobname, id) {
 
 #' Delete a URL from a job
 #'
-#' @param jobname the job from which the URL should be deleted
 #' @param site the name of the site to which the URL should be deleted
+#' @param jobname the job from which the URL should be deleted
 #'
 #' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' delete_url("myjob", "github")
-#' }
-delete_url <- function(jobname, site) {
+delete_url <- function(site, jobname) {
   jobs <- job_read()
   jb <- jobs[[jobname]]
 

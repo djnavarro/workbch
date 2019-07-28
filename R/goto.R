@@ -10,7 +10,10 @@
 #' goto_job("myjob")
 #' }
 goto_job <- function(jobname) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  verify_jobname(jobname, jobs)
 
   use_rstdio <- FALSE
   if(rstudioapi::isAvailable()) {
@@ -34,17 +37,16 @@ goto_job <- function(jobname) {
 
 #' Navigate to a URL linked to a job
 #'
-#' @param jobname name of the job
 #' @param site label denoting the site (e.g., "github")
+#' @param jobname name of the job
 #' @export
-#' @examples
-#' \dontrun{
-#'
-#' goto_url("myjob", "github")
-#' }
-goto_url <- function(jobname, site) {
+goto_url <- function(site, jobname = NULL) {
 
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
   urls <- jobs[[jobname]]$urls
   if(!(site %in% urls$site)) {
     stop("'", jobname, "' does not have a link for site '", site, "'", call. = FALSE)

@@ -179,8 +179,13 @@ view_job <- function(jobname = NULL) {
 #'
 #' view_notes("myjob")
 #' }
-view_notes <- function(jobname) {
+view_notes <- function(jobname = NULL) {
+
+  # read the jobs & verify the name
   jobs <- job_read()
+  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  verify_jobname(jobname, jobs)
+
   nt <- jobs[[jobname]]$notes
   if(!is.null(dim(nt))) {
     if(nrow(nt) > 0) {

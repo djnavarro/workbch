@@ -4,19 +4,13 @@
 \alias{goto_url}
 \title{Navigate to a URL linked to a job}
 \usage{
-goto_url(jobname, site)
+goto_url(site, jobname = NULL)
 }
 \arguments{
-\item{jobname}{name of the job}
-
 \item{site}{label denoting the site (e.g., "github")}
+
+\item{jobname}{name of the job}
 }
 \description{
 Navigate to a URL linked to a job
-}
-\examples{
-\dontrun{
-
-goto_url("myjob", "github")
-}
 }

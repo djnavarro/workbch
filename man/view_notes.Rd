@@ -4,7 +4,7 @@
 \alias{view_notes}
 \title{View notes associated with a job}
 \usage{
-view_notes(jobname)
+view_notes(jobname = NULL)
 }
 \arguments{
 \item{jobname}{the job}

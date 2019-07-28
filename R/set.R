@@ -33,11 +33,11 @@ set_jobname <- function(from, to) {
 
 #' Sets the description of a job
 #'
-#' @param jobname Name of the job
 #' @param description String specifying the description
+#' @param jobname Name of the job
 #'
 #' @export
-set_description <- function(jobname, description) {
+set_description <- function(description, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -52,10 +52,10 @@ set_description <- function(jobname, description) {
 
 #' Sets the status of a job
 #'
-#' @param jobname Name of the job
 #' @param status The new status
+#' @param jobname Name of the job
 #' @export
-set_status <- function(jobname, status) {
+set_status <- function(status, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -70,10 +70,10 @@ set_status <- function(jobname, status) {
 
 #' Sets the owner of a job
 #'
-#' @param jobname Name of the job
 #' @param owner Nick name for the new owner
+#' @param jobname Name of the job
 #' @export
-set_owner <- function(jobname, owner) {
+set_owner <- function(owner, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -96,10 +96,10 @@ set_owner <- function(jobname, owner) {
 
 #' Sets the priority of a job
 #'
-#' @param jobname Name of the job
 #' @param priority The new priority
+#' @param jobname Name of the job
 #' @export
-set_priority <- function(jobname, priority) {
+set_priority <- function(priority, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -113,10 +113,10 @@ set_priority <- function(jobname, priority) {
 
 #' Sets the path of a job
 #'
-#' @param jobname Name of the job
 #' @param path The path to the job folder
+#' @param jobname Name of the job
 #' @export
-set_path <- function(jobname, path) {
+set_path <- function(path, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -130,10 +130,10 @@ set_path <- function(jobname, path) {
 
 #' Sets the visibility of a job
 #'
-#' @param jobname Name of the job
 #' @param hidden Logical
+#' @param jobname Name of the job
 #' @export
-set_hidden <- function(jobname, hidden) {
+set_hidden <- function(hidden, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -148,15 +148,15 @@ set_hidden <- function(jobname, hidden) {
 
 #' Set a task attached to a job
 #'
-#' @param jobname name of the job the task attaches to
 #' @param description brief description of the task
+#' @param jobname name of the job the task attaches to
 #' @param status should be "active" (default), "inactive", "complete", "abandoned"
 #' @param owner should be a name or a nickname (defaults to job owner)
 #' @param priority numeric (default is to match the job)
 #' @param deadline a date (default is to match the job)
 #' @param hidden hide the task (default is to match the job)
 #' @export
-set_task <- function(jobname, description, owner = NULL, status = "active",
+set_task <- function(description, jobname = NULL, owner = NULL, status = "active",
                      priority = NULL, deadline = NULL, hidden = NULL) {
 
   # read the jobs
@@ -232,9 +232,9 @@ set_workbch_home <- function(path = NULL) {
 
 #' Set the members of a team
 #'
-#' @param jobname name of job to be edited
 #' @param add character vector of names to add to the team
 #' @param remove character vector of names to remove from the team
+#' @param jobname name of job to be edited
 #' @details The role of \code{set_team()} is to make it a little easier to
 #' alter the set of names listed in the "team" field of a job. The same task
 #' could be done with \code{set_job()} but it is cumbersome to do so. The
@@ -259,7 +259,7 @@ set_workbch_home <- function(path = NULL) {
 #' set_job("myjob", owner = "sarah") # transfers the ownership to sarah
 #' set_team("myjob", remove = "hayley") # removes hayley entirely
 #' }
-set_team <- function(jobname, add = NULL, remove = NULL) {
+set_team <- function(add = NULL, remove = NULL, jobname = NULL) {
 
   jobs <- job_read()
 
@@ -291,9 +291,9 @@ set_team <- function(jobname, add = NULL, remove = NULL) {
 
 #' Set a URL associated with a job
 #'
-#' @param jobname name of the job to edit
 #' @param site string with the site nickname (e.g., "github")
 #' @param link string with the link to the site
+#' @param jobname name of the job to edit
 #' @export
 #' @details The role of \code{job_edit_url()} is to make it a easier to
 #' change a URL associated with a job.
@@ -304,7 +304,7 @@ set_team <- function(jobname, add = NULL, remove = NULL) {
 #'
 #' }
 #
-set_url <- function(jobname, site, link) {
+set_url <- function(site, link, jobname = NULL) {
 
   # read the jobs data
   jobs <- job_read()
@@ -335,8 +335,8 @@ set_url <- function(jobname, site, link) {
 
 #' Set a note linked to a job
 #'
-#' @param jobname the job to which the note should be added
 #' @param note the text of the note
+#' @param jobname the job to which the note should be added
 #'
 #' @export
 #'
@@ -345,7 +345,7 @@ set_url <- function(jobname, site, link) {
 #'
 #' set_note("myjob", "susan wanted me to notify her when done")
 #' }
-set_note <- function(jobname, note) {
+set_note <- function(note, jobname = NULL) {
   jobs <- job_read()
   jb <- jobs[[jobname]]
 
@@ -458,12 +458,12 @@ set_person <- function(fullname, nickname, make_default = FALSE) {
 
 #' Set the tags for a job
 #'
-#' @param jobname name of job(s) to be edited
 #' @param add character vector of tags to add to jobs
 #' @param remove character vector of tags to remove from jobd
+#' @param jobname name of job(s) to be edited
 #' @details The role of \code{set_tags()} is to...
 #' @export
-set_tag <- function(jobname, add = NULL, remove = NULL) {
+set_tag <- function(add = NULL, remove = NULL, jobname = NULL) {
 
   jobs <- job_read()
 
@@ -485,10 +485,10 @@ set_tag <- function(jobname, add = NULL, remove = NULL) {
 
 #' Set the deadline for a job
 #'
-#' @param jobname name of job(s) to be edited
 #' @param date character string to be parsed by lubridate::dmy
+#' @param jobname name of job(s) to be edited
 #' @export
-set_deadline <- function(jobname, date) {
+set_deadline <- function(date, jobname = NULL) {
   jobs <- job_read()
   verify_jobname(jobname, jobs)
   date <- format_date(date)
@@ -499,11 +499,11 @@ set_deadline <- function(jobname, date) {
 
 #' Set the deadline for a taskjob
 #'
-#' @param jobname name of job(s) to be edited
-#' @param id id number of the task to be edited
 #' @param date character string to be parsed by lubridate::dmy
+#' @param id id number of the task to be edited
+#' @param jobname name of job(s) to be edited
 #' @export
-set_task_deadline <- function(jobname, id, date) {
+set_task_deadline <- function(date, id, jobname = NULL) {
   jobs <- job_read()
   date <- format_date(date)
   ind <- jobs[[jobname]]$tasks$id == id

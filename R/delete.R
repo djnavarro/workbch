@@ -53,39 +53,6 @@ delete_job <- function(jobname) {
 }
 
 
-#' Delete a note from a job
-#'
-#' @param id the id number assigned to the note
-#' @param jobname the job from which the note should be deleted
-#'
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' delete_note(2, "myjob")
-#' }
-delete_note <- function(id, jobname = NULL) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
-
-  jb <- jobs[[jobname]]
-
-  if(id %in% jb$notes$id) {
-
-    jb$notes <- dplyr::filter(jb$notes, id != {{id}})
-    jobs[[jobname]] <- jb
-    job_write(jobs)
-
-  } else {
-    warning("Note ", id, " does not exist in job '", jobname, "'", call. = FALSE)
-  }
-}
-
-
 #' Delete a task from a job
 #'
 #' @param id the id number assigned to the task

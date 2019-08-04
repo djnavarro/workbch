@@ -157,7 +157,6 @@ view_job("survivor")
 #> 
 #>   path = NA 
 #> 
-#>   0 notes
 #>   0 tasks
 ```
 
@@ -228,7 +227,6 @@ view_job("toxic")
 #> 
 #>   path = ~/projects/toxic 
 #> 
-#>   0 notes
 #>   0 tasks
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
@@ -259,7 +257,6 @@ view_job("toxic")
 #>   genius = https://genius.com/Britney-spears-toxic-lyrics 
 #>   github = https://github.com/djnavarro/toxic 
 #> 
-#>   0 notes
 #>   0 tasks
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
@@ -343,59 +340,3 @@ goto_project("toxic")
 If there is no RStudio project at the relevant location, or the RStudio
 API is not available (i.e., RStudio is not running), all this function
 will do is use `setwd()` to change the working directory.
-
-## Example 6: Adding, viewing and deleting notes
-
-Often it is handy to add small annotations to a job. The intent here is
-not to use this as a substitute for proper documentation but as a quick
-and dirty “notes to self” tool. You can add jobs using `set_note()`:
-
-``` r
-set_note("check if this worked", "toxic")
-set_note("i wonder if i should circulate this later", "toxic")
-```
-
-You can view the notes linked to a job with `view_notes()`:
-
-``` r
-view_notes("toxic")
-#> 
-#> 2:  i wonder if i should circulate this later
-#> 1:  check if this worked
-```
-
-The output is shown in chronological order (recent at the top). You can
-remove a note by referring to its number:
-
-``` r
-delete_note(1, "toxic")
-view_notes("toxic")
-#> 
-#> 2:  i wonder if i should circulate this later
-```
-
-As present the notes themselves do not show up directly when calling
-`view_job()`. Instead there is a counter that indicates that a job has
-notes associated with it:
-
-``` r
-view_job("toxic")
-#> 
-#> toxic : Estimate the LD50 dose 
-#> 
-#>   owner    : Britney Spears 
-#>   team     : Britney Spears, Danielle Navarro 
-#>   priority : 1 
-#>   status   : active 
-#>   tags     :  
-#>   deadline : none 
-#> 
-#>   path = ~/projects/toxic 
-#>   genius = https://genius.com/Britney-spears-toxic-lyrics 
-#>   github = https://github.com/djnavarro/toxic 
-#> 
-#>   1 notes
-#>   0 tasks
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
-```

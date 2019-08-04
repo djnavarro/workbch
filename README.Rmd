@@ -227,32 +227,3 @@ goto_project("toxic")
 
 If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function will do is use `setwd()` to change the working directory.
 
-## Example 6: Adding, viewing and deleting notes
-
-Often it is handy to add small annotations to a job. The intent here is not to use this as a substitute for proper documentation but as a quick and dirty "notes to self" tool. You can add jobs using `set_note()`:
-
-```{r addnotes}
-set_note("check if this worked", "toxic")
-set_note("i wonder if i should circulate this later", "toxic")
-```
-
-You can view the notes linked to a job with `view_notes()`:
-
-```{r viewnotes}
-view_notes("toxic")
-```
-
-The output is shown in chronological order (recent at the top). You can remove a note by referring to its number:
-
-```{r deletenotes}
-delete_note(1, "toxic")
-view_notes("toxic")
-```
-
-As present the notes themselves do not show up directly when calling `view_job()`. Instead there is a counter that indicates that a job has notes associated with it:
-
-```{r shownotesinjob}
-view_job("toxic")
-```
-
-

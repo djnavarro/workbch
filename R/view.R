@@ -153,50 +153,12 @@ view_job <- function(jobname = NULL) {
   }
 
   cat("\n")
-  cat(" ", nrow(jb$notes), "notes\n")
   cat(" ", nrow(jb$tasks), "tasks\n")
 
   cat("\n")
 
   verify_paths(jb$jobname, jb$path)
   return(invisible(jb))
-}
-
-#' View notes associated with a job
-#'
-#' @param jobname the job
-#'
-#' @details Displays all notes associated with a job in order of recency. The
-#' display format is minimal, showing only an id number (to make it easy to
-#' delete notes later) and the text of each note. Notes are shown in
-#' chronological order, with most recent notes at the top of the output
-#' @return Invisibly returns a tibble containing columns for the note,
-#' the id number, the creation date, and the job name
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' view_notes("myjob")
-#' }
-view_notes <- function(jobname = NULL) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
-
-  nt <- jobs[[jobname]]$notes
-  if(!is.null(dim(nt))) {
-    if(nrow(nt) > 0) {
-      cat("\n")
-      for(i in 1:nrow(nt)) {
-        cat(nt$id[i], ":  ", nt$note[i], "\n", sep = "")
-      }
-      cat("\n")
-    }
-  }
-  return(invisible(nt))
 }
 
 

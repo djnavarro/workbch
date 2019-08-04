@@ -347,47 +347,6 @@ set_url <- function(site, link, jobname = NULL) {
 }
 
 
-
-#' Set a note linked to a job
-#'
-#' @param note the text of the note
-#' @param jobname the job to which the note should be added
-#'
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' set_note("myjob", "susan wanted me to notify her when done")
-#' }
-set_note <- function(note, jobname = NULL) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
-
-  # get the current job
-  jb <- jobs[[jobname]]
-
-  if(is.null(dim(jb$notes))) {
-    nt <- new_note(jobname, note, id = 1)
-  } else if(nrow(jb$notes) == 0) {
-    nt <- new_note(jobname, note, id = 1)
-  } else {
-    id <- max(jb$notes$id) + 1
-    nt <- new_note(jobname, note, id = id)
-  }
-
-  jb$notes <- dplyr::bind_rows(jb$notes, nt)
-  jb$notes <- dplyr::arrange(jb$notes, dplyr::desc(date), dplyr::desc(id))
-  jobs[[jobname]] <- jb
-  job_write(jobs)
-}
-
-
-
-
 #' Sets details for a new person
 #'
 #' @param fullname the full name of the person

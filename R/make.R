@@ -58,7 +58,6 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
     tags = tags,
     path = path,
     urls = empty_url(),
-    notes = empty_note(),
     tasks = empty_task(),
     hidden = hidden
   )
@@ -200,7 +199,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
             priority = priority,
             deadline = deadline,
             path = found_paths[i],
-            notes = empty_note(),
             tasks = empty_task(),
             hidden = hidden
           )
@@ -217,7 +215,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
             deadline = deadline,
             path = found_paths[i],
             urls = new_url(site = site, link = url_path),
-            notes = empty_note(),
             tasks = empty_task(),
             hidden = hidden
           )

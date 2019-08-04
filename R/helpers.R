@@ -25,7 +25,6 @@ job_read <- function() {
 
       # empty lists become data frames
       if(class(j$urls) == "list") {j$urls <- empty_url()}
-      if(class(j$notes) == "list") {j$notes <- empty_note()}
       if(class(j$tasks) == "list") {j$tasks <- empty_task()}
 
       # don't let tags become matrices
@@ -33,7 +32,6 @@ job_read <- function() {
 
       # coerce to tibbles
       j$urls <- tibble::as_tibble(j$urls)
-      j$notes <- tibble::as_tibble(j$notes)
       j$tasks <- tibble::as_tibble(j$tasks)
 
       return(j)

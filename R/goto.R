@@ -15,21 +15,30 @@ goto_job <- function(jobname) {
   jobs <- job_read()
   verify_jobname(jobname, jobs)
 
-  use_rstdio <- FALSE
-  if(rstudioapi::isAvailable()) {
-    files <- list.files(jobs[[jobname]]$path)
-    rproj <- grep(".*\\.Rproj$", files)
-    if(length(rproj) > 0) {
-      use_rstdio <- TRUE
-    }
-  }
-
-  if(use_rstdio) {
-    rstudioapi::openProject(jobs[[jobname]]$path)
-  } else {
+  # if we're not in RStudio, just change working directory
+  if(!rstudioapi::isAvailable()) {
     message("setting working directory to ", jobs[[jobname]]$path)
     setwd(jobs[[jobname]]$path)
+    return(invisible(NULL))
   }
+
+  # if we're in RStudio... read files in job and look for Rproj file
+  files <- list.files(jobs[[jobname]]$path)
+  rproj <- grep(".*\\.Rproj$", files)
+
+  # if there's a project we can switch to, do so...
+  if(length(rproj) > 0) {
+    rstudioapi::openProject(jobs[[jobname]]$path)
+    return(invisible(NULL))
+  }
+
+  # currently RStudioAPI won't let me close job without opening a new one
+  # instead just message the user with a polite heads up
+  message("setting working directory to ", jobs[[jobname]]$path)
+  message("you may wish to close any open RStudio project")
+  setwd(jobs[[jobname]]$path)
+  return(invisible(NULL))
+
 }
 
 

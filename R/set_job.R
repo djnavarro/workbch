@@ -152,7 +152,7 @@ set_job <- function(
 
       # if there are tags to remove, remove them
       if(!is.null(remove_tag)) {
-        jobs[[jbnm]]$tags <- setdiff(jobs[[jbnm]]$tags, remove_tags)
+        jobs[[jbnm]]$tags <- setdiff(jobs[[jbnm]]$tags, remove_tag)
       }
     }
   }

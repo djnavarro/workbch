@@ -31,8 +31,6 @@ set_task_deadline(id, deadline)
 \item{priority}{numeric (default is to match the job)}
 
 \item{deadline}{a date (default is to match the job)}
-
-\item{hidden}{hide the task (default is to match the job)}
 }
 \description{
 Set the properties of an existing task

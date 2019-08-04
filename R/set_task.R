@@ -6,7 +6,6 @@
 #' @param owner should be a name or a nickname (defaults to job owner)
 #' @param priority numeric (default is to match the job)
 #' @param deadline a date (default is to match the job)
-#' @param hidden hide the task (default is to match the job)
 #'
 #' @name set_task
 NULL

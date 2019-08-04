@@ -17,7 +17,7 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
   # find the job and the task
   jobs <- job_read()
   tasks <- task_read()
-  ind <- which(which(tasks$id == id))
+  ind <- which(tasks$id == id)
   if(length(ind) == 0) {
     stop("no task with id '", id, "' exists", call. = FALSE)
   }

@@ -60,7 +60,7 @@ options(workbch.home = "PATH_TO_FOLDER")
 ```
 ```{r, include=FALSE}
 # for the purposes of the demo, set the workbch home to a temp directory 
-workbch::set_workbch_home(path = tempdir())
+workbch::workbch_home(path = tempdir())
 ```
 
 This ensures that whenever the workbch package is loaded it knows where to find information about jobs. Once this is done, you can start adding jobs! A "job" is intended to have roughly the same meaning as a "project" in everyday life (i.e., a self-contained body of work of some kind), but to avoid confusion with "RStudio projects" I've used a different term. Here's how to add and view the jobs you have stored:
@@ -97,7 +97,7 @@ set_person("Kelly Rowland", "kelly")
 
 set_person("Michelle Williams", "michelle")
 
-view_people()
+workbch_people()
 ```
 
 Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for that job. When used in conjunction with nicknames, the `set_job()` function allows you to specify the team efficiently: 
@@ -136,7 +136,6 @@ Internally, a job is represented as a list with the following fields
 - `path`: path to the project home directory
 - `urls`: a tibble specifying urls linked to the job
 - `tasks`: a tibble specifying tasks linked to the job 
-- `notes`: a tibble specifying notes linked to the job
 
 When we added the "survival" job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:
 
@@ -170,10 +169,10 @@ view_job("toxic")
 If at this point we realise that "Danielle" should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ```{r editteam}
-set_job_priority(priority = 1, jobname = "toxic")
-set_job_team(add = "danielle", jobname = "toxic")
-set_job_url(site = "github", link = "https://github.com/djnavarro/toxic", jobname = "toxic")
-set_job_url(site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics", jobname = "toxic")
+set_job_priority(jobname = "toxic", priority = 1)
+set_job_team(jobname = "toxic", add_team = "danielle")
+set_job_url(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+set_job_url(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 
 view_job("toxic")
 ```

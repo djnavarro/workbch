@@ -65,41 +65,6 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
 }
 
 
-
-#' View the list of tags
-#'
-#' @export
-view_taglist <- function() {
-
-  jobs <- job_read()
-
-  # vector containing each instance of a tag
-  all_tags <- purrr::map(jobs, ~ .x$tags)
-  all_tags <- unlist(all_tags)
-
-  # tabulate and enframe
-  freq_tags <- table(all_tags)
-  tag_tbl <- tibble::tibble(
-    tag = names(freq_tags),
-    jobs = unname(freq_tags)
-  )
-
-  # arrange
-  tag_tbl <- dplyr::arrange(tag_tbl, dplyr::desc(jobs), tag)
-
-  return(as_wkbch_tbl(tag_tbl))
-}
-
-
-
-#' View the list of known people
-#'
-#' @export
-view_people <- function() {
-  as_wkbch_tbl(ppl_read())
-}
-
-
 #' View jobs by priority
 #'
 #' @param priority numeric vector of priorities to display
@@ -167,34 +132,6 @@ view_job <- function(jobname = NULL) {
   verify_paths(jb$jobname, jb$path)
   return(invisible(jb))
 }
-
-
-#' View the job folder locations known to workbch
-#'
-#' @param show_hidden should hidden jobs be included
-#'
-#' @return A tibble
-#' @export
-view_paths <- function(show_hidden = TRUE) {
-  jobs <- job_read()
-  job_tbl <- purrr::map_df(jobs, function(x){
-    if(!is.null(x$path)) {
-      return(tibble::as_tibble(x[c("jobname", "path")]))
-    } else {
-      return(tibble::tibble(jobname = character(0), path = character(0)))
-    }
-  })
-  job_tbl <- dplyr::arrange(job_tbl, jobname)
-  job_tbl <- dplyr::filter(job_tbl, !is.na(path))
-
-  # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
-
-  # throw warnings
-  verify_paths(job_tbl$jobname, job_tbl$path)
-  return(as_wkbch_tbl(job_tbl))
-}
-
 
 #' View the git status of jobs
 #'
@@ -288,19 +225,5 @@ view_tasks <- function(..., show_hidden = TRUE) {
 
   return(as_wkbch_tbl(tasks))
 }
-
-#' View job status as an HTML file
-#'
-#' @export
-view_site <- function() {
-  rmarkdown::render(
-    input = system.file("extdata", "status.Rmd", package = "workbch"),
-    output_file = "workbch_status.html",
-    output_dir = getOption("workbch.home"),
-    params = list(path = getOption("workbch.home"))
-  )
-  utils::browseURL(url = file.path(getOption("workbch.home"), "workbch_status.html"))
-}
-
 
 

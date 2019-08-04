@@ -108,7 +108,7 @@ set_person("Kelly Rowland", "kelly")
 set_person("Michelle Williams", "michelle")
 #> added 'Michelle Williams' with nickname 'michelle'
 
-view_people()
+workbch_people()
 #> # A tibble: 3 x 3
 #>   fullname          nickname default
 #>   <chr>             <chr>    <lgl>  
@@ -172,7 +172,6 @@ Internally, a job is represented as a list with the following fields
   - `path`: path to the project home directory
   - `urls`: a tibble specifying urls linked to the job
   - `tasks`: a tibble specifying tasks linked to the job
-  - `notes`: a tibble specifying notes linked to the job
 
 When we added the “survival” job earlier, we specified some of these
 fields but not others. There are a numver of functions you can use to
@@ -233,10 +232,10 @@ the team for toxic (yeah, right) and the priority should have been set
 at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
-set_job_priority(priority = 1, jobname = "toxic")
-set_job_team(add = "danielle", jobname = "toxic")
-set_job_url(site = "github", link = "https://github.com/djnavarro/toxic", jobname = "toxic")
-set_job_url(site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics", jobname = "toxic")
+set_job_priority(jobname = "toxic", priority = 1)
+set_job_team(jobname = "toxic", add_team = "danielle")
+set_job_url(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+set_job_url(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 
 view_job("toxic")
 #> 

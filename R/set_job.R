@@ -7,7 +7,6 @@
 #' @param status the new status
 #' @param priority the new priority
 #' @param path the new path to the job folder
-#' @param hidden the new visibility status
 #' @param deadline new deadline, string to be parsed by lubridate::dmy
 #' @param add_tag character vector of tags to add to jobs
 #' @param remove_tag character vector of tags to remove from job
@@ -21,7 +20,7 @@ NULL
 
 set_job <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
-  status = NULL, priority = NULL, path = NULL, hidden = NULL, deadline = NULL,
+  status = NULL, priority = NULL, path = NULL, deadline = NULL,
   add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
   remove_team = NULL
 ){
@@ -84,13 +83,6 @@ set_job <- function(
   if(!is.null(path)) {
     jobs[[jobname]]$path <- path
   }
-
-
-  # ------- job visibilitiy -------
-  if(!is.null(hidden)) {
-    jobs[[jobname]]$hidden <- hidden
-  }
-
 
   # ------- job deadline -------
   if(!is.null(deadline)) {
@@ -195,12 +187,6 @@ set_job_priority <- function(jobname, priority) {
 #' @export
 set_job_path <- function(jobname, path) {
   job_write(set_job(jobname = jobname, path = path))
-}
-
-#' @rdname set_job
-#' @export
-set_job_hidden <- function(jobname, hidden) {
-  job_write(set_job(jobname = jobname, hidden = hidden))
 }
 
 #' @rdname set_job

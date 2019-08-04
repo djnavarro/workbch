@@ -8,7 +8,6 @@
 \alias{set_job_owner}
 \alias{set_job_priority}
 \alias{set_job_path}
-\alias{set_job_hidden}
 \alias{set_job_deadline}
 \alias{set_job_team}
 \alias{set_job_url}
@@ -26,8 +25,6 @@ set_job_owner(jobname, owner)
 set_job_priority(jobname, priority)
 
 set_job_path(jobname, path)
-
-set_job_hidden(jobname, hidden)
 
 set_job_deadline(jobname, deadline)
 
@@ -51,8 +48,6 @@ set_job_tag(jobname, add_tag = NULL, remove_tag = NULL)
 \item{priority}{the new priority}
 
 \item{path}{the new path to the job folder}
-
-\item{hidden}{the new visibility status}
 
 \item{deadline}{new deadline, string to be parsed by lubridate::dmy}
 

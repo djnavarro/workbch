@@ -18,7 +18,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
   if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
+  if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
 
   verify_paths(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
@@ -57,7 +57,7 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
   if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- hide_jobs(jobs, job_tbl)}
+  if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
 
   verify_paths(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL

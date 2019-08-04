@@ -127,22 +127,8 @@ real_name <- function(nickname) {
 }
 
 # find the jobs that need to be hidden and hide them
-hide_jobs <- function(jobs, job_tbl) {
-
-  # find them
-  hidden <- purrr::map_chr(jobs, function(x) {
-    if(!is.null(x$hidden)) {
-      if(x$hidden == TRUE) {
-        return(x$jobname)
-      }
-    }
-    return("")
-  })
-  hidden <- hidden[hidden != ""]
-
-  # remove them
-  job_tbl <- dplyr::filter(job_tbl, !(jobname %in% hidden))
-
+hide_jobs <- function(job_tbl) {
+  job_tbl <- dplyr::filter(job_tbl, status %in% c("active", "inactive"))
   return(job_tbl)
 }
 

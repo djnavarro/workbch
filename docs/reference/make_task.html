@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set the tags for a job — set_tag • workbch</title>
+<title>Make a task and attach to a job — make_task • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Set the tags for a job — set_tag" />
+<meta property="og:title" content="Make a task and attach to a job — make_task" />
 
-<meta property="og:description" content="Set the tags for a job" />
+<meta property="og:description" content="Make a task and attach to a job" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,39 +103,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set the tags for a job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/set.R'><code>R/set.R</code></a></small>
-    <div class="hidden name"><code>set_tag.Rd</code></div>
+    <h1>Make a task and attach to a job</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/make.R'><code>R/make.R</code></a></small>
+    <div class="hidden name"><code>make_task.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Set the tags for a job</p>
+    <p>Make a task and attach to a job</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>set_tag</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remove</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>make_task</span>(<span class='no'>description</span>, <span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>status</span> <span class='kw'>=</span> <span class='st'>"active"</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>hidden</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>add</th>
-      <td><p>character vector of tags to add to jobs</p></td>
-    </tr>
-    <tr>
-      <th>remove</th>
-      <td><p>character vector of tags to remove from jobd</p></td>
+      <th>description</th>
+      <td><p>brief description of the task</p></td>
     </tr>
     <tr>
       <th>jobname</th>
-      <td><p>name of job(s) to be edited</p></td>
+      <td><p>name of the job the task attaches to</p></td>
+    </tr>
+    <tr>
+      <th>owner</th>
+      <td><p>should be a name or a nickname (defaults to job owner)</p></td>
+    </tr>
+    <tr>
+      <th>status</th>
+      <td><p>should be "active" (default), "inactive", "complete", "abandoned"</p></td>
+    </tr>
+    <tr>
+      <th>priority</th>
+      <td><p>numeric (default is to match the job)</p></td>
+    </tr>
+    <tr>
+      <th>deadline</th>
+      <td><p>a date (default is to match the job)</p></td>
+    </tr>
+    <tr>
+      <th>hidden</th>
+      <td><p>hide the task (default is to match the job)</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The role of <code>set_tags()</code> is to...</p>
     
 
   </div>
@@ -143,9 +157,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

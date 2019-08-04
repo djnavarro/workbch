@@ -9,10 +9,17 @@
 #'
 #' goto_job("myjob")
 #' }
-goto_job <- function(jobname) {
+goto_job <- function(jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
+
+  # if the user doesn't specify a job, prompt them
+  if(is.null(jobname)) {
+    job_name <- prompt_jobname()
+  }
+
+  # check jobname
   verify_jobname(jobname, jobs)
 
   # if we're not in RStudio, just change working directory

@@ -4,7 +4,7 @@
 \alias{goto_job}
 \title{Navigate to a job}
 \usage{
-goto_job(jobname)
+goto_job(jobname = NULL)
 }
 \arguments{
 \item{jobname}{name of job to open}

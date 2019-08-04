@@ -16,14 +16,15 @@ coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)
 <!-- badges: end -->
 
 The workbch package provides a “work bench” of tools for project
-management within R, based around the concept of a “job” (which might
-map to a single RStudio project or a single git repository). Jobs can be
-linked to multiple URLs, be associated with multiple “tasks”, etc. In
-addition to basic tracking, searching and filtering, the package
-provides some tools to navigate between jobs, browse relevant websites,
-and check the git status of repositories linked to a job. Priority
-levels and deadlines are supported for both jobs and tasks, but
-financial information and time allocation is not.
+management  
+within R, based around the concept of a “job” (which might map to a
+single RStudio project or a single git repository). Jobs can be linked
+to multiple URLs, be associated with multiple “tasks”, etc. In addition
+to basic tracking, searching and filtering, the package provides some
+tools to navigate between jobs, browse relevant websites, and check the
+git status of repositories linked to a job. Priority levels and
+deadlines are supported for both jobs and tasks, but financial
+information and time allocation is not.
 
 ## Installation
 
@@ -153,11 +154,7 @@ view_job("survivor")
 #>   priority : 1 
 #>   status   : inactive 
 #>   tags     :  
-#>   deadline : none 
-#> 
-#>   path = NA 
-#> 
-#>   0 tasks
+#>   deadline : none
 ```
 
 ## Example 3: Editing jobs
@@ -225,9 +222,8 @@ view_job("toxic")
 #>   tags     :  
 #>   deadline : none 
 #> 
-#>   path = ~/projects/toxic 
-#> 
-#>   0 tasks
+#>   locations: 
+#>      [path] ~/projects/toxic
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
 ```
@@ -253,11 +249,10 @@ view_job("toxic")
 #>   tags     :  
 #>   deadline : none 
 #> 
-#>   path = ~/projects/toxic 
-#>   genius = https://genius.com/Britney-spears-toxic-lyrics 
-#>   github = https://github.com/djnavarro/toxic 
-#> 
-#>   0 tasks
+#>   locations: 
+#>      [path] ~/projects/toxic
+#>      [genius] https://genius.com/Britney-spears-toxic-lyrics
+#>      [github] https://github.com/djnavarro/toxic
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
 ```

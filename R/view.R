@@ -144,18 +144,25 @@ view_job <- function(jobname = NULL) {
   dl <- ifelse(is.na(jb$deadline), "none", jb$deadline)
   cat("  deadline :", dl, "\n")
 
-  cat("\n")
-  cat("  path =", jb$path, "\n")
-  if(nrow(jb$urls) > 0) {
-    for(i in 1:nrow(jb$urls)) {
-      cat(" ", jb$urls$site[i], "=", jb$urls$link[i], "\n")
+  if(nrow(jb$urls) > 0 | !is.na(jb$path)) {
+    cat("\n  locations: \n")
+    cat("     [path] ", jb$path, "\n", sep = "")
+    if(nrow(jb$urls) > 0) {
+      for(i in 1:nrow(jb$urls)) {
+        cat("     [", jb$urls$site[i], "] ", jb$urls$link[i], "\n", sep = "")
+      }
     }
+    cat("\n")
   }
 
-  cat("\n")
-  cat(" ", nrow(jb$tasks), "tasks\n")
-
-  cat("\n")
+  # display tasks
+  if(nrow(jb$tasks) > 0) {
+    cat("  tasks: \n")
+    for(i in 1:nrow(jb$tasks)) {
+      cat("     [", jb$tasks$id[i], "] ", jb$tasks$description[i], " (",
+          jb$tasks$deadline[i], ")\n", sep = "")
+    }
+  }
 
   verify_paths(jb$jobname, jb$path)
   return(invisible(jb))
@@ -259,8 +266,8 @@ view_git_status <- function(show_hidden = TRUE, show_clean = FALSE) {
 
   if(!show_clean) {
     gitst <- dplyr::filter(gitst,
-      !(staged == 0 & unstaged == 0 & untracked == 0 &
-        (is.na(ahead) | ahead == 0) & (is.na(behind) | behind == 0))
+                           !(staged == 0 & unstaged == 0 & untracked == 0 &
+                               (is.na(ahead) | ahead == 0) & (is.na(behind) | behind == 0))
     )
   }
 

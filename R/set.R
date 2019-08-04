@@ -6,7 +6,7 @@
 #' @param to the new name for the job
 #'
 #' @export
-set_jobname <- function(from, to) {
+set_job_name <- function(from, to) {
 
   jobs <- job_read()
   verify_jobname(from, jobs)
@@ -35,7 +35,7 @@ set_jobname <- function(from, to) {
 #' @param jobname Name of the job
 #'
 #' @export
-set_description <- function(description, jobname = NULL) {
+set_job_description <- function(description, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -54,7 +54,7 @@ set_description <- function(description, jobname = NULL) {
 #' @param status The new status
 #' @param jobname Name of the job
 #' @export
-set_status <- function(status, jobname = NULL) {
+set_job_status <- function(status, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -73,7 +73,7 @@ set_status <- function(status, jobname = NULL) {
 #' @param owner Nick name for the new owner
 #' @param jobname Name of the job
 #' @export
-set_owner <- function(owner, jobname = NULL) {
+set_job_owner <- function(owner, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -100,7 +100,7 @@ set_owner <- function(owner, jobname = NULL) {
 #' @param priority The new priority
 #' @param jobname Name of the job
 #' @export
-set_priority <- function(priority, jobname = NULL) {
+set_job_priority <- function(priority, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -118,7 +118,7 @@ set_priority <- function(priority, jobname = NULL) {
 #' @param path The path to the job folder
 #' @param jobname Name of the job
 #' @export
-set_path <- function(path, jobname = NULL) {
+set_job_path <- function(path, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -136,7 +136,7 @@ set_path <- function(path, jobname = NULL) {
 #' @param hidden Logical
 #' @param jobname Name of the job
 #' @export
-set_hidden <- function(hidden, jobname = NULL) {
+set_job_hidden <- function(hidden, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -148,74 +148,6 @@ set_hidden <- function(hidden, jobname = NULL) {
   job_write(jobs)
 
 }
-
-
-#' Set a task attached to a job
-#'
-#' @param description brief description of the task
-#' @param jobname name of the job the task attaches to
-#' @param status should be "active" (default), "inactive", "complete", "abandoned"
-#' @param owner should be a name or a nickname (defaults to job owner)
-#' @param priority numeric (default is to match the job)
-#' @param deadline a date (default is to match the job)
-#' @param hidden hide the task (default is to match the job)
-#' @export
-set_task <- function(description, jobname = NULL, owner = NULL, status = "active",
-                     priority = NULL, deadline = NULL, hidden = NULL) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
-
-  # get this job
-  jb <- jobs[[jobname]]
-
-  # throw error if the job doesn't exist
-  if(is.null(jb)) {
-    stop("there is no job named '", jobname, "'", call. = FALSE)
-  }
-
-  # set defaults as needed
-  if(is.null(owner)) {owner <- jb$owner}
-  if(is.null(priority)) {priority <- jb$priority}
-  if(is.null(hidden)) {hidden <- jb$hidden}
-
-  # parse the deadline
-  if(is.null(deadline)) {
-    deadline <- jb$deadline
-  } else {
-    deadline <- format_date(deadline)
-  }
-
-  # parse the owner name and throw warning if not in team
-  owner <- real_name(owner)
-  if(!(owner %in% jb$team)) {
-    warning("'", owner, "' is not on the team for '", jobname, "'", call. = FALSE)
-  }
-
-  # assign the task a unique id number
-  id <- current_max_task_id(jobs) + 1
-
-  # create the task object
-  tsk <- new_task(jobname = jobname, id = id, description = description,
-                  owner = owner, status = status, priority = priority,
-                  deadline = deadline, hidden = hidden)
-
-  # append it to the job
-  if(identical(jb$tasks, list())) {
-    jb$tasks <- tsk
-  } else if(nrow(jb$tasks) == 0) {
-    jb$tasks <- tsk
-  } else {
-    jb$tasks <- dplyr::bind_rows(jb$tasks, tsk)
-  }
-
-  # write it to the jobs list
-  jobs[[jobname]] <- jb
-  job_write(jobs)
-}
-
 
 
 #' Set the location of workbch files
@@ -267,7 +199,7 @@ set_workbch_home <- function(path = NULL) {
 #' set_job("myjob", owner = "sarah") # transfers the ownership to sarah
 #' set_team("myjob", remove = "hayley") # removes hayley entirely
 #' }
-set_team <- function(add = NULL, remove = NULL, jobname = NULL) {
+set_job_team <- function(add = NULL, remove = NULL, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -315,7 +247,7 @@ set_team <- function(add = NULL, remove = NULL, jobname = NULL) {
 #'
 #' }
 #
-set_url <- function(site, link, jobname = NULL) {
+set_job_url <- function(site, link, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -443,7 +375,7 @@ set_person <- function(fullname, nickname, make_default = FALSE) {
 #' @param jobname name of job(s) to be edited
 #' @details The role of \code{set_tags()} is to...
 #' @export
-set_tag <- function(add = NULL, remove = NULL, jobname = NULL) {
+set_job_tag <- function(add = NULL, remove = NULL, jobname = NULL) {
 
   jobs <- job_read()
   if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
@@ -472,7 +404,7 @@ set_tag <- function(add = NULL, remove = NULL, jobname = NULL) {
 #' @param date character string to be parsed by lubridate::dmy
 #' @param jobname name of job(s) to be edited
 #' @export
-set_deadline <- function(date, jobname = NULL) {
+set_job_deadline <- function(date, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()

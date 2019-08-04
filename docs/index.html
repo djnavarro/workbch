@@ -205,13 +205,13 @@ within R, based around the concept of a “job” (which might map to a single R
 <p>When we added the “survival” job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:</p>
 <ul>
 <li>
-<code><a href="reference/set_jobname.html">set_jobname()</a></code> allows you to reset name,</li>
+<code>set_jobname()</code> allows you to reset name,</li>
 <li>
-<code><a href="reference/set_team.html">set_team()</a></code> makes it easier to edit the team</li>
+<code>set_team()</code> makes it easier to edit the team</li>
 <li>
-<code><a href="reference/set_url.html">set_url()</a></code> makes it easier to edit a webpage associated with a job</li>
+<code>set_url()</code> makes it easier to edit a webpage associated with a job</li>
 <li><code>set_note()</code></li>
-<li><code><a href="reference/set_task.html">set_task()</a></code></li>
+<li><code>set_task()</code></li>
 <li>etc</li>
 </ul>
 <p>To illustrate, suppose we make a new job, called “toxic”:</p>
@@ -254,10 +254,10 @@ within R, based around the concept of a “job” (which might map to a single R
 <a class="sourceLine" id="cb8-37" data-line-number="37"><span class="co">#&gt; Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not</span></a>
 <a class="sourceLine" id="cb8-38" data-line-number="38"><span class="co">#&gt; exist</span></a></code></pre></div>
 <p>If at this point we realise that “Danielle” should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_priority.html">set_priority</a></span>(<span class="dt">priority =</span> <span class="dv">1</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/set_team.html">set_team</a></span>(<span class="dt">add =</span> <span class="st">"danielle"</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="reference/set_url.html">set_url</a></span>(<span class="dt">site =</span> <span class="st">"github"</span>, <span class="dt">link =</span> <span class="st">"https://github.com/djnavarro/toxic"</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="reference/set_url.html">set_url</a></span>(<span class="dt">site =</span> <span class="st">"genius"</span>, <span class="dt">link =</span> <span class="st">"https://genius.com/Britney-spears-toxic-lyrics"</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/set_job_priority.html">set_job_priority</a></span>(<span class="dt">priority =</span> <span class="dv">1</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="reference/set_job_team.html">set_job_team</a></span>(<span class="dt">add =</span> <span class="st">"danielle"</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw"><a href="reference/set_job_url.html">set_job_url</a></span>(<span class="dt">site =</span> <span class="st">"github"</span>, <span class="dt">link =</span> <span class="st">"https://github.com/djnavarro/toxic"</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw"><a href="reference/set_job_url.html">set_job_url</a></span>(<span class="dt">site =</span> <span class="st">"genius"</span>, <span class="dt">link =</span> <span class="st">"https://genius.com/Britney-spears-toxic-lyrics"</span>, <span class="dt">jobname =</span> <span class="st">"toxic"</span>)</a>
 <a class="sourceLine" id="cb9-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="kw"><a href="reference/view_job.html">view_job</a></span>(<span class="st">"toxic"</span>)</a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; </span></a>

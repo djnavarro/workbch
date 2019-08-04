@@ -175,7 +175,7 @@ view_job <- function(jobname = NULL) {
 #'
 #' @return A tibble
 #' @export
-view_paths <- function(show_hidden = FALSE) {
+view_paths <- function(show_hidden = TRUE) {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     if(!is.null(x$path)) {
@@ -193,24 +193,6 @@ view_paths <- function(show_hidden = FALSE) {
   # throw warnings
   verify_paths(job_tbl$jobname, job_tbl$path)
   return(as_wkbch_tbl(job_tbl))
-}
-
-
-
-#' View job names known to workbch
-#'
-#' @param show_hidden should hidden jobs be included
-#'
-#' @return A character vector of names, in alphabetical order
-#' @export
-view_jobnames <- function(show_hidden = TRUE) {
-  jobs <- job_read()
-  job_names <- purrr::map_dfr(jobs, function(x){tibble::tibble(jobname = x$jobname)})
-  job_names <- dplyr::arrange(job_names, jobname)
-
-  if(!show_hidden) {job_names <- hide_jobs(jobs, job_names)}
-
-  return(dplyr::pull(job_names, jobname))
 }
 
 

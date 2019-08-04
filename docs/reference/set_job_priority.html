@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>View the job folder locations known to workbch — view_paths • workbch</title>
+<title>Sets the priority of a job — set_job_priority • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="View the job folder locations known to workbch — view_paths" />
+<meta property="og:title" content="Sets the priority of a job — set_job_priority" />
 
-<meta property="og:description" content="View the job folder locations known to workbch" />
+<meta property="og:description" content="Sets the priority of a job" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,31 +103,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>View the job folder locations known to workbch</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/view.R'><code>R/view.R</code></a></small>
-    <div class="hidden name"><code>view_paths.Rd</code></div>
+    <h1>Sets the priority of a job</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/set.R'><code>R/set.R</code></a></small>
+    <div class="hidden name"><code>set_job_priority.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>View the job folder locations known to workbch</p>
+    <p>Sets the priority of a job</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>view_paths</span>(<span class='kw'>show_hidden</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>set_job_priority</span>(<span class='no'>priority</span>, <span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>show_hidden</th>
-      <td><p>should hidden jobs be included</p></td>
+      <th>priority</th>
+      <td><p>The new priority</p></td>
+    </tr>
+    <tr>
+      <th>jobname</th>
+      <td><p>Name of the job</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A tibble</p>
     
 
   </div>
@@ -135,9 +135,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

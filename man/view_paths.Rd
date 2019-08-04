@@ -4,7 +4,7 @@
 \alias{view_paths}
 \title{View the job folder locations known to workbch}
 \usage{
-view_paths(show_hidden = FALSE)
+view_paths(show_hidden = TRUE)
 }
 \arguments{
 \item{show_hidden}{should hidden jobs be included}

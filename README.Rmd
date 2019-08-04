@@ -170,10 +170,10 @@ view_job("toxic")
 If at this point we realise that "Danielle" should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ```{r editteam}
-set_priority(priority = 1, jobname = "toxic")
-set_team(add = "danielle", jobname = "toxic")
-set_url(site = "github", link = "https://github.com/djnavarro/toxic", jobname = "toxic")
-set_url(site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics", jobname = "toxic")
+set_job_priority(priority = 1, jobname = "toxic")
+set_job_team(add = "danielle", jobname = "toxic")
+set_job_url(site = "github", link = "https://github.com/djnavarro/toxic", jobname = "toxic")
+set_job_url(site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics", jobname = "toxic")
 
 view_job("toxic")
 ```

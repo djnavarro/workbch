@@ -61,7 +61,7 @@ new_url <- function(site = character(0), link = character(0)) {
 empty_task <- function() {
   new_task(jobname = character(0), id = numeric(0), description = character(0),
            owner = character(0), status = character(0), priority = numeric(0),
-           deadline = as.Date(character(0)), hidden = logical(0))
+           deadline = character(0), hidden = logical(0))
 }
 
 empty_note <- function() {

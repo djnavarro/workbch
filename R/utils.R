@@ -78,7 +78,7 @@ workbch_paths <- function(show_hidden = TRUE) {
   if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
 
   # throw warnings
-  verify_paths(job_tbl$jobname, job_tbl$path)
+  verify_path(job_tbl$jobname, job_tbl$path)
   return(as_wkbch_tbl(job_tbl))
 }
 

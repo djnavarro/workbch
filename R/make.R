@@ -9,15 +9,29 @@
 #' @param deadline a date
 #' @param tags character vector of tags
 #' @param path path to the job home directory
-#' @param hidden hide job (default = FALSE)
 #' @export
 make_job <- function(jobname, description, owner = NULL, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
-                       tags = NULL, path = NULL, hidden = NULL) {
+                       tags = NULL, path = NULL) {
+
+  # temporarily, b/c the code for the validators needs rethinking...
+  if(!is.null(path)) { verify_onestring(path) }
+  verify_onestring(jobname)
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
+
+  # verify input as appropriate
+  verify_description(description)
+  #if(!is.null(jobname)) { verify_jobname(jobname, jobs) } # TODO
+  if(!is.null(status)) { verify_status(status) }
+  if(!is.null(priority)) { verify_priority(priority) }
+  if(!is.null(deadline)) { verify_priority(deadline) }
+  if(!is.null(owner)) { verify_owner(owner) }
+  if(!is.null(team)) { verify_character(team) }
+  if(!is.null(tags)) { verify_character(tags) }
+
 
   # if a job with this name already exists, throw error
   if(jobname %in% job_names) {
@@ -31,12 +45,12 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   if(is.null(priority)) {priority <- 1}
   if(is.null(deadline)) {deadline <- NA_character_}
   if(is.null(path)) {path <- NA_character_}
-  if(is.null(hidden)) {hidden <- FALSE}
 
   # set the owner
   if(is.null(owner)) {
     owner <- default_person()
   } else {
+    verify_owner(owner)
     owner <- real_name(owner)
   }
 
@@ -58,8 +72,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
     tags = tags,
     path = path,
     urls = empty_url(),
-    tasks = empty_task(),
-    hidden = hidden
+    tasks = empty_task()
   )
 
   # write the file and return
@@ -76,15 +89,21 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
 #' @param owner should be a name or a nickname (defaults to job owner)
 #' @param priority numeric (default is to match the job)
 #' @param deadline a date (default is to match the job)
-#' @param hidden hide the task (default is to match the job)
 #' @export
 make_task <- function(description, jobname = NULL, owner = NULL, status = "active",
-                     priority = NULL, deadline = NULL, hidden = NULL) {
+                     priority = NULL, deadline = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
   if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+
+  # verification step
+  verify_description(description)
   verify_jobname(jobname, jobs)
+  verify_status(status)
+  if(!is.null(priority)) { verify_priority(priority) }
+  if(!is.null(deadline)) { verify_deadline(deadline) }
+  if(!is.null(owner)) { verify_owner(owner) }
 
   # get this job
   jb <- jobs[[jobname]]
@@ -118,7 +137,7 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
   # create the task object
   tsk <- new_task(jobname = jobname, id = id, description = description,
                   owner = owner, status = status, priority = priority,
-                  deadline = deadline, hidden = hidden)
+                  deadline = deadline)
 
   # append it to the job
   if(identical(jb$tasks, list())) {
@@ -144,7 +163,6 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
 #' @param status the status for created jobs
 #' @param priority the priority of created jobs
 #' @param deadline the deadline of created jobs
-#' @param hidden the visibility of created jobs
 #'
 #' @examples
 #' \dontrun{
@@ -154,14 +172,20 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
 #'
 #' @export
 make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
-                               deadline = NA, hidden = FALSE) {
+                               deadline = NA) {
 
-  # set owner
+  # set & verify owner
   if(is.null(owner)) {
     owner <- default_person()
   } else {
+    verify_owner(owner)
     owner <- real_name(owner)
   }
+
+  # verification step for other inputs
+  verify_status(status)
+  verify_priority(priority)
+  verify_deadline(deadline)
 
   # find all git repositories
   found_paths <- list.files(
@@ -266,8 +290,7 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
             priority = priority,
             deadline = deadline,
             path = found_paths[i],
-            tasks = empty_task(),
-            hidden = hidden
+            tasks = empty_task()
           )
 
         # or else create new job... with a url
@@ -282,8 +305,7 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
             deadline = deadline,
             path = found_paths[i],
             urls = new_url(site = site, link = url_path),
-            tasks = empty_task(),
-            hidden = hidden
+            tasks = empty_task()
           )
         }
 

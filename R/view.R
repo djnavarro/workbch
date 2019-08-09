@@ -20,7 +20,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
 
-  verify_paths(job_tbl$jobname, job_tbl$path)
+  verify_path(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
   return(as_wkbch_tbl(job_tbl))
 }
@@ -59,7 +59,7 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
 
-  verify_paths(job_tbl$jobname, job_tbl$path)
+  verify_path(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
   return(as_wkbch_tbl(job_tbl))
 }
@@ -129,7 +129,7 @@ view_job <- function(jobname = NULL) {
     }
   }
 
-  verify_paths(jb$jobname, jb$path)
+  verify_path(jb$jobname, jb$path)
   return(invisible(jb))
 }
 
@@ -218,10 +218,9 @@ view_tasks <- function(..., show_hidden = TRUE) {
     tasks <- dplyr::filter(tasks, ...)
   }
   tasks <- dplyr::arrange(tasks, lubridate::dmy(deadline), priority)
-  if(!show_hidden) {
-    tasks <- dplyr::filter(tasks, hidden == FALSE)
-  }
-  tasks$hidden <- NULL
+
+  # remove the hidden tasks if need be
+  if(!show_hidden) {tasks <- hide_jobs(tasks)}
 
   return(as_wkbch_tbl(tasks))
 }

@@ -6,7 +6,7 @@
 \usage{
 make_job(jobname, description, owner = NULL, status = NULL,
   team = NULL, priority = NULL, deadline = NULL, tags = NULL,
-  path = NULL, hidden = NULL)
+  path = NULL)
 }
 \arguments{
 \item{jobname}{name of the job to create}
@@ -26,8 +26,6 @@ make_job(jobname, description, owner = NULL, status = NULL,
 \item{tags}{character vector of tags}
 
 \item{path}{path to the job home directory}
-
-\item{hidden}{hide job (default = FALSE)}
 }
 \description{
 Create a new job

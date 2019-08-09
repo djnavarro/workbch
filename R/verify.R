@@ -95,7 +95,7 @@ verify_deadline <- function(deadline) {
 
   # check input is length 1
   if(length(out$result) != 1) {
-    stop("deadline must length 1", call. = FALSE)
+    stop("deadline must be length 1", call. = FALSE)
   }
 
   # check that the only NA allowed is if input is NA

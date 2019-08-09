@@ -55,8 +55,8 @@ include the following line:
 options(workbch.home = "PATH_TO_FOLDER")
 ```
 
-This ensures that whenever the workbch package is loaded it knows where
-to find information about jobs. Once this is done, you can start adding
+This ensures that when the workbch package is loaded it knows where to
+find information about jobs. Once this is done, you can start adding
 jobs\! A “job” is intended to have roughly the same meaning as a
 “project” in everyday life (i.e., a self-contained body of work of
 some kind), but to avoid confusion with “RStudio projects” I’ve used a

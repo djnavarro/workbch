@@ -2,7 +2,7 @@
 
 # where is the CSV for the names stored?
 ppl_file <- function() {
-  file.path(job_home(), "workbch_people.csv")
+  file.path(workbch_gethome(), "workbch_people.csv")
 }
 
 # read people data from CSV file if it exists

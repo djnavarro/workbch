@@ -1,22 +1,29 @@
 
+#' Get location of workbch files
+#'
+#' @return Path to the folder
+#' @export
+workbch_gethome <- function() {
+  getOption("workbch.home")
+}
 
-#' Location of workbch files
+#' Set location of workbch files
 #'
 #' @param path Path to the folder
 #'
 #' @return Path to the folder
 #' @export
-workbch_home <- function(path = NULL) {
+workbch_sethome <- function(path) {
+  if(is.null(path)) {
+    return(workbch_gethome())
+  }
   if(!dir.exists(path)) {
     dir.create(path)
     message("new directory '", path, "' created")
   }
-  if(!is.null(path)) {
-    options(workbch.home = path)
-  }
-  job_home()
+  options(workbch.home = path)
+  workbch_gethome()
 }
-
 
 
 #' People known to workbch

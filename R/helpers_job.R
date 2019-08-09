@@ -4,7 +4,7 @@
 # read and write ----------------------------------------------------------
 
 job_file <- function() {
-  file.path(job_home(), "workbch_jobs.json")
+  file.path(workbch_gethome(), "workbch_jobs.json")
 }
 
 # read project data from JSON file, and preprocess to deal with

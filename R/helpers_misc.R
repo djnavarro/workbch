@@ -5,12 +5,6 @@ capture_dots <- function(...) {
   as.list(substitute(list(...)))[-1L]
 }
 
-# the directory where project records should be stored
-# (this is a bad name!!!)
-job_home <- function() {
-  getOption("workbch.home")
-}
-
 
 # tidying -----------------------------------------------------------------
 

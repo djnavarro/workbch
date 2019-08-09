@@ -28,7 +28,7 @@ ppl_get_default <- function(strict = TRUE) {
   ppl <- ppl_read()
   def <- ppl$fullname[ppl$default == TRUE]
   if(strict & length(def) == 0) {
-    stop("'owner' argument must be specified if default person is set",
+    stop("'owner' argument must be specified if no default person is set",
          call. = FALSE)
   }
   return(def)
@@ -51,7 +51,11 @@ ppl_get_fullname <- function(nickname) {
     if(nickname[i] %in% ppl$nickname) {
       fullname[i] <- ppl$fullname[ppl$nickname == nickname[i]]
 
+    # if not, return the nickname itself...
     } else {
+      fullname[i] <- nickname[i]
+
+      # but throw warnings...
       if(nickname[i] %in% ppl$fullname) {
         nn <- ppl$nickname[ppl$fullname == nickname[i]]
         warning("'", nickname[i], "' has a known nick name '", nn, "'", call. = FALSE)

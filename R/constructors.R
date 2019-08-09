@@ -5,7 +5,7 @@
 new_job <- function(jobname, description, owner, status = "active",
                     team = character(0), priority = 1, deadline = NA,
                     tags = character(0), path = NA, urls = NULL,
-                    tasks = NULL, hidden = FALSE) {
+                    tasks = NULL) {
 
   if(is.null(urls)) {urls = empty_url()}
   if(is.null(tasks)) {tasks = empty_task()}
@@ -21,13 +21,12 @@ new_job <- function(jobname, description, owner, status = "active",
     tags = tags,
     path = path,
     urls = urls,
-    tasks = tasks,
-    hidden = hidden
+    tasks = tasks
   )
 }
 
 new_task <- function(jobname, id, description, owner, status = "active",
-                     priority = 1, deadline = NA, hidden = FALSE) {
+                     priority = 1, deadline = NA) {
   tibble::tibble(
     jobname = jobname,
     id = id,
@@ -35,8 +34,7 @@ new_task <- function(jobname, id, description, owner, status = "active",
     owner = owner,
     status = status,
     priority = priority,
-    deadline = deadline,
-    hidden = hidden
+    deadline = deadline
   )
 }
 
@@ -50,7 +48,7 @@ new_url <- function(site = character(0), link = character(0)) {
 empty_task <- function() {
   new_task(jobname = character(0), id = numeric(0), description = character(0),
            owner = character(0), status = character(0), priority = numeric(0),
-           deadline = character(0), hidden = logical(0))
+           deadline = character(0))
 }
 
 empty_url <- function() {

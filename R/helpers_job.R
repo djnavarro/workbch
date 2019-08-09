@@ -15,9 +15,13 @@ job_read <- function() {
     jobs <- jsonlite::fromJSON(job_file())
     jobs <- purrr::map(jobs, function(j) {
 
-      # empty lists become data frames
+      # empty lists become data frames in some cases
       if(class(j$urls) == "list") {j$urls <- empty_url()}
       if(class(j$tasks) == "list") {j$tasks <- empty_task()}
+
+      # empty lists become character vectors in others
+      if(class(j$team) == "list") {j$team <- character(0)}
+      if(class(j$tags) == "list") {j$tags <- character(0)}
 
       # don't let tags become matrices
       if(class(j$tags) == "matrix") {j$tags <- as.vector(j$tags)}

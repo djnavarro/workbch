@@ -3,7 +3,8 @@
 # a lot of the validation checks involve verifying an an input argument
 # is length one character so let's not duplicate code my dear...
 verify_onestring <- function(object) {
-  if(length(object) != 1 | !is.character(object)) {
+  # tests for length, character, and lack-of-dimension
+  if(length(object) != 1 | !is.character(object) | !is.null(dim(object))) {
     stop(deparse(substitute(object)), " must be character and length 1",
          call. = FALSE)
   }

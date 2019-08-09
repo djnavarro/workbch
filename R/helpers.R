@@ -118,7 +118,7 @@ real_name <- function(nickname) {
   return(fullname)
 }
 
-# find the jobs that need to be hidden and hide them
+# find the jobs (or tasks) that need to be hidden and hide them
 hide_jobs <- function(job_tbl) {
   job_tbl <- dplyr::filter(job_tbl, status %in% c("active", "inactive"))
   return(job_tbl)

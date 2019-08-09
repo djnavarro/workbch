@@ -218,10 +218,9 @@ view_tasks <- function(..., show_hidden = TRUE) {
     tasks <- dplyr::filter(tasks, ...)
   }
   tasks <- dplyr::arrange(tasks, lubridate::dmy(deadline), priority)
-  if(!show_hidden) {
-    tasks <- dplyr::filter(tasks, hidden == FALSE)
-  }
-  tasks$hidden <- NULL
+
+  # remove the hidden tasks if need be
+  if(!show_hidden) {tasks <- hide_jobs(tasks)}
 
   return(as_wkbch_tbl(tasks))
 }

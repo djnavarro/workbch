@@ -214,3 +214,9 @@ get_current_jobname <- function(jobs) {
   stop("could not detect current job", call. = FALSE)
 }
 
+
+# check if job name exists
+job_exists <- function(jobname, jobs) {
+  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
+  return(jobname %in% job_names)
+}

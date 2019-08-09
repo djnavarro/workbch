@@ -20,15 +20,15 @@ verify_character <- function(object) {
   return(invisible(TRUE))
 }
 
-# throw error if the job doesn't exist
+# throw error if the jobname is invalid
 verify_jobname <- function(jobname, jobs) {
   verify_onestring(jobname)
+}
 
+# check if job name exists
+exists_job <- function(jobname, jobs) {
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
-  if(!(jobname %in% job_names)) {
-    stop("there is no job named '", jobname, "'", call. = FALSE)
-  }
-  return(invisible(TRUE))
+  return(jobname %in% job_names)
 }
 
 # throw warning if a job path does not exist
@@ -81,7 +81,6 @@ verify_priority <- function(priority) {
 verify_description <- function(description) {
   verify_onestring(description)
 }
-
 
 # throw error if lubridate::dmy can't handle the deadline
 verify_deadline <- function(deadline) {

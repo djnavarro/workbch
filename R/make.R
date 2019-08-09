@@ -14,8 +14,6 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
                        tags = NULL, path = NULL) {
 
-  # temporarily, b/c the code for the validators needs rethinking...
-  if(!is.null(path)) { verify_onestring(path) }
   verify_jobname(jobname)
   verify_description(description)
 
@@ -35,6 +33,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   if(!is.null(owner)) { verify_owner(owner) }
   if(!is.null(team)) { verify_character(team) }
   if(!is.null(tags)) { verify_character(tags) }
+  if(!is.null(path)) { verify_path(path) }
 
   # specify the defaults for other fields
   if(is.null(status)) {status <- "active"}

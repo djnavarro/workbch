@@ -25,20 +25,9 @@ verify_jobname <- function(jobname) {
   verify_onestring(jobname)
 }
 
-# throw warning if a job path does not exist
-verify_path <- function(jobname, path) {
-  if(length(path) > 0) {
-    bad <- which(!dir.exists(as.character(path)))
-    if(length(bad) > 0) {
-      for(b in bad) {
-        if(!is.na(path[b])) {
-          warning("The path for job '", jobname[b], "' is set to '",
-                  path[b], "' but does not exist", call. = FALSE)
-        }
-      }
-    }
-  }
-  return(invisible(TRUE))
+# throw error if the path is invalid
+verify_path <- function(path) {
+  verify_onestring(path)
 }
 
 # throw error if an unknown status is used

@@ -172,6 +172,19 @@ test_that("verify_jobname works", {
 })
 
 
+test_that("verify_path works", {
+
+  # cursory check that verify_onestring is called
+  msg <- "must be character and length 1"
+  expect_error(verify_path(1), msg)
+  expect_error(verify_path(c("blah blah", "blah")), msg)
+
+  # expect success
+  expect_true(verify_path("~/GitHub/"))
+
+})
+
+
 test_that("verify_makedefault works", {
 
   # should fail

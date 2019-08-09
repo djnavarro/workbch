@@ -220,3 +220,21 @@ job_exists <- function(jobname, jobs) {
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
   return(jobname %in% job_names)
 }
+
+# throw warning if a job path does not exist
+missing_path_warning <- function(jobname, path) {
+  if(length(path) > 0) {
+    bad <- which(!dir.exists(as.character(path)))
+    if(length(bad) > 0) {
+      for(b in bad) {
+        if(!is.na(path[b])) {
+          warning("The path for job '", jobname[b], "' is set to '",
+                  path[b], "' but does not exist", call. = FALSE)
+        }
+      }
+    }
+  }
+  return(invisible(TRUE))
+}
+
+

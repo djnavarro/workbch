@@ -1,10 +1,17 @@
 # validator functions
 
+# a lot of the validation checks involve verifying an an input argument
+# is length one character so let's not duplicate code my dear...
+verify_onestring <- function(object) {
+  if(length(object) != 1 | !is.character(object)) {
+    stop(deparse(substitute(object)), " must be character and length 1",
+         call. = FALSE)
+  }
+}
+
 # throw error if the job doesn't exist
 verify_jobname <- function(jobname, jobs) {
-  if(length(jobname) != 1 | !is.character(jobname)) {
-    stop("jobname must be character and length 1", call. = FALSE)
-  }
+  verify_onestring(jobname)
 
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
   if(!(jobname %in% job_names)) {
@@ -30,9 +37,8 @@ verify_path <- function(jobname, path) {
 
 # throw error if an unknown status is used
 verify_status <- function(status) {
-  if(length(status) != 1) {
-    stop("job status must have length 1", call. = FALSE)
-  }
+  verify_onestring(status)
+
   if(!(status %in% c("active", "inactive", "complete", "abandoned", "masked"))) {
     stop("job status must be 'active', 'inactive', 'complete', 'abandoned' or 'masked'", call. = FALSE)
   }
@@ -56,9 +62,7 @@ verify_priority <- function(priority) {
 
 # throw error if description is not a length 1 character
 verify_description <- function(description) {
-  if(length(description) != 1 | !is.character(description)) {
-    stop("description must be character and length 1", call. = FALSE)
-  }
+  verify_onestring(description, "description")
 }
 
 
@@ -81,5 +85,13 @@ verify_deadline <- function(deadline) {
   if(is.na(out$result) & !is.na(deadline)) {
     stop("deadline must be a day-month-year format", call. = FALSE)
   }
+}
+
+verify_site <- function(site) {
+  verify_onestring(site)
+}
+
+verify_link <- function(link) {
+  verify_onestring(link)
 }
 

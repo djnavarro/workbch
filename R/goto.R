@@ -39,10 +39,9 @@ goto_job <- function(jobname = NULL) {
     return(invisible(NULL))
   }
 
-  # currently RStudioAPI won't let me close job without opening a new one
-  # instead just message the user with a polite heads up
+  # if not, close the project and change working directory...
+  rstudioapi::executeCommand("closeProject")
   message("setting working directory to ", jobs[[jobname]]$path)
-  message("you may wish to close any open RStudio project")
   setwd(jobs[[jobname]]$path)
   return(invisible(NULL))
 

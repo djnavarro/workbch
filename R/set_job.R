@@ -26,13 +26,18 @@ set_job <- function(
 ){
 
   jobs <- job_read()
-  verify_jobname(jobname, jobs)
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
+  }
 
   # ------- job name -------
   if(!is.null(newname)) {
 
+    verify_jobname(newname)
+
     # don't let the user overwrite an existing job
-    if(newname %in% job_names) {
+    if(job_exists(newname, jobs)) {
       stop("job '", newname, "' already exists", call. = FALSE)
     }
 
@@ -58,7 +63,6 @@ set_job <- function(
     verify_status(status)
     jobs[[jobname]]$status <- status
   }
-
 
   # ------- job owner -------
   if(!is.null(owner)) {
@@ -145,8 +149,11 @@ set_job <- function(
   if(!is.null(add_tag) | !is.null(remove_tag)) {
     for(jbnm in jobname) {
 
-      # check the name
-      verify_jobname(jbnm, jobs)
+      # check jobname
+      verify_jobname(jbnm)
+      if(!job_exists(jbnm, jobs)) {
+        stop("job '", jbnm, "' does not exist", call. = FALSE)
+      }
 
       # if there are tags to add, add them
       if(!is.null(add_tag)) {

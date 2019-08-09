@@ -91,7 +91,12 @@ view_job <- function(jobname = NULL) {
   # read the jobs & verify the name
   jobs <- job_read()
   if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
+
+  # check jobname
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
+  }
 
   # get job
   jb <- jobs[[jobname]]

@@ -20,7 +20,10 @@ goto_job <- function(jobname = NULL) {
   }
 
   # check jobname
-  verify_jobname(jobname, jobs)
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
+  }
 
   # if we're not in RStudio, just change working directory
   if(!rstudioapi::isAvailable()) {
@@ -60,7 +63,12 @@ goto_url <- function(site, jobname = NULL) {
   # read the jobs & verify the name
   jobs <- job_read()
   if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
+
+  # check jobname
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
+  }
 
   urls <- jobs[[jobname]]$urls
   if(!(site %in% urls$site)) {

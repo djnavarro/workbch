@@ -21,14 +21,8 @@ verify_character <- function(object) {
 }
 
 # throw error if the jobname is invalid
-verify_jobname <- function(jobname, jobs) {
+verify_jobname <- function(jobname) {
   verify_onestring(jobname)
-}
-
-# check if job name exists
-exists_job <- function(jobname, jobs) {
-  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
-  return(jobname %in% job_names)
 }
 
 # throw warning if a job path does not exist

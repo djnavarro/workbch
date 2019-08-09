@@ -159,6 +159,19 @@ test_that("verify_owner works", {
 })
 
 
+test_that("verify_jobname works", {
+
+  # cursory check that verify_onestring is called
+  msg <- "must be character and length 1"
+  expect_error(verify_jobname(1), msg)
+  expect_error(verify_jobname(c("blah blah", "blah")), msg)
+
+  # expect success
+  expect_true(verify_jobname("toxic"))
+
+})
+
+
 test_that("verify_makedefault works", {
 
   # should fail

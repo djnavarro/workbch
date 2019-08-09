@@ -15,9 +15,10 @@
 delete_job <- function(jobname) {
   jobs <- job_read()
 
-  # throw error if the job doesn't exist
-  if(is.null(jobs[[jobname]])) {
-    stop("Job '", jobname, "' does not exist", call. = FALSE)
+  # check jobname
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
   }
 
   # not interactive, just do it
@@ -70,7 +71,12 @@ delete_task <- function(id, jobname = NULL) {
   # read the jobs & verify the name
   jobs <- job_read()
   if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
+
+  # check jobname
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
+  }
 
   jb <- jobs[[jobname]]
 
@@ -99,7 +105,12 @@ delete_url <- function(site, jobname = NULL) {
   # read the jobs & verify the name
   jobs <- job_read()
   if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
-  verify_jobname(jobname, jobs)
+
+  # check jobname
+  verify_jobname(jobname)
+  if(!job_exists(jobname, jobs)) {
+    stop("job '", jobname, "' does not exist", call. = FALSE)
+  }
 
   jb <- jobs[[jobname]]
 

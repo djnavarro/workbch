@@ -16,27 +16,25 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
 
   # temporarily, b/c the code for the validators needs rethinking...
   if(!is.null(path)) { verify_onestring(path) }
-  verify_onestring(jobname)
+  verify_jobname(jobname)
+  verify_description(description)
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
 
+  # if a job with this name already exists, throw error
+  if(job_exists(jobname, jobs)) {
+    stop("a job already exists with name '", jobname, "'", call. = FALSE)
+  }
+
   # verify input as appropriate
-  verify_description(description)
-  #if(!is.null(jobname)) { verify_jobname(jobname, jobs) } # TODO
   if(!is.null(status)) { verify_status(status) }
   if(!is.null(priority)) { verify_priority(priority) }
   if(!is.null(deadline)) { verify_priority(deadline) }
   if(!is.null(owner)) { verify_owner(owner) }
   if(!is.null(team)) { verify_character(team) }
   if(!is.null(tags)) { verify_character(tags) }
-
-
-  # if a job with this name already exists, throw error
-  if(jobname %in% job_names) {
-    stop("a job already exists with name '", jobname, "'", call. = FALSE)
-  }
 
   # specify the defaults for other fields
   if(is.null(status)) {status <- "active"}
@@ -99,7 +97,7 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
 
   # verification step
   verify_description(description)
-  verify_jobname(jobname, jobs)
+  verify_jobname(jobname)
   verify_status(status)
   if(!is.null(priority)) { verify_priority(priority) }
   if(!is.null(deadline)) { verify_deadline(deadline) }

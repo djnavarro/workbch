@@ -6,6 +6,11 @@
 #' @param make_default should this person be set as the "default"
 #' @export
 set_person <- function(fullname, nickname, make_default = FALSE) {
+
+  verify_nickname(nickname)
+  verify_fullname(fullname)
+  verify_makedefault(make_default)
+
   ppl <- ppl_read()
 
   # remove an old default person if need be

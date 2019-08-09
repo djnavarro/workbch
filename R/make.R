@@ -14,16 +14,24 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
                        tags = NULL, path = NULL) {
 
+  # temporarily, b/c the code for the validators needs rethinking...
+  if(!is.null(path)) { verify_onestring(path) }
+  verify_onestring(jobname)
+
   # read jobs file and check the names of the jobs
   jobs <- job_read()
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
 
   # verify input as appropriate
   verify_description(description)
-  #if(!is.null(jobname)) { verify_jobname(jobname, jobs) }
+  #if(!is.null(jobname)) { verify_jobname(jobname, jobs) } # TODO
   if(!is.null(status)) { verify_status(status) }
   if(!is.null(priority)) { verify_priority(priority) }
   if(!is.null(deadline)) { verify_priority(deadline) }
+  if(!is.null(owner)) { verify_owner(owner) }
+  if(!is.null(team)) { verify_character(team) }
+  if(!is.null(tags)) { verify_character(tags) }
+
 
   # if a job with this name already exists, throw error
   if(jobname %in% job_names) {
@@ -42,6 +50,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   if(is.null(owner)) {
     owner <- default_person()
   } else {
+    verify_owner(owner)
     owner <- real_name(owner)
   }
 
@@ -94,6 +103,7 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
   verify_status(status)
   if(!is.null(priority)) { verify_priority(priority) }
   if(!is.null(deadline)) { verify_deadline(deadline) }
+  if(!is.null(owner)) { verify_owner(owner) }
 
   # get this job
   jb <- jobs[[jobname]]
@@ -164,18 +174,18 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
 make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
                                deadline = NA) {
 
-  # set owner
+  # set & verify owner
   if(is.null(owner)) {
     owner <- default_person()
   } else {
+    verify_owner(owner)
     owner <- real_name(owner)
   }
 
-  # verification step
+  # verification step for other inputs
   verify_status(status)
   verify_priority(priority)
   verify_deadline(deadline)
-
 
   # find all git repositories
   found_paths <- list.files(

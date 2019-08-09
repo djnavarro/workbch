@@ -9,6 +9,14 @@ verify_onestring <- function(object) {
   }
 }
 
+# similar deal as above really
+verify_character <- function(object) {
+  if(!is.character(object)) {
+    stop(deparse(substitute(object)), " must be character",
+         call. = FALSE)
+  }
+}
+
 # throw error if the job doesn't exist
 verify_jobname <- function(jobname, jobs) {
   verify_onestring(jobname)
@@ -95,3 +103,23 @@ verify_link <- function(link) {
   verify_onestring(link)
 }
 
+# for now, the name "verifications" merely check
+# that the user has specified one string, and
+# defers checks against database to real_name()
+verify_nickname <- function(nickname) {
+  verify_onestring(nickname)
+}
+
+verify_fullname <- function(fullname) {
+  verify_onestring(fullname)
+}
+
+verify_owner <- function(owner) {
+  verify_onestring(owner)
+}
+
+verify_makedefault <- function(make_default) {
+  if(length(make_default) != 1 | !is.logical(make_default) | is.na(make_default)) {
+    stop("make_default must be TRUE or FALSE", call. = FALSE)
+  }
+}

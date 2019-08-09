@@ -100,11 +100,13 @@ set_job <- function(
   if(!is.null(add_team) | !is.null(remove_team)) {
 
     if(!is.null(add_team)) {
+      verify_character(add_team)
       add_team <- real_name(add_team)
       jobs[[jobname]]$team <- unique(c(jobs[[jobname]]$team, add_team))
     }
 
     if(!is.null(remove_team)) {
+      verify_character(remove_team)
       remove_team <- real_name(remove_team)
       if(jobs[[jobname]]$owner %in% remove_team) {
         warning("set_job_team() cannot remove owner from a team", call. = FALSE)
@@ -148,11 +150,13 @@ set_job <- function(
 
       # if there are tags to add, add them
       if(!is.null(add_tag)) {
+        verify_character(add_tag)
         jobs[[jbnm]]$tags <- unique(c(jobs[[jbnm]]$tags, add_tag))
       }
 
       # if there are tags to remove, remove them
       if(!is.null(remove_tag)) {
+        verify_character(remove_tag)
         jobs[[jbnm]]$tags <- setdiff(jobs[[jbnm]]$tags, remove_tag)
       }
     }

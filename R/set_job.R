@@ -27,11 +27,11 @@ set_job <- function(
 
   jobs <- job_read()
 
-  # verification step
-  verify_description(description)
-  verify_jobname(jobname, jobs)
-  verify_status(status)
-  verify_priority(priority)
+  # verify input only if user changes something
+  if(!is.null(description)) { verify_description(description) }
+  if(!is.null(jobname)) { verify_jobname(jobname, jobs) }
+  if(!is.null(status)) { verify_status(status) }
+  if(!is.null(priority)) { verify_priority(priority) }
 
   # ------- job name -------
   if(!is.null(newname)) {

@@ -40,7 +40,7 @@ verify_status <- function(status) {
 
 # throw error if a priority is not a positive integer
 verify_priority <- function(priority) {
-  if(length(priority != 1)) {
+  if(length(priority) != 1) {
     stop("job priority must be a positive integer", call. = FALSE)
   }
   if(!is.numeric(priority)) {

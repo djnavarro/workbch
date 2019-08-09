@@ -5,7 +5,7 @@
 \title{Create in bulk by searching for git repos}
 \usage{
 make_jobs_by_git(dir, owner = NULL, status = "active", priority = 1,
-  deadline = NA, hidden = FALSE)
+  deadline = NA)
 }
 \arguments{
 \item{dir}{where to look for git repositories}
@@ -17,8 +17,6 @@ make_jobs_by_git(dir, owner = NULL, status = "active", priority = 1,
 \item{priority}{the priority of created jobs}
 
 \item{deadline}{the deadline of created jobs}
-
-\item{hidden}{the visibility of created jobs}
 }
 \description{
 Create in bulk by searching for git repos

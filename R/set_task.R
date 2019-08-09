@@ -22,10 +22,10 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
   }
   jobname <- tasks$jobname[ind]
 
-  # verification step
-  verify_description(description)
-  verify_status(status)
-  verify_priority(priority)
+  # verify input only if user changes something
+  if(!is.null(description)) { verify_description(description) }
+  if(!is.null(status)) { verify_status(status) }
+  if(!is.null(priority)) { verify_priority(priority) }
 
   # ------- task description -------
   if(!is.null(description)) {

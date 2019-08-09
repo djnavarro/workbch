@@ -5,8 +5,7 @@
 \title{Make a task and attach to a job}
 \usage{
 make_task(description, jobname = NULL, owner = NULL,
-  status = "active", priority = NULL, deadline = NULL,
-  hidden = NULL)
+  status = "active", priority = NULL, deadline = NULL)
 }
 \arguments{
 \item{description}{brief description of the task}
@@ -20,8 +19,6 @@ make_task(description, jobname = NULL, owner = NULL,
 \item{priority}{numeric (default is to match the job)}
 
 \item{deadline}{a date (default is to match the job)}
-
-\item{hidden}{hide the task (default is to match the job)}
 }
 \description{
 Make a task and attach to a job

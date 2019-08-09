@@ -11,7 +11,7 @@
 NULL
 
 set_task <- function(id, description = NULL, status = NULL, owner = NULL,
-                     priority = NULL, deadline = NULL, hidden = NULL) {
+                     priority = NULL, deadline = NULL) {
 
   # find the job and the task
   jobs <- job_read()
@@ -22,6 +22,10 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
   }
   jobname <- tasks$jobname[ind]
 
+  # verification step
+  verify_description(description)
+  verify_status(status)
+  verify_priority(priority)
 
   # ------- task description -------
   if(!is.null(description)) {

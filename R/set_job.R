@@ -26,7 +26,12 @@ set_job <- function(
 ){
 
   jobs <- job_read()
+
+  # verification step
+  verify_description(description)
   verify_jobname(jobname, jobs)
+  verify_status(status)
+  verify_priority(priority)
 
   # ------- job name -------
   if(!is.null(newname)) {

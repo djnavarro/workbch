@@ -163,6 +163,10 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
     owner <- real_name(owner)
   }
 
+  # verification step
+  verify_status(status)
+  verify_priority(priority)
+
   # find all git repositories
   found_paths <- list.files(
     path = dir, pattern = "\\.git$", full.names = TRUE,

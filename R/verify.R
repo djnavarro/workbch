@@ -62,6 +62,9 @@ verify_priority <- function(priority) {
   if(length(priority) != 1) {
     stop("job priority must be a positive integer", call. = FALSE)
   }
+  if(is.na(priority) | is.nan(priority) | is.infinite(priority)) {
+    stop("job priority must be a positive integer", call. = FALSE)
+  }
   if(!is.numeric(priority)) {
     stop("job priority must be a positive integer", call. = FALSE)
   }
@@ -127,7 +130,7 @@ verify_owner <- function(owner) {
 }
 
 verify_makedefault <- function(make_default) {
-  if(length(make_default) != 1 | !is.logical(make_default) | is.na(make_default)) {
+  if(length(make_default) != 1 || !is.logical(make_default) || is.na(make_default)) {
     stop("make_default must be TRUE or FALSE", call. = FALSE)
   }
   return(invisible(TRUE))

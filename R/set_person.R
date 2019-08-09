@@ -1,3 +1,4 @@
+# functions that work with the person data base.
 
 #' Sets details for a new person
 #'
@@ -91,5 +92,6 @@ set_person <- function(fullname, nickname, make_default = FALSE) {
   return(invisible(ppl))
 
 }
+
 
 

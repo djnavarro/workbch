@@ -22,29 +22,27 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
   }
   jobname <- tasks$jobname[ind]
 
-  # verify input only if user changes something
-  if(!is.null(description)) { verify_description(description) }
-  if(!is.null(status)) { verify_status(status) }
-  if(!is.null(priority)) { verify_priority(priority) }
-  if(!is.null(deadline)) { verify_priority(deadline) }
-
   # ------- task description -------
   if(!is.null(description)) {
+    verify_description(description)
     jobs[[jobname]]$tasks$description <- description
   }
 
   # ------- task status -------
   if(!is.null(status)) {
+    verify_status(status)
     jobs[[jobname]]$tasks$status <- status
   }
 
   # ------- task priority -------
   if(!is.null(priority)) {
+    verify_priority(priority)
     jobs[[jobname]]$tasks$priority <- priority
   }
 
   # ------- task deadline -------
   if(!is.null(deadline)) {
+    verify_deadline(deadline)
     deadline <- format_date(deadline)
     jobs[[jobname]]$tasks$deadline <- deadline
   }

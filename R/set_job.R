@@ -26,13 +26,7 @@ set_job <- function(
 ){
 
   jobs <- job_read()
-
-  # verify input only if user changes something
-  if(!is.null(description)) { verify_description(description) }
-  if(!is.null(jobname)) { verify_jobname(jobname, jobs) }
-  if(!is.null(status)) { verify_status(status) }
-  if(!is.null(priority)) { verify_priority(priority) }
-  if(!is.null(deadline)) { verify_priority(deadline) }
+  verify_jobname(jobname, jobs)
 
   # ------- job name -------
   if(!is.null(newname)) {
@@ -54,12 +48,14 @@ set_job <- function(
 
   # ------- job description -------
   if(!is.null(description)) {
+    verify_description(description)
     jobs[[jobname]]$description <- description
   }
 
 
   # ------- job status -------
   if(!is.null(status)) {
+    verify_status(status)
     jobs[[jobname]]$status <- status
   }
 
@@ -81,17 +77,20 @@ set_job <- function(
 
   # ------- job priority -------
   if(!is.null(priority)) {
+    verify_priority(priority)
     jobs[[jobname]]$priority <- priority
   }
 
 
   # ------- job path -------
   if(!is.null(path)) {
+    verify_path(path)
     jobs[[jobname]]$path <- path
   }
 
   # ------- job deadline -------
   if(!is.null(deadline)) {
+    verify_deadline(deadline)
     deadline <- format_date(deadline)
     jobs[[jobname]]$deadline <- deadline
   }
@@ -118,6 +117,10 @@ set_job <- function(
 
   # ------- job url -------
   if(!is.null(site)) {
+
+    # if there's a site, check both site and link!!
+    verify_site(site)
+    verify_link(link)
 
     # get the urls
     urls <- jobs[[jobname]]$urls

@@ -62,7 +62,7 @@ verify_priority <- function(priority) {
 
 # throw error if description is not a length 1 character
 verify_description <- function(description) {
-  verify_onestring(description, "description")
+  verify_onestring(description)
 }
 
 

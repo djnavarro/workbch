@@ -26,6 +26,7 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
   if(!is.null(description)) { verify_description(description) }
   if(!is.null(status)) { verify_status(status) }
   if(!is.null(priority)) { verify_priority(priority) }
+  if(!is.null(deadline)) { verify_priority(deadline) }
 
   # ------- task description -------
   if(!is.null(description)) {

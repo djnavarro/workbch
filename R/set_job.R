@@ -32,6 +32,7 @@ set_job <- function(
   if(!is.null(jobname)) { verify_jobname(jobname, jobs) }
   if(!is.null(status)) { verify_status(status) }
   if(!is.null(priority)) { verify_priority(priority) }
+  if(!is.null(deadline)) { verify_priority(deadline) }
 
   # ------- job name -------
   if(!is.null(newname)) {

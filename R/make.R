@@ -18,6 +18,13 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   jobs <- job_read()
   job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
 
+  # verify input as appropriate
+  verify_description(description)
+  #if(!is.null(jobname)) { verify_jobname(jobname, jobs) }
+  if(!is.null(status)) { verify_status(status) }
+  if(!is.null(priority)) { verify_priority(priority) }
+  if(!is.null(deadline)) { verify_priority(deadline) }
+
   # if a job with this name already exists, throw error
   if(jobname %in% job_names) {
     stop("a job already exists with name '", jobname, "'", call. = FALSE)
@@ -85,7 +92,8 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
   verify_description(description)
   verify_jobname(jobname, jobs)
   verify_status(status)
-  verify_priority(priority)
+  if(!is.null(priority)) { verify_priority(priority) }
+  if(!is.null(deadline)) { verify_deadline(deadline) }
 
   # get this job
   jb <- jobs[[jobname]]
@@ -166,6 +174,8 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
   # verification step
   verify_status(status)
   verify_priority(priority)
+  verify_deadline(deadline)
+
 
   # find all git repositories
   found_paths <- list.files(

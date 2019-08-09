@@ -9,7 +9,7 @@ params:
 knitr::opts_chunk$set(echo = TRUE)
 options(knitr.kable.NA = '')
 library(workbch)
-set_workbch_home(path = params$path)
+workbch_sethome(path = params$path)
 prettify <- workbch:::prettify
 ```
 
@@ -53,5 +53,5 @@ for(i in 1:nrow(jobs)) {
 ### People
 
 ```{r people, echo=FALSE, results='asis'}
-prettify(view_people())
+prettify(workbch_people())
 ```

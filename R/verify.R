@@ -8,14 +8,16 @@ verify_onestring <- function(object) {
     stop(deparse(substitute(object)), " must be character and length 1",
          call. = FALSE)
   }
+  return(invisible(TRUE))
 }
 
 # similar deal as above really
 verify_character <- function(object) {
-  if(!is.character(object)) {
+  if(!is.character(object) | !is.null(dim(object))) {
     stop(deparse(substitute(object)), " must be character",
          call. = FALSE)
   }
+  return(invisible(TRUE))
 }
 
 # throw error if the job doesn't exist
@@ -26,7 +28,7 @@ verify_jobname <- function(jobname, jobs) {
   if(!(jobname %in% job_names)) {
     stop("there is no job named '", jobname, "'", call. = FALSE)
   }
-  return(invisible(NULL))
+  return(invisible(TRUE))
 }
 
 # throw warning if a job path does not exist
@@ -42,6 +44,7 @@ verify_path <- function(jobname, path) {
       }
     }
   }
+  return(invisible(TRUE))
 }
 
 # throw error if an unknown status is used
@@ -51,6 +54,7 @@ verify_status <- function(status) {
   if(!(status %in% c("active", "inactive", "complete", "abandoned", "masked"))) {
     stop("job status must be 'active', 'inactive', 'complete', 'abandoned' or 'masked'", call. = FALSE)
   }
+  return(invisible(TRUE))
 }
 
 # throw error if a priority is not a positive integer
@@ -67,6 +71,7 @@ verify_priority <- function(priority) {
   if(priority < 1) {
     stop("job priority must be a positive integer", call. = FALSE)
   }
+  return(invisible(TRUE))
 }
 
 # throw error if description is not a length 1 character
@@ -94,6 +99,8 @@ verify_deadline <- function(deadline) {
   if(is.na(out$result) & !is.na(deadline)) {
     stop("deadline must be a day-month-year format", call. = FALSE)
   }
+
+  return(invisible(TRUE))
 }
 
 verify_site <- function(site) {
@@ -123,4 +130,5 @@ verify_makedefault <- function(make_default) {
   if(length(make_default) != 1 | !is.logical(make_default) | is.na(make_default)) {
     stop("make_default must be TRUE or FALSE", call. = FALSE)
   }
+  return(invisible(TRUE))
 }

@@ -67,7 +67,7 @@ set_job <- function(
   # ------- job owner -------
   if(!is.null(owner)) {
     jb <- jobs[[jobname]]
-    jb$owner <- real_name(owner)
+    jb$owner <- ppl_get_fullname(owner)
 
     # add new owner to team if needed
     if(!(jb$owner %in% jb$team)) {
@@ -105,13 +105,13 @@ set_job <- function(
 
     if(!is.null(add_team)) {
       verify_character(add_team)
-      add_team <- real_name(add_team)
+      add_team <- ppl_get_fullname(add_team)
       jobs[[jobname]]$team <- unique(c(jobs[[jobname]]$team, add_team))
     }
 
     if(!is.null(remove_team)) {
       verify_character(remove_team)
-      remove_team <- real_name(remove_team)
+      remove_team <- ppl_get_fullname(remove_team)
       if(jobs[[jobname]]$owner %in% remove_team) {
         warning("set_job_team() cannot remove owner from a team", call. = FALSE)
         remove_team <- setdiff(remove_team, jobs[[jobname]]$owner)

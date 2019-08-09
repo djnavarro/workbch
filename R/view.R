@@ -18,10 +18,10 @@ view_jobs <- function(..., show_hidden = FALSE) {
   if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
+  if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
   # check the paths and throw warning if need be
-  missing_path_warning(job_tbl$jobname, job_tbl$path)
+  job_pathcheck(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
 
   return(as_wkbch_tbl(job_tbl))
@@ -59,11 +59,11 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
   if(...length() > 0) {job_tbl <- dplyr::filter(job_tbl, ...)}
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
+  if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
 
   # check the paths and throw warning if need be
-  missing_path_warning(job_tbl$jobname, job_tbl$path)
+  job_pathcheck(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
 
   return(as_wkbch_tbl(job_tbl))
@@ -95,7 +95,7 @@ view_job <- function(jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
 
   # check jobname
   verify_jobname(jobname)
@@ -140,7 +140,7 @@ view_job <- function(jobname = NULL) {
   }
 
   # check the paths and throw warning if need be
-  missing_path_warning(jb$jobname, jb$path)
+  job_pathcheck(jb$jobname, jb$path)
 
   return(invisible(jb))
 }
@@ -232,7 +232,7 @@ view_tasks <- function(..., show_hidden = TRUE) {
   tasks <- dplyr::arrange(tasks, lubridate::dmy(deadline), priority)
 
   # remove the hidden tasks if need be
-  if(!show_hidden) {tasks <- hide_jobs(tasks)}
+  if(!show_hidden) {tasks <- apply_mask(tasks)}
 
   return(as_wkbch_tbl(tasks))
 }

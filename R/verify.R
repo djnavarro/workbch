@@ -98,7 +98,7 @@ verify_link <- function(link) {
 
 # for now, the name "verifications" merely check
 # that the user has specified one string, and
-# defers checks against database to real_name()
+# defers search to ppl_get_fullname()
 verify_nickname <- function(nickname) {
   verify_onestring(nickname)
 }

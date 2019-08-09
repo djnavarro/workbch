@@ -75,10 +75,10 @@ workbch_paths <- function(show_hidden = TRUE) {
   job_tbl <- dplyr::filter(job_tbl, !is.na(path))
 
   # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- hide_jobs(job_tbl)}
+  if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
   # throw warnings
-  missing_path_warning(job_tbl$jobname, job_tbl$path)
+  job_pathcheck(job_tbl$jobname, job_tbl$path)
   return(as_wkbch_tbl(job_tbl))
 }
 

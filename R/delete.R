@@ -70,7 +70,7 @@ delete_task <- function(id, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
 
   # check jobname
   verify_jobname(jobname)
@@ -104,7 +104,7 @@ delete_url <- function(site, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
 
   # check jobname
   verify_jobname(jobname)

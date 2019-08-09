@@ -45,14 +45,14 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
 
   # set the owner
   if(is.null(owner)) {
-    owner <- default_person()
+    owner <- ppl_get_default()
   } else {
     verify_owner(owner)
-    owner <- real_name(owner)
+    owner <- ppl_get_fullname(owner)
   }
 
   # set the team
-  team <- real_name(team)
+  team <- ppl_get_fullname(team)
   if(!(owner %in% team)) {
     team <- c(owner, team)
   }
@@ -92,7 +92,7 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
 
   # read the jobs & verify the name
   jobs <- job_read()
-  if(is.null(jobname)) {jobname <- get_current_jobname(jobs)}
+  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
 
   # verification step
   verify_description(description)
@@ -123,13 +123,13 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
   }
 
   # parse the owner name and throw warning if not in team
-  owner <- real_name(owner)
+  owner <- ppl_get_fullname(owner)
   if(!(owner %in% jb$team)) {
     warning("'", owner, "' is not on the team for '", jobname, "'", call. = FALSE)
   }
 
   # assign the task a unique id number
-  id <- current_max_task_id(jobs) + 1
+  id <- task_maxid(jobs) + 1
 
   # create the task object
   tsk <- new_task(jobname = jobname, id = id, description = description,
@@ -173,10 +173,10 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
 
   # set & verify owner
   if(is.null(owner)) {
-    owner <- default_person()
+    owner <- ppl_get_default()
   } else {
     verify_owner(owner)
-    owner <- real_name(owner)
+    owner <- ppl_get_fullname(owner)
   }
 
   # verification step for other inputs
@@ -198,8 +198,8 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
 
   # load the existing jobs
   jobs <- job_read()
-  job_names <- get_jobnames(jobs)
-  job_paths <- get_paths(jobs)
+  job_names <- job_getnames(jobs)
+  job_paths <- job_getpaths(jobs)
   job_paths <- suppressWarnings( # suppress b/c some jobs may have no path
     normalizePath(job_paths, winslash = .Platform$file.sep)
   )
@@ -319,11 +319,9 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
         )
 
         # update list of known paths/jobnames
-        job_names <- get_jobnames(jobs)
-        job_paths <- get_paths(jobs)
-        job_paths <- suppressWarnings(
-          normalizePath(job_paths)
-        )
+        job_names <- job_getnames(jobs)
+        job_paths <- job_getpaths(jobs)
+        job_paths <- suppressWarnings(normalizePath(job_paths))
 
         message("    ... done! new job created!")
       }

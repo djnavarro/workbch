@@ -2,7 +2,7 @@
 #'
 #' @param jobname name of the job to create
 #' @param description brief description of the job
-#' @param status should be "active", "inactive", "complete", "abandoned"
+#' @param status should be "active", "inactive", "complete", "abandoned", "masked"
 #' @param owner should be a name or a nickname
 #' @param team should be a vector of names/nicknames
 #' @param priority numeric

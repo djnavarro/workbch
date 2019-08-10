@@ -57,5 +57,8 @@ empty_url <- function() {
 
 
 empty_job <- function() {
-  list()
+  new_job(jobname = character(0), description = character(0),
+          owner = character(0), status = character(0), team = character(0),
+          priority = numeric(0), deadline = character(0), tags = character(0),
+          path = character(0), urls = empty_url(), tasks = empty_task())
 }

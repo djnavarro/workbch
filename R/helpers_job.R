@@ -34,7 +34,7 @@ job_read <- function() {
     })
     return(jobs)
   }
-  return(empty_job())
+  return(NULL)
 }
 
 # write project data to JSON file (TODO: this can be condensed to
@@ -51,12 +51,12 @@ job_write <- function(jobs) {
 
 
 job_getnames <- function(jobs) {
-  if(length(jobs) == 0) {return(character(0))}
+  if(is.null(jobs)) { return(character(0)) }
   return(purrr::map_chr(jobs, function(j) {j$jobname}))
 }
 
 job_getpaths <- function(jobs) {
-  if(length(jobs) == 0) {return(character(0))}
+  if(is.null(jobs)) { return(character(0)) }
   return(purrr::map_chr(jobs, function(j) {j$path}))
 }
 
@@ -68,8 +68,8 @@ job_getcurrent <- function(jobs) {
   # - if that doesn't do it, throw error
 
   # get all job names and paths
-  job_names <- purrr::map_chr(jobs, ~ .x$jobname)
-  job_paths <- purrr::map_chr(jobs, ~ .x$path)
+  job_names <- job_getnames(jobs)
+  job_paths <- job_getpaths(jobs)
 
   # restrict to jobs with non-NA paths & normalise
   known <- !is.na(job_paths)

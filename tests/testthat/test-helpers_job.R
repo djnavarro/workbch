@@ -14,9 +14,9 @@ test_that("reading and writing jobs works", {
     file.remove(job_file())
   }
 
-  # check that job_read returns empty_job
+  # check that job_read returns NULL for an empty file
   jobs <- job_read()
-  expect_equal(jobs, empty_job())
+  expect_null(jobs)
 
   # while we're here, lets try to read empty jobnames and paths
   expect_equal(job_getnames(jobs), character(0))
@@ -24,12 +24,10 @@ test_that("reading and writing jobs works", {
   expect_false(job_exists("toxic", jobs))
   expect_false(job_exists("hitmebaby", jobs))
 
-  # create a job directly from the constructor
-  jobs <- empty_job()
-  jb <- new_job(jobname = "toxic",
-                description = "a song",
-                owner = "britney")
-  jobs[["toxic"]] <- jb
+  # create a list of jobs directly from the constructor
+  jobs <- list(toxic = new_job(
+    jobname = "toxic", description = "a song", owner = "britney"
+  ))
   job_write(jobs)
 
   # check job read has the correct info
@@ -43,11 +41,12 @@ test_that("reading and writing jobs works", {
 
 
   # add a second job that does have a path
-  jb <- new_job(jobname = "hitmebaby",
-                description = "another song",
-                owner = "britney",
-                path = loc)
-  jobs[["hitmebaby"]] <- jb
+  jobs[["hitmebaby"]] <- new_job(
+    jobname = "hitmebaby",
+    description = "another song",
+    owner = "britney",
+    path = loc
+  )
   job_write(jobs)
 
   # check job read has the correct info

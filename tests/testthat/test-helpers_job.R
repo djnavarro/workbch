@@ -39,7 +39,6 @@ test_that("reading and writing jobs works", {
   expect_true(job_exists("toxic", jobs))
   expect_false(job_exists("hitmebaby", jobs))
 
-
   # add a second job that does have a path
   jobs[["hitmebaby"]] <- new_job(
     jobname = "hitmebaby",

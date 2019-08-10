@@ -26,7 +26,7 @@ new_job <- function(jobname, description, owner, status = "active",
 }
 
 new_task <- function(jobname, id, description, owner, status = "active",
-                     priority = 1, deadline = NA) {
+                     priority = 1, deadline = NA_character_) {
   tibble::tibble(
     jobname = jobname,
     id = id,

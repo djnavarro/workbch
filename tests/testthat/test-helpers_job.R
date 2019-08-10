@@ -53,3 +53,19 @@ test_that("reading and writing jobs works", {
   expect_equal(job_getpaths(jobs), c(toxic = NA_character_, hitmebaby = loc))
 
 })
+
+# doesn't test the RStudio functionality
+test_that("job_getcurrent works", {
+
+  jobs <- job_read()
+  wd <- getwd()
+  setwd("~")
+
+  expect_error(job_getcurrent(jobs), "could not detect current job")
+
+  setwd(loc)
+  expect_equal(job_getcurrent(jobs), c(hitmebaby = "hitmebaby"))
+
+  setwd(wd)
+
+})

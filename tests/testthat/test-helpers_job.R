@@ -21,6 +21,8 @@ test_that("reading and writing jobs works", {
   # while we're here, lets try to read empty jobnames and paths
   expect_equal(job_getnames(jobs), character(0))
   expect_equal(job_getpaths(jobs), character(0))
+  expect_false(job_exists("toxic", jobs))
+  expect_false(job_exists("hitmebaby", jobs))
 
   # create a job directly from the constructor
   jobs <- empty_job()
@@ -36,6 +38,9 @@ test_that("reading and writing jobs works", {
   # check job names and paths: named character vectors
   expect_equal(job_getnames(jobs), c(toxic = "toxic"))
   expect_equal(job_getpaths(jobs), c(toxic = NA_character_))
+  expect_true(job_exists("toxic", jobs))
+  expect_false(job_exists("hitmebaby", jobs))
+
 
   # add a second job that does have a path
   jb <- new_job(jobname = "hitmebaby",
@@ -51,6 +56,8 @@ test_that("reading and writing jobs works", {
   # check job names and paths: named character vectors
   expect_equal(job_getnames(jobs), c(toxic = "toxic", hitmebaby = "hitmebaby"))
   expect_equal(job_getpaths(jobs), c(toxic = NA_character_, hitmebaby = loc))
+  expect_true(job_exists("toxic", jobs))
+  expect_true(job_exists("hitmebaby", jobs))
 
 })
 
@@ -69,3 +76,12 @@ test_that("job_getcurrent works", {
   setwd(wd)
 
 })
+
+
+test_that("job_pathcheck works", {
+
+  expect_true(job_pathcheck("toxic", loc))
+  expect_warning(job_pathcheck("toxic", "dfkjaskldjfha"), "but does not exist")
+
+})
+

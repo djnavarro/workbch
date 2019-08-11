@@ -35,14 +35,6 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   if(!is.null(tags)) { verify_character(tags) }
   if(!is.null(path)) { verify_path(path) }
 
-  # specify the defaults for other fields
-  if(is.null(status)) {status <- "active"}
-  if(is.null(team)) {team <- character(0)}
-  if(is.null(tags)) {tags <- character(0)}
-  if(is.null(priority)) {priority <- 1}
-  if(is.null(deadline)) {deadline <- NA_character_}
-  if(is.null(path)) {path <- NA_character_}
-
   # set the owner
   if(is.null(owner)) {
     owner <- ppl_get_default()
@@ -87,7 +79,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
 #' @param priority numeric (default is to match the job)
 #' @param deadline a date (default is to match the job)
 #' @export
-make_task <- function(description, jobname = NULL, owner = NULL, status = "active",
+make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
                      priority = NULL, deadline = NULL) {
 
   # read the jobs & verify the name
@@ -125,16 +117,23 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
   # parse the owner name and throw warning if not in team
   owner <- ppl_get_fullname(owner)
   if(!(owner %in% jb$team)) {
-    warning("'", owner, "' is not on the team for '", jobname, "'", call. = FALSE)
+    warning("'", owner, "' is not on the team for '",
+            jobname, "'", call. = FALSE)
   }
 
   # assign the task a unique id number
   id <- task_maxid(jobs) + 1
 
   # create the task object
-  tsk <- new_task(jobname = jobname, id = id, description = description,
-                  owner = owner, status = status, priority = priority,
-                  deadline = deadline)
+  tsk <- new_task(
+    jobname = jobname,
+    id = id,
+    description = description,
+    owner = owner,
+    status = status,
+    priority = priority,
+    deadline = deadline
+  )
 
   # append it to the job
   if(identical(jb$tasks, list())) {
@@ -168,8 +167,8 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = "activ
 #' }
 #'
 #' @export
-make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
-                               deadline = NA) {
+make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
+                             priority = NULL, deadline = NULL) {
 
   # set & verify owner
   if(is.null(owner)) {
@@ -254,7 +253,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = "active", priority = 1,
       message("    status:      ", status)
       message("    priority:    ", priority)
       message("    deadline:    ", deadline)
-      message("    hidden:      ", hidden)
       message("    ")
 
       # make the user decide

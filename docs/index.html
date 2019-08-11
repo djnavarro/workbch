@@ -118,9 +118,9 @@ within R, based around the concept of a “job” (which might map to a single R
 <a class="sourceLine" id="cb3-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb3-14" data-line-number="14"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # A tibble: 1 x 6</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   jobname   owner priority status deadline description                     </span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                           </span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 1 workitout ""           1 active NA       sip martinis and party in France</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   jobname   owner   priority status deadline description                   </span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;  &lt;lgl&gt;    &lt;chr&gt;                         </span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 1 workitout britney        1 active NA       sip martinis and party in Fra…</span></a></code></pre></div>
 <p>Jobs can be deleted by name:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/delete_job.html">delete_job</a></span>(<span class="st">"workitout"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>

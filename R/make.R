@@ -72,18 +72,13 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
   priority <- priority %||% jb$priority
   deadline <- deadline %||% jb$deadline
 
-
-
-  # parse the owner name and throw warning if not in team
-  owner <- ppl_fullname(owner)
-  if(!(owner %in% jb$team)) {
-    warning("'", owner, "' is not on the team for '",
-            jobname, "'", call. = FALSE)
-  }
-
   # extract existing ids and construct a new one
   ids <- task_ids(jobs)
   id <- task_makeid(ids)
+
+  # parse owner and check against team
+  owner <- ppl_fullname(owner)
+  ppl_checkteam(owner, jb$team)
 
   # create the task object
   tsk <- new_task(
@@ -96,16 +91,8 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
     deadline = deadline
   )
 
-  # append it to the job
-  if(identical(jb$tasks, list())) {
-    jb$tasks <- tsk
-  } else if(nrow(jb$tasks) == 0) {
-    jb$tasks <- tsk
-  } else {
-    jb$tasks <- dplyr::bind_rows(jb$tasks, tsk)
-  }
-
-  # write it to the jobs list
+  # append and write
+  jb$tasks <- task_append(jb$tasks, tsk)
   jobs[[jobname]] <- jb
   job_write(jobs)
 }

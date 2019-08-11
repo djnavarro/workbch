@@ -77,3 +77,13 @@ ppl_fullname <- function(nickname) {
   }
   return(fullname)
 }
+
+
+
+# check functions ---------------------------------------------------------
+
+ppl_checkteam <- function(owner, team) {
+  if(!(owner %in% team)) {
+    warning("'", owner, "' is not on the team for this job", call. = FALSE)
+  }
+}

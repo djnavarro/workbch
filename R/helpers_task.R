@@ -13,6 +13,13 @@ task_makeid <- function(ids) {
   max(ids) + 1
 }
 
+# append a new task to an existing list of tasks
+task_append <- function(old, new) {
+  if(identical(old, list())) { return(new) }
+  if(nrow(old) == 0) { return(new) }
+  return(dplyr::bind_rows(old, new))
+}
+
 # read the tasks
 task_read <- function() {
   jobs <- job_read()

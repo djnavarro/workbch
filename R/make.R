@@ -87,8 +87,8 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
   }
 
   # extract existing ids and construct a new one
-  all_ids <- task_getids(jobs)
-  id <- task_makeid(all_ids)
+  ids <- task_ids(jobs)
+  id <- task_makeid(ids)
 
   # create the task object
   tsk <- new_task(

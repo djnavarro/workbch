@@ -1,12 +1,11 @@
 
 # returns a vector of all task id numbers
-task_getids <- function(jobs) {
-  addid <- function(id, j) {
-    if(is.null(j$tasks$id)) {return(id)}
-    return(c(id, j$tasks$id))
-  }
-  ids <- purrr::reduce(jobs, addid, .init = numeric(0))
-  return(ids)
+task_ids <- function(jobs) {
+  purrr::reduce(
+    .x = jobs,
+    .f = function(id, j) { c(id, (j$tasks$id %||% numeric(0L))) },
+    .init = numeric(0)
+  )
 }
 
 # make new id value by incrementing maxid (fix this)

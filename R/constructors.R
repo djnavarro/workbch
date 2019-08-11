@@ -9,14 +9,14 @@ new_job <- function(jobname, description, owner, status = NULL,
                     tasks = NULL, verify = TRUE) {
 
   # replace nulls with default values
-  if(is.null(status)) {status <- "active"}
-  if(is.null(team)) {team <- character(0)}
-  if(is.null(priority)) {priority <- 1}
-  if(is.null(deadline)) {deadline <- NA_character_}
-  if(is.null(tags)) {tags <- character(0)}
-  if(is.null(path)) {path <- NA_character_}
-  if(is.null(urls)) {urls = empty_url()}
-  if(is.null(tasks)) {tasks = empty_task()}
+  status <- status %||% "active"
+  team <- team %||% character(0)
+  priority <- priority %||% 1
+  deadline <- deadline %||% NA_character_
+  tags <- tags %||% character(0)
+  path <- path %||% NA_character_
+  urls <- urls %||% empty_url()
+  tasks <- tasks %||% empty_task()
 
   # verify unless explicitly told not to
   if(verify) {
@@ -56,13 +56,15 @@ new_job <- function(jobname, description, owner, status = NULL,
   )
 }
 
+
+
 new_task <- function(jobname, id, description, owner, status = NULL,
                      priority = NULL, deadline = NULL, verify = TRUE) {
 
   # replace nulls with default values
-  if(is.null(status)) {status <- "active"}
-  if(is.null(priority)) {priority <- 1}
-  if(is.null(deadline)) {deadline <- NA_character_}
+  status <- status %||% "active"
+  priority <- priority %||% 1
+  deadline <- deadline %||% NA_character_
 
   # verify unless explicitly told not to
   if(verify) {
@@ -101,6 +103,7 @@ new_url <- function(site, link, verify = TRUE) {
     link = link
   )
 }
+
 
 
 # constructors for empty objects ------------------------------------------

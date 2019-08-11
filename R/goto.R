@@ -15,9 +15,7 @@ goto_job <- function(jobname = NULL) {
   jobs <- job_read()
 
   # if the user doesn't specify a job, prompt them
-  if(is.null(jobname)) {
-    job_name <- prompt_jobname()
-  }
+  jobname <- jobname %||% prompt_jobname()
 
   # check jobname
   verify_jobname(jobname)
@@ -60,7 +58,7 @@ goto_url <- function(site, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
-  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
+  jobname <- jobname %||% job_getcurrent(jobs)
 
   # check jobname
   verify_jobname(jobname)

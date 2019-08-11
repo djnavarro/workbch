@@ -1,5 +1,8 @@
 # validator functions
 
+
+# generic checks ----------------------------------------------------------
+
 # a lot of the validation checks involve verifying an an input argument
 # is length one character so let's not duplicate code my dear...
 verify_onestring <- function(object) {
@@ -19,6 +22,10 @@ verify_character <- function(object) {
   }
   return(invisible(TRUE))
 }
+
+
+# argument checks ---------------------------------------------------------
+
 
 # throw error if the jobname is invalid
 verify_jobname <- function(jobname) {
@@ -117,3 +124,26 @@ verify_makedefault <- function(make_default) {
   }
   return(invisible(TRUE))
 }
+
+
+
+# status checks -----------------------------------------------------------
+
+# ensure there is no job called jobname
+verify_jobmissing <- function(jobname, jobs, strict = TRUE) {
+  missing <- !(jobname %in% job_getnames(jobs))
+  if(strict & missing == FALSE)  {
+    stop("a job already exists with name '", jobname, "'", call. = FALSE)
+  }
+  return(invisible(TRUE))
+}
+
+# ensure there is no job called jobname
+verify_jobexists <- function(jobname, jobs, strict = TRUE) {
+  present <- jobname %in% job_getnames(jobs)
+  if(strict & present == FALSE)  {
+    stop("no job exists with name '", jobname, "'", call. = FALSE)
+  }
+  return(invisible(TRUE))
+}
+

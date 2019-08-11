@@ -26,20 +26,19 @@ set_job <- function(
 ){
 
   jobs <- job_read()
+
+  # verify that the old job name is valid and correspons to
+  # a known existing job
   verify_jobname(jobname)
-  if(!job_exists(jobname, jobs)) {
-    stop("job '", jobname, "' does not exist", call. = FALSE)
-  }
+  verify_jobexists(jobname, jobs)
 
   # ------- job name -------
   if(!is.null(newname)) {
 
+    # verify the new name is valid and does not correspond
+    # to any existing job
     verify_jobname(newname)
-
-    # don't let the user overwrite an existing job
-    if(job_exists(newname, jobs)) {
-      stop("job '", newname, "' already exists", call. = FALSE)
-    }
+    verify_jobmissing(newname, jobs)
 
     # rename the list entry itself
     job_names <- names(jobs)
@@ -151,9 +150,7 @@ set_job <- function(
 
       # check jobname
       verify_jobname(jbnm)
-      if(!job_exists(jbnm, jobs)) {
-        stop("job '", jbnm, "' does not exist", call. = FALSE)
-      }
+      verify_jobexists(jbnm, jobs)
 
       # if there are tags to add, add them
       if(!is.null(add_tag)) {

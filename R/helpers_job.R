@@ -131,11 +131,6 @@ job_getcurrent <- function(jobs) {
 
 # check information -------------------------------------------------------
 
-# check if job name exists
-job_exists <- function(jobname, jobs) {
-  return(jobname %in% job_getnames(jobs))
-}
-
 # throw warning if a job path does not exist
 job_pathcheck <- function(jobname, path) {
   if(length(path) > 0) {

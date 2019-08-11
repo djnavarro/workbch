@@ -19,12 +19,10 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
-  job_names <- purrr::map_chr(jobs, function(j) {j$jobname})
+  job_names <- job_getnames(jobs)
 
-  # if a job with this name already exists, throw error
-  if(job_exists(jobname, jobs)) {
-    stop("a job already exists with name '", jobname, "'", call. = FALSE)
-  }
+  # make sure no job exists with this name
+  verify_jobmissing(jobname, jobs)
 
   # verify input as appropriate
   if(!is.null(status)) { verify_status(status) }
@@ -46,6 +44,7 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
   # set the team
   team <- ppl_get_fullname(team)
   if(!(owner %in% team)) {
+    verify_character(owner)
     team <- c(owner, team)
   }
 

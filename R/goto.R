@@ -21,9 +21,7 @@ goto_job <- function(jobname = NULL) {
 
   # check jobname
   verify_jobname(jobname)
-  if(!job_exists(jobname, jobs)) {
-    stop("job '", jobname, "' does not exist", call. = FALSE)
-  }
+  verify_jobexists(jobname, jobs)
 
   # if we're not in RStudio, just change working directory
   if(!rstudioapi::isAvailable()) {
@@ -66,9 +64,7 @@ goto_url <- function(site, jobname = NULL) {
 
   # check jobname
   verify_jobname(jobname)
-  if(!job_exists(jobname, jobs)) {
-    stop("job '", jobname, "' does not exist", call. = FALSE)
-  }
+  verify_jobexists(jobname, jobs)
 
   urls <- jobs[[jobname]]$urls
   if(!(site %in% urls$site)) {

@@ -21,8 +21,10 @@ test_that("reading and writing jobs works", {
   # while we're here, lets try to read empty jobnames and paths
   expect_equal(job_getnames(jobs), character(0))
   expect_equal(job_getpaths(jobs), character(0))
-  expect_false(job_exists("toxic", jobs))
-  expect_false(job_exists("hitmebaby", jobs))
+
+  # verification tests (here because that was the original file structure)
+  expect_true(verify_jobmissing("toxic", jobs, strict = FALSE))
+  expect_true(verify_jobmissing("hitmebaby", jobs, strict = FALSE))
 
   # create a list of jobs directly from the constructor
   jobs <- list(toxic = new_job(
@@ -36,8 +38,10 @@ test_that("reading and writing jobs works", {
   # check job names and paths: named character vectors
   expect_equal(job_getnames(jobs), c(toxic = "toxic"))
   expect_equal(job_getpaths(jobs), c(toxic = NA_character_))
-  expect_true(job_exists("toxic", jobs))
-  expect_false(job_exists("hitmebaby", jobs))
+
+  # verification tests (here because that was the original file structure)
+  expect_true(verify_jobexists("toxic", jobs, strict = FALSE))
+  expect_true(verify_jobmissing("hitmebaby", jobs, strict = FALSE))
 
   # add a second job that does have a path
   jobs[["hitmebaby"]] <- new_job(
@@ -54,8 +58,10 @@ test_that("reading and writing jobs works", {
   # check job names and paths: named character vectors
   expect_equal(job_getnames(jobs), c(toxic = "toxic", hitmebaby = "hitmebaby"))
   expect_equal(job_getpaths(jobs), c(toxic = NA_character_, hitmebaby = loc))
-  expect_true(job_exists("toxic", jobs))
-  expect_true(job_exists("hitmebaby", jobs))
+
+  # verification tests (here because that was the original file structure)
+  expect_true(verify_jobexists("toxic", jobs, strict = FALSE))
+  expect_true(verify_jobexists("hitmebaby", jobs, strict = FALSE))
 
 })
 

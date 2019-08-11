@@ -70,7 +70,6 @@ ppl_fullname <- function(nickname) {
       # but throw warnings...
       if(nickname[i] %in% ppl$fullname) {
         nn <- ppl$nickname[ppl$fullname == nickname[i]]
-        warning("'", nickname[i], "' has a known nick name '", nn, "'", call. = FALSE)
       } else{
         warning("'", nickname[i], "' is not a known nick name", call. = FALSE)
       }

@@ -70,13 +70,9 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
   # set defaults as needed
   owner <- owner %||% jb$owner
   priority <- priority %||% jb$priority
+  deadline <- deadline %||% jb$deadline
 
-  # parse the deadline
-  if(is.null(deadline)) {
-    deadline <- jb$deadline
-  } else {
-    deadline <- format_date(deadline)
-  }
+
 
   # parse the owner name and throw warning if not in team
   owner <- ppl_fullname(owner)

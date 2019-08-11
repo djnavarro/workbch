@@ -77,6 +77,9 @@ new_task <- function(jobname, id, description, owner, status = NULL,
     verify_deadline(deadline)
   }
 
+  # ensure date is formatted appropriately
+  deadline <- format_date(deadline)
+
   # construct object
   tibble::tibble(
     jobname = jobname,

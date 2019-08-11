@@ -5,8 +5,7 @@
 #'
 #' @param jobname name of the job to delete
 #' @export
-#' @details Deletes a job from the JSON file. At the moment, it does so without
-#' asking for the user to confirm, so be careful.
+#' @details Deletes a job from the JSON file.
 #' @examples
 #' \dontrun{
 #'

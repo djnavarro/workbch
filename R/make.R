@@ -98,8 +98,9 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
             jobname, "'", call. = FALSE)
   }
 
-  # assign the task a unique id number
-  id <- task_maxid(jobs) + 1
+  # extract existing ids and construct a new one
+  all_ids <- task_getids(jobs)
+  id <- task_makeid(all_ids)
 
   # create the task object
   tsk <- new_task(

@@ -27,9 +27,9 @@ test_that("reading and writing jobs works", {
   expect_true(verify_jobmissing("hitmebaby", jobs, strict = FALSE))
 
   # create a list of jobs directly from the constructor
-  jobs <- list(toxic = new_job(
+  jobs <- suppressWarnings(list(toxic = new_job(
     jobname = "toxic", description = "a song", owner = "britney"
-  ))
+  )))
   job_write(jobs)
 
   # check job read has the correct info
@@ -44,12 +44,12 @@ test_that("reading and writing jobs works", {
   expect_true(verify_jobmissing("hitmebaby", jobs, strict = FALSE))
 
   # add a second job that does have a path
-  jobs[["hitmebaby"]] <- new_job(
+  jobs[["hitmebaby"]] <- suppressWarnings(new_job(
     jobname = "hitmebaby",
     description = "another song",
     owner = "britney",
     path = loc
-  )
+  ))
   job_write(jobs)
 
   # check job read has the correct info

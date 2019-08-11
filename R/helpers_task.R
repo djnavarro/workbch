@@ -1,15 +1,17 @@
 
-# retrieve the largest known task number
-task_maxid <- function(jobs) {
-  if(is.null(jobs)) { return(0) }
-  task_ids <- purrr::map_dbl(jobs, function(j) {
-    tsk <- j$tasks
-    if(!is.null(tsk) & length(tsk$id) > 0) {
-      return(max(tsk$id))
-    }
-    return(0)
-  })
-  return(max(task_ids))
+# returns a vector of all task id numbers
+task_getids <- function(jobs) {
+  addid <- function(id, j) {
+    if(is.null(j$tasks$id)) {return(id)}
+    return(c(id, j$tasks$id))
+  }
+  ids <- purrr::reduce(jobs, addid, .init = numeric(0))
+  return(ids)
+}
+
+# make new id value by incrementing maxid (fix this)
+task_makeid <- function(ids) {
+  max(ids) + 1
 }
 
 # read the tasks

@@ -18,6 +18,7 @@ job_read <- function() {
       # empty lists become data frames in some cases
       if(class(j$urls) == "list") {j$urls <- empty_url()}
       if(class(j$tasks) == "list") {j$tasks <- empty_task()}
+      if(is.null(j$tasks)) {j$tasks <- empty_task()}
 
       # empty lists become character vectors in others
       if(class(j$team) == "list") {j$team <- character(0)}

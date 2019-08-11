@@ -34,25 +34,25 @@ test_that("file is created on set_person", {
 })
 
 
-test_that("ppl_get_fullname works", {
+test_that("ppl_fullname works", {
 
   # check the output
-  expect_equal(ppl_get_fullname(character(0)), character(0))
-  expect_equal(ppl_get_fullname("danielle"), "Danielle Navarro")
+  expect_equal(ppl_fullname(character(0)), character(0))
+  expect_equal(ppl_fullname("danielle"), "Danielle Navarro")
   expect_equal(
-    suppressWarnings(ppl_get_fullname(c("danielle", "dani"))),
+    suppressWarnings(ppl_fullname(c("danielle", "dani"))),
     c("Danielle Navarro", "dani")
   )
 
   # check for warnings
-  expect_warning(ppl_get_fullname("Danielle Navarro"), "has a known nick name")
-  expect_warning(ppl_get_fullname("dani"), "is not a known nick name")
+  expect_warning(ppl_fullname("Danielle Navarro"), "has a known nick name")
+  expect_warning(ppl_fullname("dani"), "is not a known nick name")
 
 })
 
-test_that("ppl_get_default works", {
+test_that("ppl_defaultowner works", {
 
-  expect_error(ppl_get_default(), "no default person is set")
+  expect_error(ppl_defaultowner(), "no default person is set")
 
   set_person(
     fullname = "Britney Spears",
@@ -60,7 +60,7 @@ test_that("ppl_get_default works", {
     make_default = TRUE
   )
 
-  expect_equal(ppl_get_default(), "Britney Spears")
+  expect_equal(ppl_defaultowner(), "Britney Spears")
 
 })
 

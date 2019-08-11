@@ -1,5 +1,8 @@
 # helper functions specific to the people data
 
+
+# read and write ----------------------------------------------------------
+
 # where is the CSV for the names stored?
 ppl_file <- function() {
   file.path(workbch_gethome(), "workbch_people.csv")
@@ -23,8 +26,20 @@ ppl_write <- function(ppl) {
   readr::write_csv(ppl, ppl_file())
 }
 
+
+
+# clean up, default, nickname ---------------------------------------------
+
+ppl_parseowner <- function(owner) {
+  if(is.null(owner)) {
+    return(ppl_defaultowner())
+  } else {
+    return(ppl_fullname(owner))
+  }
+}
+
 # get the default person (error if none exists)
-ppl_get_default <- function(strict = TRUE) {
+ppl_defaultowner <- function(strict = TRUE) {
   ppl <- ppl_read()
   def <- ppl$fullname[ppl$default == TRUE]
   if(strict & length(def) == 0) {
@@ -35,7 +50,7 @@ ppl_get_default <- function(strict = TRUE) {
 }
 
 # if name is a nickname, substitute with the real one
-ppl_get_fullname <- function(nickname) {
+ppl_fullname <- function(nickname) {
 
   # if there aren't any names, return early
   if(length(nickname) == 0) {return(nickname)}

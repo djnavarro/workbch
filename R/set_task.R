@@ -49,7 +49,7 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
 
   # ------- task description -------
   if(!is.null(owner)) {
-    owner <- ppl_get_fullname(owner)
+    owner <- ppl_fullname(owner)
     if(owner %in% jobs[[jobname]]$team) {
       jobs[[jobname]]$tasks$owner <- owner
     } else {

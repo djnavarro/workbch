@@ -24,8 +24,8 @@ new_job <- function(jobname, description, owner, status = NULL,
     verify_description(description)
     verify_owner(owner)
     verify_status(status)
-    ## missing: verify_team(team)
-    ## missing: verify_tags(tags)
+    verify_character(team)
+    verify_character(tags)
     verify_path(path)
     verify_priority(priority)
     verify_deadline(deadline)
@@ -33,12 +33,13 @@ new_job <- function(jobname, description, owner, status = NULL,
     ## missing: verify_tasks(tasks)
   }
 
-  # check and tidy names
+  # tidy names
   owner <- ppl_parseowner(owner)
   team <- ppl_fullname(team)
-  if(!(owner %in% team)) {
-    team <- c(owner, team)
-  }
+  if(!(owner %in% team)) { team <- c(owner, team) }
+
+  # tidy deadline
+  deadline <- format_date(deadline)
 
   # construct object
   list(

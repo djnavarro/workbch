@@ -61,23 +61,11 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
 
   # read the jobs & verify the name
   jobs <- job_read()
-  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
-
-  # verification step
-  verify_description(description)
-  verify_jobname(jobname)
-  verify_status(status)
-  if(!is.null(priority)) { verify_priority(priority) }
-  if(!is.null(deadline)) { verify_deadline(deadline) }
-  if(!is.null(owner)) { verify_owner(owner) }
+  jobname <- jobname %||% job_getcurrent(jobs)
+  verify_jobexists(jobname, jobs)
 
   # get this job
   jb <- jobs[[jobname]]
-
-  # throw error if the job doesn't exist
-  if(is.null(jb)) {
-    stop("there is no job named '", jobname, "'", call. = FALSE)
-  }
 
   # set defaults as needed
   if(is.null(owner)) {owner <- jb$owner}

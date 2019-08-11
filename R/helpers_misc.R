@@ -5,6 +5,12 @@ capture_dots <- function(...) {
   as.list(substitute(list(...)))[-1L]
 }
 
+`%||%` <- function(x, y) {
+  if(is.null(x)) {
+    return(y)
+  }
+  return(x)
+}
 
 # tidying -----------------------------------------------------------------
 

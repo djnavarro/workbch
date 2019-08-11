@@ -18,157 +18,11 @@
 #' @name set_job
 NULL
 
-set_job <- function(
-  jobname, newname = NULL, description = NULL, owner = NULL,
-  status = NULL, priority = NULL, path = NULL, deadline = NULL,
-  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
-  remove_team = NULL
-){
 
-  jobs <- job_read()
+# user-facing functions ---------------------------------------------------
 
-  # verify that the old job name is valid and correspons to
-  # a known existing job
-  verify_jobname(jobname)
-  verify_jobexists(jobname, jobs)
-
-  # ------- job name -------
-  if(!is.null(newname)) {
-
-    # verify the new name is valid and does not correspond
-    # to any existing job
-    verify_jobname(newname)
-    verify_jobmissing(newname, jobs)
-
-    # rename the list entry itself
-    job_names <- names(jobs)
-    ind <- which(job_names == jobname)
-    names(jobs)[ind] <- newname
-
-    # rename within the field
-    jobs[[newname]]$jobname <- newname
-  }
-
-
-  # ------- job description -------
-  if(!is.null(description)) {
-    verify_description(description)
-    jobs[[jobname]]$description <- description
-  }
-
-
-  # ------- job status -------
-  if(!is.null(status)) {
-    verify_status(status)
-    jobs[[jobname]]$status <- status
-  }
-
-  # ------- job owner -------
-  if(!is.null(owner)) {
-    jb <- jobs[[jobname]]
-    jb$owner <- ppl_get_fullname(owner)
-
-    # add new owner to team if needed
-    if(!(jb$owner %in% jb$team)) {
-      jb$team <- c(jb$owner, jb$team)
-    }
-
-    # write new values
-    jobs[[jobname]] <- jb
-  }
-
-
-  # ------- job priority -------
-  if(!is.null(priority)) {
-    verify_priority(priority)
-    jobs[[jobname]]$priority <- priority
-  }
-
-
-  # ------- job path -------
-  if(!is.null(path)) {
-    verify_path(path)
-    jobs[[jobname]]$path <- path
-  }
-
-  # ------- job deadline -------
-  if(!is.null(deadline)) {
-    verify_deadline(deadline)
-    deadline <- format_date(deadline)
-    jobs[[jobname]]$deadline <- deadline
-  }
-
-
-  # ------- job team -------
-  if(!is.null(add_team) | !is.null(remove_team)) {
-
-    if(!is.null(add_team)) {
-      verify_character(add_team)
-      add_team <- ppl_get_fullname(add_team)
-      jobs[[jobname]]$team <- unique(c(jobs[[jobname]]$team, add_team))
-    }
-
-    if(!is.null(remove_team)) {
-      verify_character(remove_team)
-      remove_team <- ppl_get_fullname(remove_team)
-      if(jobs[[jobname]]$owner %in% remove_team) {
-        warning("set_job_team() cannot remove owner from a team", call. = FALSE)
-        remove_team <- setdiff(remove_team, jobs[[jobname]]$owner)
-      }
-      jobs[[jobname]]$team <- setdiff(jobs[[jobname]]$team, remove_team)
-    }
-  }
-
-
-  # ------- job url -------
-  if(!is.null(site)) {
-
-    # if there's a site, check both site and link!!
-    verify_site(site)
-    verify_link(link)
-
-    # get the urls
-    urls <- jobs[[jobname]]$urls
-
-    # add or overwrite the url
-    ind <- which(urls$site == site)
-    if(length(ind) == 0) {
-      urls <- dplyr::bind_rows(urls, new_url(site, link))
-    } else if(length(ind) == 1) {
-      urls$link[ind] <- link
-    } else {
-      stop("how did i get here???")
-    }
-
-    # arrange alphabetically and reinsert
-    urls <- dplyr::arrange(urls, site)
-    jobs[[jobname]]$urls <- urls
-  }
-
-  if(!is.null(add_tag) | !is.null(remove_tag)) {
-    for(jbnm in jobname) {
-
-      # check jobname
-      verify_jobname(jbnm)
-      verify_jobexists(jbnm, jobs)
-
-      # if there are tags to add, add them
-      if(!is.null(add_tag)) {
-        verify_character(add_tag)
-        jobs[[jbnm]]$tags <- unique(c(jobs[[jbnm]]$tags, add_tag))
-      }
-
-      # if there are tags to remove, remove them
-      if(!is.null(remove_tag)) {
-        verify_character(remove_tag)
-        jobs[[jbnm]]$tags <- setdiff(jobs[[jbnm]]$tags, remove_tag)
-      }
-    }
-  }
-
-  return(jobs)
-}
-
+# these functions are all wrappers around set_job that write
+# the resutl to file to ensure persistent storage
 
 #' @rdname set_job
 #' @export
@@ -230,3 +84,183 @@ set_job_tag <- function(jobname, add_tag = NULL, remove_tag = NULL) {
   job_write(set_job(jobname = jobname, add_tag = add_tag, remove_tag = remove_tag))
 }
 
+
+# everything passes through set_job ---------------------------------------
+
+set_job <- function(
+  jobname, newname = NULL, description = NULL, owner = NULL,
+  status = NULL, priority = NULL, path = NULL, deadline = NULL,
+  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
+  remove_team = NULL
+){
+
+  # note: set_job does not call a constructor function, it modifies an
+  # existing job in place, so it has to call verify_ functions for anything
+  # it modifies. it doesn't do the modification itself, merely verfies the
+  # inputs where appropriate and passes it off to the relevant updater function
+
+  jobs <- job_read()
+
+  # verify old job exists
+  verify_jobname(jobname)
+  verify_jobexists(jobname, jobs)
+
+  # ------- job name -------
+  if(!is.null(newname)) {
+    verify_jobname(newname)
+    verify_jobmissing(newname, jobs)
+    jobs <- update_jobname(jobs, jobname, newname)
+  }
+
+  # ------- job description -------
+  if(!is.null(description)) {
+    verify_description(description)
+    jobs <- update_job(jobs, jobname, description)
+  }
+
+  # ------- job status -------
+  if(!is.null(status)) {
+    verify_status(status)
+    jobs <- update_job(jobs, jobname, status)
+  }
+
+  # ------- job owner -------
+  if(!is.null(owner)) {
+    verify_character(owner)
+    jobs <- update_jobowner(jobs, jobname, owner)
+  }
+
+  # ------- job priority -------
+  if(!is.null(priority)) {
+    verify_priority(priority)
+    jobs <- update_job(jobs, jobname, priority)
+  }
+
+  # ------- job path -------
+  if(!is.null(path)) {
+    verify_path(path)
+    jobs <- update_job(jobs, jobname, path)
+  }
+
+  # ------- job deadline -------
+  if(!is.null(deadline)) {
+    verify_deadline(deadline)
+    deadline <- format_date(deadline)
+    jobs <- update_job(jobs, jobname, deadline)
+  }
+
+  # ------- job team (add) -------
+  if(!is.null(add_team)) {
+    verify_character(add_team)
+    jobs <- update_addteam(jobs, jobname, add_team)
+  }
+
+  # ------- job team (remove) -------
+  if(!is.null(remove_team)) {
+    verify_character(remove_team)
+    jobs <- update_removeteam(jobs, jobname, remove_team)
+  }
+
+  # ------- job url -------
+  if(!is.null(site) | !is.null(link)) {
+    verify_site(site)
+    verify_link(link)
+    jobs <- update_joburl(jobs, jobname, site, link)
+  }
+
+  # ------- job tag (add) --------
+  if(!is.null(add_tag)) {
+    verify_character(add_tag)
+    for(j in jobname) { # vectorised
+      verify_jobname(j)
+      verify_jobexists(j, jobs)
+      jobs <- update_addtag(jobs, j, add_tag)
+    }
+  }
+
+  # ------- job tag (remove) --------
+  if(!is.null(remove_tag)) {
+    verify_character(remove_tag)
+    for(j in jobname) { # vectorised
+      verify_jobname(j)
+      verify_jobexists(j, jobs)
+      jobs <- update_removetag(jobs, j, remove_tag)
+    }
+  }
+
+  return(jobs)
+}
+
+
+
+# workhorse functions -----------------------------------------------------
+
+# simple cases can be handled this way
+update_job <- function(jobs, jobname, value) {
+  field <- deparse(substitute(value))
+  jobs[[jobname]][field] <- value
+  return(jobs)
+}
+
+# jobname
+update_jobname <- function(job, jobname, newname) {
+  job_names <- names(jobs)
+  ind <- which(job_names == jobname)
+  names(jobs)[ind] <- newname
+  jobs[[newname]]$jobname <- newname
+  return(jobs)
+}
+
+# owner
+update_jobowner <- function(jobs, jobname, owner) {
+  jobs[[jobname]]$owner <- ppl_fullname(owner)
+  if(!(jobs[[jobname]]$owner %in% jobs[[jobname]]$team)) {
+    jobs[[jobname]]$team <- c(jobs[[jobname]]$owner, jobs[[jobname]]$team)
+  }
+  return(jobs)
+}
+
+# team (add)
+update_addteam <- function(jobs, jobname, add_team) {
+  add_team <- ppl_fullname(add_team)
+  jobs[[jobname]]$team <- unique(c(jobs[[jobname]]$team, add_team))
+  return(jobs)
+}
+
+# team (remove)
+update_removeteam <- function(jobs, jobname, remove_team) {
+  remove_team <- ppl_fullname(remove_team)
+  if(jobs[[jobname]]$owner %in% remove_team) {
+    warning("set_job_team() cannot remove owner from a team", call. = FALSE)
+    remove_team <- setdiff(remove_team, jobs[[jobname]]$owner)
+  }
+  jobs[[jobname]]$team <- setdiff(jobs[[jobname]]$team, remove_team)
+  return(jobs)
+}
+
+# url
+update_joburl <- function(jobs, jobname, site, link) {
+
+  urls <- jobs[[jobname]]$urls
+  ind <- which(urls$site == site)
+  if(length(ind) == 0) {
+    urls <- dplyr::bind_rows(urls, new_url(site, link))
+  } else if(length(ind) == 1) {
+    urls$link[ind] <- link
+  } else stop("inconceivable!") # unreachable?
+
+  urls <- dplyr::arrange(urls, site)
+  jobs[[jobname]]$urls <- urls
+  return(jobs)
+}
+
+# tag (add)
+update_addtag <- function(jobs, jobname, add_tag) {
+  jobs[[jobname]]$tags <- unique(c(jobs[[jobname]]$tags, add_tag))
+  return(jobs)
+}
+
+# tag (remove)
+update_removetag <- function(jobs, jobname, remove_tag) {
+  jobs[[jobname]]$tags <- setdiff(jobs[[jobname]]$tags, remove_tag)
+}

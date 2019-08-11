@@ -5,12 +5,17 @@ capture_dots <- function(...) {
   as.list(substitute(list(...)))[-1L]
 }
 
+# return x, but if x is null substitute y
 `%||%` <- function(x, y) {
-  if(is.null(x)) {
-    return(y)
-  }
+  if(is.null(x)) { return(y) }
   return(x)
 }
+
+# convenience function
+is_set <- function(x) {
+  !is.null(x)
+}
+
 
 # tidying -----------------------------------------------------------------
 

@@ -23,32 +23,32 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
   jobname <- tasks$jobname[ind]
 
   # ------- task description -------
-  if(!is.null(description)) {
+  if(is_set(description)) {
     verify_description(description)
     jobs[[jobname]]$tasks$description <- description
   }
 
   # ------- task status -------
-  if(!is.null(status)) {
+  if(is_set(status)) {
     verify_status(status)
     jobs[[jobname]]$tasks$status <- status
   }
 
   # ------- task priority -------
-  if(!is.null(priority)) {
+  if(is_set(priority)) {
     verify_priority(priority)
     jobs[[jobname]]$tasks$priority <- priority
   }
 
   # ------- task deadline -------
-  if(!is.null(deadline)) {
+  if(is_set(deadline)) {
     verify_deadline(deadline)
     deadline <- format_date(deadline)
     jobs[[jobname]]$tasks$deadline <- deadline
   }
 
   # ------- task description -------
-  if(!is.null(owner)) {
+  if(is_set(owner)) {
     owner <- ppl_fullname(owner)
     if(owner %in% jobs[[jobname]]$team) {
       jobs[[jobname]]$tasks$owner <- owner

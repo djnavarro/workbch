@@ -106,70 +106,70 @@ set_job <- function(
   verify_jobexists(jobname, jobs)
 
   # ------- job name -------
-  if(!is.null(newname)) {
+  if(is_set(newname)) {
     verify_jobname(newname)
     verify_jobmissing(newname, jobs)
     jobs <- update_jobname(jobs, jobname, newname)
   }
 
   # ------- job description -------
-  if(!is.null(description)) {
+  if(is_set(description)) {
     verify_description(description)
     jobs <- update_job(jobs, jobname, description)
   }
 
   # ------- job status -------
-  if(!is.null(status)) {
+  if(is_set(status)) {
     verify_status(status)
     jobs <- update_job(jobs, jobname, status)
   }
 
   # ------- job owner -------
-  if(!is.null(owner)) {
+  if(is_set(owner)) {
     verify_character(owner)
     jobs <- update_jobowner(jobs, jobname, owner)
   }
 
   # ------- job priority -------
-  if(!is.null(priority)) {
+  if(is_set(priority)) {
     verify_priority(priority)
     jobs <- update_job(jobs, jobname, priority)
   }
 
   # ------- job path -------
-  if(!is.null(path)) {
+  if(is_set(path)) {
     verify_path(path)
     jobs <- update_job(jobs, jobname, path)
   }
 
   # ------- job deadline -------
-  if(!is.null(deadline)) {
+  if(is_set(deadline)) {
     verify_deadline(deadline)
     deadline <- format_date(deadline)
     jobs <- update_job(jobs, jobname, deadline)
   }
 
   # ------- job team (add) -------
-  if(!is.null(add_team)) {
+  if(is_set(add_team)) {
     verify_character(add_team)
     jobs <- update_addteam(jobs, jobname, add_team)
   }
 
   # ------- job team (remove) -------
-  if(!is.null(remove_team)) {
+  if(is_set(remove_team)) {
     verify_character(remove_team)
     jobs <- update_removeteam(jobs, jobname, remove_team)
   }
 
   # ------- job url -------
-  if(!is.null(site) | !is.null(link)) {
+  if(is_set(site) | is_set(link)) {
     verify_site(site)
     verify_link(link)
     jobs <- update_joburl(jobs, jobname, site, link)
   }
 
   # ------- job tag (add) --------
-  if(!is.null(add_tag)) {
+  if(is_set(add_tag)) {
     verify_character(add_tag)
     for(j in jobname) { # vectorised
       verify_jobname(j)
@@ -179,7 +179,7 @@ set_job <- function(
   }
 
   # ------- job tag (remove) --------
-  if(!is.null(remove_tag)) {
+  if(is_set(remove_tag)) {
     verify_character(remove_tag)
     for(j in jobname) { # vectorised
       verify_jobname(j)

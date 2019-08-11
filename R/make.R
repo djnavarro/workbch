@@ -14,39 +14,17 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
                        team = NULL, priority = NULL, deadline = NULL,
                        tags = NULL, path = NULL) {
 
-  verify_jobname(jobname)
-  verify_description(description)
+  # make_job calls the constructor function at the end, which verifies all
+  # input arguments. so the only verifications that occur here are those
+  # needed by make_job itself
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
   job_names <- job_getnames(jobs)
 
   # make sure no job exists with this name
+  verify_jobname(jobname)
   verify_jobmissing(jobname, jobs)
-
-  # verify input as appropriate
-  if(!is.null(status)) { verify_status(status) }
-  if(!is.null(priority)) { verify_priority(priority) }
-  if(!is.null(deadline)) { verify_priority(deadline) }
-  if(!is.null(owner)) { verify_owner(owner) }
-  if(!is.null(team)) { verify_character(team) }
-  if(!is.null(tags)) { verify_character(tags) }
-  if(!is.null(path)) { verify_path(path) }
-
-  # set the owner
-  if(is.null(owner)) {
-    owner <- ppl_get_default()
-  } else {
-    verify_owner(owner)
-    owner <- ppl_get_fullname(owner)
-  }
-
-  # set the team
-  team <- ppl_get_fullname(team)
-  if(!(owner %in% team)) {
-    verify_character(owner)
-    team <- c(owner, team)
-  }
 
   # append the new job
   jobs[[jobname]] <- new_job(
@@ -114,7 +92,7 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
   }
 
   # parse the owner name and throw warning if not in team
-  owner <- ppl_get_fullname(owner)
+  owner <- ppl_fullname(owner)
   if(!(owner %in% jb$team)) {
     warning("'", owner, "' is not on the team for '",
             jobname, "'", call. = FALSE)
@@ -170,12 +148,7 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
                              priority = NULL, deadline = NULL) {
 
   # set & verify owner
-  if(is.null(owner)) {
-    owner <- ppl_get_default()
-  } else {
-    verify_owner(owner)
-    owner <- ppl_get_fullname(owner)
-  }
+  owner <- ppl_parseowner(owner)
 
   # verification step for other inputs
   verify_status(status)

@@ -33,6 +33,13 @@ new_job <- function(jobname, description, owner, status = NULL,
     ## missing: verify_tasks(tasks)
   }
 
+  # check and tidy names
+  owner <- ppl_parseowner(owner)
+  team <- ppl_fullname(team)
+  if(!(owner %in% team)) {
+    team <- c(owner, team)
+  }
+
   # construct object
   list(
     jobname = jobname,

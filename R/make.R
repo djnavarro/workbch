@@ -11,8 +11,8 @@
 #' @param path path to the job home directory
 #' @export
 make_job <- function(jobname, description, owner = NULL, status = NULL,
-                       team = NULL, priority = NULL, deadline = NULL,
-                       tags = NULL, path = NULL) {
+                     team = NULL, priority = NULL, deadline = NULL,
+                     tags = NULL, path = NULL) {
 
   # make_job calls the constructor function at the end, which verifies all
   # input arguments. so the only verifications that occur here are those

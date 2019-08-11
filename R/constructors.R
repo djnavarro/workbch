@@ -6,7 +6,7 @@
 new_job <- function(jobname, description, owner, status = NULL,
                     team = NULL, priority = NULL, deadline = NULL,
                     tags = NULL, path = NULL, urls = NULL,
-                    tasks = NULL) {
+                    tasks = NULL, verify = TRUE) {
 
   # replace nulls with default values
   if(is.null(status)) {status <- "active"}
@@ -18,7 +18,22 @@ new_job <- function(jobname, description, owner, status = NULL,
   if(is.null(urls)) {urls = empty_url()}
   if(is.null(tasks)) {tasks = empty_task()}
 
-  # return list
+  # verify unless explicitly told not to
+  if(verify) {
+    verify_jobname(jobname)
+    verify_description(description)
+    verify_owner(owner)
+    verify_status(status)
+    ## missing: verify_team(team)
+    ## missing: verify_tags(tags)
+    verify_path(path)
+    verify_priority(priority)
+    verify_deadline(deadline)
+    ## missing: verify_urls(urls)
+    ## missing: verify_tasks(tasks)
+  }
+
+  # construct object
   list(
     jobname = jobname,
     description = description,
@@ -35,14 +50,25 @@ new_job <- function(jobname, description, owner, status = NULL,
 }
 
 new_task <- function(jobname, id, description, owner, status = NULL,
-                     priority = NULL, deadline = NULL) {
+                     priority = NULL, deadline = NULL, verify = TRUE) {
 
   # replace nulls with default values
   if(is.null(status)) {status <- "active"}
   if(is.null(priority)) {priority <- 1}
   if(is.null(deadline)) {deadline <- NA_character_}
 
+  # verify unless explicitly told not to
+  if(verify) {
+    verify_jobname(jobname)
+    ### missing: verify_id(id)
+    verify_description(description)
+    verify_owner(owner)
+    verify_status(status)
+    verify_priority(priority)
+    verify_deadline(deadline)
+  }
 
+  # construct object
   tibble::tibble(
     jobname = jobname,
     id = id,
@@ -54,7 +80,15 @@ new_task <- function(jobname, id, description, owner, status = NULL,
   )
 }
 
-new_url <- function(site = character(0), link = character(0)) {
+new_url <- function(site, link, verify = TRUE) {
+
+  # verify unless explicitly told not to
+  if(verify) {
+    verify_site(site)
+    verify_link(link)
+  }
+
+  # construct object
   tibble::tibble(
     site = site,
     link = link
@@ -62,17 +96,21 @@ new_url <- function(site = character(0), link = character(0)) {
 }
 
 
-
 # constructors for empty objects ------------------------------------------
+
+# these sometimes skip the verification step because in normal usage the
+# user is expected to specify a string of length one (enforced in the
+# verification functions) but strictly speaking the empty object violates
+# this by using strings of length 0
 
 empty_task <- function() {
   new_task(jobname = character(0), id = numeric(0), description = character(0),
            owner = character(0), status = character(0), priority = numeric(0),
-           deadline = character(0))
+           deadline = character(0), verify = FALSE)
 }
 
 empty_url <- function() {
-  new_url(site = character(0), link = character(0))
+  new_url(site = character(0), link = character(0), verify = FALSE)
 }
 
 

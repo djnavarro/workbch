@@ -43,10 +43,10 @@ remotes::install_github("djnavarro/workbch")
 The package is built from four families of functions:
 
 - the `make_*` functions make jobs
-- the `set_*` functions edit jobs, tasks, etc. 
+- the `set_*` functions edit jobs, tasks, etc
 - the `view_*` functions display information about jobs
 - the `goto_*` functions navigate to projects and webpages
-- the `delete_*` functions delete jobs, tasks, etc.
+- the `delete_*` functions delete jobs, tasks, etc
 
 ## Example 1: Getting started
 

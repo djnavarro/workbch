@@ -39,10 +39,10 @@ remotes::install_github("djnavarro/workbch")
 The package is built from four families of functions:
 
   - the `make_*` functions make jobs
-  - the `set_*` functions edit jobs, tasks, etc.
+  - the `set_*` functions edit jobs, tasks, etc
   - the `view_*` functions display information about jobs
   - the `goto_*` functions navigate to projects and webpages
-  - the `delete_*` functions delete jobs, tasks, etc.
+  - the `delete_*` functions delete jobs, tasks, etc
 
 ## Example 1: Getting started
 
@@ -78,9 +78,9 @@ make_job(
 
 view_jobs()
 #> # A tibble: 1 x 6
-#>   jobname   owner priority status deadline description                     
-#>   <chr>     <chr>    <int> <chr>  <lgl>    <chr>                           
-#> 1 workitout ""           1 active NA       sip martinis and party in France
+#>   jobname   owner   priority status deadline description                   
+#>   <chr>     <chr>      <int> <chr>  <chr>    <chr>                         
+#> 1 workitout britney        1 active <NA>     sip martinis and party in Fra…
 ```
 
 Jobs can be deleted by name:
@@ -142,8 +142,8 @@ look at a single job in more detail:
 view_jobs()
 #> # A tibble: 1 x 6
 #>   jobname  owner           priority status  deadline description           
-#>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
-#> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
+#>   <chr>    <chr>              <int> <chr>   <chr>    <chr>                 
+#> 1 survivor Beyoncé Knowles        1 inacti… <NA>     Run a survival analys…
 
 view_job("survivor")
 #> 
@@ -206,9 +206,9 @@ view_jobs()
 #> exist
 #> # A tibble: 2 x 6
 #>   jobname  owner           priority status  deadline description           
-#>   <chr>    <chr>              <int> <chr>   <lgl>    <chr>                 
-#> 1 survivor Beyoncé Knowles        1 inacti… NA       Run a survival analys…
-#> 2 toxic    Britney Spears         2 active  NA       Estimate the LD50 dose
+#>   <chr>    <chr>              <int> <chr>   <chr>    <chr>                 
+#> 1 survivor Beyoncé Knowles        1 inacti… <NA>     Run a survival analys…
+#> 2 toxic    Britney Spears         2 active  <NA>     Estimate the LD50 dose
 
 view_job("toxic")
 #> 
@@ -273,12 +273,12 @@ view_jobs()
 #> exist
 #> # A tibble: 5 x 6
 #>   jobname      owner        priority status  deadline description          
-#>   <chr>        <chr>           <int> <chr>   <lgl>    <chr>                
-#> 1 toxic        Britney Spe…        1 active  NA       Estimate the LD50 do…
-#> 2 spinspinsug… Sneaker Pim…        1 active  NA       Check for periodicit…
-#> 3 survivor     Beyoncé Kno…        1 inacti… NA       Run a survival analy…
-#> 4 hitmebaby    Britney Spe…        2 active  NA       Signal detection mod…
-#> 5 boys         Lizzo               2 active  NA       Distributional assum…
+#>   <chr>        <chr>           <int> <chr>   <chr>    <chr>                
+#> 1 toxic        Britney Spe…        1 active  <NA>     Estimate the LD50 do…
+#> 2 spinspinsug… Sneaker Pim…        1 active  <NA>     Check for periodicit…
+#> 3 survivor     Beyoncé Kno…        1 inacti… <NA>     Run a survival analy…
+#> 4 hitmebaby    Britney Spe…        2 active  <NA>     Signal detection mod…
+#> 5 boys         Lizzo               2 active  <NA>     Distributional assum…
 ```
 
 A simple way to only see the high priority jobs:
@@ -289,10 +289,10 @@ view_priorities()
 #> exist
 #> # A tibble: 3 x 6
 #>   jobname      owner         priority status  deadline description         
-#>   <chr>        <chr>            <int> <chr>   <lgl>    <chr>               
-#> 1 toxic        Britney Spea…        1 active  NA       Estimate the LD50 d…
-#> 2 spinspinsug… Sneaker Pimps        1 active  NA       Check for periodici…
-#> 3 survivor     Beyoncé Know…        1 inacti… NA       Run a survival anal…
+#>   <chr>        <chr>            <int> <chr>   <chr>    <chr>               
+#> 1 toxic        Britney Spea…        1 active  <NA>     Estimate the LD50 d…
+#> 2 spinspinsug… Sneaker Pimps        1 active  <NA>     Check for periodici…
+#> 3 survivor     Beyoncé Know…        1 inacti… <NA>     Run a survival anal…
 ```
 
 More generally, `view_jobs()` and `view_priorities()` both allow you to
@@ -306,9 +306,9 @@ view_jobs(priority == 1 & status == "active")
 #> exist
 #> # A tibble: 2 x 6
 #>   jobname       owner        priority status deadline description          
-#>   <chr>         <chr>           <int> <chr>  <lgl>    <chr>                
-#> 1 toxic         Britney Spe…        1 active NA       Estimate the LD50 do…
-#> 2 spinspinsugar Sneaker Pim…        1 active NA       Check for periodicit…
+#>   <chr>         <chr>           <int> <chr>  <chr>    <chr>                
+#> 1 toxic         Britney Spe…        1 active <NA>     Estimate the LD50 do…
+#> 2 spinspinsugar Sneaker Pim…        1 active <NA>     Check for periodicit…
 ```
 
 Indeed `view_priorities()` function is essentially a helper function to

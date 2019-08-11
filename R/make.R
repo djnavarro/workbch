@@ -68,7 +68,6 @@ make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
   jb <- jobs[[jobname]]
 
   # set defaults as needed
-  if(is.null(hidden)) {hidden <- jb$hidden}
   owner <- owner %||% jb$owner
   priority <- priority %||% jb$priority
 

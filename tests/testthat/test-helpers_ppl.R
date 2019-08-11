@@ -39,13 +39,13 @@ test_that("ppl_fullname works", {
   # check the output
   expect_equal(ppl_fullname(character(0)), character(0))
   expect_equal(ppl_fullname("danielle"), "Danielle Navarro")
+  expect_equal(ppl_fullname("Danielle Navarro"), "Danielle Navarro")
   expect_equal(
-    suppressWarnings(ppl_fullname(c("danielle", "dani"))),
-    c("Danielle Navarro", "dani")
+    object = suppressWarnings(ppl_fullname(c("danielle", "dani"))),
+    expected = c("Danielle Navarro", "dani")
   )
 
   # check for warnings
-  expect_warning(ppl_fullname("Danielle Navarro"), "has a known nick name")
   expect_warning(ppl_fullname("dani"), "is not a known nick name")
 
 })

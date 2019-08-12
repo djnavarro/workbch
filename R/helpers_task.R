@@ -1,4 +1,50 @@
 
+task_getid <- function(ref, tasks) {
+
+  # if ref is numeric match against id
+  if(is.numeric(ref)) {
+    if(length(which(tasks$id == ref)) == 0) {
+      stop("no task with id '", ref, "' exists", call. = FALSE)
+    }
+    return(ref)
+  }
+
+  # if ref is character match against description
+  if(is.character(ref)) {
+    str <- with(tasks, paste(jobname, description, owner))
+    str <- tolower(str)
+    hits <- grep(ref, str)
+
+    # error if no matches
+    if(length(hits) == 0) {
+      stop("no task matching '", ref, "' found", call. = FALSE)
+    }
+
+    # check with user in interactive mode
+    if(interactive()) {
+      cat("[0] none of these\n")
+      for(i in 1:length(hits)) {
+        cat("[", i, "] ", tasks$jobname[hits[i]], ": ",
+            tasks$description[hits[i]], "\n", sep = "")
+      }
+      usr <- readline("make selection: ")
+      if(!(usr %in% as.character(1:length(hits)))) {
+        stop("aborted by user", call. = FALSE)
+      }
+      return(hits[as.numeric(usr)])
+    }
+
+    # if not interactive throw error unless it matches exactly one job
+    if(length(hits) == 1) {
+      return(hits)
+    }
+
+    stop("`ref` must match exactly one task", call. = FALSE)
+  }
+
+  stop("`ref` must be numeric or character", call. = FALSE)
+}
+
 # returns a vector of all task id numbers
 task_ids <- function(jobs) {
   purrr::reduce(

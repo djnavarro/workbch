@@ -1,6 +1,6 @@
 #' Set the properties of an existing task
 #
-#' @param id id number of the task to be edited
+#' @param ref either a number (id) or a string to be matched against
 #' @param description brief description of the task
 #' @param status should be "active" (default), "inactive", "complete", "abandoned"
 #' @param owner should be a name or a nickname (defaults to job owner)
@@ -10,17 +10,14 @@
 #' @name set_task
 NULL
 
-set_task <- function(id, description = NULL, status = NULL, owner = NULL,
+set_task <- function(ref, description = NULL, status = NULL, owner = NULL,
                      priority = NULL, deadline = NULL) {
 
   # find the job and the task
   jobs <- job_read()
   tasks <- task_read()
-  ind <- which(tasks$id == id)
-  if(length(ind) == 0) {
-    stop("no task with id '", id, "' exists", call. = FALSE)
-  }
-  jobname <- tasks$jobname[ind]
+  id <- task_getid(ref, tasks)
+  jobname <- tasks$jobname[which(tasks$id == id)]
 
   # ------- task description -------
   if(is_set(description)) {
@@ -64,32 +61,32 @@ set_task <- function(id, description = NULL, status = NULL, owner = NULL,
 
 #' @rdname set_task
 #' @export
-set_task_description <- function(id, description) {
-  job_write(set_task(id = id, description = description))
+set_task_description <- function(ref, description) {
+  job_write(set_task(ref = ref, description = description))
 }
 
 #' @rdname set_task
 #' @export
-set_task_status <- function(id, status) {
-  job_write(set_task(id = id, status = status))
+set_task_status <- function(ref, status) {
+  job_write(set_task(ref = ref, status = status))
 }
 
 #' @rdname set_task
 #' @export
-set_task_owner <- function(id, owner) {
-  job_write(set_task(id = id, owner = owner))
+set_task_owner <- function(ref, owner) {
+  job_write(set_task(ref = ref, owner = owner))
 }
 
 #' @rdname set_task
 #' @export
-set_task_priority <- function(id, priority) {
-  job_write(set_task(id = id, priority = priority))
+set_task_priority <- function(ref, priority) {
+  job_write(set_task(ref = ref, priority = priority))
 }
 
 #' @rdname set_task
 #' @export
-set_task_deadline <- function(id, deadline) {
-  job_write(set_task(id = id, deadline = deadline))
+set_task_deadline <- function(ref, deadline) {
+  job_write(set_task(ref = ref, deadline = deadline))
 }
 
 

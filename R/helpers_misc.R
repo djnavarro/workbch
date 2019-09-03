@@ -27,6 +27,17 @@ format_date <- function(date) {
   return(date)
 }
 
+# repeatedly ask user until a stop signal is reached
+multireadline <- function(prompt, stop = "") {
+  out <- character(0)
+  ask <- "BLAH"
+  while(ask != stop) {
+    ask <- readline(prompt = prompt)
+    out <- c(out, ask)
+  }
+  return(out[-length(out)])
+}
+
 # print methods -----------------------------------------------------------
 
 

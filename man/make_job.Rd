@@ -4,9 +4,9 @@
 \alias{make_job}
 \title{Create a new job}
 \usage{
-make_job(jobname, description, owner = NULL, status = NULL,
-  team = NULL, priority = NULL, deadline = NULL, tags = NULL,
-  path = NULL)
+make_job(jobname = NULL, description = NULL, owner = NULL,
+  status = NULL, team = NULL, priority = NULL, deadline = NULL,
+  tags = NULL, path = NULL)
 }
 \arguments{
 \item{jobname}{name of the job to create}

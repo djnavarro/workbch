@@ -4,8 +4,8 @@
 \alias{make_task}
 \title{Make a task and attach to a job}
 \usage{
-make_task(description, jobname = NULL, owner = NULL, status = NULL,
-  priority = NULL, deadline = NULL)
+make_task(description = NULL, jobname = NULL, owner = NULL,
+  status = NULL, priority = NULL, deadline = NULL)
 }
 \arguments{
 \item{description}{brief description of the task}

@@ -10,13 +10,45 @@
 #' @param tags character vector of tags
 #' @param path path to the job home directory
 #' @export
-make_job <- function(jobname, description, owner = NULL, status = NULL,
+make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = NULL,
                      team = NULL, priority = NULL, deadline = NULL,
                      tags = NULL, path = NULL) {
 
   # make_job calls the constructor function at the end, which verifies all
   # input arguments. so the only verifications that occur here are those
   # needed by make_job itself
+
+  if((is.null(jobname) | is.null(description)) & interactive()) {
+
+    cat("\nDetails of the new job:\n")
+    cat("(Press enter to skip or use default values)\n\n")
+
+    # elicit responses from user
+    jobname     <- readline(            "  Job name............ ")
+    description <- readline(            "  Description......... ")
+    owner       <- readline(            "  Owner............... ")
+    status      <- readline(            "  Status.............. ")
+    team        <- multireadline(       "  Add a team member... ")
+    priority    <- as.numeric(readline( "  Priority............ "))
+    deadline    <- readline(            "  Due date............ ")
+    tags        <- multireadline(       "  Add a tag........... ")
+    path        <- readline(            "  Path................ ")
+
+    # treat no response as default value
+    if(jobname == "") jobname <- NULL
+    if(description == "") description <- NULL
+    if(owner == "") owner <- NULL
+    if(status == "") status <- NULL
+    if(length(team) == 0) team <- NULL
+    if(is.na(priority)) priority <- NULL
+    if(deadline == "") deadline <- NULL
+    if(length(tags) == 0) tags <- NULL
+    if(path == "") path <- NULL
+  }
+
+  if(is.null(jobname) | is.null(description)) {
+    stop("'jobname' and 'description' are required arguments", call. = FALSE)
+  }
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
@@ -56,8 +88,34 @@ make_job <- function(jobname, description, owner = NULL, status = NULL,
 #' @param priority numeric (default is to match the job)
 #' @param deadline a date (default is to match the job)
 #' @export
-make_task <- function(description, jobname = NULL, owner = NULL, status = NULL,
+make_task <- function(description = NULL, jobname = NULL, owner = NULL, status = NULL,
                      priority = NULL, deadline = NULL) {
+
+  if(is.null(description) & interactive()) {
+
+    cat("\nDetails of the new task:\n")
+    cat("(Press enter to use default values)\n\n")
+
+    # elicit responses from user
+    description <- readline(            "  Description......... ")
+    jobname     <- readline(            "  Attach to job....... ")
+    status      <- readline(            "  Status.............. ")
+    owner       <- readline(            "  Owner............... ")
+    priority    <- as.numeric(readline( "  Priority............ "))
+    deadline    <- readline(            "  Due date............ ")
+
+    # treat no response as default value
+    if(jobname == "") jobname <- NULL
+    if(description == "") description <- NULL
+    if(owner == "") owner <- NULL
+    if(status == "") status <- NULL
+    if(is.na(priority)) priority <- NULL
+    if(deadline == "") deadline <- NULL
+  }
+
+  if(is.null(description)) {
+    stop("'description' is a required argument", call. = FALSE)
+  }
 
   # read the jobs & verify the name
   jobs <- job_read()

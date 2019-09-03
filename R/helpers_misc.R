@@ -6,7 +6,7 @@ is_set <- function(x) {
   !is.null(x)
 }
 
-# find the jobs or tasks that need to be hidden and hide them
+# find the jobs that need to be hidden and hide them
 apply_mask <- function(tbl) {
   tbl <- dplyr::filter(tbl, status %in% c("active", "inactive"))
   return(tbl)

@@ -69,93 +69,12 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     deadline = deadline,
     tags = tags,
     path = path,
-    urls = empty_url(),
-    tasks = empty_task()
+    urls = empty_url()
   )
 
   # write the file and return
   job_write(jobs)
 }
-
-
-
-#' Make a task and attach to a job
-#'
-#' @param description brief description of the task
-#' @param jobname name of the job the task attaches to
-#' @param status should be "active" (default), "inactive", "complete", "abandoned"
-#' @param owner should be a name or a nickname (defaults to job owner)
-#' @param priority numeric (default is to match the job)
-#' @param deadline a date (default is to match the job)
-#' @export
-make_task <- function(description = NULL, jobname = NULL, owner = NULL, status = NULL,
-                     priority = NULL, deadline = NULL) {
-
-  if(is.null(description) & interactive()) {
-
-    cat("\nDetails of the new task:\n")
-    cat("(Press enter to use default values)\n\n")
-
-    # elicit responses from user
-    description <- readline(            "  Description......... ")
-    jobname     <- readline(            "  Attach to job....... ")
-    status      <- readline(            "  Status.............. ")
-    owner       <- readline(            "  Owner............... ")
-    priority    <- as.numeric(readline( "  Priority............ "))
-    deadline    <- readline(            "  Due date............ ")
-
-    # treat no response as default value
-    if(jobname == "") jobname <- NULL
-    if(description == "") description <- NULL
-    if(owner == "") owner <- NULL
-    if(status == "") status <- NULL
-    if(is.na(priority)) priority <- NULL
-    if(deadline == "") deadline <- NULL
-  }
-
-  if(is.null(description)) {
-    stop("'description' is a required argument", call. = FALSE)
-  }
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  jobname <- jobname %||% job_getcurrent(jobs)
-  verify_jobexists(jobname, jobs)
-
-  # get this job
-  jb <- jobs[[jobname]]
-
-  # set defaults as needed
-  owner <- owner %||% jb$owner
-  priority <- priority %||% jb$priority
-  deadline <- deadline %||% jb$deadline
-
-  # extract existing ids and construct a new one
-  ids <- task_ids(jobs)
-  id <- task_makeid(ids)
-
-  # parse owner and check against team
-  owner <- ppl_fullname(owner)
-  ppl_checkteam(owner, jb$team)
-
-  # create the task object
-  tsk <- new_task(
-    jobname = jobname,
-    id = id,
-    description = description,
-    owner = owner,
-    status = status,
-    priority = priority,
-    deadline = deadline
-  )
-
-  # append and write
-  jb$tasks <- task_append(jb$tasks, tsk)
-  jobs[[jobname]] <- jb
-  job_write(jobs)
-}
-
-
 
 
 #' Create in bulk by searching for git repos
@@ -285,8 +204,7 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
             team = owner,
             priority = priority,
             deadline = deadline,
-            path = found_paths[i],
-            tasks = empty_task()
+            path = found_paths[i]
           )
 
         # or else create new job... with a url
@@ -300,8 +218,7 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
             priority = priority,
             deadline = deadline,
             path = found_paths[i],
-            urls = new_url(site = site, link = url_path),
-            tasks = empty_task()
+            urls = new_url(site = site, link = url_path)
           )
         }
 

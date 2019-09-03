@@ -128,15 +128,6 @@ view_job <- function(jobname = NULL) {
     cat("\n")
   }
 
-  # display tasks
-  if(nrow(jb$tasks) > 0) {
-    cat("  tasks: \n")
-    for(i in 1:nrow(jb$tasks)) {
-      cat("     [", jb$tasks$id[i], "] ", jb$tasks$description[i], " (",
-          jb$tasks$deadline[i], ")\n", sep = "")
-    }
-  }
-
   # check the paths and throw warning if need be
   job_pathcheck(jb$jobname, jb$path)
 
@@ -203,36 +194,4 @@ view_git_status <- function(show_hidden = TRUE, show_clean = FALSE) {
   return(as_wkbch_tbl(gitst))
 
 }
-
-
-
-#' View tasks
-#'
-#' @param ... filtering expression to pass to dplyr::filter
-#' @param show_hidden should hidden tasks be shown (default = TRUE)
-#'
-#' @details Displays all tasks, sorted by deadline then priority
-#' @return A tibble containing the tasks
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' view_tasks()
-#' }
-view_tasks <- function(..., show_hidden = TRUE) {
-
-  tasks <- task_read()
-
-  if(...length() > 0) {
-    tasks <- dplyr::filter(tasks, ...)
-  }
-  tasks <- dplyr::arrange(tasks, lubridate::dmy(deadline), priority)
-
-  # remove the hidden tasks if need be
-  if(!show_hidden) {tasks <- apply_mask(tasks)}
-
-  return(as_wkbch_tbl(tasks))
-}
-
 

@@ -51,37 +51,6 @@ delete_job <- function(jobname) {
 }
 
 
-#' Delete a task from a job
-#'
-#' @param id the id number assigned to the task
-#'
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#'
-#' delete_task(2)
-#' }
-delete_task <- function(id = NULL) {
-
-  # load tasks
-  tsk <- view_tasks(show_hidden = TRUE)
-
-  # prompt user for id or throw error
-  if(is.null(id)) id <- prompt_taskid(tsk)
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  jobname <- tsk$jobname[tsk$id == id]
-
-  jb <- jobs[[jobname]]
-  jb$tasks <- dplyr::filter(jb$tasks, id != {{id}})
-  jobs[[jobname]] <- jb
-  job_write(jobs)
-}
-
-
-
 #' Delete a URL from a job
 #'
 #' @param site the name of the site to which the URL should be deleted

@@ -23,7 +23,7 @@ delete_job <- function(jobname) {
     jobs[[jobname]] <- NULL
     job_write(jobs)
 
-  # if interactive, ask user
+    # if interactive, ask user
   } else {
 
     # make the user confurm deleting
@@ -54,7 +54,6 @@ delete_job <- function(jobname) {
 #' Delete a task from a job
 #'
 #' @param id the id number assigned to the task
-#' @param jobname the job from which the task should be deleted
 #'
 #' @export
 #'
@@ -63,28 +62,41 @@ delete_job <- function(jobname) {
 #'
 #' delete_task(2, "myjob")
 #' }
-delete_task <- function(id, jobname = NULL) {
+delete_task <- function(id = NULL) {
+
+  # if the user supplies no input display the tasks and then ask for input:
+  tsk <- view_tasks(show_hidden = TRUE)
+
+  if(is.null(id)) {
+    if(!interactive()) {
+      stop("'id' must be specified when not in interactive mode", call. = FALSE)
+
+    } else {
+      print(tsk)
+      cat("\n")
+      id <- readline("  Enter the id of task to delete... ")
+      id <- as.numeric(id)
+      if(is.na(id)) {
+        stop("Task id must be numeric", call. = FALSE)
+      }
+    }
+  }
+
+
+  # throw error if this is not a recognised task
+  if(!(id %in% tsk$id)) {
+    stop("Task ", id, " does not exist", call. = FALSE)
+  }
 
   # read the jobs & verify the name
   jobs <- job_read()
-  jobname <- jobname %||% job_getcurrent(jobs)
-
-  # check jobname
-  verify_jobname(jobname)
-  verify_jobexists(jobname, jobs)
+  jobname <- tsk$jobname[tsk$id == id]
 
   jb <- jobs[[jobname]]
 
-  if(id %in% jb$tasks$id) {
-
-    jb$tasks <- dplyr::filter(jb$tasks, id != {{id}})
-    jobs[[jobname]] <- jb
-    job_write(jobs)
-
-
-  } else {
-    warning("Task ", id, " does not exist in job '", jobname, "'", call. = FALSE)
-  }
+  jb$tasks <- dplyr::filter(jb$tasks, id != {{id}})
+  jobs[[jobname]] <- jb
+  job_write(jobs)
 }
 
 

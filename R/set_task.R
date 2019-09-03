@@ -61,31 +61,51 @@ set_task <- function(ref, description = NULL, status = NULL, owner = NULL,
 
 #' @rdname set_task
 #' @export
-set_task_description <- function(ref, description) {
+set_task_description <- function(ref = NULL, description = NULL) {
+  if(is.null(ref)) {
+    ref <- task_promptref(task_read())
+    description <- readline("  Enter new task description... ")
+  }
   job_write(set_task(ref = ref, description = description))
 }
 
 #' @rdname set_task
 #' @export
-set_task_status <- function(ref, status) {
+set_task_status <- function(ref = NULL, status = NULL) {
+  if(is.null(ref)) {
+    ref <- task_promptref(task_read())
+    status <- readline("  Enter new task status... ")
+  }
   job_write(set_task(ref = ref, status = status))
 }
 
 #' @rdname set_task
 #' @export
-set_task_owner <- function(ref, owner) {
+set_task_owner <- function(ref = NULL, owner = NULL) {
+  if(is.null(ref)) {
+    ref <- task_promptref(task_read())
+    owner <- readline("  Enter new task owner... ")
+  }
   job_write(set_task(ref = ref, owner = owner))
 }
 
 #' @rdname set_task
 #' @export
-set_task_priority <- function(ref, priority) {
+set_task_priority <- function(ref = NULL, priority = NULL) {
+  if(is.null(ref)) {
+    ref <- task_promptref(task_read())
+    priority <- readline("  Enter new task priority... ")
+  }
   job_write(set_task(ref = ref, priority = priority))
 }
 
 #' @rdname set_task
 #' @export
-set_task_deadline <- function(ref, deadline) {
+set_task_deadline <- function(ref = NULL, deadline = NULL) {
+  if(is.null(ref)) {
+    ref <- task_promptref(task_read())
+    deadline <- readline("  Enter new task deadline... ")
+  }
   job_write(set_task(ref = ref, deadline = deadline))
 }
 

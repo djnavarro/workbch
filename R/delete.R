@@ -60,40 +60,19 @@ delete_job <- function(jobname) {
 #' @examples
 #' \dontrun{
 #'
-#' delete_task(2, "myjob")
+#' delete_task(2)
 #' }
 delete_task <- function(id = NULL) {
 
-  # if the user supplies no input display the tasks and then ask for input:
+  # prompt user if necessary (throw error if not possible)
   tsk <- view_tasks(show_hidden = TRUE)
-
-  if(is.null(id)) {
-    if(!interactive()) {
-      stop("'id' must be specified when not in interactive mode", call. = FALSE)
-
-    } else {
-      print(tsk)
-      cat("\n")
-      id <- readline("  Enter the id of task to delete... ")
-      id <- as.numeric(id)
-      if(is.na(id)) {
-        stop("Task id must be numeric", call. = FALSE)
-      }
-    }
-  }
-
-
-  # throw error if this is not a recognised task
-  if(!(id %in% tsk$id)) {
-    stop("Task ", id, " does not exist", call. = FALSE)
-  }
+  if(is.null(id)) id <- task_promptref(tsk)
 
   # read the jobs & verify the name
   jobs <- job_read()
   jobname <- tsk$jobname[tsk$id == id]
 
   jb <- jobs[[jobname]]
-
   jb$tasks <- dplyr::filter(jb$tasks, id != {{id}})
   jobs[[jobname]] <- jb
   job_write(jobs)

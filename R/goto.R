@@ -38,8 +38,8 @@ goto_job <- function(jobname = NULL) {
     return(invisible(NULL))
   }
 
-  # if not, close the project and change working directory...
-  rstudioapi::executeCommand("closeProject")
+  # if not, just change working directory...
+  #rstudioapi::executeCommand("closeProject")
   message("setting working directory to ", jobs[[jobname]]$path)
   setwd(jobs[[jobname]]$path)
   return(invisible(NULL))

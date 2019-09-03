@@ -5,8 +5,7 @@ options(workbch.home = tempdir())
 # expected structure of an empty person list
 empty_tbl <- tibble::tibble(
   fullname = character(0),
-  nickname = character(0),
-  default = logical(0)
+  nickname = character(0)
 )
 
 test_that("empty tibble is returned when no ppl file exists", {
@@ -17,15 +16,13 @@ test_that("empty tibble is returned when no ppl file exists", {
 # add a person, no defaults
 set_person(
   fullname = "Danielle Navarro",
-  nickname = "danielle",
-  make_default = FALSE
+  nickname = "danielle"
 )
 
 # what the tibble should now look like
 filled_tbl <- tibble::tibble(
   fullname = "Danielle Navarro",
-  nickname = "danielle",
-  default = FALSE
+  nickname = "danielle"
 )
 
 test_that("file is created on set_person", {
@@ -47,20 +44,6 @@ test_that("ppl_fullname works", {
 
   # check for warnings
   expect_warning(ppl_fullname("dani"), "is not a known nick name")
-
-})
-
-test_that("ppl_defaultowner works", {
-
-  expect_error(ppl_defaultowner(), "no default person is set")
-
-  set_person(
-    fullname = "Britney Spears",
-    nickname = "britney",
-    make_default = TRUE
-  )
-
-  expect_equal(ppl_defaultowner(), "Britney Spears")
 
 })
 

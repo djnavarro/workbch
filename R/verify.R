@@ -118,14 +118,6 @@ verify_owner <- function(owner) {
   verify_onestring(owner)
 }
 
-verify_makedefault <- function(make_default) {
-  if(length(make_default) != 1 || !is.logical(make_default) || is.na(make_default)) {
-    stop("make_default must be TRUE or FALSE", call. = FALSE)
-  }
-  return(invisible(TRUE))
-}
-
-
 
 # status checks -----------------------------------------------------------
 

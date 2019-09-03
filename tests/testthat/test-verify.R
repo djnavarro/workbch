@@ -185,21 +185,6 @@ test_that("verify_path works", {
 })
 
 
-test_that("verify_makedefault works", {
-
-  # should fail
-  msg <- "make_default must be TRUE or FALSE"
-  expect_error(verify_makedefault(1), msg)
-  expect_error(verify_makedefault(c("blah blah", "blah")), msg)
-  expect_error(verify_makedefault(c(TRUE, TRUE)), msg)
-  expect_error(verify_makedefault(NA))
-
-  # expect success
-  expect_true(verify_makedefault(TRUE))
-  expect_true(verify_makedefault(FALSE))
-
-})
-
 test_that("verify_deadline works", {
 
   # must be length one

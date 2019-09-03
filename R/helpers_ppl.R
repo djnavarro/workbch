@@ -16,8 +16,8 @@ ppl_read <- function() {
   return(
     tibble::tibble(
       fullname = character(0),
-      nickname = character(0),
-      default = logical(0))
+      nickname = character(0)
+    )
   )
 }
 
@@ -37,13 +37,7 @@ ppl_parseowner <- function(owner) {
 
 # get the default person (error if none exists)
 ppl_defaultowner <- function(strict = TRUE) {
-  ppl <- ppl_read()
-  def <- ppl$fullname[ppl$default == TRUE]
-  if(strict & length(def) == 0) {
-    stop("'owner' argument must be specified if no default person is set",
-         call. = FALSE)
-  }
-  return(def)
+  stop("'owner' argument must be specified", call. = FALSE)
 }
 
 # if name is a nickname, substitute with the real one
@@ -63,7 +57,7 @@ ppl_fullname <- function(nickname) {
     if(nickname[i] %in% ppl$nickname) {
       fullname[i] <- ppl$fullname[ppl$nickname == nickname[i]]
 
-    # if not, return the nickname itself...
+      # if not, return the nickname itself...
     } else {
       fullname[i] <- nickname[i]
 

@@ -46,9 +46,9 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     if(path == "") path <- NULL
   }
 
-  if(is.null(jobname) | is.null(description)) {
-    stop("'jobname' and 'description' are required arguments", call. = FALSE)
-  }
+  if(is.null(jobname)) stop("'jobname' cannot be empty", call. = FALSE)
+  if(is.null(description)) stop("'description' cannot be empty", call. = FALSE)
+  if(is.null(owner)) stop("'owner' cannot be empty", call. = FALSE)
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()

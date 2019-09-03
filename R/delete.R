@@ -64,8 +64,10 @@ delete_job <- function(jobname) {
 #' }
 delete_task <- function(id = NULL) {
 
-  # prompt user if necessary (throw error if not possible)
+  # load tasks
   tsk <- view_tasks(show_hidden = TRUE)
+
+  # prompt user for id or throw error
   if(is.null(id)) id <- task_promptref(tsk)
 
   # read the jobs & verify the name

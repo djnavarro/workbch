@@ -19,12 +19,10 @@ The workbch package provides a “work bench” of tools for project
 management  
 within R, based around the concept of a “job” (which might map to a
 single RStudio project or a single git repository). Jobs can be linked
-to multiple URLs, be associated with multiple “tasks”, etc. In addition
-to basic tracking, searching and filtering, the package provides some
-tools to navigate between jobs, browse relevant websites, and check the
-git status of repositories linked to a job. Priority levels and
-deadlines are supported for both jobs and tasks, but financial
-information and time allocation is not.
+to multiple URLs, etc. In addition to basic tracking, searching and
+filtering, the package provides some tools to navigate between jobs,
+browse relevant websites, and check the git status of repositories
+linked to a job.
 
 ## Installation
 
@@ -39,7 +37,7 @@ remotes::install_github("djnavarro/workbch")
 The package is built from four families of functions:
 
   - the `make_*` functions make jobs
-  - the `set_*` functions edit jobs, tasks, etc
+  - the `set_*` functions edit jobs
   - the `view_*` functions display information about jobs
   - the `goto_*` functions navigate to projects and webpages
   - the `delete_*` functions delete jobs, tasks, etc
@@ -77,10 +75,10 @@ make_job(
 #> Warning: 'britney' is not a known nick name
 
 view_jobs()
-#> # A tibble: 1 x 6
-#>   jobname   owner   priority status deadline description                   
-#>   <chr>     <chr>      <int> <chr>  <chr>    <chr>                         
-#> 1 workitout britney        1 active <NA>     sip martinis and party in Fra…
+#> # A tibble: 1 x 5
+#>   jobname   owner   priority status description                     
+#>   <chr>     <chr>      <int> <chr>  <chr>                           
+#> 1 workitout britney        1 active sip martinis and party in France
 ```
 
 Jobs can be deleted by name:
@@ -109,12 +107,12 @@ set_person("Michelle Williams", "michelle")
 #> added 'Michelle Williams' with nickname 'michelle'
 
 workbch_people()
-#> # A tibble: 3 x 3
-#>   fullname          nickname default
-#>   <chr>             <chr>    <lgl>  
-#> 1 Beyoncé Knowles   beyonce  FALSE  
-#> 2 Kelly Rowland     kelly    FALSE  
-#> 3 Michelle Williams michelle FALSE
+#> # A tibble: 3 x 2
+#>   fullname          nickname
+#>   <chr>             <chr>   
+#> 1 Beyoncé Knowles   beyonce 
+#> 2 Kelly Rowland     kelly   
+#> 3 Michelle Williams michelle
 ```
 
 Jobs can consist of multiple people on a *team* but the job must have a
@@ -140,10 +138,10 @@ look at a single job in more detail:
 
 ``` r
 view_jobs()
-#> # A tibble: 1 x 6
-#>   jobname  owner           priority status  deadline description           
-#>   <chr>    <chr>              <int> <chr>   <chr>    <chr>                 
-#> 1 survivor Beyoncé Knowles        1 inacti… <NA>     Run a survival analys…
+#> # A tibble: 1 x 5
+#>   jobname  owner           priority status   description            
+#>   <chr>    <chr>              <int> <chr>    <chr>                  
+#> 1 survivor Beyoncé Knowles        1 inactive Run a survival analysis
 
 view_job("survivor")
 #> 
@@ -153,8 +151,7 @@ view_job("survivor")
 #>   team     : Beyoncé Knowles, Kelly Rowland, Michelle Williams 
 #>   priority : 1 
 #>   status   : inactive 
-#>   tags     :  
-#>   deadline : none
+#>   tags     :
 ```
 
 ## Example 3: Editing jobs
@@ -168,10 +165,8 @@ Internally, a job is represented as a list with the following fields
   - `team`: should be a vector of names/nicknames (owner is
     automatically included)
   - `priority`: numeric
-  - `deadline`: a date
   - `path`: path to the project home directory
   - `urls`: a tibble specifying urls linked to the job
-  - `tasks`: a tibble specifying tasks linked to the job
 
 When we added the “survival” job earlier, we specified some of these
 fields but not others. There are a numver of functions you can use to
@@ -204,11 +199,11 @@ make_job(
 view_jobs()
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
-#> # A tibble: 2 x 6
-#>   jobname  owner           priority status  deadline description           
-#>   <chr>    <chr>              <int> <chr>   <chr>    <chr>                 
-#> 1 survivor Beyoncé Knowles        1 inacti… <NA>     Run a survival analys…
-#> 2 toxic    Britney Spears         2 active  <NA>     Estimate the LD50 dose
+#> # A tibble: 2 x 5
+#>   jobname  owner           priority status   description            
+#>   <chr>    <chr>              <int> <chr>    <chr>                  
+#> 1 survivor Beyoncé Knowles        1 inactive Run a survival analysis
+#> 2 toxic    Britney Spears         2 active   Estimate the LD50 dose
 
 view_job("toxic")
 #> 
@@ -219,7 +214,6 @@ view_job("toxic")
 #>   priority : 2 
 #>   status   : active 
 #>   tags     :  
-#>   deadline : none 
 #> 
 #>   locations: 
 #>      [path] ~/projects/toxic
@@ -246,7 +240,6 @@ view_job("toxic")
 #>   priority : 1 
 #>   status   : active 
 #>   tags     :  
-#>   deadline : none 
 #> 
 #>   locations: 
 #>      [path] ~/projects/toxic
@@ -271,14 +264,14 @@ at seeing so many things that you have to do). For example:
 view_jobs()
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
-#> # A tibble: 5 x 6
-#>   jobname      owner        priority status  deadline description          
-#>   <chr>        <chr>           <int> <chr>   <chr>    <chr>                
-#> 1 toxic        Britney Spe…        1 active  <NA>     Estimate the LD50 do…
-#> 2 spinspinsug… Sneaker Pim…        1 active  <NA>     Check for periodicit…
-#> 3 survivor     Beyoncé Kno…        1 inacti… <NA>     Run a survival analy…
-#> 4 hitmebaby    Britney Spe…        2 active  <NA>     Signal detection mod…
-#> 5 boys         Lizzo               2 active  <NA>     Distributional assum…
+#> # A tibble: 5 x 5
+#>   jobname       owner           priority status   description              
+#>   <chr>         <chr>              <int> <chr>    <chr>                    
+#> 1 toxic         Britney Spears         1 active   Estimate the LD50 dose   
+#> 2 spinspinsugar Sneaker Pimps          1 active   Check for periodicities  
+#> 3 survivor      Beyoncé Knowles        1 inactive Run a survival analysis  
+#> 4 hitmebaby     Britney Spears         2 active   Signal detection modelli…
+#> 5 boys          Lizzo                  2 active   Distributional assumptio…
 ```
 
 A simple way to only see the high priority jobs:
@@ -287,12 +280,12 @@ A simple way to only see the high priority jobs:
 view_priorities()
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
-#> # A tibble: 3 x 6
-#>   jobname      owner         priority status  deadline description         
-#>   <chr>        <chr>            <int> <chr>   <chr>    <chr>               
-#> 1 toxic        Britney Spea…        1 active  <NA>     Estimate the LD50 d…
-#> 2 spinspinsug… Sneaker Pimps        1 active  <NA>     Check for periodici…
-#> 3 survivor     Beyoncé Know…        1 inacti… <NA>     Run a survival anal…
+#> # A tibble: 3 x 5
+#>   jobname       owner           priority status   description            
+#>   <chr>         <chr>              <int> <chr>    <chr>                  
+#> 1 toxic         Britney Spears         1 active   Estimate the LD50 dose 
+#> 2 spinspinsugar Sneaker Pimps          1 active   Check for periodicities
+#> 3 survivor      Beyoncé Knowles        1 inactive Run a survival analysis
 ```
 
 More generally, `view_jobs()` and `view_priorities()` both allow you to
@@ -304,11 +297,11 @@ active jobs:
 view_jobs(priority == 1 & status == "active")
 #> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
 #> exist
-#> # A tibble: 2 x 6
-#>   jobname       owner        priority status deadline description          
-#>   <chr>         <chr>           <int> <chr>  <chr>    <chr>                
-#> 1 toxic         Britney Spe…        1 active <NA>     Estimate the LD50 do…
-#> 2 spinspinsugar Sneaker Pim…        1 active <NA>     Check for periodicit…
+#> # A tibble: 2 x 5
+#>   jobname       owner          priority status description            
+#>   <chr>         <chr>             <int> <chr>  <chr>                  
+#> 1 toxic         Britney Spears        1 active Estimate the LD50 dose 
+#> 2 spinspinsugar Sneaker Pimps         1 active Check for periodicities
 ```
 
 Indeed `view_priorities()` function is essentially a helper function to

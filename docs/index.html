@@ -81,7 +81,7 @@
 <!-- badges: start -->
 
 <p>The workbch package provides a “work bench” of tools for project management<br>
-within R, based around the concept of a “job” (which might map to a single RStudio project or a single git repository). Jobs can be linked to multiple URLs, be associated with multiple “tasks”, etc. In addition to basic tracking, searching and filtering, the package provides some tools to navigate between jobs, browse relevant websites, and check the git status of repositories linked to a job. Priority levels and deadlines are supported for both jobs and tasks, but financial information and time allocation is not.</p>
+within R, based around the concept of a “job” (which might map to a single RStudio project or a single git repository). Jobs can be linked to multiple URLs, etc. In addition to basic tracking, searching and filtering, the package provides some tools to navigate between jobs, browse relevant websites, and check the git status of repositories linked to a job.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -91,7 +91,7 @@ within R, based around the concept of a “job” (which might map to a single R
 <p>The package is built from four families of functions:</p>
 <ul>
 <li>the <code>make_*</code> functions make jobs</li>
-<li>the <code>set_*</code> functions edit jobs, tasks, etc</li>
+<li>the <code>set_*</code> functions edit jobs</li>
 <li>the <code>view_*</code> functions display information about jobs</li>
 <li>the <code>goto_*</code> functions navigate to projects and webpages</li>
 <li>the <code>delete_*</code> functions delete jobs, tasks, etc</li>
@@ -191,13 +191,9 @@ within R, based around the concept of a “job” (which might map to a single R
 <li>
 <code>priority</code>: numeric</li>
 <li>
-<code>deadline</code>: a date</li>
-<li>
 <code>path</code>: path to the project home directory</li>
 <li>
 <code>urls</code>: a tibble specifying urls linked to the job</li>
-<li>
-<code>tasks</code>: a tibble specifying tasks linked to the job</li>
 </ul>
 <p>When we added the “survival” job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:</p>
 <ul>

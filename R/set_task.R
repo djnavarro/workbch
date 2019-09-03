@@ -63,7 +63,7 @@ set_task <- function(ref, description = NULL, status = NULL, owner = NULL,
 #' @export
 set_task_description <- function(ref = NULL, description = NULL) {
   if(is.null(ref)) {
-    ref <- task_promptref(task_read())
+    ref <- prompt_taskref(task_read())
     description <- readline("  Enter new task description... ")
   }
   job_write(set_task(ref = ref, description = description))
@@ -73,7 +73,7 @@ set_task_description <- function(ref = NULL, description = NULL) {
 #' @export
 set_task_status <- function(ref = NULL, status = NULL) {
   if(is.null(ref)) {
-    ref <- task_promptref(task_read())
+    ref <- prompt_taskref(task_read())
     status <- readline("  Enter new task status... ")
   }
   job_write(set_task(ref = ref, status = status))
@@ -83,7 +83,7 @@ set_task_status <- function(ref = NULL, status = NULL) {
 #' @export
 set_task_owner <- function(ref = NULL, owner = NULL) {
   if(is.null(ref)) {
-    ref <- task_promptref(task_read())
+    ref <- prompt_taskref(task_read())
     owner <- readline("  Enter new task owner... ")
   }
   job_write(set_task(ref = ref, owner = owner))
@@ -93,7 +93,7 @@ set_task_owner <- function(ref = NULL, owner = NULL) {
 #' @export
 set_task_priority <- function(ref = NULL, priority = NULL) {
   if(is.null(ref)) {
-    ref <- task_promptref(task_read())
+    ref <- prompt_taskref(task_read())
     priority <- readline("  Enter new task priority... ")
   }
   job_write(set_task(ref = ref, priority = priority))
@@ -103,7 +103,7 @@ set_task_priority <- function(ref = NULL, priority = NULL) {
 #' @export
 set_task_deadline <- function(ref = NULL, deadline = NULL) {
   if(is.null(ref)) {
-    ref <- task_promptref(task_read())
+    ref <- prompt_taskref(task_read())
     deadline <- readline("  Enter new task deadline... ")
   }
   job_write(set_task(ref = ref, deadline = deadline))

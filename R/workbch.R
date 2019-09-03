@@ -105,3 +105,21 @@ workbch_export <- function() {
 }
 
 
+#' File paths specified from job home
+#'
+#' @param jobname Name of job
+#' @param ... Arguments to be passed to file.path
+#' @export
+there <- function(jobname, ...) {
+  verify_jobname(jobname)
+  all <- workbch_paths()
+  home <- all$path[all$jobname == jobname]
+  if(length(home) == 0) {
+    stop("No path known for job '", jobname, "'", call. = FALSE)
+  }
+  home <- normalizePath(home)
+  path <- normalizePath(file.path(home, ...))
+  return(path)
+}
+
+

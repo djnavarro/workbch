@@ -9,15 +9,15 @@
 \alias{set_task_deadline}
 \title{Set the properties of an existing task}
 \usage{
-set_task_description(ref, description)
+set_task_description(ref = NULL, description = NULL)
 
-set_task_status(ref, status)
+set_task_status(ref = NULL, status = NULL)
 
-set_task_owner(ref, owner)
+set_task_owner(ref = NULL, owner = NULL)
 
-set_task_priority(ref, priority)
+set_task_priority(ref = NULL, priority = NULL)
 
-set_task_deadline(ref, deadline)
+set_task_deadline(ref = NULL, deadline = NULL)
 }
 \arguments{
 \item{ref}{either a number (id) or a string to be matched against}

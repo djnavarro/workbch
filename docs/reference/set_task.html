@@ -114,22 +114,22 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>set_task_description</span>(<span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>set_task_description</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>set_task_status</span>(<span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>set_task_status</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>set_task_owner</span>(<span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>set_task_owner</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>set_task_priority</span>(<span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>set_task_priority</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>set_task_deadline</span>(<span class='kw'>ref</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>set_task_deadline</span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>deadline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>ref</th>
-      <td><p>either a number (id) or a string to be matched against</p></td>
+      <th>id</th>
+      <td><p>unique id number for the task</p></td>
     </tr>
     <tr>
       <th>description</th>

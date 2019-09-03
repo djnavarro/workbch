@@ -15,7 +15,7 @@ prompt_jobname <- function() {
 }
 
 
-prompt_taskref <- function(tsk) {
+prompt_taskid <- function(tsk) {
 
   # prompt doesn't work unless interactive
   if(!interactive()) {

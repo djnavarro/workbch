@@ -68,7 +68,7 @@ delete_task <- function(id = NULL) {
   tsk <- view_tasks(show_hidden = TRUE)
 
   # prompt user for id or throw error
-  if(is.null(id)) id <- prompt_taskref(tsk)
+  if(is.null(id)) id <- prompt_taskid(tsk)
 
   # read the jobs & verify the name
   jobs <- job_read()

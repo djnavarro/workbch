@@ -6,13 +6,11 @@
 #' @param owner should be a name or a nickname
 #' @param team should be a vector of names/nicknames
 #' @param priority numeric
-#' @param deadline a date
 #' @param tags character vector of tags
 #' @param path path to the job home directory
 #' @export
 make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = NULL,
-                     team = NULL, priority = NULL, deadline = NULL,
-                     tags = NULL, path = NULL) {
+                     team = NULL, priority = NULL, tags = NULL, path = NULL) {
 
   # make_job calls the constructor function at the end, which verifies all
   # input arguments. so the only verifications that occur here are those
@@ -30,7 +28,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     status      <- readline(            "  Status.............. ")
     team        <- multireadline(       "  Add a team member... ")
     priority    <- as.numeric(readline( "  Priority............ "))
-    deadline    <- readline(            "  Due date............ ")
     tags        <- multireadline(       "  Add a tag........... ")
     path        <- readline(            "  Path................ ")
 
@@ -41,7 +38,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     if(status == "") status <- NULL
     if(length(team) == 0) team <- NULL
     if(is.na(priority)) priority <- NULL
-    if(deadline == "") deadline <- NULL
     if(length(tags) == 0) tags <- NULL
     if(path == "") path <- NULL
   }
@@ -66,7 +62,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     status = status,
     team = team,
     priority = priority,
-    deadline = deadline,
     tags = tags,
     path = path,
     urls = empty_url()
@@ -83,7 +78,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
 #' @param owner the owner for created jobs (a nick name)
 #' @param status the status for created jobs
 #' @param priority the priority of created jobs
-#' @param deadline the deadline of created jobs
 #'
 #' @examples
 #' \dontrun{
@@ -92,8 +86,7 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
 #' }
 #'
 #' @export
-make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
-                             priority = NULL, deadline = NULL) {
+make_jobs_by_git <- function(dir, owner = NULL, status = NULL, priority = NULL) {
 
   # set & verify owner
   owner <- ppl_parseowner(owner)
@@ -101,7 +94,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
   # verification step for other inputs
   verify_status(status)
   verify_priority(priority)
-  verify_deadline(deadline)
 
   # find all git repositories
   found_paths <- list.files(
@@ -172,7 +164,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
       }
       message("    status:      ", status)
       message("    priority:    ", priority)
-      message("    deadline:    ", deadline)
       message("    ")
 
       # make the user decide
@@ -203,7 +194,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
             status = status,
             team = owner,
             priority = priority,
-            deadline = deadline,
             path = found_paths[i]
           )
 
@@ -216,7 +206,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL,
             status = status,
             team = owner,
             priority = priority,
-            deadline = deadline,
             path = found_paths[i],
             urls = new_url(site = site, link = url_path)
           )

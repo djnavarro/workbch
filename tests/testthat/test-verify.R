@@ -184,30 +184,3 @@ test_that("verify_path works", {
 
 })
 
-
-test_that("verify_deadline works", {
-
-  # must be length one
-  msg <- "deadline must be length 1"
-  expect_error(verify_deadline(character(0)), msg)
-  expect_error(verify_deadline(c("1/1/2019", "1/1/2019")), msg)
-
-  # expect failure for bad date
-  msg <- "deadline must be a day-month-year format"
-  expect_error(verify_deadline(1), msg)
-  expect_error(verify_deadline("sdgfds"), msg)
-  expect_error(verify_deadline("20 jab 2001"), msg)
-  expect_error(verify_deadline("37 jan 2001"), msg)
-  expect_error(verify_deadline("20 jan 345345"), msg)
-
-  # expect success
-  expect_true(verify_deadline("20/1/01"))
-  expect_true(verify_deadline("20/01/01"))
-  expect_true(verify_deadline("20/1/2001"))
-  expect_true(verify_deadline("20 01 2001"))
-  expect_true(verify_deadline("20-1-2001"))
-  expect_true(verify_deadline("20/1/1901"))
-  expect_true(verify_deadline("20 jan 01"))
-  expect_true(verify_deadline("20 JAN 01"))
-  expect_true(verify_deadline("20 january 01"))
-})

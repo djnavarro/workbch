@@ -8,7 +8,6 @@
 \alias{set_job_owner}
 \alias{set_job_priority}
 \alias{set_job_path}
-\alias{set_job_deadline}
 \alias{set_job_team}
 \alias{set_job_url}
 \alias{set_job_tag}
@@ -25,8 +24,6 @@ set_job_owner(jobname, owner)
 set_job_priority(jobname, priority)
 
 set_job_path(jobname, path)
-
-set_job_deadline(jobname, deadline)
 
 set_job_team(jobname, add_team = NULL, remove_team = NULL)
 
@@ -48,8 +45,6 @@ set_job_tag(jobname, add_tag = NULL, remove_tag = NULL)
 \item{priority}{the new priority}
 
 \item{path}{the new path to the job folder}
-
-\item{deadline}{new deadline, string to be parsed by lubridate::dmy}
 
 \item{add_team}{character vector of nick names to add to the team}
 

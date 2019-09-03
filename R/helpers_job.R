@@ -22,15 +22,9 @@ job_read <- function() {
       if(class(j$team) == "list") {j$team <- character(0)}
       if(class(j$tags) == "list") {j$tags <- character(0)}
 
-      # NA_character_ is read as NA (logical) due to JSON limits
-      # so we need to catch this and correct for type stability
-      if(class(j$deadline) == "logical") {
-        j$deadline <- as.character(j$deadline)
-      }
       if(class(j$path) == "logical") {
         j$path <- as.character(j$path)
       }
-
 
       # don't let tags become matrices
       if(class(j$tags) == "matrix") {j$tags <- as.vector(j$tags)}

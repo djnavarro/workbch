@@ -7,7 +7,6 @@
 #' @param status the new status
 #' @param priority the new priority
 #' @param path the new path to the job folder
-#' @param deadline new deadline, string to be parsed by lubridate::dmy
 #' @param add_tag character vector of tags to add to jobs
 #' @param remove_tag character vector of tags to remove from job
 #' @param site string with the site nickname (e.g., "github")
@@ -62,12 +61,6 @@ set_job_path <- function(jobname, path) {
 
 #' @rdname set_job
 #' @export
-set_job_deadline <- function(jobname, deadline) {
-  job_write(set_job(jobname = jobname, deadline = deadline))
-}
-
-#' @rdname set_job
-#' @export
 set_job_team <- function(jobname, add_team = NULL, remove_team = NULL) {
   job_write(set_job(jobname = jobname, add_team = add_team, remove_team = remove_team))
 }
@@ -89,8 +82,8 @@ set_job_tag <- function(jobname, add_tag = NULL, remove_tag = NULL) {
 
 set_job <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
-  status = NULL, priority = NULL, path = NULL, deadline = NULL,
-  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
+  status = NULL, priority = NULL, path = NULL, add_tag = NULL,
+  remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
   remove_team = NULL
 ){
 
@@ -140,13 +133,6 @@ set_job <- function(
   if(is_set(path)) {
     verify_path(path)
     jobs <- update_job(jobs, jobname, path)
-  }
-
-  # ------- job deadline -------
-  if(is_set(deadline)) {
-    verify_deadline(deadline)
-    deadline <- format_date(deadline)
-    jobs <- update_job(jobs, jobname, deadline)
   }
 
   # ------- job team (add) -------

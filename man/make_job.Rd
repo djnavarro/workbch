@@ -5,8 +5,8 @@
 \title{Create a new job}
 \usage{
 make_job(jobname = NULL, description = NULL, owner = NULL,
-  status = NULL, team = NULL, priority = NULL, deadline = NULL,
-  tags = NULL, path = NULL)
+  status = NULL, team = NULL, priority = NULL, tags = NULL,
+  path = NULL)
 }
 \arguments{
 \item{jobname}{name of the job to create}
@@ -20,8 +20,6 @@ make_job(jobname = NULL, description = NULL, owner = NULL,
 \item{team}{should be a vector of names/nicknames}
 
 \item{priority}{numeric}
-
-\item{deadline}{a date}
 
 \item{tags}{character vector of tags}
 

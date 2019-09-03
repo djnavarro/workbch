@@ -72,29 +72,6 @@ verify_description <- function(description) {
   verify_onestring(description)
 }
 
-# throw error if lubridate::dmy can't handle the deadline
-verify_deadline <- function(deadline) {
-  safe_date <- purrr::safely(function(x) {lubridate::dmy(x, quiet = TRUE)})
-  out <- safe_date(deadline)
-
-  # check dmy doesn't throw an error
-  if(!is.null(out$error)) {
-    stop("deadline must be a day-month-year format", call. = FALSE)
-  }
-
-  # check input is length 1
-  if(length(out$result) != 1) {
-    stop("deadline must be length 1", call. = FALSE)
-  }
-
-  # check that the only NA allowed is if input is NA
-  if(is.na(out$result) & !is.na(deadline)) {
-    stop("deadline must be a day-month-year format", call. = FALSE)
-  }
-
-  return(invisible(TRUE))
-}
-
 verify_site <- function(site) {
   verify_onestring(site)
 }

@@ -4,14 +4,13 @@
 # constructors for new objects with default values ------------------------
 
 new_job <- function(jobname, description, owner, status = NULL,
-                    team = NULL, priority = NULL, deadline = NULL,
+                    team = NULL, priority = NULL,
                     tags = NULL, path = NULL, urls = NULL, verify = TRUE) {
 
   # replace nulls with default values
   status <- status %||% "active"
   team <- team %||% character(0)
   priority <- priority %||% 1
-  deadline <- deadline %||% NA_character_
   tags <- tags %||% character(0)
   path <- path %||% NA_character_
   urls <- urls %||% empty_url()
@@ -26,7 +25,6 @@ new_job <- function(jobname, description, owner, status = NULL,
     verify_character(tags)
     verify_path(path)
     verify_priority(priority)
-    verify_deadline(deadline)
     ## missing: verify_urls(urls)
   }
 
@@ -34,9 +32,6 @@ new_job <- function(jobname, description, owner, status = NULL,
   owner <- ppl_parseowner(owner)
   team <- ppl_fullname(team)
   if(!(owner %in% team)) { team <- c(owner, team) }
-
-  # tidy deadline
-  deadline <- format_date(deadline)
 
   # construct object
   list(
@@ -46,7 +41,6 @@ new_job <- function(jobname, description, owner, status = NULL,
     status = status,
     team = team,
     priority = priority,
-    deadline = deadline,
     tags = tags,
     path = path,
     urls = urls
@@ -86,6 +80,6 @@ empty_url <- function() {
 empty_job <- function() {
   new_job(jobname = character(0), description = character(0),
           owner = character(0), status = character(0), team = character(0),
-          priority = numeric(0), deadline = character(0), tags = character(0),
+          priority = numeric(0), tags = character(0),
           path = character(0), urls = empty_url())
 }

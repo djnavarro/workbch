@@ -10,7 +10,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
   # read jobs and construct tibble listing them
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
-    tibble::as_tibble(x[c("jobname", "owner", "priority", "status", "deadline",
+    tibble::as_tibble(x[c("jobname", "owner", "priority", "status",
                           "description", "path")])})
   job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
 
@@ -42,7 +42,7 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
   # construct tibble
   has_tag <- purrr::map_lgl(jobs, function(x) {tag %in% x$tags})
   job_tbl <- purrr::map_df(jobs, function(x){
-    tibble::as_tibble(x[c("jobname", "owner", "priority", "status", "deadline",
+    tibble::as_tibble(x[c("jobname", "owner", "priority", "status",
                           "description", "path")])})
 
   # subset of jobs that have (or dont have) the tag
@@ -113,9 +113,6 @@ view_job <- function(jobname = NULL) {
   cat("  priority :", jb$priority, "\n")
   cat("  status   :", jb$status, "\n")
   cat("  tags     :", paste(jb$tags, collapse = ", "), "\n")
-
-  dl <- ifelse(is.na(jb$deadline), "none", jb$deadline)
-  cat("  deadline :", dl, "\n")
 
   if(nrow(jb$urls) > 0 | !is.na(jb$path)) {
     cat("\n  locations: \n")

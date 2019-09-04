@@ -26,6 +26,24 @@ workbch_sethome <- function(path) {
 }
 
 
+#' Returns the workbch search paths
+#'
+#' @return Paths searched
+#' @export
+workbch_getsearchpath <- function() {
+  readLines(opt_file())
+}
+
+#' Sets the workbch search paths
+#'
+#' @param paths Paths to search
+#'
+#' @return Path to the folder
+#' @export
+workbch_setsearchpath <- function(paths) {
+  writeLines(paths, opt_file())
+}
+
 #' People known to workbch
 #'
 #' @export

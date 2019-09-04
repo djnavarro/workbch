@@ -132,7 +132,7 @@ set_job <- function(
   # ------- job path -------
   if(is_set(path)) {
     verify_path(path)
-    jobs <- update_job(jobs, jobname, path)
+    jobs <- update_jobpath(jobs, jobname, path)
   }
 
   # ------- job team (add) -------
@@ -185,6 +185,16 @@ set_job <- function(
 update_job <- function(jobs, jobname, value) {
   field <- deparse(substitute(value))
   jobs[[jobname]][field] <- value
+  return(jobs)
+}
+
+
+# path
+update_jobpath <- function(jobs, jobname, path) {
+  jobs[[jobname]]$path <- path
+  if(dir.exists(path)) {
+    write_sentinel(path, jobname, jobs[[jobname]]$idstring)
+  }
   return(jobs)
 }
 

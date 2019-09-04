@@ -16,11 +16,10 @@ coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)
 <!-- badges: end -->
 
 The workbch package provides a “work bench” of tools for project
-management  
-within R, based around the concept of a “job” (which might map to a
-single RStudio project or a single git repository). Jobs can be linked
-to multiple URLs, etc. In addition to basic tracking, searching and
-filtering, the package provides some tools to navigate between jobs,
+management within R, based around the concept of a “job” (which might
+map to a single RStudio project or a single git repository). Jobs can be
+linked to multiple URLs, etc. In addition to basic tracking, searching
+and filtering, the package provides some tools to navigate between jobs,
 browse relevant websites, and check the git status of repositories
 linked to a job.
 

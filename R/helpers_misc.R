@@ -44,9 +44,12 @@ idstring <- function() {
 }
 
 # locate sentinal files
-find_sentinels <- function(dir) {
-  list.files(path = dir, pattern = "\\.workbch$", recursive = TRUE,
-             all.files = TRUE, full.names = TRUE)
+find_sentinels <- function() {
+  dirs <- readLines(opt_file())
+  unlist(purrr::map(dirs, function(d) {
+    list.files(path = d, pattern = "\\.workbch$", recursive = TRUE,
+               all.files = TRUE, full.names = TRUE)
+  }))
 }
 
 # write a sentinal file
@@ -54,6 +57,10 @@ write_sentinel <- function(dir, jobname, idstring) {
   dir <- normalizePath(dir)
   file <- normalizePath(file.path(dir, ".workbch"))
   writeLines(text = c(jobname, idstring), con = file)
+}
+
+opt_file <- function() {
+  file.path(workbch_gethome(), "workbch_locations.txt")
 }
 
 # print methods -----------------------------------------------------------

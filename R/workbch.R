@@ -30,26 +30,57 @@ workbch_sethome <- function(path) {
 #' @export
 workbch_findjobs <- function() {
 
+  # find the names of missing jobs
   missing <- job_missingsentinels()
-  if(length(missing) == 0) return(NULL)
 
+  # if none are missing, invisibly return NULL
+  if(length(missing) == 0) return(invisible(NULL))
+
+  # add the paths and idstrings for those
   dat <- workbch_paths()
   missing <- dat[dat$jobname %in% missing,]
 
+  # find all sentinel files
   sentinels <- find_sentinels()
+
+  # extract informatio from all sentinel files
   state <- purrr::map_dfr(sentinels, function(s) {
     x <- readLines(s)
     np <- normalizePath(gsub("\\.workbch$", "", s))
     tibble::tibble(jobname = x[1], idstring = x[2], foundpath = np)
   })
 
+  # try to match a sentinal to each missing job
   missing <- dplyr::left_join(missing, state, by = c("jobname", "idstring"))
   missing <- missing[,c("jobname", "idstring", "path", "foundpath")]
 
+  # loop over missing jobs...
   if(interactive()) {
-   # prompt user to update...
+    for(i in 1:nrow(missing)) {
+
+      # ask the user if they want to update the path information
+      fpstring <- ifelse(
+        test = is.na(missing$foundpath[i]),
+        yes = "[none found]",
+        no = missing$foundpath[i]
+      )
+      cat("\n")
+      cat("Job '", missing$jobname[i], "':\n", sep = "")
+      cat("   Current path... ", missing$path[i], "\n")
+      cat("   New path....... ", fpstring, "\n")
+      cat("\n")
+      ans <- readline("   Do you want to update/remove the path? [y/n] ")
+
+      # if yes, update it
+      if(ans == "y") {
+        set_job_path(missing$jobname[i], missing$foundpath[i])
+        cat("   Job path updated\n")
+      }
+
+    }
   }
 
+  # invisibly return the data frame
   return(invisible(missing))
 }
 

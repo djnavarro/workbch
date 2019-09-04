@@ -158,9 +158,9 @@ job_pathcheck <- function(jobname, path) {
 
 job_checksentinels <- function() {
   missing <- job_missingsentinels()
-  if(!is.null(missing)) {
+  if(length(missing) > 0) {
     warning(
-      paste0(nrow(missing)," jobs missing. Run workbch_findjobs() to fix"),
+      "Some job folders have moved or been deleted. Run workbch_findjobs() to fix",
       call. = FALSE
     )
   }

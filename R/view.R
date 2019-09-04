@@ -20,8 +20,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
-  # check the paths and throw warning if need be
-  #job_pathcheck(job_tbl$jobname, job_tbl$path)
+  # check the job paths and throw warning if need be
   job_checksentinels()
   job_tbl$path <- NULL
 
@@ -62,9 +61,7 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
   # remove the hidden jobs if need be
   if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
-
-  # check the paths and throw warning if need be
-  #job_pathcheck(job_tbl$jobname, job_tbl$path)
+  # remove the path variable
   job_tbl$path <- NULL
 
   return(as_wkbch_tbl(job_tbl))
@@ -91,6 +88,7 @@ view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
 #'
 #' @param jobname Name of job to display
 #' @export
+
 
 view_job <- function(jobname = NULL) {
 

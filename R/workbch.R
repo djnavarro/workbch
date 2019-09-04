@@ -103,7 +103,7 @@ workbch_paths <- function(show_hidden = TRUE) {
   if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
   # throw warnings
-  job_pathcheck(job_tbl$jobname, job_tbl$path)
+  #job_pathcheck(job_tbl$jobname, job_tbl$path)
   return(as_wkbch_tbl(job_tbl))
 }
 

@@ -21,7 +21,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
   if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
   # check the paths and throw warning if need be
-  job_pathcheck(job_tbl$jobname, job_tbl$path)
+  #job_pathcheck(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
 
   return(as_wkbch_tbl(job_tbl))
@@ -63,7 +63,7 @@ view_tag <- function(tag, ..., show_hidden = TRUE, invert = FALSE) {
 
 
   # check the paths and throw warning if need be
-  job_pathcheck(job_tbl$jobname, job_tbl$path)
+  #job_pathcheck(job_tbl$jobname, job_tbl$path)
   job_tbl$path <- NULL
 
   return(as_wkbch_tbl(job_tbl))
@@ -126,7 +126,7 @@ view_job <- function(jobname = NULL) {
   }
 
   # check the paths and throw warning if need be
-  job_pathcheck(jb$jobname, jb$path)
+  #job_pathcheck(jb$jobname, jb$path)
 
   return(invisible(jb))
 }

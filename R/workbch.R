@@ -25,6 +25,34 @@ workbch_sethome <- function(path) {
   workbch_gethome()
 }
 
+#' Recover location of missing jobs
+#'
+#' @export
+workbch_findjobs <- function() {
+
+  missing <- job_missingsentinels()
+  if(length(missing) == 0) return(NULL)
+
+  dat <- workbch_paths()
+  missing <- dat[dat$jobname %in% missing,]
+
+  sentinels <- find_sentinels()
+  state <- purrr::map_dfr(sentinels, function(s) {
+    x <- readLines(s)
+    np <- normalizePath(gsub("\\.workbch$", "", s))
+    tibble::tibble(jobname = x[1], idstring = x[2], foundpath = np)
+  })
+
+  missing <- dplyr::left_join(missing, state, by = c("jobname", "idstring"))
+  missing <- missing[,c("jobname", "idstring", "path", "foundpath")]
+
+  if(interactive()) {
+   # prompt user to update...
+  }
+
+  return(invisible(missing))
+}
+
 
 #' Returns the workbch search paths
 #'
@@ -91,9 +119,9 @@ workbch_paths <- function(show_hidden = TRUE) {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     if(!is.null(x$path)) {
-      return(tibble::as_tibble(x[c("jobname", "path")]))
+      return(tibble::as_tibble(x[c("jobname", "path", "idstring")]))
     } else {
-      return(tibble::tibble(jobname = character(0), path = character(0)))
+      return(tibble::tibble(jobname = character(0), path = character(0), idstring = character(0)))
     }
   })
   job_tbl <- dplyr::arrange(job_tbl, jobname)

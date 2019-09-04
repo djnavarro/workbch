@@ -118,7 +118,24 @@ job_getcurrent <- function(jobs) {
   stop("could not detect current job", call. = FALSE)
 }
 
-
+# returns the names of jobs for which the expected sentinel files are not found
+# at the expected location
+job_missingsentinels <- function() {
+  dat <- workbch_paths()
+  info <- purrr::transpose(dat)
+  missing <- purrr::map_chr(info, function(job) {
+    f <- file.path(normalizePath(job$path, mustWork = FALSE), ".workbch")
+    if(file.exists(f)) {
+      s <- readLines(f)
+      if(s[1] == job$jobname & s[2] == job$idstring) {
+        return("")
+      }
+    }
+    return(job$jobname)
+  })
+  missing <- missing[missing != ""]
+  return(missing)
+}
 
 
 # check information -------------------------------------------------------
@@ -139,4 +156,13 @@ job_pathcheck <- function(jobname, path) {
   return(invisible(TRUE))
 }
 
+job_checksentinels <- function() {
+  missing <- job_missingsentinels()
+  if(!is.null(missing)) {
+    warning(
+      paste0(nrow(missing)," jobs missing. Run workbch_findjobs() to fix"),
+      call. = FALSE
+    )
+  }
+}
 

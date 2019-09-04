@@ -59,8 +59,10 @@ write_sentinel <- function(dir, jobname, idstring) {
   writeLines(text = c(jobname, idstring), con = file)
 }
 
+
 opt_file <- function() {
-  file.path(workbch_gethome(), "workbch_locations.txt")
+  home <- normalizePath(workbch_gethome())
+  normalizePath(file.path(home, "workbch_locations.txt"))
 }
 
 # print methods -----------------------------------------------------------

@@ -22,6 +22,7 @@ view_jobs <- function(..., show_hidden = FALSE) {
 
   # check the paths and throw warning if need be
   #job_pathcheck(job_tbl$jobname, job_tbl$path)
+  job_checksentinels()
   job_tbl$path <- NULL
 
   return(as_wkbch_tbl(job_tbl))

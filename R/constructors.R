@@ -5,7 +5,8 @@
 
 new_job <- function(jobname, description, owner, status = NULL,
                     team = NULL, priority = NULL,
-                    tags = NULL, path = NULL, urls = NULL, verify = TRUE) {
+                    tags = NULL, path = NULL, urls = NULL,
+                    verify = TRUE, sentinel = TRUE) {
 
   # replace nulls with default values
   status <- status %||% "active"
@@ -34,7 +35,7 @@ new_job <- function(jobname, description, owner, status = NULL,
   if(!(owner %in% team)) { team <- c(owner, team) }
 
   # construct object
-  list(
+  obj <- list(
     jobname = jobname,
     description = description,
     owner = owner,
@@ -43,8 +44,16 @@ new_job <- function(jobname, description, owner, status = NULL,
     priority = priority,
     tags = tags,
     path = path,
-    urls = urls
+    urls = urls,
+    idstring = idstring()
   )
+
+  # add sentinel file
+  if(dir.exists(obj$path) & sentinel == TRUE) {
+    write_sentinel(obj$path, obj$jobname, obj$idstring)
+  }
+
+  return(obj)
 }
 
 

@@ -38,6 +38,24 @@ multireadline <- function(prompt, stop = "") {
   return(out[-length(out)])
 }
 
+# generate 10 letter idstring
+idstring <- function() {
+  paste0(sample(c(letters, LETTERS), 10, TRUE), collapse="")
+}
+
+# locate sentinal files
+find_sentinels <- function(dir) {
+  list.files(path = dir, pattern = "\\.workbch$", recursive = TRUE,
+             all.files = TRUE, full.names = TRUE)
+}
+
+# write a sentinal file
+write_sentinel <- function(dir, jobname, idstring) {
+  dir <- normalizePath(dir)
+  file <- normalizePath(file.path(dir, ".workbch"))
+  writeLines(text = c(jobname, idstring), con = file)
+}
+
 # print methods -----------------------------------------------------------
 
 

@@ -121,31 +121,6 @@ test_that("verify_link works", {
 
 })
 
-test_that("verify_nickname works", {
-
-  # cursory check that verify_onestring is called
-  msg <- "must be character and length 1"
-  expect_error(verify_nickname(1), msg)
-  expect_error(verify_nickname(c("blah blah", "blah")), msg)
-
-  # expect success
-  expect_true(verify_nickname("britney"))
-
-})
-
-test_that("verify_fullname works", {
-
-  # cursory check that verify_onestring is called
-  msg <- "must be character and length 1"
-  expect_error(verify_fullname(1), msg)
-  expect_error(verify_fullname(c("blah blah", "blah")), msg)
-
-  # expect success
-  expect_true(verify_fullname("Britney Spears"))
-
-})
-
-
 test_that("verify_owner works", {
 
   # cursory check that verify_onestring is called

@@ -6,8 +6,7 @@
 \usage{
 workbch_setjob(jobname, newname = NULL, description = NULL,
   owner = NULL, status = NULL, priority = NULL, path = NULL,
-  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL,
-  add_team = NULL, remove_team = NULL)
+  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL)
 }
 \arguments{
 \item{jobname}{the current name for the job}
@@ -31,10 +30,6 @@ workbch_setjob(jobname, newname = NULL, description = NULL,
 \item{site}{string with the site nickname (e.g., "github")}
 
 \item{link}{string with the link to the site}
-
-\item{add_team}{character vector of nick names to add to the team}
-
-\item{remove_team}{character vector of nick names to remove from the team}
 }
 \description{
 Set the properties of an existing job

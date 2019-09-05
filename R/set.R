@@ -11,15 +11,12 @@
 #' @param remove_tag character vector of tags to remove from job
 #' @param site string with the site nickname (e.g., "github")
 #' @param link string with the link to the site
-#' @param add_team character vector of nick names to add to the team
-#' @param remove_team character vector of nick names to remove from the team
 #'
 #' @export
 workbch_setjob <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, add_tag = NULL,
-  remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
-  remove_team = NULL
+  remove_tag = NULL, site = NULL, link = NULL
 ){
   jobs <- update_job(
     jobname = jobname,
@@ -32,9 +29,7 @@ workbch_setjob <- function(
     add_tag = add_tag,
     remove_tag = remove_tag,
     site = site,
-    link = link,
-    add_team = add_team,
-    remove_team = remove_team
+    link = link
   )
   job_write(jobs)
 }
@@ -50,7 +45,7 @@ job_set <- function() {
   cat("What do you want to modify:\n")
   cat("  [1] job name\n")
   cat("  [2] description\n")
-  cat("  [3] people\n")
+  cat("  [3] owner\n")
   cat("  [4] status\n")
   cat("  [5] priority\n")
   cat("  [6] job location\n")
@@ -61,7 +56,7 @@ job_set <- function() {
   ans <- suppressWarnings(as.numeric(ans))
   if(ans == 1) return(prompt_rename(jobname))
   if(ans == 2) return(prompt_description(jobname))
-  if(ans == 3) return(prompt_people(jobname))
+  if(ans == 3) return(prompt_owner(jobname))
   if(ans == 4) return(prompt_status(jobname))
   if(ans == 5) return(prompt_priority(jobname))
   if(ans == 6) return(prompt_path(jobname))
@@ -80,7 +75,10 @@ prompt_description <- function(jobname) {
   workbch_setjob(jobname = jobname, description = description)
 }
 
-prompt_people <- function(jobname) {}
+prompt_owner <- function(jobname) {
+  description <- readline("Enter new job owner: ")
+  workbch_setjob(jobname = jobname, owner = owner)
+}
 
 prompt_status <- function(jobname) {
   status <- readline("Enter new job status: ")

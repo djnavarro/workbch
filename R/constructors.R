@@ -4,13 +4,11 @@
 # constructors for new objects with default values ------------------------
 
 new_job <- function(jobname, description, owner, status = NULL,
-                    team = NULL, priority = NULL,
-                    tags = NULL, path = NULL, urls = NULL,
+                    priority = NULL, tags = NULL, path = NULL, urls = NULL,
                     verify = TRUE, sentinel = TRUE) {
 
   # replace nulls with default values
   status <- status %||% "active"
-  team <- team %||% character(0)
   priority <- priority %||% 1
   tags <- tags %||% character(0)
   path <- path %||% NA_character_
@@ -22,17 +20,11 @@ new_job <- function(jobname, description, owner, status = NULL,
     verify_description(description)
     verify_owner(owner)
     verify_status(status)
-    verify_character(team)
     verify_character(tags)
     verify_path(path)
     verify_priority(priority)
     ## missing: verify_urls(urls)
   }
-
-  # tidy names
-  owner <- ppl_parseowner(owner)
-  team <- ppl_fullname(team)
-  if(!(owner %in% team)) { team <- c(owner, team) }
 
   # construct object
   obj <- list(
@@ -40,7 +32,6 @@ new_job <- function(jobname, description, owner, status = NULL,
     description = description,
     owner = owner,
     status = status,
-    team = team,
     priority = priority,
     tags = tags,
     path = path,
@@ -88,7 +79,7 @@ empty_url <- function() {
 
 empty_job <- function() {
   new_job(jobname = character(0), description = character(0),
-          owner = character(0), status = character(0), team = character(0),
+          owner = character(0), status = character(0),
           priority = numeric(0), tags = character(0),
           path = character(0), urls = empty_url())
 }

@@ -65,8 +65,8 @@ view_jobs()
 
 make_job(
   jobname = "workitout", 
-  description = "sip martinis and party in France", 
-  owner = "britney"
+  description = "Sip martinis and party in France", 
+  owner = "Britney Spears"
 )
 
 view_jobs()
@@ -79,85 +79,29 @@ delete_job("workitout")
 view_jobs()
 ```
 
-## Example 2: People, owners and teams
-
-The workbch package stores a data base of names and nicknames, so you can specify a person using their nickname instead of needing to type the full name:
-
-```{r managepeople}
-set_person("Beyoncé Knowles", "beyonce")
-
-set_person("Kelly Rowland", "kelly")
-
-set_person("Michelle Williams", "michelle")
-
-workbch_people()
-```
-
-Jobs can consist of multiple people on a *team* but the job must have a single *owner*, a named team member who is responsible for that job. When used in conjunction with nicknames, the `set_job()` function allows you to specify the team efficiently: 
-
-```{r addbynickmame}
-make_job(
-  jobname = "survivor",
-  description = "Run a survival analysis",
-  owner = "beyonce",
-  team = c("kelly", "michelle"),
-  priority = 1,
-  status = "inactive"
-)
-```
-
-The owner of a job will automatically be added to the team. As before we can use `view_jobs()` to provide a summary of all listed jobs, which in this case is only a single job, but you can also use `view_job()` to look at a single job in more detail:
-
-```{r viewjob}
-view_jobs()
-
-view_job("survivor")
-```
-
 
 ## Example 3: Editing jobs
-
-Internally, a job is represented as a list with the following fields
-
-- `jobname`: name of the project
-- `description`: brief description of the project
-- `owner`: should be a name or a nickname
-- `status`: should be "active", "inactive", "complete", "abandoned"
-- `team`: should be a vector of names/nicknames (owner is automatically included)
-- `priority`: numeric
-- `path`: path to the project home directory
-- `urls`: a tibble specifying urls linked to the job
-
-When we added the "survival" job earlier, we specified some of these fields but not others. 
 
 To illustrate, suppose we make a new job, called "toxic":
 
 ```{r maketoxic}
-set_person("Britney Spears", "britney")
-set_person("Danielle Navarro", "danielle")
-
 make_job(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
-  owner = "britney",
+  owner = "Britney Spears",
   priority = 2,
   status = "active",
   path = "~/projects/toxic"
 )
-
-view_jobs()
-
 view_job("toxic")
 ```
 
-If at this point we realise that "Danielle" should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:
+If at this point we realise the priority should have been set at 1, or we want to add some URLS:
 
 ```{r editteam}
 workbch_setjob(jobname = "toxic", priority = 1)
-workbch_setjob(jobname = "toxic", add_team = "danielle")
 workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
-
 view_job("toxic")
 ```
 
@@ -168,11 +112,9 @@ If `jobname` argument is not specified, the workbch package attempts to see if t
 After a while one can easily end up with a lot of jobs, and it can be hard to find what you're looking for (or, if you're like me, get anxious at seeing so many things that you have to do). For example:
 
 ```{r include=FALSE}
-set_person("Sneaker Pimps", "sneaker")
-set_person("Lizzo", "lizzo")
-make_job("hitmebaby", "Signal detection modelling", "britney", priority = 2)
-make_job("spinspinsugar", "Check for periodicities", "sneaker", priority = 1)
-make_job("boys", "Distributional assumptions", "lizzo", priority = 2)
+make_job("hitmebaby", "Signal detection modelling", "Britney Spears", priority = 2)
+make_job("spinspinsugar", "Check for periodicities", "Sneakerpimps", priority = 1)
+make_job("boys", "Distributional assumptions", "Lizzo", priority = 2)
 ```
 ```{r busystate}
 view_jobs()

@@ -67,16 +67,15 @@ view_jobs()
 
 make_job(
   jobname = "workitout", 
-  description = "sip martinis and party in France", 
-  owner = "britney"
+  description = "Sip martinis and party in France", 
+  owner = "Britney Spears"
 )
-#> Warning: 'britney' is not a known nick name
 
 view_jobs()
 #> # A tibble: 1 x 5
-#>   jobname   owner   priority status description                     
-#>   <chr>     <chr>      <int> <chr>  <chr>                           
-#> 1 workitout britney        1 active sip martinis and party in France
+#>   jobname   owner          priority status description                     
+#>   <chr>     <chr>             <int> <chr>  <chr>                           
+#> 1 workitout Britney Spears        1 active Sip martinis and party in France
 ```
 
 Jobs can be deleted by name:
@@ -87,119 +86,25 @@ view_jobs()
 #> # A tibble: 0 x 0
 ```
 
-## Example 2: People, owners and teams
-
-The workbch package stores a data base of names and nicknames, so you
-can specify a person using their nickname instead of needing to type the
-full name:
-
-``` r
-set_person("Beyoncé Knowles", "beyonce")
-#> added 'Beyoncé Knowles' with nickname 'beyonce'
-
-set_person("Kelly Rowland", "kelly")
-#> added 'Kelly Rowland' with nickname 'kelly'
-
-set_person("Michelle Williams", "michelle")
-#> added 'Michelle Williams' with nickname 'michelle'
-
-workbch_people()
-#> # A tibble: 3 x 2
-#>   fullname          nickname
-#>   <chr>             <chr>   
-#> 1 Beyoncé Knowles   beyonce 
-#> 2 Kelly Rowland     kelly   
-#> 3 Michelle Williams michelle
-```
-
-Jobs can consist of multiple people on a *team* but the job must have a
-single *owner*, a named team member who is responsible for that job.
-When used in conjunction with nicknames, the `set_job()` function allows
-you to specify the team efficiently:
-
-``` r
-make_job(
-  jobname = "survivor",
-  description = "Run a survival analysis",
-  owner = "beyonce",
-  team = c("kelly", "michelle"),
-  priority = 1,
-  status = "inactive"
-)
-```
-
-The owner of a job will automatically be added to the team. As before we
-can use `view_jobs()` to provide a summary of all listed jobs, which in
-this case is only a single job, but you can also use `view_job()` to
-look at a single job in more detail:
-
-``` r
-view_jobs()
-#> # A tibble: 1 x 5
-#>   jobname  owner           priority status   description            
-#>   <chr>    <chr>              <int> <chr>    <chr>                  
-#> 1 survivor Beyoncé Knowles        1 inactive Run a survival analysis
-
-view_job("survivor")
-#> 
-#> survivor : Run a survival analysis 
-#> 
-#>   owner    : Beyoncé Knowles 
-#>   team     : Beyoncé Knowles, Kelly Rowland, Michelle Williams 
-#>   priority : 1 
-#>   status   : inactive 
-#>   tags     :
-```
-
 ## Example 3: Editing jobs
-
-Internally, a job is represented as a list with the following fields
-
-  - `jobname`: name of the project
-  - `description`: brief description of the project
-  - `owner`: should be a name or a nickname
-  - `status`: should be “active”, “inactive”, “complete”, “abandoned”
-  - `team`: should be a vector of names/nicknames (owner is
-    automatically included)
-  - `priority`: numeric
-  - `path`: path to the project home directory
-  - `urls`: a tibble specifying urls linked to the job
-
-When we added the “survival” job earlier, we specified some of these
-fields but not others.
 
 To illustrate, suppose we make a new job, called “toxic”:
 
 ``` r
-set_person("Britney Spears", "britney")
-#> added 'Britney Spears' with nickname 'britney'
-set_person("Danielle Navarro", "danielle")
-#> added 'Danielle Navarro' with nickname 'danielle'
-
 make_job(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
-  owner = "britney",
+  owner = "Britney Spears",
   priority = 2,
   status = "active",
   path = "~/projects/toxic"
 )
-
-view_jobs()
-#> Warning: Some job folders have moved or been deleted. Run
-#> workbch_findjobs() to fix
-#> # A tibble: 2 x 5
-#>   jobname  owner           priority status   description            
-#>   <chr>    <chr>              <int> <chr>    <chr>                  
-#> 1 survivor Beyoncé Knowles        1 inactive Run a survival analysis
-#> 2 toxic    Britney Spears         2 active   Estimate the LD50 dose
-
 view_job("toxic")
 #> 
 #> toxic : Estimate the LD50 dose 
 #> 
 #>   owner    : Britney Spears 
-#>   team     : Britney Spears 
+#>   team     :  
 #>   priority : 2 
 #>   status   : active 
 #>   tags     :  
@@ -208,22 +113,19 @@ view_job("toxic")
 #>      [path] ~/projects/toxic
 ```
 
-If at this point we realise that “Danielle” should have been listed on
-the team for toxic (yeah, right) and the priority should have been set
-at 1, we can edit the job. Similarly, if we want to add some URLS:
+If at this point we realise the priority should have been set at 1, or
+we want to add some URLS:
 
 ``` r
 workbch_setjob(jobname = "toxic", priority = 1)
-workbch_setjob(jobname = "toxic", add_team = "danielle")
 workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
-
 view_job("toxic")
 #> 
 #> toxic : Estimate the LD50 dose 
 #> 
 #>   owner    : Britney Spears 
-#>   team     : Britney Spears, Danielle Navarro 
+#>   team     :  
 #>   priority : 1 
 #>   status   : active 
 #>   tags     :  
@@ -249,14 +151,13 @@ at seeing so many things that you have to do). For example:
 view_jobs()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
-#> # A tibble: 5 x 5
-#>   jobname       owner           priority status   description              
-#>   <chr>         <chr>              <int> <chr>    <chr>                    
-#> 1 toxic         Britney Spears         1 active   Estimate the LD50 dose   
-#> 2 spinspinsugar Sneaker Pimps          1 active   Check for periodicities  
-#> 3 survivor      Beyoncé Knowles        1 inactive Run a survival analysis  
-#> 4 hitmebaby     Britney Spears         2 active   Signal detection modelli…
-#> 5 boys          Lizzo                  2 active   Distributional assumptio…
+#> # A tibble: 4 x 5
+#>   jobname       owner          priority status description               
+#>   <chr>         <chr>             <int> <chr>  <chr>                     
+#> 1 toxic         Britney Spears        1 active Estimate the LD50 dose    
+#> 2 spinspinsugar Sneakerpimps          1 active Check for periodicities   
+#> 3 hitmebaby     Britney Spears        2 active Signal detection modelling
+#> 4 boys          Lizzo                 2 active Distributional assumptions
 ```
 
 A simple way to only see the high priority jobs:
@@ -265,12 +166,11 @@ A simple way to only see the high priority jobs:
 view_priorities()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
-#> # A tibble: 3 x 5
-#>   jobname       owner           priority status   description            
-#>   <chr>         <chr>              <int> <chr>    <chr>                  
-#> 1 toxic         Britney Spears         1 active   Estimate the LD50 dose 
-#> 2 spinspinsugar Sneaker Pimps          1 active   Check for periodicities
-#> 3 survivor      Beyoncé Knowles        1 inactive Run a survival analysis
+#> # A tibble: 2 x 5
+#>   jobname       owner          priority status description            
+#>   <chr>         <chr>             <int> <chr>  <chr>                  
+#> 1 toxic         Britney Spears        1 active Estimate the LD50 dose 
+#> 2 spinspinsugar Sneakerpimps          1 active Check for periodicities
 ```
 
 More generally, `view_jobs()` and `view_priorities()` both allow you to
@@ -286,7 +186,7 @@ view_jobs(priority == 1 & status == "active")
 #>   jobname       owner          priority status description            
 #>   <chr>         <chr>             <int> <chr>  <chr>                  
 #> 1 toxic         Britney Spears        1 active Estimate the LD50 dose 
-#> 2 spinspinsugar Sneaker Pimps         1 active Check for periodicities
+#> 2 spinspinsugar Sneakerpimps          1 active Check for periodicities
 ```
 
 Indeed `view_priorities()` function is essentially a helper function to

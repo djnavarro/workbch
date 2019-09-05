@@ -5,8 +5,7 @@
 \title{Create a new job}
 \usage{
 make_job(jobname = NULL, description = NULL, owner = NULL,
-  status = NULL, team = NULL, priority = NULL, tags = NULL,
-  path = NULL)
+  status = NULL, priority = NULL, tags = NULL, path = NULL)
 }
 \arguments{
 \item{jobname}{name of the job to create}
@@ -16,8 +15,6 @@ make_job(jobname = NULL, description = NULL, owner = NULL,
 \item{owner}{should be a name or a nickname}
 
 \item{status}{should be "active", "inactive", "complete", "abandoned", "masked"}
-
-\item{team}{should be a vector of names/nicknames}
 
 \item{priority}{numeric}
 

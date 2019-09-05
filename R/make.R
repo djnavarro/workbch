@@ -4,13 +4,12 @@
 #' @param description brief description of the job
 #' @param status should be "active", "inactive", "complete", "abandoned", "masked"
 #' @param owner should be a name or a nickname
-#' @param team should be a vector of names/nicknames
 #' @param priority numeric
 #' @param tags character vector of tags
 #' @param path path to the job home directory
 #' @export
 make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = NULL,
-                     team = NULL, priority = NULL, tags = NULL, path = NULL) {
+                     priority = NULL, tags = NULL, path = NULL) {
 
   # make_job calls the constructor function at the end, which verifies all
   # input arguments. so the only verifications that occur here are those
@@ -26,9 +25,8 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     description <- readline(            "  Description......... ")
     owner       <- readline(            "  Owner............... ")
     status      <- readline(            "  Status.............. ")
-    team        <- multireadline(       "  Add a team member... ")
     priority    <- as.numeric(readline( "  Priority............ "))
-    tags        <- multireadline(       "  Add a tag........... ")
+    tags        <- readline(       "  Tags (comma separated) ........... ")
     path        <- readline(            "  Path................ ")
 
     # treat no response as default value
@@ -36,7 +34,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     if(description == "") description <- NULL
     if(owner == "") owner <- NULL
     if(status == "") status <- NULL
-    if(length(team) == 0) team <- NULL
     if(is.na(priority)) priority <- NULL
     if(length(tags) == 0) tags <- NULL
     if(path == "") path <- NULL
@@ -60,7 +57,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
     description = description,
     owner = owner,
     status = status,
-    team = team,
     priority = priority,
     tags = tags,
     path = path,
@@ -192,7 +188,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL, priority = NULL) 
             description = found_jobnames[i],
             owner = owner,
             status = status,
-            team = owner,
             priority = priority,
             path = found_paths[i]
           )
@@ -204,7 +199,6 @@ make_jobs_by_git <- function(dir, owner = NULL, status = NULL, priority = NULL) 
             description = found_jobnames[i],
             owner = owner,
             status = status,
-            team = owner,
             priority = priority,
             path = found_paths[i],
             urls = new_url(site = site, link = url_path)

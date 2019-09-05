@@ -103,15 +103,6 @@ workbch_setsearchpath <- function(paths) {
   writeLines(paths, opt_file())
 }
 
-#' People known to workbch
-#'
-#' @export
-workbch_people <- function() {
-  as_wkbch_tbl(ppl_read())
-}
-
-
-
 #' Tags used by workbch
 #'
 #' @export
@@ -162,23 +153,7 @@ workbch_paths <- function(show_hidden = TRUE) {
   if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
   # throw warnings
-  #job_pathcheck(job_tbl$jobname, job_tbl$path)
   return(as_wkbch_tbl(job_tbl))
-}
-
-
-
-#' Export to HTML file
-#'
-#' @export
-workbch_export <- function() {
-  rmarkdown::render(
-    input = system.file("extdata", "status.Rmd", package = "workbch"),
-    output_file = "workbch_status.html",
-    output_dir = getOption("workbch.home"),
-    params = list(path = getOption("workbch.home"))
-  )
-  utils::browseURL(url = file.path(getOption("workbch.home"), "workbch_status.html"))
 }
 
 

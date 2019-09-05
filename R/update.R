@@ -4,8 +4,7 @@
 update_job <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, add_tag = NULL,
-  remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
-  remove_team = NULL
+  remove_tag = NULL, site = NULL, link = NULL
 ){
 
   # note: set_job does not call a constructor function, it modifies an
@@ -41,7 +40,7 @@ update_job <- function(
   # ------- job owner -------
   if(is_set(owner)) {
     verify_character(owner)
-    jobs <- update_jobowner(jobs, jobname, owner)
+    jobs <- update_jobother(jobs, jobname, owner)
   }
 
   # ------- job priority -------
@@ -54,18 +53,6 @@ update_job <- function(
   if(is_set(path)) {
     verify_path(path)
     jobs <- update_jobpath(jobs, jobname, path)
-  }
-
-  # ------- job team (add) -------
-  if(is_set(add_team)) {
-    verify_character(add_team)
-    jobs <- update_addteam(jobs, jobname, add_team)
-  }
-
-  # ------- job team (remove) -------
-  if(is_set(remove_team)) {
-    verify_character(remove_team)
-    jobs <- update_removeteam(jobs, jobname, remove_team)
   }
 
   # ------- job url -------
@@ -123,33 +110,6 @@ update_jobname <- function(job, jobname, newname) {
   ind <- which(job_names == jobname)
   names(jobs)[ind] <- newname
   jobs[[newname]]$jobname <- newname
-  return(jobs)
-}
-
-# owner
-update_jobowner <- function(jobs, jobname, owner) {
-  jobs[[jobname]]$owner <- ppl_fullname(owner)
-  if(!(jobs[[jobname]]$owner %in% jobs[[jobname]]$team)) {
-    jobs[[jobname]]$team <- c(jobs[[jobname]]$owner, jobs[[jobname]]$team)
-  }
-  return(jobs)
-}
-
-# team (add)
-update_addteam <- function(jobs, jobname, add_team) {
-  add_team <- ppl_fullname(add_team)
-  jobs[[jobname]]$team <- unique(c(jobs[[jobname]]$team, add_team))
-  return(jobs)
-}
-
-# team (remove)
-update_removeteam <- function(jobs, jobname, remove_team) {
-  remove_team <- ppl_fullname(remove_team)
-  if(jobs[[jobname]]$owner %in% remove_team) {
-    warning("cannot remove owner from a team", call. = FALSE)
-    remove_team <- setdiff(remove_team, jobs[[jobname]]$owner)
-  }
-  jobs[[jobname]]$team <- setdiff(jobs[[jobname]]$team, remove_team)
   return(jobs)
 }
 

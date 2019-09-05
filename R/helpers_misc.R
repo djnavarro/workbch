@@ -12,21 +12,6 @@ apply_mask <- function(tbl) {
   return(tbl)
 }
 
-# used in generating the markdown output
-prettify <- function(x) {
-  kableExtra::kable_styling(
-    knitr::kable(x),
-    "striped",
-    font_size = 12)
-}
-
-# format a date string
-format_date <- function(date) {
-  date <- lubridate::dmy(date)
-  date <- format(date, format = "%d %b %Y")
-  return(date)
-}
-
 # repeatedly ask user until a stop signal is reached
 multireadline <- function(prompt, stop = "") {
   out <- character(0)

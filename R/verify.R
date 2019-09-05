@@ -80,17 +80,6 @@ verify_link <- function(link) {
   verify_onestring(link)
 }
 
-# for now, the name "verifications" merely check
-# that the user has specified one string, and
-# defers search to ppl_fullname()
-verify_nickname <- function(nickname) {
-  verify_onestring(nickname)
-}
-
-verify_fullname <- function(fullname) {
-  verify_onestring(fullname)
-}
-
 verify_owner <- function(owner) {
   verify_onestring(owner)
 }

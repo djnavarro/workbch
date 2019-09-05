@@ -128,14 +128,7 @@ Internally, a job is represented as a list with the following fields
 - `path`: path to the project home directory
 - `urls`: a tibble specifying urls linked to the job
 
-When we added the "survival" job earlier, we specified some of these fields but not others. There are a numver of functions you can use to modify the properties of a job:
-
-- `set_jobname()` allows you to reset name, 
-- `set_team()` makes it easier to edit the team
-- `set_url()` makes it easier to edit a webpage associated with a job
-- `set_note()`
-- `set_task()`
-- etc
+When we added the "survival" job earlier, we specified some of these fields but not others. 
 
 To illustrate, suppose we make a new job, called "toxic":
 
@@ -160,10 +153,10 @@ view_job("toxic")
 If at this point we realise that "Danielle" should have been listed on the team for toxic (yeah, right) and the priority should have been set at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ```{r editteam}
-set_job_priority(jobname = "toxic", priority = 1)
-set_job_team(jobname = "toxic", add_team = "danielle")
-set_job_url(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-set_job_url(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+workbch_setjob(jobname = "toxic", priority = 1)
+workbch_setjob(jobname = "toxic", add_team = "danielle")
+workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 
 view_job("toxic")
 ```

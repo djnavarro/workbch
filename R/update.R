@@ -1,86 +1,7 @@
-#' Set the properties of an existing job
-#'
-#' @param jobname the current name for the job
-#' @param newname the new name
-#' @param description the new description
-#' @param owner nick name for the new owner
-#' @param status the new status
-#' @param priority the new priority
-#' @param path the new path to the job folder
-#' @param add_tag character vector of tags to add to jobs
-#' @param remove_tag character vector of tags to remove from job
-#' @param site string with the site nickname (e.g., "github")
-#' @param link string with the link to the site
-#' @param add_team character vector of nick names to add to the team
-#' @param remove_team character vector of nick names to remove from the team
-#'
-#' @name set_job
-NULL
 
+# anything that updates a job passes through here ----------------------------
 
-# user-facing functions ---------------------------------------------------
-
-# these functions are all wrappers around set_job that write
-# the resutl to file to ensure persistent storage
-
-#' @rdname set_job
-#' @export
-set_job_name <- function(jobname, newname) {
-  job_write(set_job(jobname = jobname, newname = newname))
-}
-
-#' @rdname set_job
-#' @export
-set_job_description <- function(jobname, description) {
-  job_write(set_job(jobname = jobname, description = description))
-}
-
-#' @rdname set_job
-#' @export
-set_job_status <- function(jobname, status) {
-  job_write(set_job(jobname = jobname, status = status))
-}
-
-#' @rdname set_job
-#' @export
-set_job_owner <- function(jobname, owner) {
-  job_write(set_job(jobname = jobname, owner = owner))
-}
-
-#' @rdname set_job
-#' @export
-set_job_priority <- function(jobname, priority) {
-  job_write(set_job(jobname = jobname, priority = priority))
-}
-
-#' @rdname set_job
-#' @export
-set_job_path <- function(jobname, path) {
-  job_write(set_job(jobname = jobname, path = path))
-}
-
-#' @rdname set_job
-#' @export
-set_job_team <- function(jobname, add_team = NULL, remove_team = NULL) {
-  job_write(set_job(jobname = jobname, add_team = add_team, remove_team = remove_team))
-}
-
-#' @rdname set_job
-#' @export
-set_job_url <- function(jobname, site, link) {
-  job_write(set_job(jobname = jobname, site = site, link = link))
-}
-
-#' @rdname set_job
-#' @export
-set_job_tag <- function(jobname, add_tag = NULL, remove_tag = NULL) {
-  job_write(set_job(jobname = jobname, add_tag = add_tag, remove_tag = remove_tag))
-}
-
-
-# everything passes through set_job ---------------------------------------
-
-set_job <- function(
+update_job <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, add_tag = NULL,
   remove_tag = NULL, site = NULL, link = NULL, add_team = NULL,
@@ -108,13 +29,13 @@ set_job <- function(
   # ------- job description -------
   if(is_set(description)) {
     verify_description(description)
-    jobs <- update_job(jobs, jobname, description)
+    jobs <- update_jobother(jobs, jobname, description)
   }
 
   # ------- job status -------
   if(is_set(status)) {
     verify_status(status)
-    jobs <- update_job(jobs, jobname, status)
+    jobs <- update_jobother(jobs, jobname, status)
   }
 
   # ------- job owner -------
@@ -126,7 +47,7 @@ set_job <- function(
   # ------- job priority -------
   if(is_set(priority)) {
     verify_priority(priority)
-    jobs <- update_job(jobs, jobname, priority)
+    jobs <- update_jobother(jobs, jobname, priority)
   }
 
   # ------- job path -------
@@ -177,12 +98,10 @@ set_job <- function(
   return(jobs)
 }
 
-
-
 # workhorse functions -----------------------------------------------------
 
 # simple cases can be handled this way
-update_job <- function(jobs, jobname, value) {
+update_jobother <- function(jobs, jobname, value) {
   field <- deparse(substitute(value))
   jobs[[jobname]][field] <- value
   return(jobs)
@@ -227,7 +146,7 @@ update_addteam <- function(jobs, jobname, add_team) {
 update_removeteam <- function(jobs, jobname, remove_team) {
   remove_team <- ppl_fullname(remove_team)
   if(jobs[[jobname]]$owner %in% remove_team) {
-    warning("set_job_team() cannot remove owner from a team", call. = FALSE)
+    warning("cannot remove owner from a team", call. = FALSE)
     remove_team <- setdiff(remove_team, jobs[[jobname]]$owner)
   }
   jobs[[jobname]]$team <- setdiff(jobs[[jobname]]$team, remove_team)

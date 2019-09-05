@@ -63,7 +63,6 @@ different term. Here’s how to add and view the jobs you have stored:
 library(workbch)
 
 view_jobs()
-#> Warning: Unknown or uninitialised column: 'path'.
 #> # A tibble: 0 x 0
 
 make_job(
@@ -85,7 +84,6 @@ Jobs can be deleted by name:
 ``` r
 delete_job("workitout")
 view_jobs()
-#> Warning: Unknown or uninitialised column: 'path'.
 #> # A tibble: 0 x 0
 ```
 
@@ -168,15 +166,7 @@ Internally, a job is represented as a list with the following fields
   - `urls`: a tibble specifying urls linked to the job
 
 When we added the “survival” job earlier, we specified some of these
-fields but not others. There are a numver of functions you can use to
-modify the properties of a job:
-
-  - `set_jobname()` allows you to reset name,
-  - `set_team()` makes it easier to edit the team
-  - `set_url()` makes it easier to edit a webpage associated with a job
-  - `set_note()`
-  - `set_task()`
-  - etc
+fields but not others.
 
 To illustrate, suppose we make a new job, called “toxic”:
 
@@ -196,8 +186,8 @@ make_job(
 )
 
 view_jobs()
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
+#> Warning: Some job folders have moved or been deleted. Run
+#> workbch_findjobs() to fix
 #> # A tibble: 2 x 5
 #>   jobname  owner           priority status   description            
 #>   <chr>    <chr>              <int> <chr>    <chr>                  
@@ -216,8 +206,6 @@ view_job("toxic")
 #> 
 #>   locations: 
 #>      [path] ~/projects/toxic
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
 ```
 
 If at this point we realise that “Danielle” should have been listed on
@@ -225,10 +213,10 @@ the team for toxic (yeah, right) and the priority should have been set
 at 1, we can edit the job. Similarly, if we want to add some URLS:
 
 ``` r
-set_job_priority(jobname = "toxic", priority = 1)
-set_job_team(jobname = "toxic", add_team = "danielle")
-set_job_url(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-set_job_url(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+workbch_setjob(jobname = "toxic", priority = 1)
+workbch_setjob(jobname = "toxic", add_team = "danielle")
+workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 
 view_job("toxic")
 #> 
@@ -244,8 +232,6 @@ view_job("toxic")
 #>      [path] ~/projects/toxic
 #>      [genius] https://genius.com/Britney-spears-toxic-lyrics
 #>      [github] https://github.com/djnavarro/toxic
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
 ```
 
 If `jobname` argument is not specified, the workbch package attempts to
@@ -261,8 +247,8 @@ at seeing so many things that you have to do). For example:
 
 ``` r
 view_jobs()
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
+#> Warning: Some job folders have moved or been deleted. Run
+#> workbch_findjobs() to fix
 #> # A tibble: 5 x 5
 #>   jobname       owner           priority status   description              
 #>   <chr>         <chr>              <int> <chr>    <chr>                    
@@ -277,8 +263,8 @@ A simple way to only see the high priority jobs:
 
 ``` r
 view_priorities()
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
+#> Warning: Some job folders have moved or been deleted. Run
+#> workbch_findjobs() to fix
 #> # A tibble: 3 x 5
 #>   jobname       owner           priority status   description            
 #>   <chr>         <chr>              <int> <chr>    <chr>                  
@@ -294,8 +280,8 @@ active jobs:
 
 ``` r
 view_jobs(priority == 1 & status == "active")
-#> Warning: The path for job 'toxic' is set to '~/projects/toxic' but does not
-#> exist
+#> Warning: Some job folders have moved or been deleted. Run
+#> workbch_findjobs() to fix
 #> # A tibble: 2 x 5
 #>   jobname       owner          priority status description            
 #>   <chr>         <chr>             <int> <chr>  <chr>                  

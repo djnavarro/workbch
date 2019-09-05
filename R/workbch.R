@@ -73,7 +73,7 @@ workbch_findjobs <- function() {
 
       # if yes, update it
       if(ans == "y") {
-        set_job_path(missing$jobname[i], missing$foundpath[i])
+        workbch_setjob(jobname = missing$jobname[i], path = missing$foundpath[i])
         cat("   Job path updated\n")
       }
 

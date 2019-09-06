@@ -13,7 +13,7 @@ work_recover <- function(dirs = getOption("workbch.search")) {
   if(length(missing) == 0) return(invisible(NULL))
 
   # add the paths and idstrings for those
-  dat <- workbch_paths()
+  dat <- job_allpaths()
   missing <- dat[dat$jobname %in% missing,]
 
   # find all sentinel files
@@ -63,7 +63,7 @@ work_recover <- function(dirs = getOption("workbch.search")) {
 #' Tags used by workbch
 #'
 #' @export
-workbch_tags <- function() {
+work_tags <- function() {
 
   jobs <- job_read()
 
@@ -85,30 +85,3 @@ workbch_tags <- function() {
 }
 
 
-
-
-
-#' Paths known to workbch
-#'
-#' @param show_hidden should hidden jobs be included
-#'
-#' @return A tibble
-#' @export
-workbch_paths <- function(show_hidden = TRUE) {
-  jobs <- job_read()
-  job_tbl <- purrr::map_df(jobs, function(x){
-    if(!is.null(x$path)) {
-      return(tibble::as_tibble(x[c("jobname", "path", "idstring")]))
-    } else {
-      return(tibble::tibble(jobname = character(0), path = character(0), idstring = character(0)))
-    }
-  })
-  job_tbl <- dplyr::arrange(job_tbl, jobname)
-  job_tbl <- dplyr::filter(job_tbl, !is.na(path))
-
-  # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
-
-  # throw warnings
-  return(as_wkbch_tbl(job_tbl))
-}

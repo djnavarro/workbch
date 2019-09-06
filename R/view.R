@@ -92,7 +92,7 @@ view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
 view_git <- function(show_hidden = TRUE, show_clean = FALSE) {
 
   # get the job locations
-  proj <- workbch_paths(show_hidden = show_hidden)
+  proj <- job_allpaths(show_hidden = show_hidden)
   x <- list()
 
   for(i in 1:nrow(proj)) {

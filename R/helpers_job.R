@@ -62,6 +62,27 @@ job_getpaths <- function(jobs) {
   return(purrr::map_chr(jobs, function(j) {j$path}))
 }
 
+job_allpaths <- function(show_hidden = TRUE) {
+  jobs <- job_read()
+  job_tbl <- purrr::map_df(jobs, function(x){
+    if(!is.null(x$path)) {
+      return(tibble::as_tibble(x[c("jobname", "path", "idstring")]))
+    } else {
+      return(tibble::tibble(jobname = character(0), path = character(0), idstring = character(0)))
+    }
+  })
+  job_tbl <- dplyr::arrange(job_tbl, jobname)
+  job_tbl <- dplyr::filter(job_tbl, !is.na(path))
+
+  # remove the hidden jobs if need be
+  if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
+
+  # throw warnings
+  return(as_wkbch_tbl(job_tbl))
+}
+
+
+
 job_getcurrent <- function(jobs) {
 
   # search heuristic:
@@ -121,7 +142,7 @@ job_getcurrent <- function(jobs) {
 # returns the names of jobs for which the expected sentinel files are not found
 # at the expected location
 job_missingsentinels <- function() {
-  dat <- workbch_paths()
+  dat <- job_allpaths()
   info <- purrr::transpose(dat)
   missing <- purrr::map_chr(info, function(job) {
     f <- file.path(normalizePath(job$path, mustWork = FALSE), ".workbch")

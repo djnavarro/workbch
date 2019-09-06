@@ -1,34 +1,10 @@
 
-#' Get location of workbch files
-#'
-#' @return Path to the folder
-#' @export
-workbch_gethome <- function() {
-  getOption("workbch.home")
-}
-
-#' Set location of workbch files
-#'
-#' @param path Path to the folder
-#'
-#' @return Path to the folder
-#' @export
-workbch_sethome <- function(path) {
-  if(is.null(path)) {
-    return(workbch_gethome())
-  }
-  if(!dir.exists(path)) {
-    dir.create(path)
-    message("new directory '", path, "' created")
-  }
-  options(workbch.home = path)
-  workbch_gethome()
-}
 
 #' Recover location of missing jobs
 #'
+#' @param dirs vector of paths to search recursively
 #' @export
-work_recover <- function() {
+work_recover <- function(dirs = getOption("workbch.search")) {
 
   # find the names of missing jobs
   missing <- job_missingsentinels()
@@ -41,7 +17,7 @@ work_recover <- function() {
   missing <- dat[dat$jobname %in% missing,]
 
   # find all sentinel files
-  sentinels <- find_sentinels()
+  sentinels <- find_sentinels(dirs)
 
   # extract informatio from all sentinel files
   state <- purrr::map_dfr(sentinels, function(s) {
@@ -73,7 +49,7 @@ work_recover <- function() {
 
       # if yes, update it
       if(ans == "y") {
-        workbch_setjob(jobname = missing$jobname[i], path = missing$foundpath[i])
+        job_write(update_job(jobname = missing$jobname[i], path = missing$foundpath[i]))
         cat("   Job path updated\n")
       }
 
@@ -82,25 +58,6 @@ work_recover <- function() {
 
   # invisibly return the data frame
   return(invisible(missing))
-}
-
-
-#' Returns the workbch search paths
-#'
-#' @return Paths searched
-#' @export
-workbch_getsearchpath <- function() {
-  readLines(opt_file())
-}
-
-#' Sets the workbch search paths
-#'
-#' @param paths Paths to search
-#'
-#' @return Path to the folder
-#' @export
-workbch_setsearchpath <- function(paths) {
-  writeLines(paths, opt_file())
 }
 
 #' Tags used by workbch

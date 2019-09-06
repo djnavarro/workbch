@@ -47,9 +47,9 @@ options(workbch.home = "PATH_TO_FOLDER")
 This ensures that when the workbch package is loaded it knows where to
 find information about jobs. Once this is done, you can start adding
 jobs\! A “job” is intended to have roughly the same meaning as a
-“project” in everyday life (i.e., a self-contained body of work of
-some kind), but to avoid confusion with “RStudio projects” I’ve used a
-different term. Here’s how to add and view the jobs you have stored:
+“project” in everyday life (i.e., a self-contained body of work), but
+to avoid confusion with “RStudio projects” I’ve used a different term.
+Here’s how to add and view the jobs you have stored:
 
 ``` r
 library(workbch)

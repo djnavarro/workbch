@@ -4,7 +4,10 @@
 \alias{work_recover}
 \title{Recover location of missing jobs}
 \usage{
-work_recover()
+work_recover(dirs = getOption("workbch.search"))
+}
+\arguments{
+\item{dirs}{vector of paths to search recursively}
 }
 \description{
 Recover location of missing jobs

@@ -23,8 +23,7 @@ idstring <- function() {
 }
 
 # locate sentinal files
-find_sentinels <- function() {
-  dirs <- readLines(opt_file())
+find_sentinels <- function(dirs = getOption("workbch.search")) {
   unlist(purrr::map(dirs, function(d) {
     list.files(path = d, pattern = "\\.workbch$", recursive = TRUE,
                all.files = TRUE, full.names = TRUE)
@@ -38,14 +37,7 @@ write_sentinel <- function(dir, jobname, idstring) {
   writeLines(text = c(jobname, idstring), con = file)
 }
 
-
-opt_file <- function() {
-  home <- normalizePath(workbch_gethome())
-  normalizePath(file.path(home, "workbch_locations.txt"))
-}
-
 # print methods -----------------------------------------------------------
-
 
 # Specify a print method for a workbench tibble
 #' @export

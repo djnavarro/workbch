@@ -70,32 +70,32 @@ job_modify <- function() {
 
 prompt_rename <- function(jobname) {
   newname <- readline("Enter new job name: ")
-  workbch_setjob(jobname = jobname, newname = newname)
+  job_write(update_job(jobname = jobname, newname = newname))
 }
 
 prompt_description <- function(jobname) {
   description <- readline("Enter new job description: ")
-  workbch_setjob(jobname = jobname, description = description)
+  job_write(update_job(jobname = jobname, description = description))
 }
 
 prompt_owner <- function(jobname) {
   description <- readline("Enter new job owner: ")
-  workbch_setjob(jobname = jobname, owner = owner)
+  job_write(update_job(jobname = jobname, owner = owner))
 }
 
 prompt_status <- function(jobname) {
   status <- readline("Enter new job status: ")
-  workbch_setjob(jobname = jobname, status = status)
+  job_write(update_job(jobname = jobname, status = status))
 }
 
 prompt_priority <- function(jobname) {
   priority <- readline("Enter new job priority: ")
-  workbch_setjob(jobname = jobname, priority = priority)
+  job_write(update_job(jobname = jobname, priority = priority))
 }
 
 prompt_path <- function(jobname) {
   priority <- readline("Enter new job path: ")
-  workbch_setjob(jobname = jobname, path = path)
+  job_write(update_job(jobname = jobname, path = path))
 }
 
 prompt_url <- function(jobname) {}

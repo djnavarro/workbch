@@ -84,9 +84,6 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
 #' @export
 make_jobs_by_git <- function(dir, owner = NULL, status = NULL, priority = NULL) {
 
-  # set & verify owner
-  owner <- ppl_parseowner(owner)
-
   # verification step for other inputs
   verify_status(status)
   verify_priority(priority)

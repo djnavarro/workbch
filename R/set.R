@@ -14,7 +14,7 @@
 #' @param delete should this job be deleted (default = FALSE)
 #'
 #' @export
-workbch_setjob <- function(
+work_modify <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, add_tag = NULL,
   remove_tag = NULL, site = NULL, link = NULL, delete = FALSE
@@ -40,7 +40,7 @@ workbch_setjob <- function(
 #' Prompts user to set properties of the current job
 #'
 #' @export
-job_set <- function() {
+job_modify <- function() {
   jobs <- job_read()
   jobname <- suppressMessages(job_getcurrent(jobs))
   cat("The current job is:", jobname, "\n\n")
@@ -120,5 +120,23 @@ prompt_tag <- function(jobname) {}
 # set_job_tag <- function(jobname, add_tag = NULL, remove_tag = NULL) {
 #   job_write(set_job(jobname = jobname, add_tag = add_tag, remove_tag = remove_tag))
 # }
+
+
+
+#' File paths specified from job home
+#'
+#' @param jobname Name of job
+#' @export
+job_path <- function(jobname) {
+  verify_jobname(jobname)
+  jobs <- job_read()
+  path <- jobs[[jobname]]$path
+  if(length(path) == 0) {
+    stop("No path known for job '", jobname, "'", call. = FALSE)
+  }
+  return(normalizePath(path))
+}
+
+
 
 

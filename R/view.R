@@ -89,7 +89,7 @@ view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
 #'
 #' @return A tibble
 #' @export
-view_git_status <- function(show_hidden = TRUE, show_clean = FALSE) {
+view_git <- function(show_hidden = TRUE, show_clean = FALSE) {
 
   # get the job locations
   proj <- workbch_paths(show_hidden = show_hidden)

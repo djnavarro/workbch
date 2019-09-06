@@ -4,12 +4,7 @@
 #'
 #' @param jobname name of job to open
 #' @export
-#' @examples
-#' \dontrun{
-#'
-#' goto_job("myjob")
-#' }
-goto_job <- function(jobname = NULL) {
+job_switch <- function(jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()
@@ -54,7 +49,7 @@ goto_job <- function(jobname = NULL) {
 #' @param site label denoting the site (e.g., "github")
 #' @param jobname name of the job
 #' @export
-goto_url <- function(site, jobname = NULL) {
+job_browse <- function(site, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()

@@ -56,7 +56,7 @@ library(workbch)
 
 view_jobs()
 
-make_job(
+job_create(
   jobname = "workitout", 
   description = "Sip martinis and party in France", 
   owner = "Britney Spears"
@@ -70,7 +70,7 @@ view_jobs()
 To illustrate, suppose we make a new job, called "toxic":
 
 ```{r maketoxic}
-make_job(
+job_create(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "Britney Spears",
@@ -84,9 +84,9 @@ view_jobs()
 If at this point we realise the priority should have been set at 1, or we want to add some URLS:
 
 ```{r editteam}
-workbch_setjob(jobname = "toxic", priority = 1)
-workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+work_modify(jobname = "toxic", priority = 1)
+work_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+work_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 view_jobs()
 ```
 
@@ -97,9 +97,9 @@ If `jobname` argument is not specified, the workbch package attempts to see if t
 After a while one can easily end up with a lot of jobs, and it can be hard to find what you're looking for (or, if you're like me, get anxious at seeing so many things that you have to do). For example:
 
 ```{r include=FALSE}
-make_job("hitmebaby", "Signal detection modelling", "Britney Spears", priority = 2)
-make_job("spinspinsugar", "Check for periodicities", "Sneakerpimps", priority = 1)
-make_job("boys", "Distributional assumptions", "Lizzo", priority = 2)
+job_create("hitmebaby", "Signal detection modelling", "Britney Spears", priority = 2)
+job_create("spinspinsugar", "Check for periodicities", "Sneakerpimps", priority = 1)
+job_create("boys", "Distributional assumptions", "Lizzo", priority = 2)
 ```
 ```{r busystate}
 view_jobs()

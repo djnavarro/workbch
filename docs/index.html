@@ -99,7 +99,7 @@
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 0 x 0</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/make_job.html">make_job</a></span>(</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/job_create.html">job_create</a></span>(</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"workitout"</span>, </a>
 <a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"Sip martinis and party in France"</span>, </a>
 <a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"Britney Spears"</span></a>
@@ -115,7 +115,7 @@
 <h2 class="hasAnchor">
 <a href="#example-3-editing-jobs" class="anchor"></a>Example 3: Editing jobs</h2>
 <p>To illustrate, suppose we make a new job, called “toxic”:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/make_job.html">make_job</a></span>(</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/job_create.html">job_create</a></span>(</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">jobname =</span> <span class="st">"toxic"</span>,</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="dt">description =</span> <span class="st">"Estimate the LD50 dose"</span>,</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">owner =</span> <span class="st">"Britney Spears"</span>,</a>
@@ -132,9 +132,9 @@
 <a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 1 workitout Britney Spears        1 active Sip martinis and party in France</span></a>
 <a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; 2 toxic     Britney Spears        2 active Estimate the LD50 dose</span></a></code></pre></div>
 <p>If at this point we realise the priority should have been set at 1, or we want to add some URLS:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/workbch_setjob.html">workbch_setjob</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">priority =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/workbch_setjob.html">workbch_setjob</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"github"</span>, <span class="dt">link =</span> <span class="st">"https://github.com/djnavarro/toxic"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="reference/workbch_setjob.html">workbch_setjob</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"genius"</span>, <span class="dt">link =</span> <span class="st">"https://genius.com/Britney-spears-toxic-lyrics"</span>)</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/work_modify.html">work_modify</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">priority =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/work_modify.html">work_modify</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"github"</span>, <span class="dt">link =</span> <span class="st">"https://github.com/djnavarro/toxic"</span>)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="reference/work_modify.html">work_modify</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">site =</span> <span class="st">"genius"</span>, <span class="dt">link =</span> <span class="st">"https://genius.com/Britney-spears-toxic-lyrics"</span>)</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Run</span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; workbch_findjobs() to fix</span></a>
@@ -185,8 +185,8 @@
 <div id="example-5-navigation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-5-navigation" class="anchor"></a>Example 5: Navigation</h2>
-<p>To open a webpage associated with a job, it is as simple as using the <code><a href="reference/goto_url.html">goto_url()</a></code> function:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/goto_url.html">goto_url</a></span>(<span class="st">"toxic"</span>, <span class="st">"github"</span>)</a></code></pre></div>
+<p>To open a webpage associated with a job, it is as simple as using the <code>goto_url()</code> function:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">goto_url</span>(<span class="st">"toxic"</span>, <span class="st">"github"</span>)</a></code></pre></div>
 <p>To open the corresponding RStudio project (assuming that there is an RStudio project file located in the directory specified as the project path)…</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">goto_project</span>(<span class="st">"toxic"</span>)</a></code></pre></div>
 <p>If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function will do is use <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> to change the working directory.</p>

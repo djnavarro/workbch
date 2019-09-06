@@ -57,7 +57,7 @@ library(workbch)
 view_jobs()
 #> # A tibble: 0 x 0
 
-make_job(
+job_create(
   jobname = "workitout", 
   description = "Sip martinis and party in France", 
   owner = "Britney Spears"
@@ -75,7 +75,7 @@ view_jobs()
 To illustrate, suppose we make a new job, called “toxic”:
 
 ``` r
-make_job(
+job_create(
   jobname = "toxic",
   description = "Estimate the LD50 dose",
   owner = "Britney Spears",
@@ -97,9 +97,9 @@ If at this point we realise the priority should have been set at 1, or
 we want to add some URLS:
 
 ``` r
-workbch_setjob(jobname = "toxic", priority = 1)
-workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+work_modify(jobname = "toxic", priority = 1)
+work_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+work_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 view_jobs()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix

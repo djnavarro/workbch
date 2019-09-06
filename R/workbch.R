@@ -28,7 +28,7 @@ workbch_sethome <- function(path) {
 #' Recover location of missing jobs
 #'
 #' @export
-workbch_findjobs <- function() {
+work_recover <- function() {
 
   # find the names of missing jobs
   missing <- job_missingsentinels()
@@ -155,23 +155,3 @@ workbch_paths <- function(show_hidden = TRUE) {
   # throw warnings
   return(as_wkbch_tbl(job_tbl))
 }
-
-
-#' File paths specified from job home
-#'
-#' @param jobname Name of job
-#' @param ... Arguments to be passed to file.path
-#' @export
-there <- function(jobname, ...) {
-  verify_jobname(jobname)
-  all <- workbch_paths()
-  home <- all$path[all$jobname == jobname]
-  if(length(home) == 0) {
-    stop("No path known for job '", jobname, "'", call. = FALSE)
-  }
-  home <- normalizePath(home)
-  path <- normalizePath(file.path(home, ...))
-  return(path)
-}
-
-

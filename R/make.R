@@ -8,7 +8,7 @@
 #' @param tags character vector of tags
 #' @param path path to the job home directory
 #' @export
-make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = NULL,
+job_create <- function(jobname = NULL, description = NULL, owner = NULL, status = NULL,
                      priority = NULL, tags = NULL, path = NULL) {
 
   # make_job calls the constructor function at the end, which verifies all
@@ -68,21 +68,14 @@ make_job <- function(jobname = NULL, description = NULL, owner = NULL, status = 
 }
 
 
-#' Create in bulk by searching for git repos
+#' Scan for jobs to create by searching for git repos
 #'
 #' @param dir where to look for git repositories
 #' @param owner the owner for created jobs (a nick name)
 #' @param status the status for created jobs
 #' @param priority the priority of created jobs
-#'
-#' @examples
-#' \dontrun{
-#'
-#' make_jobs_by_git(dir = "~/my_projects", owner = "me")
-#' }
-#'
 #' @export
-make_jobs_by_git <- function(dir, owner = NULL, status = NULL, priority = NULL) {
+work_scan <- function(dir, owner = NULL, status = NULL, priority = NULL) {
 
   # verification step for other inputs
   verify_status(status)

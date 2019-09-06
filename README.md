@@ -33,14 +33,6 @@ development version from [GitHub](https://github.com/) with:
 remotes::install_github("djnavarro/workbch")
 ```
 
-The package is built from four families of functions:
-
-  - the `make_*` functions make jobs
-  - the `set_*` functions edit jobs
-  - the `view_*` functions display information about jobs
-  - the `goto_*` functions navigate to projects and webpages
-  - the `delete_*` functions delete jobs, tasks, etc
-
 ## Example 1: Getting started
 
 The workbch package stores information in a few files that are stored
@@ -91,18 +83,14 @@ make_job(
   status = "active",
   path = "~/projects/toxic"
 )
-view_job("toxic")
-#> 
-#> toxic : Estimate the LD50 dose 
-#> 
-#>   owner    : Britney Spears 
-#>   team     :  
-#>   priority : 2 
-#>   status   : active 
-#>   tags     :  
-#> 
-#>   locations: 
-#>      [path] ~/projects/toxic
+view_jobs()
+#> Warning: Some job folders have moved or been deleted. Run
+#> workbch_findjobs() to fix
+#> # A tibble: 2 x 5
+#>   jobname   owner          priority status description                     
+#>   <chr>     <chr>             <int> <chr>  <chr>                           
+#> 1 workitout Britney Spears        1 active Sip martinis and party in France
+#> 2 toxic     Britney Spears        2 active Estimate the LD50 dose
 ```
 
 If at this point we realise the priority should have been set at 1, or
@@ -112,20 +100,14 @@ we want to add some URLS:
 workbch_setjob(jobname = "toxic", priority = 1)
 workbch_setjob(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 workbch_setjob(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
-view_job("toxic")
-#> 
-#> toxic : Estimate the LD50 dose 
-#> 
-#>   owner    : Britney Spears 
-#>   team     :  
-#>   priority : 1 
-#>   status   : active 
-#>   tags     :  
-#> 
-#>   locations: 
-#>      [path] ~/projects/toxic
-#>      [genius] https://genius.com/Britney-spears-toxic-lyrics
-#>      [github] https://github.com/djnavarro/toxic
+view_jobs()
+#> Warning: Some job folders have moved or been deleted. Run
+#> workbch_findjobs() to fix
+#> # A tibble: 2 x 5
+#>   jobname   owner          priority status description                     
+#>   <chr>     <chr>             <int> <chr>  <chr>                           
+#> 1 toxic     Britney Spears        1 active Estimate the LD50 dose          
+#> 2 workitout Britney Spears        1 active Sip martinis and party in France
 ```
 
 If `jobname` argument is not specified, the workbch package attempts to

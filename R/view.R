@@ -82,54 +82,6 @@ view_priorities <- function(priority = 1, ..., show_hidden = FALSE) {
   return(as_wkbch_tbl(jobs))
 }
 
-
-
-#' View the details of a job
-#'
-#' @param jobname Name of job to display
-#' @export
-
-
-view_job <- function(jobname = NULL) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  if(is.null(jobname)) {jobname <- job_getcurrent(jobs)}
-
-  # check jobname
-  verify_jobname(jobname)
-  verify_jobexists(jobname, jobs)
-
-  # get job
-  jb <- jobs[[jobname]]
-
-  cat("\n")
-  cat(jb$jobname, ":", jb$description, "\n")
-  cat("\n")
-
-  cat("  owner    :", jb$owner, "\n")
-  cat("  team     :", paste(jb$team, collapse = ", "), "\n")
-  cat("  priority :", jb$priority, "\n")
-  cat("  status   :", jb$status, "\n")
-  cat("  tags     :", paste(jb$tags, collapse = ", "), "\n")
-
-  if(nrow(jb$urls) > 0 | !is.na(jb$path)) {
-    cat("\n  locations: \n")
-    cat("     [path] ", jb$path, "\n", sep = "")
-    if(nrow(jb$urls) > 0) {
-      for(i in 1:nrow(jb$urls)) {
-        cat("     [", jb$urls$site[i], "] ", jb$urls$link[i], "\n", sep = "")
-      }
-    }
-    cat("\n")
-  }
-
-  # check the paths and throw warning if need be
-  #job_pathcheck(jb$jobname, jb$path)
-
-  return(invisible(jb))
-}
-
 #' View the git status of jobs
 #'
 #' @param show_hidden should hidden jobs be included?

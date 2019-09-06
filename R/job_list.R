@@ -1,6 +1,6 @@
 # defines the "view" family of functions
 
-#' View a list of jobs
+#' View a list of all jobs
 #'
 #' @param priority what priority levels to show in the output
 #' @param status what status values to show in the output
@@ -8,7 +8,7 @@
 #' @param tags what tags to show in the output
 #' @param cols what columns to show in the output
 #' @export
-job_view <- function(
+job_list <- function(
   priority = 1:2,
   status = c("active", "inactive"),
   owner = NULL,

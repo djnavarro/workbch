@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Path to the job home — job_home • workbch</title>
+<title>View a list of all jobs — job_list • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Path to the job home — job_home" />
+<meta property="og:title" content="View a list of all jobs — job_list" />
 
-<meta property="og:description" content="Path to the job home" />
+<meta property="og:description" content="View a list of all jobs" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,25 +103,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Path to the job home</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/job_home.R'><code>R/job_home.R</code></a></small>
-    <div class="hidden name"><code>job_home.Rd</code></div>
+    <h1>View a list of all jobs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/job_list.R'><code>R/job_list.R</code></a></small>
+    <div class="hidden name"><code>job_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Path to the job home</p>
+    <p>View a list of all jobs</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>job_home</span>(<span class='no'>jobname</span>)</pre>
+    <pre class="usage"><span class='fu'>job_list</span>(<span class='kw'>priority</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"active"</span>, <span class='st'>"inactive"</span>),
+  <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"jobname"</span>, <span class='st'>"owner"</span>, <span class='st'>"priority"</span>,
+  <span class='st'>"status"</span>, <span class='st'>"description"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>jobname</th>
-      <td><p>Name of job</p></td>
+      <th>priority</th>
+      <td><p>what priority levels to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>status</th>
+      <td><p>what status values to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>owner</th>
+      <td><p>what owner values to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>tags</th>
+      <td><p>what tags to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>what columns to show in the output</p></td>
     </tr>
     </table>
     

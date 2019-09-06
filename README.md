@@ -54,7 +54,7 @@ Here’s how to add and view the jobs you have stored:
 ``` r
 library(workbch)
 
-job_view()
+job_list()
 #> Warning: Unknown or uninitialised column: 'status'.
 #> Warning: Unknown or uninitialised column: 'priority'.
 #> NULL
@@ -65,7 +65,7 @@ job_create(
   owner = "Britney Spears"
 )
 
-job_view()
+job_list()
 #> # A tibble: 1 x 5
 #>   jobname   owner          priority status description                     
 #>   <chr>     <chr>             <int> <chr>  <chr>                           
@@ -85,7 +85,7 @@ job_create(
   status = "active",
   path = "~/projects/toxic"
 )
-job_view()
+job_list()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 2 x 5
@@ -102,7 +102,7 @@ we want to add some URLS:
 job_modify(jobname = "toxic", priority = 1)
 job_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 job_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
-job_view()
+job_list()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 2 x 5
@@ -124,7 +124,7 @@ hard to find what you’re looking for (or, if you’re like me, get anxious
 at seeing so many things that you have to do). For example:
 
 ``` r
-job_view()
+job_list()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 5 x 5
@@ -140,7 +140,7 @@ job_view()
 A simple way to only see the high priority jobs:
 
 ``` r
-job_view(1)
+job_list(1)
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 3 x 5
@@ -152,7 +152,7 @@ job_view(1)
 ```
 
 ``` r
-job_view(priority = 1, status = "active")
+job_list(priority = 1, status = "active")
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 3 x 5

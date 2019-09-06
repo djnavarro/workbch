@@ -1,5 +1,5 @@
 
-#' File paths specified from job home
+#' Path to the job home
 #'
 #' @param jobname Name of job
 #' @export

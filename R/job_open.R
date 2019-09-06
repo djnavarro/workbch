@@ -40,7 +40,7 @@ job_open <- function(jobname = NULL) {
 }
 
 prompt_jobname <- function() {
-  opts <- job_view()$jobname
+  opts <- job_list()$jobname # todo... don't call user facing function!!!!
   if(length(opts)>9) opts <- opts[1:9]
   for(i in 1:length(opts)) {
     cat(i, ":", opts[i], "\n")

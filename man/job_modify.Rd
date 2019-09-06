@@ -2,7 +2,7 @@
 % Please edit documentation in R/job_modify.R
 \name{job_modify}
 \alias{job_modify}
-\title{Set the properties of an existing job}
+\title{Modify the properties of a job}
 \usage{
 job_modify(jobname = NULL, newname = NULL, description = NULL,
   owner = NULL, status = NULL, priority = NULL, path = NULL,
@@ -35,5 +35,5 @@ job_modify(jobname = NULL, newname = NULL, description = NULL,
 \item{delete}{should this job be deleted (default = FALSE)}
 }
 \description{
-Set the properties of an existing job
+Modify the properties of a job
 }

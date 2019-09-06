@@ -1,5 +1,5 @@
 
-#' Set the properties of an existing job
+#' Modify the properties of a job
 #'
 #' @param jobname the current name for the job
 #' @param newname the new name

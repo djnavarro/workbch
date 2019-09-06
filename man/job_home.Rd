@@ -2,7 +2,7 @@
 % Please edit documentation in R/job_home.R
 \name{job_home}
 \alias{job_home}
-\title{File paths specified from job home}
+\title{Path to the job home}
 \usage{
 job_home(jobname)
 }
@@ -10,5 +10,5 @@ job_home(jobname)
 \item{jobname}{Name of job}
 }
 \description{
-File paths specified from job home
+Path to the job home
 }

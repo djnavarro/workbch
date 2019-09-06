@@ -1,10 +1,10 @@
 
-#' Navigate to a URL linked to a job
+#' Navigate to a URL associated with a job
 #'
 #' @param site label denoting the site (e.g., "github")
 #' @param jobname name of the job
 #' @export
-job_browse <- function(site, jobname = NULL) {
+job_openurl <- function(site, jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()

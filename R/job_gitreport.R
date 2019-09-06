@@ -5,7 +5,7 @@
 #'
 #' @return A tibble
 #' @export
-job_gitrep <- function(show_clean = FALSE) {
+job_gitreport <- function(show_clean = FALSE) {
 
   # get the job locations
   proj <- job_allpaths(show_hidden = TRUE)

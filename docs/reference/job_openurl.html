@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Path to the job home — job_home • workbch</title>
+<title>Navigate to a URL associated with a job — job_openurl • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Path to the job home — job_home" />
+<meta property="og:title" content="Navigate to a URL associated with a job — job_openurl" />
 
-<meta property="og:description" content="Path to the job home" />
+<meta property="og:description" content="Navigate to a URL associated with a job" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,25 +103,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Path to the job home</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/job_home.R'><code>R/job_home.R</code></a></small>
-    <div class="hidden name"><code>job_home.Rd</code></div>
+    <h1>Navigate to a URL associated with a job</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/job_openurl.R'><code>R/job_openurl.R</code></a></small>
+    <div class="hidden name"><code>job_openurl.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Path to the job home</p>
+    <p>Navigate to a URL associated with a job</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>job_home</span>(<span class='no'>jobname</span>)</pre>
+    <pre class="usage"><span class='fu'>job_openurl</span>(<span class='no'>site</span>, <span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>site</th>
+      <td><p>label denoting the site (e.g., "github")</p></td>
+    </tr>
+    <tr>
       <th>jobname</th>
-      <td><p>Name of job</p></td>
+      <td><p>name of the job</p></td>
     </tr>
     </table>
     

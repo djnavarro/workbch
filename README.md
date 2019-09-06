@@ -97,9 +97,9 @@ If at this point we realise the priority should have been set at 1, or
 we want to add some URLS:
 
 ``` r
-work_modify(jobname = "toxic", priority = 1)
-work_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-work_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+job_modify(jobname = "toxic", priority = 1)
+job_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
+job_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
 view_jobs()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix

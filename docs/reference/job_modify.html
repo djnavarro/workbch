@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prompts user to set properties of the current job — job_modify • workbch</title>
+<title>Set the properties of an existing job — job_modify • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Prompts user to set properties of the current job — job_modify" />
+<meta property="og:title" content="Set the properties of an existing job — job_modify" />
 
-<meta property="og:description" content="Prompts user to set properties of the current job" />
+<meta property="og:description" content="Set the properties of an existing job" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,24 +103,81 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prompts user to set properties of the current job</h1>
+    <h1>Set the properties of an existing job</h1>
     <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/set.R'><code>R/set.R</code></a></small>
     <div class="hidden name"><code>job_modify.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Prompts user to set properties of the current job</p>
+    <p>Set the properties of an existing job</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>job_modify</span>()</pre>
-        
+    <pre class="usage"><span class='fu'>job_modify</span>(<span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>newname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>add_tag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remove_tag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>site</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>link</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>delete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>jobname</th>
+      <td><p>the current name for the job</p></td>
+    </tr>
+    <tr>
+      <th>newname</th>
+      <td><p>the new name</p></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><p>the new description</p></td>
+    </tr>
+    <tr>
+      <th>owner</th>
+      <td><p>nick name for the new owner</p></td>
+    </tr>
+    <tr>
+      <th>status</th>
+      <td><p>the new status</p></td>
+    </tr>
+    <tr>
+      <th>priority</th>
+      <td><p>the new priority</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>the new path to the job folder</p></td>
+    </tr>
+    <tr>
+      <th>add_tag</th>
+      <td><p>character vector of tags to add to jobs</p></td>
+    </tr>
+    <tr>
+      <th>remove_tag</th>
+      <td><p>character vector of tags to remove from job</p></td>
+    </tr>
+    <tr>
+      <th>site</th>
+      <td><p>string with the site nickname (e.g., "github")</p></td>
+    </tr>
+    <tr>
+      <th>link</th>
+      <td><p>string with the link to the site</p></td>
+    </tr>
+    <tr>
+      <th>delete</th>
+      <td><p>should this job be deleted (default = FALSE)</p></td>
+    </tr>
+    </table>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
                 </ul>
 
   </div>

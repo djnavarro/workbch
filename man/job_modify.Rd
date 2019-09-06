@@ -2,10 +2,38 @@
 % Please edit documentation in R/set.R
 \name{job_modify}
 \alias{job_modify}
-\title{Prompts user to set properties of the current job}
+\title{Set the properties of an existing job}
 \usage{
-job_modify()
+job_modify(jobname = NULL, newname = NULL, description = NULL,
+  owner = NULL, status = NULL, priority = NULL, path = NULL,
+  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL,
+  delete = FALSE)
+}
+\arguments{
+\item{jobname}{the current name for the job}
+
+\item{newname}{the new name}
+
+\item{description}{the new description}
+
+\item{owner}{nick name for the new owner}
+
+\item{status}{the new status}
+
+\item{priority}{the new priority}
+
+\item{path}{the new path to the job folder}
+
+\item{add_tag}{character vector of tags to add to jobs}
+
+\item{remove_tag}{character vector of tags to remove from job}
+
+\item{site}{string with the site nickname (e.g., "github")}
+
+\item{link}{string with the link to the site}
+
+\item{delete}{should this job be deleted (default = FALSE)}
 }
 \description{
-Prompts user to set properties of the current job
+Set the properties of an existing job
 }

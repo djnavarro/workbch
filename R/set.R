@@ -1,3 +1,4 @@
+
 #' Set the properties of an existing job
 #'
 #' @param jobname the current name for the job
@@ -14,58 +15,71 @@
 #' @param delete should this job be deleted (default = FALSE)
 #'
 #' @export
-work_modify <- function(
-  jobname, newname = NULL, description = NULL, owner = NULL,
+job_modify <- function(
+  jobname = NULL, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, add_tag = NULL,
   remove_tag = NULL, site = NULL, link = NULL, delete = FALSE
 ){
-  jobs <- update_job(
-    jobname = jobname,
-    newname = newname,
-    description = description,
-    owner = owner,
-    status = status,
-    priority = priority,
-    path = path,
-    add_tag = add_tag,
-    remove_tag = remove_tag,
-    site = site,
-    link = link,
-    delete = delete
-  )
-  job_write(jobs)
-}
 
+  use_prompt <- interactive() & is.null(jobname) & is.null(newname) &
+    is.null(description) & is.null(owner) & is.null(status) &
+    is.null(priority) & is.null(path) & is.null(add_tag) &
+    is.null(remove_tag) & is.null(site) & is.null(link) & delete == FALSE
 
-#' Prompts user to set properties of the current job
-#'
-#' @export
-job_modify <- function() {
-  jobs <- job_read()
-  jobname <- suppressMessages(job_getcurrent(jobs))
-  cat("The current job is:", jobname, "\n\n")
-  cat("What do you want to do?\n")
-  cat("  [1] change job name\n")
-  cat("  [2] change description\n")
-  cat("  [3] change owner\n")
-  cat("  [4] change status\n")
-  cat("  [5] change priority\n")
-  cat("  [6] change job location\n")
-  cat("  [7] change job links\n")
-  cat("  [8] change tags\n")
-  cat("  [9] delete this job\n")
-  cat("\n")
-  ans <- readline(" Selection: ")
-  ans <- suppressWarnings(as.numeric(ans))
-  if(ans == 1) return(prompt_rename(jobname))
-  if(ans == 2) return(prompt_description(jobname))
-  if(ans == 3) return(prompt_owner(jobname))
-  if(ans == 4) return(prompt_status(jobname))
-  if(ans == 5) return(prompt_priority(jobname))
-  if(ans == 6) return(prompt_path(jobname))
-  if(ans == 7) return(prompt_url(jobname))
-  if(ans == 8) return(prompt_tag(jobname))
-  return(invisible(NULL))
+  # interactive version
+  if(use_prompt) {
+
+    jobs <- job_read()
+    jobname <- suppressMessages(job_getcurrent(jobs))
+    cat("The current job is:", jobname, "\n\n")
+    cat("What do you want to do?\n")
+    cat("  [1] change job name\n")
+    cat("  [2] change description\n")
+    cat("  [3] change owner\n")
+    cat("  [4] change status\n")
+    cat("  [5] change priority\n")
+    cat("  [6] change job location\n")
+    cat("  [7] change job links\n")
+    cat("  [8] change tags\n")
+    cat("  [9] delete this job\n")
+    cat("\n")
+    ans <- readline(" Selection: ")
+    ans <- suppressWarnings(as.numeric(ans))
+    if(ans == 1) return(prompt_rename(jobname))
+    if(ans == 2) return(prompt_description(jobname))
+    if(ans == 3) return(prompt_owner(jobname))
+    if(ans == 4) return(prompt_status(jobname))
+    if(ans == 5) return(prompt_priority(jobname))
+    if(ans == 6) return(prompt_path(jobname))
+    if(ans == 7) return(prompt_url(jobname))
+    if(ans == 8) return(prompt_tag(jobname))
+    return(invisible(NULL))
+
+  # programmatic version
+  } else {
+
+    if(is.null(jobname)) {
+      stop("'jobname' is required", call. = FALSE)
+    }
+
+    jobs <- update_job(
+      jobname = jobname,
+      newname = newname,
+      description = description,
+      owner = owner,
+      status = status,
+      priority = priority,
+      path = path,
+      add_tag = add_tag,
+      remove_tag = remove_tag,
+      site = site,
+      link = link,
+      delete = delete
+    )
+    job_write(jobs)
+    return(invisible(NULL))
+
+  }
 }
 
 prompt_rename <- function(jobname) {

@@ -25,7 +25,7 @@ job_seek <- function(dirs = getOption("workbch.search"),
 
   # trim to unique paths
   fsep <- .Platform$file.sep
-  tailpattern <- paste0(sep, "[^", sep, "]*$")
+  tailpattern <- paste0(fsep, "[^", fsep, "]*$")
   paths <- gsub(tailpattern, "", paths)
   paths <- unique(paths)
 

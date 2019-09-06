@@ -5,14 +5,15 @@
 
 new_job <- function(jobname, description, owner, status = NULL,
                     priority = NULL, tags = NULL, path = NULL, urls = NULL,
-                    verify = TRUE, sentinel = TRUE) {
+                    idstring = NULL, verify = TRUE, sentinel = TRUE) {
 
   # replace nulls with default values
-  status <- status %||% "active"
-  priority <- priority %||% 1
-  tags <- tags %||% character(0)
-  path <- path %||% NA_character_
-  urls <- urls %||% empty_url()
+  status   <- status    %||%  "active"
+  priority <- priority  %||%  1
+  tags     <- tags      %||%  character(0)
+  path     <- path      %||%  NA_character_
+  urls     <- urls      %||%  empty_url()
+  idstring <- idstring  %||%  idstring()
 
   # verify unless explicitly told not to
   if(verify) {
@@ -36,7 +37,7 @@ new_job <- function(jobname, description, owner, status = NULL,
     tags = tags,
     path = path,
     urls = urls,
-    idstring = idstring()
+    idstring = idstring
   )
 
   # add sentinel file

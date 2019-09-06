@@ -4,12 +4,20 @@
 \alias{view_jobs}
 \title{View a list of jobs}
 \usage{
-view_jobs(..., show_hidden = FALSE)
+view_jobs(priority = 1:2, status = c("active", "inactive"),
+  owner = NULL, tags = NULL, cols = c("jobname", "owner", "priority",
+  "status", "description"))
 }
 \arguments{
-\item{...}{expression to be passed to dplyr::filter}
+\item{priority}{what priority levels to show in the output}
 
-\item{show_hidden}{should hidden jobs be included}
+\item{status}{what status values to show in the output}
+
+\item{owner}{what owner values to show in the output}
+
+\item{tags}{what tags to show in the output}
+
+\item{cols}{what columns to show in the output}
 }
 \description{
 View a list of jobs

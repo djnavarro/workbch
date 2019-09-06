@@ -114,18 +114,32 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>view_jobs</span>(<span class='no'>...</span>, <span class='kw'>show_hidden</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>view_jobs</span>(<span class='kw'>priority</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"active"</span>, <span class='st'>"inactive"</span>),
+  <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"jobname"</span>, <span class='st'>"owner"</span>, <span class='st'>"priority"</span>,
+  <span class='st'>"status"</span>, <span class='st'>"description"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>expression to be passed to dplyr::filter</p></td>
+      <th>priority</th>
+      <td><p>what priority levels to show in the output</p></td>
     </tr>
     <tr>
-      <th>show_hidden</th>
-      <td><p>should hidden jobs be included</p></td>
+      <th>status</th>
+      <td><p>what status values to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>owner</th>
+      <td><p>what owner values to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>tags</th>
+      <td><p>what tags to show in the output</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>what columns to show in the output</p></td>
     </tr>
     </table>
     

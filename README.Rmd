@@ -108,16 +108,14 @@ view_jobs()
 A simple way to only see the high priority jobs:
 
 ```{r prioritise}
-view_priorities()
+view_jobs(1)
 ```
 
-More generally, `view_jobs()` and `view_priorities()` both allow you to pass filtering expressions to `dplyr::filter()` to extract the subset you're interested in. Suppose I only want to see the high priority active jobs:
 
 ```{r filtering}
-view_jobs(priority == 1 & status == "active")
+view_jobs(priority = 1, status = "active")
 ```
 
-Indeed `view_priorities()` function is essentially a helper function to avoid having to type `view_jobs(priority == 1)` on a regular basis. 
 
 ## Example 5: Navigation
 

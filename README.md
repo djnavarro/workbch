@@ -55,7 +55,9 @@ Here’s how to add and view the jobs you have stored:
 library(workbch)
 
 view_jobs()
-#> # A tibble: 0 x 0
+#> Warning: Unknown or uninitialised column: 'status'.
+#> Warning: Unknown or uninitialised column: 'priority'.
+#> NULL
 
 job_create(
   jobname = "workitout", 
@@ -138,7 +140,7 @@ view_jobs()
 A simple way to only see the high priority jobs:
 
 ``` r
-view_priorities()
+view_jobs(1)
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 3 x 5
@@ -148,14 +150,9 @@ view_priorities()
 #> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
 #> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities
 ```
-
-More generally, `view_jobs()` and `view_priorities()` both allow you to
-pass filtering expressions to `dplyr::filter()` to extract the subset
-you’re interested in. Suppose I only want to see the high priority
-active jobs:
 
 ``` r
-view_jobs(priority == 1 & status == "active")
+view_jobs(priority = 1, status = "active")
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 3 x 5
@@ -165,9 +162,6 @@ view_jobs(priority == 1 & status == "active")
 #> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
 #> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities
 ```
-
-Indeed `view_priorities()` function is essentially a helper function to
-avoid having to type `view_jobs(priority == 1)` on a regular basis.
 
 ## Example 5: Navigation
 

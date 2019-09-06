@@ -97,19 +97,21 @@
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(workbch)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; # A tibble: 0 x 0</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/job_create.html">job_create</a></span>(</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"workitout"</span>, </a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"Sip martinis and party in France"</span>, </a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"Britney Spears"</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # A tibble: 1 x 5</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   jobname   owner          priority status description                     </span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                           </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; 1 workitout Britney Spears        1 active Sip martinis and party in France</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Warning: Unknown or uninitialised column: 'status'.</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; Warning: Unknown or uninitialised column: 'priority'.</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; NULL</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="kw"><a href="reference/job_create.html">job_create</a></span>(</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">jobname =</span> <span class="st">"workitout"</span>, </a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="dt">description =</span> <span class="st">"Sip martinis and party in France"</span>, </a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">  <span class="dt">owner =</span> <span class="st">"Britney Spears"</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">)</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>()</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt; # A tibble: 1 x 5</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   jobname   owner          priority status description                     </span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                           </span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt; 1 workitout Britney Spears        1 active Sip martinis and party in France</span></a></code></pre></div>
 </div>
 <div id="example-3-editing-jobs" class="section level2">
 <h2 class="hasAnchor">
@@ -161,7 +163,7 @@
 <a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   </span></a>
 <a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 5 boys          Lizzo                2 active Distributional assumptions</span></a></code></pre></div>
 <p>A simple way to only see the high priority jobs:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/view_priorities.html">view_priorities</a></span>()</a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>(<span class="dv">1</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Run</span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; workbch_findjobs() to fix</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
@@ -170,8 +172,7 @@
 <a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       </span></a>
 <a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…</span></a>
 <a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 3 spinspinsugar Sneakerpimps         1 active Check for periodicities</span></a></code></pre></div>
-<p>More generally, <code><a href="reference/view_jobs.html">view_jobs()</a></code> and <code><a href="reference/view_priorities.html">view_priorities()</a></code> both allow you to pass filtering expressions to <code><a href="https://dplyr.tidyverse.org/reference/filter.html">dplyr::filter()</a></code> to extract the subset you’re interested in. Suppose I only want to see the high priority active jobs:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>(priority <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>status <span class="op">==</span><span class="st"> "active"</span>)</a>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/view_jobs.html">view_jobs</a></span>(<span class="dt">priority =</span> <span class="dv">1</span>, <span class="dt">status =</span> <span class="st">"active"</span>)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Run</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; workbch_findjobs() to fix</span></a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
@@ -180,7 +181,6 @@
 <a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       </span></a>
 <a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…</span></a>
 <a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 3 spinspinsugar Sneakerpimps         1 active Check for periodicities</span></a></code></pre></div>
-<p>Indeed <code><a href="reference/view_priorities.html">view_priorities()</a></code> function is essentially a helper function to avoid having to type <code><a href="reference/view_jobs.html">view_jobs(priority == 1)</a></code> on a regular basis.</p>
 </div>
 <div id="example-5-navigation" class="section level2">
 <h2 class="hasAnchor">

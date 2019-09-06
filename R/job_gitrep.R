@@ -1,15 +1,14 @@
 
-#' View the git status of jobs
+#' Report the git status of all jobs
 #'
-#' @param show_hidden should hidden jobs be included?
 #' @param show_clean should clean repos be included?
 #'
 #' @return A tibble
 #' @export
-job_git_status <- function(show_hidden = TRUE, show_clean = FALSE) {
+job_gitrep <- function(show_clean = FALSE) {
 
   # get the job locations
-  proj <- job_allpaths(show_hidden = show_hidden)
+  proj <- job_allpaths(show_hidden = TRUE)
   x <- list()
 
   for(i in 1:nrow(proj)) {

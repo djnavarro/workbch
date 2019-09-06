@@ -2,7 +2,7 @@
 #'
 #' @param jobname name of job to open
 #' @export
-job_switch <- function(jobname = NULL) {
+job_open <- function(jobname = NULL) {
 
   # read the jobs & verify the name
   jobs <- job_read()

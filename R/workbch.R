@@ -60,9 +60,7 @@ work_recover <- function(dirs = getOption("workbch.search")) {
   return(invisible(missing))
 }
 
-#' Tags used by workbch
-#'
-#' @export
+# currently not exported because I'm not sure what to do with this
 work_tags <- function() {
 
   jobs <- job_read()

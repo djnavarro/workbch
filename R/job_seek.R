@@ -1,4 +1,15 @@
 
+#' Scans for jobs
+#'
+#' @param dirs directories to scan
+#' @param seek search criterion
+#' @param nesting allow nested jobs (default = FALSE)
+#' @param default_owner default owner for a created job
+#' @param default_priority default priority for a created job
+#' @param default_status default status for a created job
+#' @param default_tags default tags for a created job
+#'
+#' @export
 job_seek <- function(dirs = getOption("workbch.search"),
                      seek = c("workbch", "git", "Rproj"),
                      nesting = FALSE,

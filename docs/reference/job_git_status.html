@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Navigate to a URL linked to a job — job_browse • workbch</title>
+<title>View the git status of jobs — job_git_status • workbch</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,9 @@
 
 
 
-<meta property="og:title" content="Navigate to a URL linked to a job — job_browse" />
+<meta property="og:title" content="View the git status of jobs — job_git_status" />
 
-<meta property="og:description" content="Navigate to a URL linked to a job" />
+<meta property="og:description" content="View the git status of jobs" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -103,31 +103,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Navigate to a URL linked to a job</h1>
-    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/job_browse.R'><code>R/job_browse.R</code></a></small>
-    <div class="hidden name"><code>job_browse.Rd</code></div>
+    <h1>View the git status of jobs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/djnavarro/workbch/blob/master/R/job_git_status.R'><code>R/job_git_status.R</code></a></small>
+    <div class="hidden name"><code>job_git_status.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Navigate to a URL linked to a job</p>
+    <p>View the git status of jobs</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>job_browse</span>(<span class='no'>site</span>, <span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>job_git_status</span>(<span class='kw'>show_hidden</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>show_clean</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>site</th>
-      <td><p>label denoting the site (e.g., "github")</p></td>
+      <th>show_hidden</th>
+      <td><p>should hidden jobs be included?</p></td>
     </tr>
     <tr>
-      <th>jobname</th>
-      <td><p>name of the job</p></td>
+      <th>show_clean</th>
+      <td><p>should clean repos be included?</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A tibble</p>
     
 
   </div>
@@ -135,7 +139,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

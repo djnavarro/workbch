@@ -54,7 +54,7 @@ This ensures that when the workbch package is loaded it knows where to find info
 ```{r makejobs}
 library(workbch)
 
-view_jobs()
+job_view()
 
 job_create(
   jobname = "workitout", 
@@ -62,7 +62,7 @@ job_create(
   owner = "Britney Spears"
 )
 
-view_jobs()
+job_view()
 ```
 
 ## Example 3: Editing jobs
@@ -78,7 +78,7 @@ job_create(
   status = "active",
   path = "~/projects/toxic"
 )
-view_jobs()
+job_view()
 ```
 
 If at this point we realise the priority should have been set at 1, or we want to add some URLS:
@@ -87,7 +87,7 @@ If at this point we realise the priority should have been set at 1, or we want t
 job_modify(jobname = "toxic", priority = 1)
 job_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 job_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
-view_jobs()
+job_view()
 ```
 
 If `jobname` argument is not specified, the workbch package attempts to see if the use is working within a known job. It checks for this in two ways. If the current RStudio project matches a known job, then that job is used by default. Failing that, the working directory is checked.
@@ -102,33 +102,33 @@ job_create("spinspinsugar", "Check for periodicities", "Sneakerpimps", priority 
 job_create("boys", "Distributional assumptions", "Lizzo", priority = 2)
 ```
 ```{r busystate}
-view_jobs()
+job_view()
 ```
 
 A simple way to only see the high priority jobs:
 
 ```{r prioritise}
-view_jobs(1)
+job_view(1)
 ```
 
 
 ```{r filtering}
-view_jobs(priority = 1, status = "active")
+job_view(priority = 1, status = "active")
 ```
 
 
 ## Example 5: Navigation
 
-To open a webpage associated with a job, it is as simple as using the `goto_url()` function:
+To open a webpage associated with a job
 
 ```{r eval=FALSE}
-goto_url("toxic", "github")
+job_browse("toxic", "github")
 ```
 
-To open the corresponding RStudio project (assuming that there is an RStudio project file located in the directory specified as the project path)...
+To open the corresponding RStudio project 
 
 ```{r eval=FALSE}
-goto_project("toxic")
+job_switch("toxic")
 ```
 
 If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function will do is use `setwd()` to change the working directory.

@@ -1,5 +1,3 @@
-# contains helper functions that are oriented towards jobs
-
 
 # read and write ----------------------------------------------------------
 
@@ -186,4 +184,78 @@ job_checksentinels <- function() {
     )
   }
 }
+
+
+
+# miscellaneous helpers ---------------------------------------------------
+
+# find the jobs that need to be hidden and hide them
+apply_mask <- function(tbl) {
+  tbl <- dplyr::filter(tbl, status %in% c("active", "inactive"))
+  return(tbl)
+}
+
+# repeatedly ask user until a stop signal is reached
+multireadline <- function(prompt, stop = "") {
+  out <- character(0)
+  ask <- "BLAH"
+  while(ask != stop) {
+    ask <- readline(prompt = prompt)
+    out <- c(out, ask)
+  }
+  return(out[-length(out)])
+}
+
+# generate 10 letter idstring
+idstring <- function() {
+  paste0(sample(c(letters, LETTERS), 10, TRUE), collapse="")
+}
+
+# locate sentinal files
+find_sentinels <- function(dirs = getOption("workbch.search")) {
+  unlist(purrr::map(dirs, function(d) {
+    list.files(path = d, pattern = "\\.workbch$", recursive = TRUE,
+               all.files = TRUE, full.names = TRUE)
+  }))
+}
+
+# write a sentinal file
+write_sentinel <- function(dir, jobname, idstring) {
+  dir <- normalizePath(dir)
+  file <- normalizePath(file.path(dir, ".workbch"))
+  writeLines(text = c(jobname, idstring), con = file)
+}
+
+# print methods -----------------------------------------------------------
+
+# Specify a print method for a workbench tibble
+#' @export
+print.wkbch_tbl <- function(x, n = 100, ...) {
+  x <- de_wkbch_tbl(x)
+  print(x, n = n, ...)
+}
+
+# strange coercion
+as_wkbch_tbl <- function(x) {
+  class(x) <- c("wkbch_tbl", class(x))
+  return(x)
+}
+
+# remove wkbch class
+de_wkbch_tbl <- function(x) {
+  class(x) <- setdiff(class(x), "wkbch_tbl")
+  return(x)
+}
+
+
+
+# utility functions -------------------------------------------------------
+
+# returns a list of expressions
+capture_dots <- function(...) {
+  as.list(substitute(list(...)))[-1L]
+}
+
+#' @importFrom rlang %||%
+NULL
 

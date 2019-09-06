@@ -1,5 +1,3 @@
-# defines the "goto" family of functions
-
 #' Navigate to a job
 #'
 #' @param jobname name of job to open
@@ -42,28 +40,3 @@ job_switch <- function(jobname = NULL) {
 }
 
 
-
-
-#' Navigate to a URL linked to a job
-#'
-#' @param site label denoting the site (e.g., "github")
-#' @param jobname name of the job
-#' @export
-job_browse <- function(site, jobname = NULL) {
-
-  # read the jobs & verify the name
-  jobs <- job_read()
-  jobname <- jobname %||% job_getcurrent(jobs)
-
-  # check jobname
-  verify_jobname(jobname)
-  verify_jobexists(jobname, jobs)
-
-  urls <- jobs[[jobname]]$urls
-  if(!(site %in% urls$site)) {
-    stop("'", jobname, "' does not have a link for site '", site, "'", call. = FALSE)
-  }
-  link <- urls$link[urls$site == site]
-  utils::browseURL(link)
-
-}

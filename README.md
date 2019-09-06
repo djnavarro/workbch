@@ -54,7 +54,7 @@ Here’s how to add and view the jobs you have stored:
 ``` r
 library(workbch)
 
-view_jobs()
+job_view()
 #> Warning: Unknown or uninitialised column: 'status'.
 #> Warning: Unknown or uninitialised column: 'priority'.
 #> NULL
@@ -65,7 +65,7 @@ job_create(
   owner = "Britney Spears"
 )
 
-view_jobs()
+job_view()
 #> # A tibble: 1 x 5
 #>   jobname   owner          priority status description                     
 #>   <chr>     <chr>             <int> <chr>  <chr>                           
@@ -85,7 +85,7 @@ job_create(
   status = "active",
   path = "~/projects/toxic"
 )
-view_jobs()
+job_view()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 2 x 5
@@ -102,7 +102,7 @@ we want to add some URLS:
 job_modify(jobname = "toxic", priority = 1)
 job_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
 job_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
-view_jobs()
+job_view()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 2 x 5
@@ -124,7 +124,7 @@ hard to find what you’re looking for (or, if you’re like me, get anxious
 at seeing so many things that you have to do). For example:
 
 ``` r
-view_jobs()
+job_view()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 5 x 5
@@ -140,7 +140,7 @@ view_jobs()
 A simple way to only see the high priority jobs:
 
 ``` r
-view_jobs(1)
+job_view(1)
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 3 x 5
@@ -152,7 +152,7 @@ view_jobs(1)
 ```
 
 ``` r
-view_jobs(priority = 1, status = "active")
+job_view(priority = 1, status = "active")
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
 #> # A tibble: 3 x 5
@@ -165,19 +165,16 @@ view_jobs(priority = 1, status = "active")
 
 ## Example 5: Navigation
 
-To open a webpage associated with a job, it is as simple as using the
-`goto_url()` function:
+To open a webpage associated with a job
 
 ``` r
-goto_url("toxic", "github")
+job_browse("toxic", "github")
 ```
 
-To open the corresponding RStudio project (assuming that there is an
-RStudio project file located in the directory specified as the project
-path)…
+To open the corresponding RStudio project
 
 ``` r
-goto_project("toxic")
+job_switch("toxic")
 ```
 
 If there is no RStudio project at the relevant location, or the RStudio

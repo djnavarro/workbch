@@ -136,21 +136,21 @@ prompt_tag <- function(jobname) {}
 # }
 
 
-
-#' File paths specified from job home
-#'
-#' @param jobname Name of job
-#' @export
-job_path <- function(jobname) {
-  verify_jobname(jobname)
-  jobs <- job_read()
-  path <- jobs[[jobname]]$path
-  if(length(path) == 0) {
-    stop("No path known for job '", jobname, "'", call. = FALSE)
+prompt_jobname <- function() {
+  opts <- job_view()$jobname
+  if(length(opts)>9) opts <- opts[1:9]
+  for(i in 1:length(opts)) {
+    cat(i, ":", opts[i], "\n")
   }
-  return(normalizePath(path))
+  cat("other: please type jobname\n")
+  jnum <- readline("which job? ")
+  if(jnum %in% as.character(1:length(opts))) {
+    jobname <- opts[as.numeric(jnum)]
+  } else {
+    jobname <- jnum
+  }
+  return(jobname)
 }
-
 
 
 

@@ -6,7 +6,8 @@
 \usage{
 workbch_setjob(jobname, newname = NULL, description = NULL,
   owner = NULL, status = NULL, priority = NULL, path = NULL,
-  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL)
+  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL,
+  delete = FALSE)
 }
 \arguments{
 \item{jobname}{the current name for the job}
@@ -30,6 +31,8 @@ workbch_setjob(jobname, newname = NULL, description = NULL,
 \item{site}{string with the site nickname (e.g., "github")}
 
 \item{link}{string with the link to the site}
+
+\item{delete}{should this job be deleted (default = FALSE)}
 }
 \description{
 Set the properties of an existing job

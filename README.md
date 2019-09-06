@@ -78,14 +78,6 @@ view_jobs()
 #> 1 workitout Britney Spears        1 active Sip martinis and party in France
 ```
 
-Jobs can be deleted by name:
-
-``` r
-delete_job("workitout")
-view_jobs()
-#> # A tibble: 0 x 0
-```
-
 ## Example 3: Editing jobs
 
 To illustrate, suppose we make a new job, called “toxic”:
@@ -151,13 +143,14 @@ at seeing so many things that you have to do). For example:
 view_jobs()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
-#> # A tibble: 4 x 5
-#>   jobname       owner          priority status description               
-#>   <chr>         <chr>             <int> <chr>  <chr>                     
-#> 1 toxic         Britney Spears        1 active Estimate the LD50 dose    
-#> 2 spinspinsugar Sneakerpimps          1 active Check for periodicities   
-#> 3 hitmebaby     Britney Spears        2 active Signal detection modelling
-#> 4 boys          Lizzo                 2 active Distributional assumptions
+#> # A tibble: 5 x 5
+#>   jobname       owner         priority status description                  
+#>   <chr>         <chr>            <int> <chr>  <chr>                        
+#> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
+#> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
+#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities      
+#> 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   
+#> 5 boys          Lizzo                2 active Distributional assumptions
 ```
 
 A simple way to only see the high priority jobs:
@@ -166,11 +159,12 @@ A simple way to only see the high priority jobs:
 view_priorities()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
-#> # A tibble: 2 x 5
-#>   jobname       owner          priority status description            
-#>   <chr>         <chr>             <int> <chr>  <chr>                  
-#> 1 toxic         Britney Spears        1 active Estimate the LD50 dose 
-#> 2 spinspinsugar Sneakerpimps          1 active Check for periodicities
+#> # A tibble: 3 x 5
+#>   jobname       owner         priority status description                  
+#>   <chr>         <chr>            <int> <chr>  <chr>                        
+#> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
+#> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
+#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities
 ```
 
 More generally, `view_jobs()` and `view_priorities()` both allow you to
@@ -182,11 +176,12 @@ active jobs:
 view_jobs(priority == 1 & status == "active")
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
-#> # A tibble: 2 x 5
-#>   jobname       owner          priority status description            
-#>   <chr>         <chr>             <int> <chr>  <chr>                  
-#> 1 toxic         Britney Spears        1 active Estimate the LD50 dose 
-#> 2 spinspinsugar Sneakerpimps          1 active Check for periodicities
+#> # A tibble: 3 x 5
+#>   jobname       owner         priority status description                  
+#>   <chr>         <chr>            <int> <chr>  <chr>                        
+#> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
+#> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
+#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities
 ```
 
 Indeed `view_priorities()` function is essentially a helper function to

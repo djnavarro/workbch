@@ -11,12 +11,13 @@
 #' @param remove_tag character vector of tags to remove from job
 #' @param site string with the site nickname (e.g., "github")
 #' @param link string with the link to the site
+#' @param delete should this job be deleted (default = FALSE)
 #'
 #' @export
 workbch_setjob <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, add_tag = NULL,
-  remove_tag = NULL, site = NULL, link = NULL
+  remove_tag = NULL, site = NULL, link = NULL, delete = FALSE
 ){
   jobs <- update_job(
     jobname = jobname,
@@ -29,7 +30,8 @@ workbch_setjob <- function(
     add_tag = add_tag,
     remove_tag = remove_tag,
     site = site,
-    link = link
+    link = link,
+    delete = delete
   )
   job_write(jobs)
 }
@@ -42,15 +44,16 @@ job_set <- function() {
   jobs <- job_read()
   jobname <- suppressMessages(job_getcurrent(jobs))
   cat("The current job is:", jobname, "\n\n")
-  cat("What do you want to modify:\n")
-  cat("  [1] job name\n")
-  cat("  [2] description\n")
-  cat("  [3] owner\n")
-  cat("  [4] status\n")
-  cat("  [5] priority\n")
-  cat("  [6] job location\n")
-  cat("  [7] job links\n")
-  cat("  [8] tags\n")
+  cat("What do you want to do?\n")
+  cat("  [1] change job name\n")
+  cat("  [2] change description\n")
+  cat("  [3] change owner\n")
+  cat("  [4] change status\n")
+  cat("  [5] change priority\n")
+  cat("  [6] change job location\n")
+  cat("  [7] change job links\n")
+  cat("  [8] change tags\n")
+  cat("  [9] delete this job\n")
   cat("\n")
   ans <- readline(" Selection: ")
   ans <- suppressWarnings(as.numeric(ans))

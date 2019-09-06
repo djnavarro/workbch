@@ -72,14 +72,6 @@ make_job(
 view_jobs()
 ```
 
-Jobs can be deleted by name:
-
-```{r deletejobs}
-delete_job("workitout")
-view_jobs()
-```
-
-
 ## Example 3: Editing jobs
 
 To illustrate, suppose we make a new job, called "toxic":

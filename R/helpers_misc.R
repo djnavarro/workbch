@@ -1,11 +1,5 @@
 # miscellaneous helper functions
 
-# convenience function: I use NULL to indicate user has not set the
-# but I prefer is_set(value) when reading the code
-is_set <- function(x) {
-  !is.null(x)
-}
-
 # find the jobs that need to be hidden and hide them
 apply_mask <- function(tbl) {
   tbl <- dplyr::filter(tbl, status %in% c("active", "inactive"))

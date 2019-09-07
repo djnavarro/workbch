@@ -3,8 +3,8 @@
 
 update_job <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
-  status = NULL, priority = NULL, path = NULL, add_tag = NULL,
-  remove_tag = NULL, site = NULL, link = NULL, delete = FALSE
+  status = NULL, priority = NULL, path = NULL, tags = NULL,
+  site = NULL, link = NULL, delete = FALSE
 ){
 
   # note: update_job does not call a constructor function, it modifies an
@@ -72,24 +72,10 @@ update_job <- function(
     }
   }
 
-  # ------- job tag (add) --------
-  if(!is.null(add_tag)) {
-    verify_character(add_tag)
-    for(j in jobname) { # vectorised
-      verify_jobname(j)
-      verify_jobexists(j, jobs)
-      jobs <- update_addtag(jobs, j, add_tag)
-    }
-  }
-
-  # ------- job tag (remove) --------
-  if(!is.null(remove_tag)) {
-    verify_character(remove_tag)
-    for(j in jobname) { # vectorised
-      verify_jobname(j)
-      verify_jobexists(j, jobs)
-      jobs <- update_removetag(jobs, j, remove_tag)
-    }
+  # ------- job tag --------
+  if(!is.null(tags)) {
+    verify_character(tags)
+    jobs <- update_jobtags(jobs, jobname, tags)
   }
 
   return(jobs)
@@ -123,6 +109,14 @@ update_jobname <- function(job, jobname, newname) {
   return(jobs)
 }
 
+# path
+update_jobtags <- function(jobs, jobname, tags) {
+  tags <- strsplit(tags, ",", fixed = TRUE)[[1]]
+  tags <- trimws(tags, which = "both")
+  jobs[[jobname]]$tags <- tags
+  return(jobs)
+}
+
 # url
 update_joburl <- function(jobs, jobname, site, link) {
 
@@ -136,18 +130,6 @@ update_joburl <- function(jobs, jobname, site, link) {
 
   urls <- dplyr::arrange(urls, site)
   jobs[[jobname]]$urls <- urls
-  return(jobs)
-}
-
-# tag (add)
-update_addtag <- function(jobs, jobname, add_tag) {
-  jobs[[jobname]]$tags <- unique(c(jobs[[jobname]]$tags, add_tag))
-  return(jobs)
-}
-
-# tag (remove)
-update_removetag <- function(jobs, jobname, remove_tag) {
-  jobs[[jobname]]$tags <- setdiff(jobs[[jobname]]$tags, remove_tag)
   return(jobs)
 }
 

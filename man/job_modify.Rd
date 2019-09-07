@@ -6,8 +6,7 @@
 \usage{
 job_modify(jobname = NULL, newname = NULL, description = NULL,
   owner = NULL, status = NULL, priority = NULL, path = NULL,
-  add_tag = NULL, remove_tag = NULL, site = NULL, link = NULL,
-  delete = FALSE)
+  tags = NULL, site = NULL, link = NULL, delete = FALSE)
 }
 \arguments{
 \item{jobname}{the current name for the job}
@@ -24,9 +23,7 @@ job_modify(jobname = NULL, newname = NULL, description = NULL,
 
 \item{path}{the new path to the job folder}
 
-\item{add_tag}{character vector of tags to add to jobs}
-
-\item{remove_tag}{character vector of tags to remove from job}
+\item{tags}{string with comma-separated tags}
 
 \item{site}{string with the site nickname (e.g., "github")}
 

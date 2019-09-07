@@ -18,7 +18,7 @@ job_create(jobname = NULL, description = NULL, owner = NULL,
 
 \item{priority}{numeric}
 
-\item{tags}{character vector of tags}
+\item{tags}{a string containing comma separated list of tags}
 
 \item{path}{path to the job home directory}
 }

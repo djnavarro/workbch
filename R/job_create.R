@@ -5,11 +5,11 @@
 #' @param status should be "active", "inactive", "complete", "abandoned", "masked"
 #' @param owner should be a name or a nickname
 #' @param priority numeric
-#' @param tags character vector of tags
+#' @param tags a string containing comma separated list of tags
 #' @param path path to the job home directory
 #' @export
 job_create <- function(jobname = NULL, description = NULL, owner = NULL, status = NULL,
-                     priority = NULL, tags = NULL, path = NULL) {
+                       priority = NULL, tags = NULL, path = NULL) {
 
   # make_job calls the constructor function at the end, which verifies all
   # input arguments. so the only verifications that occur here are those
@@ -50,6 +50,12 @@ job_create <- function(jobname = NULL, description = NULL, owner = NULL, status 
   # make sure no job exists with this name
   verify_jobname(jobname)
   verify_jobmissing(jobname, jobs)
+
+  # split the tags if necessary
+  if(!is.null(tags)) {
+    tags <- strsplit(tags, ",", fixed = TRUE)[[1]]
+    tags <- trimws(tags, which = "both")
+  }
 
   # append the new job
   jobs[[jobname]] <- new_job(

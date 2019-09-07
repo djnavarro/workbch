@@ -116,8 +116,7 @@
 
     <pre class="usage"><span class='fu'>job_modify</span>(<span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>newname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>add_tag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>remove_tag</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>site</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>link</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>delete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>site</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>link</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>delete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,12 +150,8 @@
       <td><p>the new path to the job folder</p></td>
     </tr>
     <tr>
-      <th>add_tag</th>
-      <td><p>character vector of tags to add to jobs</p></td>
-    </tr>
-    <tr>
-      <th>remove_tag</th>
-      <td><p>character vector of tags to remove from job</p></td>
+      <th>tags</th>
+      <td><p>string with comma-separated tags</p></td>
     </tr>
     <tr>
       <th>site</th>

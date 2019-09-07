@@ -179,4 +179,4 @@ job_switch("toxic")
 
 If there is no RStudio project at the relevant location, or the RStudio
 API is not available (i.e., RStudio is not running), all this function
-will do is use `setwd()` to change the working directory.
+does is use `setwd()` to change the working directory.

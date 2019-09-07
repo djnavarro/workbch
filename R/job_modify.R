@@ -8,8 +8,7 @@
 #' @param status the new status
 #' @param priority the new priority
 #' @param path the new path to the job folder
-#' @param add_tag character vector of tags to add to jobs
-#' @param remove_tag character vector of tags to remove from job
+#' @param tags string with comma-separated tags
 #' @param site string with the site nickname (e.g., "github")
 #' @param link string with the link to the site
 #' @param delete should this job be deleted (default = FALSE)
@@ -17,14 +16,14 @@
 #' @export
 job_modify <- function(
   jobname = NULL, newname = NULL, description = NULL, owner = NULL,
-  status = NULL, priority = NULL, path = NULL, add_tag = NULL,
-  remove_tag = NULL, site = NULL, link = NULL, delete = FALSE
+  status = NULL, priority = NULL, path = NULL, tags = NULL,
+  site = NULL, link = NULL, delete = FALSE
 ){
 
   use_prompt <- interactive() & is.null(jobname) & is.null(newname) &
     is.null(description) & is.null(owner) & is.null(status) &
-    is.null(priority) & is.null(path) & is.null(add_tag) &
-    is.null(remove_tag) & is.null(site) & is.null(link) & delete == FALSE
+    is.null(priority) & is.null(path) & is.null(tags) & is.null(site) &
+    is.null(link) & delete == FALSE
 
   # interactive version
   if(use_prompt) {
@@ -70,8 +69,7 @@ job_modify <- function(
       status = status,
       priority = priority,
       path = path,
-      add_tag = add_tag,
-      remove_tag = remove_tag,
+      tags = tags,
       site = site,
       link = link,
       delete = delete
@@ -113,7 +111,11 @@ prompt_path <- function(jobname) {
 }
 
 prompt_url <- function(jobname) {}
-prompt_tag <- function(jobname) {}
+
+prompt_tag <- function(jobname) {
+  tags <- readline("Enter new tags (comma separated): ")
+  job_write(update_job(jobname = jobname, tags = tags))
+}
 
 
 

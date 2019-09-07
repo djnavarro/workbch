@@ -185,6 +185,18 @@ job_checksentinels <- function() {
   }
 }
 
+split_tags <- function(tags) {
+  tags <- strsplit(tags, "|", fixed = TRUE)[[1]]
+  tags <- trimws(tags, which = "both")
+  return(tags)
+}
+
+split_url <- function(url) {
+  url <- strsplit(url, "|", fixed = TRUE)[[1]]
+  url <- trimws(url, which = "both")
+  return(url)
+}
+
 
 
 # miscellaneous helpers ---------------------------------------------------
@@ -226,7 +238,8 @@ write_sentinel <- function(dir, jobname, idstring) {
   writeLines(text = c(jobname, idstring), con = file)
 }
 
-# print methods -----------------------------------------------------------
+# print methods
+
 
 # Specify a print method for a workbench tibble
 #' @export

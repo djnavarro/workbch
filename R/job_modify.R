@@ -8,22 +8,21 @@
 #' @param status the new status
 #' @param priority the new priority
 #' @param path the new path to the job folder
-#' @param tags string with comma-separated tags
-#' @param site string with the site nickname (e.g., "github")
-#' @param link string with the link to the site
+#' @param tags string with tags (uses | as separator)
+#' @param url string specifying url
 #' @param delete should this job be deleted (default = FALSE)
 #'
 #' @export
 job_modify <- function(
   jobname = NULL, newname = NULL, description = NULL, owner = NULL,
-  status = NULL, priority = NULL, path = NULL, tags = NULL,
-  site = NULL, link = NULL, delete = FALSE
+  status = NULL, priority = NULL, path = NULL, tags = NULL, url = NULL,
+  delete = FALSE
 ){
 
   use_prompt <- interactive() & is.null(jobname) & is.null(newname) &
     is.null(description) & is.null(owner) & is.null(status) &
-    is.null(priority) & is.null(path) & is.null(tags) & is.null(site) &
-    is.null(link) & delete == FALSE
+    is.null(priority) & is.null(path) & is.null(tags) & is.null(url) &
+    delete == FALSE
 
   # interactive version
   if(use_prompt) {
@@ -38,7 +37,7 @@ job_modify <- function(
     cat("  [4] change status\n")
     cat("  [5] change priority\n")
     cat("  [6] change job location\n")
-    cat("  [7] change job links\n")
+    cat("  [7] add/remove a url\n")
     cat("  [8] change tags\n")
     cat("  [9] delete this job\n")
     cat("\n")
@@ -70,8 +69,7 @@ job_modify <- function(
       priority = priority,
       path = path,
       tags = tags,
-      site = site,
-      link = link,
+      url = url,
       delete = delete
     )
     job_write(jobs)
@@ -110,33 +108,15 @@ prompt_path <- function(jobname) {
   job_write(update_job(jobname = jobname, path = path))
 }
 
-prompt_url <- function(jobname) {}
-
-prompt_tag <- function(jobname) {
-  tags <- readline("Enter new tags (comma separated): ")
-  job_write(update_job(jobname = jobname, tags = tags))
+prompt_url <- function(jobname) {
+  url <- readline("Enter new url, in 'site | url' format: ")
+  job_write(update_job(jobname = jobname, url = url))
 }
 
-
-
-# user-facing functions ---------------------------------------------------
-#
-# set_job_owner <- function(jobname, owner) {
-#   job_write(set_job(jobname = jobname, owner = owner))
-# }
-#
-# set_job_team <- function(jobname, add_team = NULL, remove_team = NULL) {
-#   job_write(set_job(jobname = jobname, add_team = add_team, remove_team = remove_team))
-# }
-#
-# set_job_url <- function(jobname, site, link) {
-#   job_write(set_job(jobname = jobname, site = site, link = link))
-# }
-#
-# set_job_tag <- function(jobname, add_tag = NULL, remove_tag = NULL) {
-#   job_write(set_job(jobname = jobname, add_tag = add_tag, remove_tag = remove_tag))
-# }
-
+prompt_tag <- function(jobname) {
+  tags <- readline("Enter new tags, in 'tag | tag' format: ")
+  job_write(update_job(jobname = jobname, tags = tags))
+}
 
 
 

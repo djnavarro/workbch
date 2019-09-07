@@ -116,7 +116,7 @@
 
     <pre class="usage"><span class='fu'>job_modify</span>(<span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>newname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>owner</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>status</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>site</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>link</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>delete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>tags</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>url</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>delete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,15 +151,11 @@
     </tr>
     <tr>
       <th>tags</th>
-      <td><p>string with comma-separated tags</p></td>
+      <td><p>string with tags (uses | as separator)</p></td>
     </tr>
     <tr>
-      <th>site</th>
-      <td><p>string with the site nickname (e.g., "github")</p></td>
-    </tr>
-    <tr>
-      <th>link</th>
-      <td><p>string with the link to the site</p></td>
+      <th>url</th>
+      <td><p>string specifying url</p></td>
     </tr>
     <tr>
       <th>delete</th>

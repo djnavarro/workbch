@@ -52,10 +52,7 @@ job_create <- function(jobname = NULL, description = NULL, owner = NULL, status 
   verify_jobmissing(jobname, jobs)
 
   # split the tags if necessary
-  if(!is.null(tags)) {
-    tags <- strsplit(tags, ",", fixed = TRUE)[[1]]
-    tags <- trimws(tags, which = "both")
-  }
+  if(!is.null(tags)) {tags <- split_tags(tags)}
 
   # append the new job
   jobs[[jobname]] <- new_job(

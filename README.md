@@ -100,8 +100,8 @@ we want to add some URLS:
 
 ``` r
 job_modify(jobname = "toxic", priority = 1)
-job_modify(jobname = "toxic", site = "github", link = "https://github.com/djnavarro/toxic")
-job_modify(jobname = "toxic", site = "genius", link = "https://genius.com/Britney-spears-toxic-lyrics")
+job_modify(jobname = "toxic", url = "github | https://github.com/djnavarro/toxic")
+job_modify(jobname = "toxic", url = "genius | https://genius.com/Britney-spears-toxic-lyrics")
 job_list()
 #> Warning: Some job folders have moved or been deleted. Run
 #> workbch_findjobs() to fix
@@ -168,13 +168,13 @@ job_list(priority = 1, status = "active")
 To open a webpage associated with a job
 
 ``` r
-job_browse("toxic", "github")
+job_openurl("toxic", "github")
 ```
 
 To open the corresponding RStudio project
 
 ``` r
-job_switch("toxic")
+job_open("toxic")
 ```
 
 If there is no RStudio project at the relevant location, or the RStudio

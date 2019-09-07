@@ -6,7 +6,7 @@
 \usage{
 job_modify(jobname = NULL, newname = NULL, description = NULL,
   owner = NULL, status = NULL, priority = NULL, path = NULL,
-  tags = NULL, site = NULL, link = NULL, delete = FALSE)
+  tags = NULL, url = NULL, delete = FALSE)
 }
 \arguments{
 \item{jobname}{the current name for the job}
@@ -23,11 +23,9 @@ job_modify(jobname = NULL, newname = NULL, description = NULL,
 
 \item{path}{the new path to the job folder}
 
-\item{tags}{string with comma-separated tags}
+\item{tags}{string with tags (uses | as separator)}
 
-\item{site}{string with the site nickname (e.g., "github")}
-
-\item{link}{string with the link to the site}
+\item{url}{string specifying url}
 
 \item{delete}{should this job be deleted (default = FALSE)}
 }

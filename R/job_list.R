@@ -26,7 +26,7 @@ job_list <- function(
 
   # add tags
   job_tbl$tags <- purrr::map_chr(jobs, function(x) {
-    paste0(x$tags, collapse = ",")
+    paste0(x$tags, collapse = " | ")
   })
 
   # add urls

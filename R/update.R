@@ -4,7 +4,7 @@
 update_job <- function(
   jobname, newname = NULL, description = NULL, owner = NULL,
   status = NULL, priority = NULL, path = NULL, tags = NULL,
-  site = NULL, link = NULL, delete = FALSE
+  url = NULL, delete = FALSE
 ){
 
   # note: update_job does not call a constructor function, it modifies an
@@ -61,10 +61,13 @@ update_job <- function(
     jobs <- update_jobpath(jobs, jobname, path)
   }
 
-  # ------- job url: NA to remove -------
-  if(!is.null(site) | !is.null(link)) {
+  # ------- job url -------
+  if(!is.null(url)) {
+    url <- split_url(url)
+    site <- url[1]
+    link <- url[2]
     verify_site(site)
-    if(is.na(link)) {
+    if(is.na(link) | link == "") {
       jobs <- delete_joburl(jobs, jobname, site)
     } else {
       verify_link(link)
@@ -111,9 +114,7 @@ update_jobname <- function(job, jobname, newname) {
 
 # path
 update_jobtags <- function(jobs, jobname, tags) {
-  tags <- strsplit(tags, ",", fixed = TRUE)[[1]]
-  tags <- trimws(tags, which = "both")
-  jobs[[jobname]]$tags <- tags
+  jobs[[jobname]]$tags <- split_tags(tags)
   return(jobs)
 }
 

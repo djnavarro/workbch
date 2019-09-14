@@ -50,18 +50,54 @@ job_seek <- function(dirs = getOption("workbch.search"),
     }, .init = paths)
   }
 
-  # check if the user wants to scan
+  # tibble with jobname and idstring for all known jobs
+  jobs <- job_read()
+  job_ids <- purrr::map_dfr(
+    .x = jobs,
+    .f = ~ tibble::tibble(
+      jobname = .x$jobname,
+      idstring = .x$idstring,
+      path = .x$path
+    )
+  )
+
+  # paths that are already known to workbch
+  stored_paths <- job_ids$path
+  stored_paths <- stored_paths[!is.na(stored_paths)]
+  stored_paths <- normalizePath(stored_paths, mustWork = FALSE)
+
+  # ignore all directories that are already linked to a job
+  # todo: at this step we could check to see that they're still
+  # there and appear to be workbch jobs?????
+  duplicates <- intersect(stored_paths, paths)
+  paths <- setdiff(paths, duplicates)
+
+  # check through the remaining paths to see if any contain
+  # .workbch files that match against a known job
+
+  # ask user if they want to fix the link to any matches; then
+  # remove those paths
+
+  # for the remaining unmatched paths, ask if the user wishes to
+  # to try to add any jobs?
   cat("Scan found", length(paths), "job candidates\n")
   ans <- readline("Do you want to continue? [y/n] ")
+
+  # if yes, guide user with prompts
   if(ans == "y") {
     for(p in paths) {
-      prompt_from_scan(p, default_owner, default_priority, default_status, default_tags)
+      prompt_from_scan(p, default_owner, default_priority,
+                       default_status, default_tags)
     }
   }
   return(invisible(NULL))
 }
 
-prompt_from_scan <- function(def_path, def_owner, def_priority, def_status, def_tags) {
+
+# todo: make sure we use every piece of information to assist the
+# user with default values...
+prompt_from_scan <- function(def_path, def_owner, def_priority,
+                             def_status, def_tags) {
 
   # simple defaults
   def_jobname <- gsub(paste0("^.*", .Platform$file.sep), "", def_path)

@@ -19,6 +19,12 @@ job_list <- function(
   # read jobs
   jobs <- job_read()
 
+  # if there are no jobs, return null invisibly
+  if(is.null(jobs)) {
+    message("No known jobs")
+    return(invisible(NULL))
+  }
+
   # construct tibble with the simple fields
   job_tbl <- purrr::map_df(jobs, function(x){
     tibble::as_tibble(x[c("jobname", "owner", "priority", "status",

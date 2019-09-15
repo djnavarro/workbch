@@ -24,6 +24,9 @@ job_seek <- function(dirs = getOption("workbch.search"),
     stop("job_seek() can only be called interactively", call. = FALSE)
   }
 
+  # inform the user the search has started
+  cat("\n Scanning for possible jobs... ")
+
   # construct the regex
   seek <- paste0(seek, collapse = "|")
   pattern <- paste0("\\.(", seek, ")$")
@@ -74,13 +77,76 @@ job_seek <- function(dirs = getOption("workbch.search"),
 
   # check through the remaining paths to see if any contain
   # .workbch files that match against a known job
+  detached_sentinels <- purrr::map_chr(
+    .x = paths,
+    .f = function(x) {
+      if(file.exists(file.path(x, ".workbch"))) {
+        return(x)
+      }
+      return(NA_character_)
+    }
+  )
+  detached_sentinels <- detached_sentinels[!is.na(detached_sentinels)]
 
-  # ask user if they want to fix the link to any matches; then
-  # remove those paths
+  # inform the user that the scan is finished
+  cat("done.\n")
+
+  if(length(detached_sentinels) > 0) {
+
+    # if there are any paths with detached sentinel files, see if they
+    # match any entries that workbch knows about
+    found_sentinels <- purrr::map_dfr(
+      .x = detached_sentinels,
+      .f = function(x) {
+        info <- readLines(file.path(x, ".workbch"))
+        return(tibble::tibble(
+          jobname = info[1],
+          idstring = info[2],
+          found_path = x))
+      }
+    )
+
+    # try to match the found sentinels against any known jobs
+    moved_sentinels <- dplyr::inner_join(
+      x = job_ids,
+      y = found_sentinels,
+      by = c("jobname", "idstring")
+    )
+
+    # if there are any moved sentinels ask user if they want to fix
+    # the link to any matches
+    if(nrow(moved_sentinels) > 0) {
+      for(i in 1:nrow(moved_sentinels)) {
+        cat("\n")
+        cat("The job '", moved_sentinels$jobname[i], "' may have moved\n", sep="")
+        cat("  Previous location: ", moved_sentinels$path[i], "\n")
+        cat("  New location:      ", moved_sentinels$found_path[i], "\n")
+        cat("\n")
+        ans <- readline("Do you wish to set the job path to the new location? [y/n] ")
+        if(ans == "y") {
+
+          jobs <- update_jobpath(
+            jobs = jobs,
+            jobname = moved_sentinels$jobname[i],
+            path = moved_sentinels$found_path[i]
+          )
+          job_write(jobs)
+          cat("Okay, path updated\n")
+
+        } else {
+          cat("Okay, skipping this job\n")
+        }
+      }
+    }
+
+  }
+
+  # now remove these paths
+  paths <- setdiff(paths, moved_sentinels$found_path)
 
   # for the remaining unmatched paths, ask if the user wishes to
   # to try to add any jobs?
-  cat("Scan found", length(paths), "job candidates\n")
+  cat("\nScan found", length(paths), "unmatched job candidates\n")
   ans <- readline("Do you want to continue? [y/n] ")
 
   # if yes, guide user with prompts

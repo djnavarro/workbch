@@ -179,7 +179,7 @@ job_checksentinels <- function() {
   missing <- job_missingsentinels()
   if(length(missing) > 0) {
     warning(
-      "Some job folders have moved or been deleted. Run workbch_findjobs() to fix",
+      "Some job folders have moved or been deleted. Use job_seek() to fix",
       call. = FALSE
     )
   }

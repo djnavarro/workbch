@@ -22,17 +22,27 @@ job_seek <- function(dirs = getOption("workbch.search"),
   # enforce interactive
   require_interactive("job_seek")
 
-  # search for jobs
+  # search for possible job paths
   cat("\n  Scanning for possible jobs... ")
-  jobs <- job_read()
-  job_ids <- get_jobids(jobs)
   paths <- get_jobpaths(dirs, seek, nesting)
-  paths <- remove_duplicates(job_ids, paths)
-  detached_sentinels <- get_detachedsentinels(job_ids, paths)
   cat("done.\n")
 
-  # guide the user with prompts
-  paths <- prompt_movedjobs(detached_sentinels, job_ids, jobs, paths)
+  # if there are no known jobs...
+  if(is.null(jobs)) {
+    jobs <- list() # initialise an empty list
+
+  # if there are jobs, look for detached sentinel files...
+  } else {
+
+    jobs <- job_read()
+    jobids <- get_jobids(jobs)
+    paths <- remove_duplicates(jobids, paths)
+    sentinels <- get_detachedsentinels(jobids, paths)
+    paths <- prompt_movedjobs(sentinels, jobids, jobs, paths)
+
+  }
+
+  # for new jobs, guide the user with prompts
   prompt_unmatchedjobs(jobs, paths, default_owner, default_priority,
                        default_status, default_tags)
 }

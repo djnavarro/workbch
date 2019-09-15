@@ -4,19 +4,19 @@
 #' @param dirs directories to scan
 #' @param seek search criterion
 #' @param nesting allow nested jobs (default = FALSE)
-#' @param default_owner default owner for a created job
-#' @param default_priority default priority for a created job
-#' @param default_status default status for a created job
-#' @param default_tags default tags for a created job
+#' @param owner default owner for a created job
+#' @param priority default priority for a created job
+#' @param status default status for a created job
+#' @param tags default tags for a created job
 #'
 #' @export
 job_seek <- function(dirs = getOption("workbch.search"),
                      seek = c("workbch", "git", "Rproj"),
                      nesting = FALSE,
-                     default_owner = "",
-                     default_priority = 1,
-                     default_status = "active",
-                     default_tags = character(0)
+                     owner = "",
+                     priority = 1,
+                     status = "active",
+                     tags = character(0)
 ) {
 
   # enforce interactive
@@ -28,13 +28,13 @@ job_seek <- function(dirs = getOption("workbch.search"),
   cat("done.\n")
 
   # if there are no known jobs...
+  jobs <- job_read()
   if(is.null(jobs)) {
     jobs <- list() # initialise an empty list
 
   # if there are jobs, look for detached sentinel files...
   } else {
 
-    jobs <- job_read()
     jobids <- get_jobids(jobs)
     paths <- remove_duplicates(jobids, paths)
     sentinels <- get_detachedsentinels(jobids, paths)
@@ -43,8 +43,7 @@ job_seek <- function(dirs = getOption("workbch.search"),
   }
 
   # for new jobs, guide the user with prompts
-  prompt_unmatchedjobs(jobs, paths, default_owner, default_priority,
-                       default_status, default_tags)
+  prompt_unmatchedjobs(jobs, paths, owner, priority, status, tags)
 }
 
 
@@ -71,7 +70,7 @@ prompt_unmatchedjobs <- function(jobs, paths, default_owner, default_priority,
     for(p in paths) {
       Sys.sleep(1)
       cat("\f") # clear screen then prompt
-      prompt_from_scan(jobs, p, default_owner, default_priority,
+      jobs <- prompt_from_scan(jobs, p, default_owner, default_priority,
                        default_status, default_tags)
     }
   }
@@ -323,7 +322,7 @@ prompt_from_scan <- function(jobs, def_path, def_owner, def_priority,
   }
 
 
-  return(NULL)
+  return(jobs)
 
 }
 

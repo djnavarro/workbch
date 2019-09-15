@@ -115,9 +115,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>job_seek</span>(<span class='kw'>dirs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"workbch.search"</span>), <span class='kw'>seek</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"workbch"</span>, <span class='st'>"git"</span>,
-  <span class='st'>"Rproj"</span>), <span class='kw'>nesting</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>default_owner</span> <span class='kw'>=</span> <span class='st'>""</span>,
-  <span class='kw'>default_priority</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>default_status</span> <span class='kw'>=</span> <span class='st'>"active"</span>,
-  <span class='kw'>default_tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>))</pre>
+  <span class='st'>"Rproj"</span>), <span class='kw'>nesting</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>owner</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>priority</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>status</span> <span class='kw'>=</span> <span class='st'>"active"</span>, <span class='kw'>tags</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span>(<span class='fl'>0</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,19 +134,19 @@
       <td><p>allow nested jobs (default = FALSE)</p></td>
     </tr>
     <tr>
-      <th>default_owner</th>
+      <th>owner</th>
       <td><p>default owner for a created job</p></td>
     </tr>
     <tr>
-      <th>default_priority</th>
+      <th>priority</th>
       <td><p>default priority for a created job</p></td>
     </tr>
     <tr>
-      <th>default_status</th>
+      <th>status</th>
       <td><p>default status for a created job</p></td>
     </tr>
     <tr>
-      <th>default_tags</th>
+      <th>tags</th>
       <td><p>default tags for a created job</p></td>
     </tr>
     </table>

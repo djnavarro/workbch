@@ -5,9 +5,8 @@
 \title{Scans for jobs}
 \usage{
 job_seek(dirs = getOption("workbch.search"), seek = c("workbch", "git",
-  "Rproj"), nesting = FALSE, default_owner = "",
-  default_priority = 1, default_status = "active",
-  default_tags = character(0))
+  "Rproj"), nesting = FALSE, owner = "", priority = 1,
+  status = "active", tags = character(0))
 }
 \arguments{
 \item{dirs}{directories to scan}
@@ -16,13 +15,13 @@ job_seek(dirs = getOption("workbch.search"), seek = c("workbch", "git",
 
 \item{nesting}{allow nested jobs (default = FALSE)}
 
-\item{default_owner}{default owner for a created job}
+\item{owner}{default owner for a created job}
 
-\item{default_priority}{default priority for a created job}
+\item{priority}{default priority for a created job}
 
-\item{default_status}{default status for a created job}
+\item{status}{default status for a created job}
 
-\item{default_tags}{default tags for a created job}
+\item{tags}{default tags for a created job}
 }
 \description{
 Scans for jobs

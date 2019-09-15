@@ -19,39 +19,22 @@ job_seek <- function(dirs = getOption("workbch.search"),
                      default_tags = character(0)
 ) {
 
-  if(!interactive()) {
-    stop("job_seek() can only be called interactively", call. = FALSE)
-  }
+  # enforce interactive
+  require_interactive("job_seek")
 
-  # inform the user the search has started
+  # search for jobs
   cat("\n  Scanning for possible jobs... ")
-
   jobs <- job_read()
   job_ids <- get_jobids(jobs)
   paths <- get_jobpaths(dirs, seek, nesting)
   paths <- remove_duplicates(job_ids, paths)
   detached_sentinels <- get_detachedsentinels(job_ids, paths)
-
-  # inform the user that the scan is finished
   cat("done.\n")
 
-  if(length(detached_sentinels) > 0) {
-    paths <- prompt_movedjobs(detached_sentinels, job_ids, jobs, paths)
-  }
-
-  # for the remaining unmatched paths, ask if the user wishes to
-  # to try to add any jobs?
-  cat("\n  Scan found", length(paths), "unmatched job candidates\n")
-  ans <- readline("  Do you want to continue? [y/n] ")
-
-  # if yes, guide user with prompts
-  if(ans == "y") {
-    for(p in paths) {
-      prompt_from_scan(p, default_owner, default_priority,
+  # guide the user with prompts
+  paths <- prompt_movedjobs(detached_sentinels, job_ids, jobs, paths)
+  prompt_unmatchedjobs(paths, default_owner, default_priority,
                        default_status, default_tags)
-    }
-  }
-  return(invisible(NULL))
 }
 
 
@@ -59,6 +42,30 @@ job_seek <- function(dirs = getOption("workbch.search"),
 
 # helper functions --------------------------------------------------------
 
+
+require_interactive <- function(name) {
+  if(!interactive()) {
+    stop(name, "can only be called interactively", call. = FALSE)
+  }
+}
+
+prompt_unmatchedjobs <- function(paths, default_owner, default_priority,
+                     default_status, default_tags) {
+
+  # confirm with user before prompting individually...
+  cat("\n  Scan found", length(paths), "unmatched job candidates\n")
+  ans <- readline("  Do you want to continue? [y/n] ")
+
+  # if yes, guide user with prompts...
+  if(ans == "y") {
+    for(p in paths) {
+      prompt_from_scan(p, default_owner, default_priority,
+                       default_status, default_tags)
+    }
+  }
+  return(invisible(NULL))
+
+}
 
 get_jobpaths <- function(dirs, seek, nesting) {
 
@@ -140,6 +147,10 @@ get_detachedsentinels <- function(job_ids, paths) {
 
 prompt_movedjobs <- function(detached_sentinels, job_ids, jobs, paths) {
 
+  # if there are no detached sentinel files just return the paths
+  if(length(detached_sentinels) == 0) {
+    return(paths)
+  }
 
   # if there are any paths with detached sentinel files, see if they
   # match any entries that workbch knows about

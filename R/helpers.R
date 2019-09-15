@@ -234,7 +234,7 @@ find_sentinels <- function(dirs = getOption("workbch.search")) {
 # write a sentinal file
 write_sentinel <- function(dir, jobname, idstring) {
   dir <- normalizePath(dir)
-  file <- normalizePath(file.path(dir, ".workbch"))
+  file <- normalizePath(file.path(dir, ".workbch"), mustWork = FALSE)
   writeLines(text = c(jobname, idstring), con = file)
 }
 

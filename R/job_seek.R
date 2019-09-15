@@ -33,7 +33,7 @@ job_seek <- function(dirs = getOption("workbch.search"),
 
   # guide the user with prompts
   paths <- prompt_movedjobs(detached_sentinels, job_ids, jobs, paths)
-  prompt_unmatchedjobs(paths, default_owner, default_priority,
+  prompt_unmatchedjobs(jobs, paths, default_owner, default_priority,
                        default_status, default_tags)
 }
 
@@ -49,7 +49,7 @@ require_interactive <- function(name) {
   }
 }
 
-prompt_unmatchedjobs <- function(paths, default_owner, default_priority,
+prompt_unmatchedjobs <- function(jobs, paths, default_owner, default_priority,
                      default_status, default_tags) {
 
   # confirm with user before prompting individually...
@@ -59,7 +59,9 @@ prompt_unmatchedjobs <- function(paths, default_owner, default_priority,
   # if yes, guide user with prompts...
   if(ans == "y") {
     for(p in paths) {
-      prompt_from_scan(p, default_owner, default_priority,
+      Sys.sleep(1)
+      cat("\f") # clear screen then prompt
+      prompt_from_scan(jobs, p, default_owner, default_priority,
                        default_status, default_tags)
     }
   }
@@ -194,7 +196,7 @@ prompt_movedjobs <- function(detached_sentinels, job_ids, jobs, paths) {
         cat("  Okay, path updated\n")
 
       } else {
-        cat("  Okay, skipping this job\n")
+        cat("  Okay, skipping\n")
       }
     }
   }
@@ -206,7 +208,7 @@ prompt_movedjobs <- function(detached_sentinels, job_ids, jobs, paths) {
 
 # todo: make sure we use every piece of information to assist the
 # user with default values...
-prompt_from_scan <- function(def_path, def_owner, def_priority,
+prompt_from_scan <- function(jobs, def_path, def_owner, def_priority,
                              def_status, def_tags) {
 
   # guess the job name
@@ -272,6 +274,42 @@ prompt_from_scan <- function(def_path, def_owner, def_priority,
     if(is.na(priority)) priority <- def_priority
     if(length(tags) == 0) tags <- def_tags
 
+    # specify URL if there is one
+    if(!is.na(def_site)) {
+      def_url <- new_url(site = def_site, link = def_urlpath)
+    } else {
+      def_url <- NULL
+    }
+
+    # specify the idstring using .workbch if there is one
+    sentinel <- file.path(def_path, ".workbch")
+    if(file.exists(sentinel)) {
+      info <- readLines(sentinel)
+      def_id <- info[2]
+    } else {
+      def_id <- NULL
+    }
+
+    # make a new job
+    jb <- new_job(
+      jobname = jobname,
+      description = description,
+      owner = owner,
+      status = status,
+      priority = priority,
+      path = def_path,
+      tags = def_tags,
+      urls = def_url,
+      idstring = def_id
+    )
+
+    jobs[[jobname]] <- jb
+    job_write(jobs)
+
+    cat("  Okay, new job created\n")
+
+  } else {
+    cat("  Okay, skipping\n")
   }
 
 

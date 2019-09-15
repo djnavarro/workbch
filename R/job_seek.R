@@ -19,13 +19,48 @@ job_seek <- function(dirs = getOption("workbch.search"),
                      default_tags = character(0)
 ) {
 
-  # don't let the user call this programmatically
   if(!interactive()) {
     stop("job_seek() can only be called interactively", call. = FALSE)
   }
 
   # inform the user the search has started
-  cat("\n Scanning for possible jobs... ")
+  cat("\n  Scanning for possible jobs... ")
+
+  jobs <- job_read()
+  job_ids <- get_jobids(jobs)
+  paths <- get_jobpaths(dirs, seek, nesting)
+  paths <- remove_duplicates(job_ids, paths)
+  detached_sentinels <- get_detachedsentinels(job_ids, paths)
+
+  # inform the user that the scan is finished
+  cat("done.\n")
+
+  if(length(detached_sentinels) > 0) {
+    paths <- prompt_movedjobs(detached_sentinels, job_ids, jobs, paths)
+  }
+
+  # for the remaining unmatched paths, ask if the user wishes to
+  # to try to add any jobs?
+  cat("\n  Scan found", length(paths), "unmatched job candidates\n")
+  ans <- readline("  Do you want to continue? [y/n] ")
+
+  # if yes, guide user with prompts
+  if(ans == "y") {
+    for(p in paths) {
+      prompt_from_scan(p, default_owner, default_priority,
+                       default_status, default_tags)
+    }
+  }
+  return(invisible(NULL))
+}
+
+
+
+
+# helper functions --------------------------------------------------------
+
+
+get_jobpaths <- function(dirs, seek, nesting) {
 
   # construct the regex
   seek <- paste0(seek, collapse = "|")
@@ -53,9 +88,14 @@ job_seek <- function(dirs = getOption("workbch.search"),
     }, .init = paths)
   }
 
-  # tibble with jobname and idstring for all known jobs
-  jobs <- job_read()
-  job_ids <- purrr::map_dfr(
+  return(paths)
+
+}
+
+
+
+get_jobids <- function(jobs) {
+  purrr::map_dfr(
     .x = jobs,
     .f = ~ tibble::tibble(
       jobname = .x$jobname,
@@ -63,6 +103,10 @@ job_seek <- function(dirs = getOption("workbch.search"),
       path = .x$path
     )
   )
+}
+
+
+remove_duplicates <- function(job_ids, paths) {
 
   # paths that are already known to workbch
   stored_paths <- job_ids$path
@@ -74,9 +118,12 @@ job_seek <- function(dirs = getOption("workbch.search"),
   # there and appear to be workbch jobs?????
   duplicates <- intersect(stored_paths, paths)
   paths <- setdiff(paths, duplicates)
+  return(paths)
+}
 
-  # check through the remaining paths to see if any contain
-  # .workbch files that match against a known job
+
+get_detachedsentinels <- function(job_ids, paths) {
+
   detached_sentinels <- purrr::map_chr(
     .x = paths,
     .f = function(x) {
@@ -87,90 +134,78 @@ job_seek <- function(dirs = getOption("workbch.search"),
     }
   )
   detached_sentinels <- detached_sentinels[!is.na(detached_sentinels)]
-
-  # inform the user that the scan is finished
-  cat("done.\n")
-
-  if(length(detached_sentinels) > 0) {
-
-    # if there are any paths with detached sentinel files, see if they
-    # match any entries that workbch knows about
-    found_sentinels <- purrr::map_dfr(
-      .x = detached_sentinels,
-      .f = function(x) {
-        info <- readLines(file.path(x, ".workbch"))
-        return(tibble::tibble(
-          jobname = info[1],
-          idstring = info[2],
-          found_path = x))
-      }
-    )
-
-    # try to match the found sentinels against any known jobs
-    moved_sentinels <- dplyr::inner_join(
-      x = job_ids,
-      y = found_sentinels,
-      by = c("jobname", "idstring")
-    )
-
-    # if there are any moved sentinels ask user if they want to fix
-    # the link to any matches
-    if(nrow(moved_sentinels) > 0) {
-      for(i in 1:nrow(moved_sentinels)) {
-        cat("\n")
-        cat("The job '", moved_sentinels$jobname[i], "' may have moved\n", sep="")
-        cat("  Previous location: ", moved_sentinels$path[i], "\n")
-        cat("  New location:      ", moved_sentinels$found_path[i], "\n")
-        cat("\n")
-        ans <- readline("Do you wish to set the job path to the new location? [y/n] ")
-        if(ans == "y") {
-
-          jobs <- update_jobpath(
-            jobs = jobs,
-            jobname = moved_sentinels$jobname[i],
-            path = moved_sentinels$found_path[i]
-          )
-          job_write(jobs)
-          cat("Okay, path updated\n")
-
-        } else {
-          cat("Okay, skipping this job\n")
-        }
-      }
-    }
-
-  }
-
-  # now remove these paths
-  paths <- setdiff(paths, moved_sentinels$found_path)
-
-  # for the remaining unmatched paths, ask if the user wishes to
-  # to try to add any jobs?
-  cat("\nScan found", length(paths), "unmatched job candidates\n")
-  ans <- readline("Do you want to continue? [y/n] ")
-
-  # if yes, guide user with prompts
-  if(ans == "y") {
-    for(p in paths) {
-      prompt_from_scan(p, default_owner, default_priority,
-                       default_status, default_tags)
-    }
-  }
-  return(invisible(NULL))
+  return(detached_sentinels)
 }
 
+
+prompt_movedjobs <- function(detached_sentinels, job_ids, jobs, paths) {
+
+
+  # if there are any paths with detached sentinel files, see if they
+  # match any entries that workbch knows about
+  found_sentinels <- purrr::map_dfr(
+    .x = detached_sentinels,
+    .f = function(x) {
+      info <- readLines(file.path(x, ".workbch"))
+      return(tibble::tibble(
+        jobname = info[1],
+        idstring = info[2],
+        found_path = x))
+    }
+  )
+
+  # try to match the found sentinels against any known jobs
+  moved_sentinels <- dplyr::inner_join(
+    x = job_ids,
+    y = found_sentinels,
+    by = c("jobname", "idstring")
+  )
+
+  # if there are any moved sentinels ask user if they want to fix
+  # the link to any matches
+  if(nrow(moved_sentinels) > 0) {
+    for(i in 1:nrow(moved_sentinels)) {
+      cat("\n")
+      cat("  The job '", moved_sentinels$jobname[i],
+          "' may have moved\n", sep="")
+      cat("    Previous location: ", moved_sentinels$path[i], "\n")
+      cat("    New location:      ", moved_sentinels$found_path[i], "\n")
+      cat("\n")
+      ans <- readline("  Set the job path to the new location? [y/n] ")
+      if(ans == "y") {
+
+        jobs <- update_jobpath(
+          jobs = jobs,
+          jobname = moved_sentinels$jobname[i],
+          path = moved_sentinels$found_path[i]
+        )
+        job_write(jobs)
+        cat("  Okay, path updated\n")
+
+      } else {
+        cat("  Okay, skipping this job\n")
+      }
+    }
+  }
+
+  paths <- setdiff(paths, moved_sentinels$found_path)
+  return(paths)
+
+}
 
 # todo: make sure we use every piece of information to assist the
 # user with default values...
 prompt_from_scan <- function(def_path, def_owner, def_priority,
                              def_status, def_tags) {
 
-  # simple defaults
-  def_jobname <- gsub(paste0("^.*", .Platform$file.sep), "", def_path)
-  def_jobname <- janitor::make_clean_names(def_jobname)
+  # guess the job name
+  def_jobname <- guess_jobname(def_path)
+
+  # by default set the descripton to match the job name
   def_description <- def_jobname
 
-  # guess url for git repo
+  # if there is a git repository, use it to guess
+  # the location of the git remote
   def_site <- NA
   if(dir.exists(file.path(def_path, ".git"))) {
     found_remote <- git2r::remote_url(def_path)[1] # use first
@@ -233,215 +268,240 @@ prompt_from_scan <- function(def_path, def_owner, def_priority,
 
 }
 
-work_scan <- function(dir, owner = NULL, status = NULL, priority = NULL) {
+# jobname is either recorded in a sentinel file (if one exists)
+# or else constructed from the path and cleaned
+guess_jobname <- function(path) {
 
-  # verification step for other inputs
-  verify_status(status)
-  verify_priority(priority)
-
-  # find all git repositories
-  found_paths <- list.files(
-    path = dir, pattern = "\\.git$", full.names = TRUE,
-    recursive = TRUE, include.dirs = TRUE, all.files = TRUE)
-  found_paths <- gsub("\\.git$", "", found_paths)
-  found_paths <- normalizePath(found_paths, winslash = .Platform$file.sep)
-
-  # guess the job name by splitting the path to find terminal folder
-  found_jobnames <- strsplit(found_paths, .Platform$file.sep, fixed = TRUE)
-  found_jobnames <- purrr::map_chr(found_jobnames, ~ .x[length(.x)])
-  found_jobnames <- janitor::make_clean_names(found_jobnames)
-
-  # load the existing jobs
-  jobs <- job_read()
-  job_names <- job_getnames(jobs)
-  job_paths <- job_getpaths(jobs)
-  job_paths <- suppressWarnings( # suppress b/c some jobs may have no path
-    normalizePath(job_paths, winslash = .Platform$file.sep)
-  )
-
-  # initialise output
-  created_jobs <- tibble::tibble(jobname = character(0), path = character(0))
-  n_known <- 0
-  n_skipped <- 0
-  n_created <- 0
-
-  # add jobs
-  for(i in seq_along(found_paths)) {
-
-    # if the path is already mapped to a job, skip it
-    if(found_paths[i] %in% job_paths) {
-      n_known <- n_known + 1
-      message("repo at '", found_paths[i], "' is listed... skipping")
-
-      # for a new path, make guesses and ask the user
-    } else {
-
-      # ensure the found job name doesn't already exist
-      while(found_jobnames[i] %in% job_names) {
-        found_jobnames[i] <- paste0(found_jobnames[i], "X") # ... TODO: do this better!!!
-      }
-
-      # guess url for git repo
-      found_remote <- git2r::remote_url(found_paths[i])[1] # use first
-      site <- NA
-      if(grepl("bitbucket|github|gitlab", found_remote)) { # if it's bb/gh/gl..
-        site <- gsub(".*(bitbucket|github|gitlab).*", "\\1", found_remote)
-        found_remote <- strsplit(found_remote, "[/:]")[[1]]
-        user <- found_remote[length(found_remote)-1]
-        repo <- found_remote[length(found_remote)]
-        repo <- gsub("\\.git$", "/", repo)
-        if(site == "bitbucket") prefix <- "https://bitbucket.org/"
-        if(site == "github") prefix <- "https://github.com/"
-        if(site == "gitlab") prefix <- "https://gitlab.com/"
-        url_path <- paste0(prefix, user, "/", repo)
-      }
-
-      # construct message to the for the user
-      message("")
-      message("unlisted repository found:")
-      message("    ")
-      message("    jobname:     ", found_jobnames[i])
-      message("    owner:       ", owner)
-      message("    path:        ", found_paths[i])
-      if(!is.na(site)){
-        message("    ", site, " url:  ", url_path)
-      }
-      message("    status:      ", status)
-      message("    priority:    ", priority)
-      message("    ")
-
-      # make the user decide
-      acc <- ""
-      while(acc != "y" & acc != "n") {
-        acc <- readline("    create job with these values? [y/n] ")
-        acc <- tolower(acc)
-        acc <- trimws(acc, "both")
-      }
-      message("")
-
-      # if the user says no, skip
-      if(acc == "n") {
-        n_skipped <- n_skipped + 1
-        message("    ... ok, skipping")
-      }
-
-      # if the user says yes, update
-      if(acc == "y") {
-        n_created <- n_created + 1
-
-        # create new job... without url
-        if(is.na(site)) {
-          jobs[[found_jobnames[i]]] <- new_job(
-            jobname = found_jobnames[i],
-            description = found_jobnames[i],
-            owner = owner,
-            status = status,
-            priority = priority,
-            path = found_paths[i]
-          )
-
-          # or else create new job... with a url
-        } else {
-          jobs[[found_jobnames[i]]] <- new_job(
-            jobname = found_jobnames[i],
-            description = found_jobnames[i],
-            owner = owner,
-            status = status,
-            priority = priority,
-            path = found_paths[i],
-            urls = new_url(site = site, link = url_path)
-          )
-        }
-
-        # write it now, in case user aborts later
-        job_write(jobs)
-
-        # update output
-        created_jobs <- dplyr::bind_rows(
-          created_jobs,
-          tibble::tibble(
-            jobname = found_jobnames[i],
-            path = found_paths[i]
-          )
-        )
-
-        # update list of known paths/jobnames
-        job_names <- job_getnames(jobs)
-        job_paths <- job_getpaths(jobs)
-        job_paths <- suppressWarnings(normalizePath(job_paths))
-
-        message("    ... done! new job created!")
-      }
-
-    }
-
+  # if there is a sentinel file use it and do not modify
+  sentinel <- file.path(path, ".workbch")
+  if(file.exists(sentinel)) {
+    info <- readLines(sentinel)
+    jobname <- info[1]
+    return(jobname)
   }
 
-  # print a summary for the user
-  message("")
-  message(n_known, " repositories were already known")
-  message(n_skipped, " repositories were skipped by user")
-  message(n_created, " repositories were created")
-  message("")
-
-  return(created_jobs)
+  # otherwise, return cleaned folder name
+  jobname <- gsub(paste0("^.*", .Platform$file.sep), "", path)
+  jobname <- janitor::make_clean_names(jobname)
+  return(jobname)
 }
 
 
 
-work_recover <- function(dirs = getOption("workbch.search")) {
-
-  # find the names of missing jobs
-  missing <- job_missingsentinels()
-
-  # if none are missing, invisibly return NULL
-  if(length(missing) == 0) return(invisible(NULL))
-
-  # add the paths and idstrings for those
-  dat <- job_allpaths()
-  missing <- dat[dat$jobname %in% missing,]
-
-  # find all sentinel files
-  sentinels <- find_sentinels(dirs)
-
-  # extract informatio from all sentinel files
-  state <- purrr::map_dfr(sentinels, function(s) {
-    x <- readLines(s)
-    np <- normalizePath(gsub("\\.workbch$", "", s))
-    tibble::tibble(jobname = x[1], idstring = x[2], foundpath = np)
-  })
-
-  # try to match a sentinal to each missing job
-  missing <- dplyr::left_join(missing, state, by = c("jobname", "idstring"))
-  missing <- missing[,c("jobname", "idstring", "path", "foundpath")]
-
-  # loop over missing jobs...
-  if(interactive()) {
-    for(i in 1:nrow(missing)) {
-
-      # ask the user if they want to update the path information
-      fpstring <- ifelse(
-        test = is.na(missing$foundpath[i]),
-        yes = "[none found]",
-        no = missing$foundpath[i]
-      )
-      cat("\n")
-      cat("Job '", missing$jobname[i], "':\n", sep = "")
-      cat("   Current path... ", missing$path[i], "\n")
-      cat("   New path....... ", fpstring, "\n")
-      cat("\n")
-      ans <- readline("   Do you want to update/remove the path? [y/n] ")
-
-      # if yes, update it
-      if(ans == "y") {
-        job_write(update_job(jobname = missing$jobname[i], path = missing$foundpath[i]))
-        cat("   Job path updated\n")
-      }
-
-    }
-  }
-
-  # invisibly return the data frame
-  return(invisible(missing))
-}
+# work_scan <- function(dir, owner = NULL, status = NULL, priority = NULL) {
+#
+#   # verification step for other inputs
+#   verify_status(status)
+#   verify_priority(priority)
+#
+#   # find all git repositories
+#   found_paths <- list.files(
+#     path = dir, pattern = "\\.git$", full.names = TRUE,
+#     recursive = TRUE, include.dirs = TRUE, all.files = TRUE)
+#   found_paths <- gsub("\\.git$", "", found_paths)
+#   found_paths <- normalizePath(found_paths, winslash = .Platform$file.sep)
+#
+#   # guess the job name by splitting the path to find terminal folder
+#   found_jobnames <- strsplit(found_paths, .Platform$file.sep, fixed = TRUE)
+#   found_jobnames <- purrr::map_chr(found_jobnames, ~ .x[length(.x)])
+#   found_jobnames <- janitor::make_clean_names(found_jobnames)
+#
+#   # load the existing jobs
+#   jobs <- job_read()
+#   job_names <- job_getnames(jobs)
+#   job_paths <- job_getpaths(jobs)
+#   job_paths <- suppressWarnings( # suppress b/c some jobs may have no path
+#     normalizePath(job_paths, winslash = .Platform$file.sep)
+#   )
+#
+#   # initialise output
+#   created_jobs <- tibble::tibble(jobname = character(0), path = character(0))
+#   n_known <- 0
+#   n_skipped <- 0
+#   n_created <- 0
+#
+#   # add jobs
+#   for(i in seq_along(found_paths)) {
+#
+#     # if the path is already mapped to a job, skip it
+#     if(found_paths[i] %in% job_paths) {
+#       n_known <- n_known + 1
+#       message("repo at '", found_paths[i], "' is listed... skipping")
+#
+#       # for a new path, make guesses and ask the user
+#     } else {
+#
+#       # if there is a git repository, try to find the remote
+#       found_remote <- git2r::remote_url(found_paths[i])[1] # use first
+#       site <- NA
+#       if(grepl("bitbucket|github|gitlab", found_remote)) { # if it's bb/gh/gl..
+#         site <- gsub(".*(bitbucket|github|gitlab).*", "\\1", found_remote)
+#         found_remote <- strsplit(found_remote, "[/:]")[[1]]
+#         user <- found_remote[length(found_remote)-1]
+#         repo <- found_remote[length(found_remote)]
+#         repo <- gsub("\\.git$", "/", repo)
+#         if(site == "bitbucket") prefix <- "https://bitbucket.org/"
+#         if(site == "github") prefix <- "https://github.com/"
+#         if(site == "gitlab") prefix <- "https://gitlab.com/"
+#         url_path <- paste0(prefix, user, "/", repo)
+#       }
+#
+#       # ensure the found job name doesn't already exist
+#       # ... TODO: do this better!!!
+#       while(found_jobnames[i] %in% job_names) {
+#         found_jobnames[i] <- paste0(found_jobnames[i], "X")
+#       }
+#       # construct message to the for the user
+#       message("")
+#       message("unlisted repository found:")
+#       message("    ")
+#       message("    jobname:     ", found_jobnames[i])
+#       message("    owner:       ", owner)
+#       message("    path:        ", found_paths[i])
+#       if(!is.na(site)){
+#         message("    ", site, " url:  ", url_path)
+#       }
+#       message("    status:      ", status)
+#       message("    priority:    ", priority)
+#       message("    ")
+#
+#       # make the user decide
+#       acc <- ""
+#       while(acc != "y" & acc != "n") {
+#         acc <- readline("    create job with these values? [y/n] ")
+#         acc <- tolower(acc)
+#         acc <- trimws(acc, "both")
+#       }
+#       message("")
+#
+#       # if the user says no, skip
+#       if(acc == "n") {
+#         n_skipped <- n_skipped + 1
+#         message("    ... ok, skipping")
+#       }
+#
+#       # if the user says yes, update
+#       if(acc == "y") {
+#         n_created <- n_created + 1
+#
+#         # create new job... without url
+#         if(is.na(site)) {
+#           jobs[[found_jobnames[i]]] <- new_job(
+#             jobname = found_jobnames[i],
+#             description = found_jobnames[i],
+#             owner = owner,
+#             status = status,
+#             priority = priority,
+#             path = found_paths[i]
+#           )
+#
+#           # or else create new job... with a url
+#         } else {
+#           jobs[[found_jobnames[i]]] <- new_job(
+#             jobname = found_jobnames[i],
+#             description = found_jobnames[i],
+#             owner = owner,
+#             status = status,
+#             priority = priority,
+#             path = found_paths[i],
+#             urls = new_url(site = site, link = url_path)
+#           )
+#         }
+#
+#         # write it now, in case user aborts later
+#         job_write(jobs)
+#
+#         # update output
+#         created_jobs <- dplyr::bind_rows(
+#           created_jobs,
+#           tibble::tibble(
+#             jobname = found_jobnames[i],
+#             path = found_paths[i]
+#           )
+#         )
+#
+#         # update list of known paths/jobnames
+#         job_names <- job_getnames(jobs)
+#         job_paths <- job_getpaths(jobs)
+#         job_paths <- suppressWarnings(normalizePath(job_paths))
+#
+#         message("    ... done! new job created!")
+#       }
+#
+#     }
+#
+#   }
+#
+#   # print a summary for the user
+#   message("")
+#   message(n_known, " repositories were already known")
+#   message(n_skipped, " repositories were skipped by user")
+#   message(n_created, " repositories were created")
+#   message("")
+#
+#   return(created_jobs)
+# }
+#
+#
+#
+# work_recover <- function(dirs = getOption("workbch.search")) {
+#
+#   # find the names of missing jobs
+#   missing <- job_missingsentinels()
+#
+#   # if none are missing, invisibly return NULL
+#   if(length(missing) == 0) return(invisible(NULL))
+#
+#   # add the paths and idstrings for those
+#   dat <- job_allpaths()
+#   missing <- dat[dat$jobname %in% missing,]
+#
+#   # find all sentinel files
+#   sentinels <- find_sentinels(dirs)
+#
+#   # extract informatio from all sentinel files
+#   state <- purrr::map_dfr(sentinels, function(s) {
+#     x <- readLines(s)
+#     np <- normalizePath(gsub("\\.workbch$", "", s))
+#     tibble::tibble(jobname = x[1], idstring = x[2], foundpath = np)
+#   })
+#
+#   # try to match a sentinal to each missing job
+#   missing <- dplyr::left_join(missing, state, by = c("jobname", "idstring"))
+#   missing <- missing[,c("jobname", "idstring", "path", "foundpath")]
+#
+#   # loop over missing jobs...
+#   if(interactive()) {
+#     for(i in 1:nrow(missing)) {
+#
+#       # ask the user if they want to update the path information
+#       fpstring <- ifelse(
+#         test = is.na(missing$foundpath[i]),
+#         yes = "[none found]",
+#         no = missing$foundpath[i]
+#       )
+#       cat("\n")
+#       cat("Job '", missing$jobname[i], "':\n", sep = "")
+#       cat("   Current path... ", missing$path[i], "\n")
+#       cat("   New path....... ", fpstring, "\n")
+#       cat("\n")
+#       ans <- readline("   Do you want to update/remove the path? [y/n] ")
+#
+#       # if yes, update it
+#       if(ans == "y") {
+#         job_write(
+#           update_job(
+#             jobname = missing$jobname[i],
+#             path = missing$foundpath[i]
+#           )
+#         )
+#         cat("   Job path updated\n")
+#       }
+#
+#     }
+#   }
+#
+#   # invisibly return the data frame
+#   return(invisible(missing))
+# }
 

@@ -36,11 +36,11 @@ job_modify <- function(
       jobname <- suppressMessages(job_getcurrent(jobs))
     }
 
-    cat("Modifying job:", jobname, "\n\n")
+    cat("Current details for job:", jobname, "\n")
+    job_glimpse(jobname)
+    cat("\n")
 
-    # job_glimpse call here
-
-    cat("What do you want to do?\n")
+    cat("What do you want to do?\n\n")
     cat("  [1] change the job name\n")
     cat("  [2] change the description\n")
     cat("  [3] change the job owner\n")
@@ -134,5 +134,8 @@ prompt_tag <- function(jobname) {
   job_write(update_job(jobname = jobname, tags = tags))
 }
 
-
+prompt_status <- function(jobname) {
+  status <- readline("Enter new job status: ")
+  job_write(update_job(jobname = jobname, status = status))
+}
 

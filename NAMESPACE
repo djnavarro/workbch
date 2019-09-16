@@ -3,6 +3,7 @@
 S3method(print,wkbch_tbl)
 export(job_create)
 export(job_gitreport)
+export(job_glimpse)
 export(job_home)
 export(job_list)
 export(job_modify)

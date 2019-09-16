@@ -2,18 +2,12 @@
 
 #' View a list of all jobs
 #'
-#' @param priority what priority levels to show in the output
-#' @param status what status values to show in the output
-#' @param owner what owner values to show in the output
-#' @param tags what tags to show in the output
-#' @param cols what columns to show in the output
+#' @param search input query used to extract a subset of jobs
+#' @param select character vector of columns to return
 #' @export
 job_list <- function(
-  priority = 1:2,
-  status = c("active", "inactive"),
-  owner = NULL,
-  tags = NULL,
-  cols = c("jobname", "owner", "priority", "status", "description")
+  search = NULL,
+  select = c("jobname", "owner", "priority", "status", "description")
 ){
 
   # read jobs
@@ -40,18 +34,31 @@ job_list <- function(
     x$urls
   })
 
-  # arrange
-  job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
-
   # drop rows as needed
-  if(!is.null(status)) job_tbl <- job_tbl[job_tbl$status %in% status, ]
-  if(!is.null(priority)) job_tbl <- job_tbl[job_tbl$priority %in% priority, ]
-  if(!is.null(owner)) job_tbl <- job_tbl[job_tbl$owner %in% owner, ]
+  if(is.null(search)) {
+    job_tbl <- job_tbl[job_tbl$status %in% c("active", "inactive"), ]
+    job_tbl <- job_tbl[job_tbl$priority %in% 1:2, ]
+  } else {
+    target <- as.character(search)
+    keep <- purrr::map_lgl(jobs, function(jb) {
+      job_flat <- unname(unlist(unclass(jb)))
+      if(any(job_flat == target, na.rm = TRUE)) {return(TRUE)}
+      return(FALSE)
+    })
+    job_tbl <- job_tbl[keep, ]
+  }
+
+  #if(!is.null(status)) job_tbl <- job_tbl[job_tbl$status %in% status, ]
+  #if(!is.null(priority)) job_tbl <- job_tbl[job_tbl$priority %in% priority, ]
+  #if(!is.null(owner)) job_tbl <- job_tbl[job_tbl$owner %in% owner, ]
 
   if(nrow(job_tbl) == 0) return(NULL)
 
+  # arrange
+  job_tbl <- dplyr::arrange(job_tbl, priority, status, owner, jobname)
+
   # drop cols as needed
-  if(!is.null(cols)) job_tbl <- job_tbl[, cols]
+  if(!is.null(select)) job_tbl <- job_tbl[, select]
 
   # check job paths to warn user
   job_checksentinels()

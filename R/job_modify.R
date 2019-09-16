@@ -19,7 +19,9 @@ job_modify <- function(
   delete = FALSE
 ){
 
-  use_prompt <- interactive() & is.null(jobname) & is.null(newname) &
+  # use prompt method if we are interactive and the user has
+  # not specified any arguments (except possibly jobname)
+  use_prompt <- interactive() & is.null(newname) &
     is.null(description) & is.null(owner) & is.null(status) &
     is.null(priority) & is.null(path) & is.null(tags) & is.null(url) &
     delete == FALSE
@@ -27,22 +29,31 @@ job_modify <- function(
   # interactive version
   if(use_prompt) {
 
+    # read jobs and use the current job if the user does
+    # not specify an argument
     jobs <- job_read()
-    jobname <- suppressMessages(job_getcurrent(jobs))
-    cat("The current job is:", jobname, "\n\n")
+    if(is.null(jobname)) {
+      jobname <- suppressMessages(job_getcurrent(jobs))
+    }
+
+    cat("Modifying job:", jobname, "\n\n")
+
+    # job_glimpse call here
+
     cat("What do you want to do?\n")
-    cat("  [1] change job name\n")
-    cat("  [2] change description\n")
-    cat("  [3] change owner\n")
-    cat("  [4] change status\n")
-    cat("  [5] change priority\n")
-    cat("  [6] change job location\n")
-    cat("  [7] add/remove a url\n")
-    cat("  [8] change tags\n")
+    cat("  [1] change the job name\n")
+    cat("  [2] change the description\n")
+    cat("  [3] change the job owner\n")
+    cat("  [4] change the job status\n")
+    cat("  [5] change the job priority\n")
+    cat("  [6] change the job location\n")
+    cat("  [7] add or remove a url\n")
+    cat("  [8] change the tags\n")
     cat("  [9] delete this job\n")
     cat("\n")
-    ans <- readline(" Selection: ")
+    ans <- readline("Selection: ")
     ans <- suppressWarnings(as.numeric(ans))
+    cat("\n")
     if(ans == 1) return(prompt_rename(jobname))
     if(ans == 2) return(prompt_description(jobname))
     if(ans == 3) return(prompt_owner(jobname))
@@ -51,6 +62,7 @@ job_modify <- function(
     if(ans == 6) return(prompt_path(jobname))
     if(ans == 7) return(prompt_url(jobname))
     if(ans == 8) return(prompt_tag(jobname))
+    if(ans == 9) return(prompt_delete(jobname))
     return(invisible(NULL))
 
   # programmatic version
@@ -93,9 +105,13 @@ prompt_owner <- function(jobname) {
   job_write(update_job(jobname = jobname, owner = owner))
 }
 
-prompt_status <- function(jobname) {
-  status <- readline("Enter new job status: ")
-  job_write(update_job(jobname = jobname, status = status))
+prompt_delete <- function(jobname) {
+  jobname2 <- readline("To confirm deletion, type the job name: ")
+  if(jobname2 == jobname) {
+    job_write(update_job(jobname = jobname, delete = TRUE))
+  } else {
+    message("Deletion aborted")
+  }
 }
 
 prompt_priority <- function(jobname) {

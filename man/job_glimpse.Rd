@@ -15,3 +15,11 @@ Invisibly returns the job as a list
 \description{
 View the information stored about a job
 }
+\details{
+The \code{job_glimpse()} function displays parameter values for the
+job specified in the \code{jobname} argument. If no argument is specified
+\code{job_glimpse()} will attempt to guess the "current" job by looking at
+any open RStudio projects. If no project is open (or the RStudio API is not
+available) it attempts to guess by looking at the working directory. The
+output is presented to the user as a message.
+}

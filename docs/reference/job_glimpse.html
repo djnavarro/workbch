@@ -129,6 +129,15 @@
 
     <p>Invisibly returns the job as a list</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>job_glimpse()</code> function displays parameter values for the
+job specified in the <code>jobname</code> argument. If no argument is specified
+<code>job_glimpse()</code> will attempt to guess the "current" job by looking at
+any open RStudio projects. If no project is open (or the RStudio API is not
+available) it attempts to guess by looking at the working directory. The
+output is presented to the user as a message.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -137,6 +146,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>

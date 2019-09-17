@@ -22,6 +22,37 @@ job_create(jobname = NULL, description = NULL, owner = NULL,
 
 \item{path}{path to the job home directory}
 }
+\value{
+Invisibly returns a list containing the parameters for the job
+}
 \description{
 Create a new job
+}
+\details{
+The role of the `job_create()` function is to create new workbch job.
+It can be called in two ways, interactively or programmatically. To call the
+function interactively, R must be in interactive mode and the function should
+be called with no arguments specified. When called in this fashion the user
+will be presented with a sequence of prompts, asking them to specify each
+of the parameters that define a job (e.g., a character string for `jobname`,
+a number for `priority`). When used interactively, you do not need to include
+quote marks when entering a string: `job_create()` will coerce the input to
+the appropriate format, and then append the created job to the job file.
+
+When called with programmatically, the user must specify any arguments in the
+call to `job_create()`. The `jobname`, `description` and `owner` arguments
+should be character strings of length 1, and all three are mandatory. The
+`status` for a job should be one of the following values: `"active"``,
+`"inactive"`, `"complete"`, `"abandoned"` or `"masked"`. The `priority` for
+a job should be a positive integer: the intent is that priority 1 is the
+highest priority, followed by priority 2, and so one. The `tags` for a job
+can be specified as a single string, using `|` as a separator character
+(e.g., `tags = "research | statistics"` would create two tags for the job).
+Finally, the `path` should specify the location of a folder containing the
+project files.
+
+Note that, although jobs can also be associated with URLs (e.g., link to a
+GitHub repository or a document on Overleaf), the `job_create()` function
+does not (at this time) allow you to specify URLs. These can be added using
+`job_modify()`.
 }

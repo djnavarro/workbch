@@ -156,30 +156,31 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The role of the `job_create()` function is to create new workbch job.
+    <p>The role of the <code>job_create()</code> function is to create new workbch job.
 It can be called in two ways, interactively or programmatically. To call the
 function interactively, R must be in interactive mode and the function should
 be called with no arguments specified. When called in this fashion the user
 will be presented with a sequence of prompts, asking them to specify each
-of the parameters that define a job (e.g., a character string for `jobname`,
-a number for `priority`). When used interactively, you do not need to include
-quote marks when entering a string: `job_create()` will coerce the input to
+of the parameters that define a job (e.g., a character string for <code>jobname</code>,
+a number for <code>priority</code>). When used interactively, you do not need to include
+quote marks when entering a string: <code>job_create()</code> will coerce the input to
 the appropriate format, and then append the created job to the job file.</p>
 <p>When called with programmatically, the user must specify any arguments in the
-call to `job_create()`. The `jobname`, `description` and `owner` arguments
-should be character strings of length 1, and all three are mandatory. The
-`status` for a job should be one of the following values: `"active"``,
-`"inactive"`, `"complete"`, `"abandoned"` or `"masked"`. The `priority` for
+call to <code>job_create()</code>. The <code>jobname</code>, <code>description</code> and
+<code>owner</code> arguments should be character strings of length 1, and all three
+are mandatory. The <code>status</code> for a job should be one of the following
+values: <code>"active"</code>, <code>"inactive"</code>, <code>"complete"</code>, <code>"abandoned"</code>
+or <code>"masked"</code>. The <code>priority</code> for
 a job should be a positive integer: the intent is that priority 1 is the
-highest priority, followed by priority 2, and so one. The `tags` for a job
-can be specified as a single string, using `|` as a separator character
-(e.g., `tags = "research | statistics"` would create two tags for the job).
-Finally, the `path` should specify the location of a folder containing the
+highest priority, followed by priority 2, and so one. The <code>tags</code> for a job
+can be specified as a single string, using <code>|</code> as a separator character
+(e.g., <code>tags = "research | statistics"</code> would create two tags for the job).
+Finally, the <code>path</code> should specify the location of a folder containing the
 project files.</p>
 <p>Note that, although jobs can also be associated with URLs (e.g., link to a
-GitHub repository or a document on Overleaf), the `job_create()` function
+GitHub repository or a document on Overleaf), the <code>job_create()</code> function
 does not (at this time) allow you to specify URLs. These can be added using
-`job_modify()`.</p>
+<code><a href='job_modify.html'>job_modify()</a></code>.</p>
     
 
   </div>

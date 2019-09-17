@@ -121,13 +121,33 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>show_clean</th>
-      <td><p>should clean repos be included?</p></td>
+      <td><p>should clean repositories be included in the output?</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble</p>
+    <p>A tibble with columns <code>jobname</code>, <code>staged</code>, <code>unstaged</code>,
+<code>untracked</code>, <code>ahead</code> and <code>behind</code>. The <code>jobname</code> column is
+a character vector, all others are integer valued.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The role of the <code>git_report()</code> function is to provide an overview
+of the status of all workbch jobs that are associated with a git repository.
+For every job, it uses <code><a href='https://rdrr.io/pkg/git2r/man/in_repository.html'>git2r::in_repository</a></code> to determine if the job
+folder (i.e., the <code>path</code> for that job) is in a git repository. Jobs that are
+not in git repositories are ignored.</p>
+<p>For jobs that are associated with git repositories, the <code>git_report()</code>
+function calls <code><a href='https://rdrr.io/pkg/git2r/man/status.html'>git2r::status()</a></code> to determine the git status. If there is an
+upstream set (i.e., <code><a href='https://rdrr.io/pkg/git2r/man/branch_get_upstream.html'>git2r::branch_get_upstream()</a></code> detects an upstream
+repository), it will also call <code><a href='https://rdrr.io/pkg/git2r/man/ahead_behind.html'>git2r::ahead_behind()</a></code> to determine how many
+commits the local repository is ahead and/or behind of the upstream.</p>
+<p>By default, no output is shown for clean repositories (<code>show_clean = FALSE</code>).
+A repository is deemed to be clean if there are no staged, unstaged or
+untracked files and it is neither ahead nor behind the upstream repository.
+If the user specifies <code>show_clean = TRUE</code>, then results are reported for every
+job that is linked to a git repository.</p>
     
 
   </div>
@@ -137,6 +157,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
           </ul>
 
   </div>

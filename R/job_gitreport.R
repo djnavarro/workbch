@@ -1,9 +1,30 @@
 
 #' Report the git status of all jobs
 #'
-#' @param show_clean should clean repos be included?
+#' @param show_clean should clean repositories be included in the output?
 #'
-#' @return A tibble
+#' @details The role of the \code{git_report()} function is to provide an overview
+#' of the status of all workbch jobs that are associated with a git repository.
+#' For every job, it uses \code{git2r::in_repository} to determine if the job
+#' folder (i.e., the \code{path} for that job) is in a git repository. Jobs that are
+#' not in git repositories are ignored.
+#'
+#' For jobs that are associated with git repositories, the \code{git_report()}
+#' function calls \code{git2r::status()} to determine the git status. If there is an
+#' upstream set (i.e., \code{git2r::branch_get_upstream()} detects an upstream
+#' repository), it will also call \code{git2r::ahead_behind()} to determine how many
+#' commits the local repository is ahead and/or behind of the upstream.
+#'
+#' By default, no output is shown for clean repositories (\code{show_clean = FALSE}).
+#' A repository is deemed to be clean if there are no staged, unstaged or
+#' untracked files and it is neither ahead nor behind the upstream repository.
+#' If the user specifies \code{show_clean = TRUE}, then results are reported for every
+#' job that is linked to a git repository.
+#'
+#' @return A tibble with columns \code{jobname}, \code{staged}, \code{unstaged},
+#' \code{untracked}, \code{ahead} and \code{behind}. The \code{jobname} column is
+#' a character vector, all others are integer valued.
+#'
 #' @export
 job_gitreport <- function(show_clean = FALSE) {
 

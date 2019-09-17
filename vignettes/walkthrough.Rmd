@@ -1,0 +1,46 @@
+---
+title: "Using the workbch package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{walkthrough}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(workbch)
+```
+
+The workbch ("work bench") package provides simple utility functions to help the R user keep track of projects and navigate between them. The package is designed around the concept of *jobs*, where a job might correspond to an RStudio project, a git repository, a research project or indeed all of the above. Jobs are assumed to be stored in a single folder, but can be associated with URLs (e.g., on GitHub, Overleaf, OSF, or elsewhere). The package is intended to be used interactively, though most functions can be called from scripts if needed.
+
+The package consists of nine functions. Three functions are used to create, modify, and delete jobs
+
+- `job_create()`. Create a new job
+- `job_modify()`. Modify or delete an existing job
+- `job_seek()`. Scans a directory recursively to find jobs
+
+There are three functions that are useful for navigation:
+
+- `job_open()`. Opens an RStudio project or changes working directory
+- `job_openurl()`. Opens a URL associated with a job in a browser window
+- `job_home()`. Returns the path to the job folder
+
+There are three functions that are useful for keeping track of projects:
+
+- `job_gitreport()`. Shows the git status of all jobs
+- `job_glimpse()`. Shows all information stored about a job
+- `job_list()`. Displays a table summarising all jobs, or a subset of them
+
+
+
+## Getting started
+
+
+

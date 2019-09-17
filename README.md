@@ -21,7 +21,8 @@ map to a single RStudio project or a single git repository). Jobs can be
 linked to multiple URLs, etc. In addition to basic tracking, searching
 and filtering, the package provides some tools to navigate between jobs,
 browse relevant websites, and check the git status of repositories
-linked to a job.
+linked to a job. The package is intended to be used interactively,
+though most functions can be called from scripts if needed.
 
 ## Installation
 

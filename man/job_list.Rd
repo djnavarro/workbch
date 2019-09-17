@@ -12,6 +12,36 @@ job_list(search = NULL, select = c("jobname", "owner", "priority",
 
 \item{select}{character vector of columns to return}
 }
+\value{
+An object of class worbch_tbl. It is regular tibble with a slightly
+modified print method that ensures all rows are printed in the output
+}
 \description{
 View a list of all jobs
+}
+\details{
+The \code{job_list()} function is used to display a summary of the
+jobs known to workbch, shown as a tibble with one row per job. By default
+only those jobs with a \code{priority} value of 1 or 2 will be shown, and
+only if their \code{status} is "active" or "inactive". Jobs that do not have
+sufficient priority or whose status is "complete", "abandoned" or "masked"
+are not shown.
+
+The default behaviour can be overridden by specifying a \code{search} string (or
+object that can be coerced to a string). If the user specifies a value to
+\code{search} then \code{job_list()} attempts to match the search string with a parameter
+value. For instance \code{job_list("active")} will return all jobs that have status
+\code{active} and \code{job_list(1)} will return all jobs that have priority 1. At
+present this functionality requires that the \code{search} string be an exact value
+(e.g., \code{search = "Dani"} would not match a job owned by \code{"Danielle"}),
+though this may be extended in the future.
+
+The output is returned to the user as a tibble, and by default the columns
+displayed are \code{jobname}, \code{owner}, \code{priority}, \code{status},
+and \code{description}. The user can directly specify which columns to be
+included using the \code{select} argument, which should be a character vector
+specifying the names of the columns to include. In addition to the five
+columns made available by default, the output can include the \code{path},
+\code{tags} and \code{urls} associated with the job. For convenience, if you
+set \code{select = NULL} then all columns will be returned.
 }

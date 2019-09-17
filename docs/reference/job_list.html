@@ -130,13 +130,47 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An object of class worbch_tbl. It is regular tibble with a slightly
+modified print method that ensures all rows are printed in the output</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>job_list()</code> function is used to display a summary of the
+jobs known to workbch, shown as a tibble with one row per job. By default
+only those jobs with a <code>priority</code> value of 1 or 2 will be shown, and
+only if their <code>status</code> is "active" or "inactive". Jobs that do not have
+sufficient priority or whose status is "complete", "abandoned" or "masked"
+are not shown.</p>
+<p>The default behaviour can be overridden by specifying a <code>search</code> string (or
+object that can be coerced to a string). If the user specifies a value to
+<code>search</code> then <code>job_list()</code> attempts to match the search string with a parameter
+value. For instance <code>job_list("active")</code> will return all jobs that have status
+<code>active</code> and <code>job_list(1)</code> will return all jobs that have priority 1. At
+present this functionality requires that the <code>search</code> string be an exact value
+(e.g., <code>search = "Dani"</code> would not match a job owned by <code>"Danielle"</code>),
+though this may be extended in the future.</p>
+<p>The output is returned to the user as a tibble, and by default the columns
+displayed are <code>jobname</code>, <code>owner</code>, <code>priority</code>, <code>status</code>,
+and <code>description</code>. The user can directly specify which columns to be
+included using the <code>select</code> argument, which should be a character vector
+specifying the names of the columns to include. In addition to the five
+columns made available by default, the output can include the <code>path</code>,
+<code>tags</code> and <code>urls</code> associated with the job. For convenience, if you
+set <code>select = NULL</code> then all columns will be returned.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

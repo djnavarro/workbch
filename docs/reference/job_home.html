@@ -114,16 +114,26 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>job_home</span>(<span class='no'>jobname</span>)</pre>
+    <pre class="usage"><span class='fu'>job_home</span>(<span class='kw'>jobname</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>jobname</th>
-      <td><p>Name of job</p></td>
+      <td><p>Name of job (defaults to current job)</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>job_home()</code> function returns the file path for `jobname`.
+This can be useful if you need to specify the location of files relative to
+a project.</p>
+<p>If no argument is specified <code>job_home()</code> will attempt to guess the
+current job by looking at any open RStudio projects. If no project is open
+or the RStudio API is not available it attempts to guess by looking at the
+working directory.</p>
     
 
   </div>
@@ -131,7 +141,9 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

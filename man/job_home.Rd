@@ -4,11 +4,21 @@
 \alias{job_home}
 \title{Path to the job home}
 \usage{
-job_home(jobname)
+job_home(jobname = NULL)
 }
 \arguments{
-\item{jobname}{Name of job}
+\item{jobname}{Name of job (defaults to current job)}
 }
 \description{
 Path to the job home
+}
+\details{
+The \code{job_home()} function returns the file path for `jobname`.
+This can be useful if you need to specify the location of files relative to
+a project.
+
+If no argument is specified \code{job_home()} will attempt to guess the
+current job by looking at any open RStudio projects. If no project is open
+or the RStudio API is not available it attempts to guess by looking at the
+working directory.
 }

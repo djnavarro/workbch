@@ -125,13 +125,28 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>job_open()</code> function opens a workbch job. The meaning of
+"open" here depends on context. If there is an RStudio project linked to the
+job and the RStudio API is available, then <code>job_open()</code> will switch the
+to the RStudio project that <code>jobname</code> is linked to. If this is not
+possible an there is a path associated with the job, then <code>job_open()</code>
+will change the working directory to that path. If neither option is possible
+then this function does nothing.</p>
+<p>Note that when working interactively, <code>job_open()</code> can be called without
+specfying the <code>jobname</code>. In this case the user will be presented with
+prompts to select the desired job.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

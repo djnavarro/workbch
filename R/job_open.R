@@ -1,6 +1,17 @@
 #' Navigate to a job
 #'
 #' @param jobname name of job to open
+#' @details The \code{job_open()} function opens a workbch job. The meaning of
+#' "open" here depends on context. If there is an RStudio project linked to the
+#' job and the RStudio API is available, then \code{job_open()} will switch the
+#' to the RStudio project that \code{jobname} is linked to. If this is not
+#' possible an there is a path associated with the job, then \code{job_open()}
+#' will change the working directory to that path. If neither option is possible
+#' then this function does nothing.
+#'
+#' Note that when working interactively, \code{job_open()} can be called without
+#' specfying the \code{jobname}. In this case the user will be presented with
+#' prompts to select the desired job.
 #' @export
 job_open <- function(jobname = NULL) {
 

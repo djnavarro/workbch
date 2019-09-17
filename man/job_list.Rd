@@ -4,20 +4,13 @@
 \alias{job_list}
 \title{View a list of all jobs}
 \usage{
-job_list(priority = 1:2, status = c("active", "inactive"),
-  owner = NULL, tags = NULL, cols = c("jobname", "owner", "priority",
+job_list(search = NULL, select = c("jobname", "owner", "priority",
   "status", "description"))
 }
 \arguments{
-\item{priority}{what priority levels to show in the output}
+\item{search}{input query used to extract a subset of jobs}
 
-\item{status}{what status values to show in the output}
-
-\item{owner}{what owner values to show in the output}
-
-\item{tags}{what tags to show in the output}
-
-\item{cols}{what columns to show in the output}
+\item{select}{character vector of columns to return}
 }
 \description{
 View a list of all jobs

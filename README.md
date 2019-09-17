@@ -55,9 +55,7 @@ Here’s how to add and view the jobs you have stored:
 library(workbch)
 
 job_list()
-#> Warning: Unknown or uninitialised column: 'status'.
-#> Warning: Unknown or uninitialised column: 'priority'.
-#> NULL
+#> No known jobs
 
 job_create(
   jobname = "workitout", 
@@ -86,8 +84,7 @@ job_create(
   path = "~/projects/toxic"
 )
 job_list()
-#> Warning: Some job folders have moved or been deleted. Run
-#> workbch_findjobs() to fix
+#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
 #> # A tibble: 2 x 5
 #>   jobname   owner          priority status description                     
 #>   <chr>     <chr>             <int> <chr>  <chr>                           
@@ -103,8 +100,7 @@ job_modify(jobname = "toxic", priority = 1)
 job_modify(jobname = "toxic", url = "github | https://github.com/djnavarro/toxic")
 job_modify(jobname = "toxic", url = "genius | https://genius.com/Britney-spears-toxic-lyrics")
 job_list()
-#> Warning: Some job folders have moved or been deleted. Run
-#> workbch_findjobs() to fix
+#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
 #> # A tibble: 2 x 5
 #>   jobname   owner          priority status description                     
 #>   <chr>     <chr>             <int> <chr>  <chr>                           
@@ -125,8 +121,7 @@ at seeing so many things that you have to do). For example:
 
 ``` r
 job_list()
-#> Warning: Some job folders have moved or been deleted. Run
-#> workbch_findjobs() to fix
+#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
 #> # A tibble: 5 x 5
 #>   jobname       owner         priority status description                  
 #>   <chr>         <chr>            <int> <chr>  <chr>                        
@@ -141,8 +136,7 @@ A simple way to only see the high priority jobs:
 
 ``` r
 job_list(1)
-#> Warning: Some job folders have moved or been deleted. Run
-#> workbch_findjobs() to fix
+#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
 #> # A tibble: 3 x 5
 #>   jobname       owner         priority status description                  
 #>   <chr>         <chr>            <int> <chr>  <chr>                        
@@ -152,15 +146,16 @@ job_list(1)
 ```
 
 ``` r
-job_list(priority = 1, status = "active")
-#> Warning: Some job folders have moved or been deleted. Run
-#> workbch_findjobs() to fix
-#> # A tibble: 3 x 5
+job_list("active")
+#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
+#> # A tibble: 5 x 5
 #>   jobname       owner         priority status description                  
 #>   <chr>         <chr>            <int> <chr>  <chr>                        
 #> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
 #> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
-#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities
+#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities      
+#> 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   
+#> 5 boys          Lizzo                2 active Distributional assumptions
 ```
 
 ## Example 5: Navigation

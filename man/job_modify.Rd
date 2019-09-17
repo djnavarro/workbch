@@ -32,3 +32,44 @@ job_modify(jobname = NULL, newname = NULL, description = NULL,
 \description{
 Modify the properties of a job
 }
+\details{
+The role of the \code{job_modify()} function is to change one or more
+parameters of an existing workbch job. It can be called in two ways, interactively
+or programmatically. To call the function interactively, R must be in interactive
+mode and the function should be called specifying either the \code{jobname} argument
+only, or no arguments specified. If no \code{jobname} is specified the
+\code{job_modify()} function will attempt to guess the
+current job by looking at any open RStudio projects. If no project is open
+or the RStudio API is not available it attempts to guess by looking at the
+working directory
+
+When called interactiely, the user
+will be presented with a sequence of prompts, asking them to specify each
+of the parameters that define a job (e.g., a character string for \code{descripton},
+a number for \code{priority}). When used interactively, you do not need to include
+quote marks when entering a string: \code{job_modify()} will coerce the input to
+the appropriate format, and then append the created job to the job file.
+
+When called programmatically, the user must specify the arguments in the
+call to \code{job_modify()}. Onlt the \code{jobname} argument is mandatory.
+To rename an existing job the \code{newname} argument should be specified.
+To modify \code{description}, \code{owner}, \code{status}, \code{priority},
+\code{path}, \code{tags} or \code{urls} the relevant argument shoul be
+specified.
+
+The \code{status} of a job should be \code{"active"}, \code{"inactive"},
+\code{"complete"}, \code{"abandoned"} or \code{"masked"}. The \code{priority} for
+a job should be a positive integer: the intent is that priority 1 is the highest
+priority, followed by priority 2, and so one. The \code{tags} for a job can be
+specified as a single string, using \code{|} as a separator character (e.g.,
+\code{tags = "research | statistics"} would create two tags for the job).
+The \code{path} should specify the location of a folder containing the project
+files. The format for \code{urls} is the same as for tags. For example to
+specify a GitHub link one might write \code{urls = "github \
+https://github.com/djnavarro/workbch"}. Multiple URLs can be specified by
+extending this syntax using \code{|} as the separator. For example:
+\code{urls = "github \ https://github.com/djnavarro/workbch | docs |
+https://djnavarro.github.io/workbch"}.
+
+Setting \code{delete = TRUE} will delete the job.
+}

@@ -1,0 +1,154 @@
+---
+title: "Getting Started"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The workbch ("work bench") package provides simple utility functions to help the R user keep track of projects and navigate between them. The package is designed around the concept of *jobs*, where a job might correspond to an RStudio project, a git repository, a research project or indeed all of the above. Jobs are assumed to be stored in a single folder, but can be associated with URLs (e.g., on GitHub, Overleaf, OSF, or elsewhere). The package is intended to be used interactively, though most functions can be called from scripts if needed.
+
+The package consists of nine functions. Three functions are used to create, modify, and delete jobs
+
+- `job_create()`. Create a new job
+- `job_modify()`. Modify or delete an existing job
+- `job_seek()`. Scans a directory recursively to find jobs
+
+There are three functions that are useful for navigation:
+
+- `job_open()`. Opens an RStudio project or changes working directory
+- `job_openurl()`. Opens a URL associated with a job in a browser window
+- `job_home()`. Returns the path to the job folder
+
+There are three functions that are useful for keeping track of projects:
+
+- `job_gitreport()`. Shows the git status of all jobs
+- `job_glimpse()`. Shows all information stored about a job
+- `job_list()`. Displays a table summarising all jobs, or a subset of them.
+
+
+
+## Set up
+
+The easiest way to get started with workbch is to use `job_seek()` to scan for jobs to track. However, before you do this, the workbch package needs to know two things: the "home" folder where it should save its own files, and the top level "search" folder (or folders) where it should look for jobs. The simplest way to do this is to add a few lines to your .Rprofile file, using `usethis::edit_r_profile()` or simply using a text editor. To keep this vignette simple, I'll set it up so that the workbch package only scans my "fun" GitHub folder:
+
+```{r}
+# workbch options to add to .Rprofile
+options(workbch.home = "/home/danielle/GitHub/fun")
+options(workbch.search = "/home/danielle/GitHub/fun")
+suppressMessages(require(workbch))
+```
+
+Once you have saved this to the .Rprofile and restarted the R session, you're ready to start adding jobs.
+
+## Adding jobs
+
+The simplest way to add jobs is to call `job_seek()`. To make things a little easier, when I do this I'll set a default value for the `owner` of created jobs:
+
+```{r, eval=FALSE}
+job_seek(owner = "Danielle")
+```
+
+When I do this, I am shown a message indicating that `job_seek()` has discovered five folders that might correspond to jobs. After agreeing to continue, it shows me what it has found, one job at a time. Here is the first one:
+
+```
+Suggested values:
+
+  Path:              /home/danielle/GitHub/fun/rainbowr 
+  Job name:          rainbowr 
+  Description:       rainbowr 
+  Owner:             Danielle 
+  Status:            active 
+  Priority:          1 
+  Tags:               
+  Git remote (site): github 
+  Git remote (url):  https://github.com/djnavarro/rainbowr/ 
+
+Track this folder with workbch? [y/n] 
+```
+
+As this is a job I wish to track, I type `y`, and then R will prompt me either to accept each of these suggested values (by pressing enter) or to type in the value I would like worbch to store:
+
+```
+Type new values or press enter to use the suggested value:
+
+  Job name...... 
+  Description... generates LGBT hex stickers
+  Owner......... 
+  Status........ inactive
+  Priority...... 
+  Tags.......... 
+```
+
+In this example I have retained the suggested value for `jobname` ("rainbowr"), `owner` ("Danielle"), `priority` (1) and `tags` (no tags), but chosen to overwrite the `description` (almost always a good idea) and the `status`. This process repeats a few times, and the end result is a JSON file (`workbch_jobs.json`) in the "home" folder. Note also that this will write a file called `.workbch` inside the folder for every tracked job. This file contains almost no information: it lists the job name along with a random identification string, and is only used to make it possible for the workbch package to recover the locations of projects if they are moved. 
+
+At this point I'm ready to go!
+
+## Listing jobs
+
+```{r eval=FALSE}
+job_list()
+```
+
+```
+# A tibble: 4 x 5
+  jobname        owner    priority status   description                        
+  <chr>          <chr>       <int> <chr>    <chr>                              
+1 asciify        Danielle        1 active   make ASCII art from images         
+2 rainbowr       Danielle        1 inactive generates LGBT hex stickers        
+3 brownianbridge Danielle        2 inactive generate Brownian bridge animations
+4 skyliner       Danielle        2 inactive create gifs of the Sydney skyline  
+```
+
+By default, the `job_list()` function will only show jobs that have `priority` 1 or 2, and whose `status` is listed as `active` or `inactive` (i.e., `abandoned`, `masked` and `complete` jobs are not displayed). However it is easy to customise the output by entering a search query. At present, the behaviour of this search is somewhat limited: it will return every job for which at least one of the fields is an exact match to the query string. So for example:
+
+```{r, eval=FALSE}
+job_list("inactive")
+```
+
+would return all the jobs with an "inactive" status:
+
+```
+# A tibble: 3 x 5
+  jobname        owner    priority status   description                        
+  <chr>          <chr>       <int> <chr>    <chr>                              
+1 rainbowr       Danielle        1 inactive generates LGBT hex stickers        
+2 brownianbridge Danielle        2 inactive generate Brownian bridge animations
+3 skyliner       Danielle        2 inactive create gifs of the Sydney skyline  
+```
+
+whereas:
+
+```{r, eval=FALSE}
+job_list(1)
+```
+
+returns jobs that have priority 1:
+
+```
+# A tibble: 2 x 5
+  jobname  owner    priority status   description                
+  <chr>    <chr>       <int> <chr>    <chr>                      
+1 asciify  Danielle        1 active   make ASCII art from images 
+2 rainbowr Danielle        1 inactive generates LGBT hex stickers
+```
+
+This can also be used to select those jobs that match a tag, or are owned by a particular person, and so on.
+
+## Screencast
+
+<video width="100%" controls>
+  <source src="setup.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 

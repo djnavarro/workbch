@@ -15,14 +15,14 @@ status](https://www.r-pkg.org/badges/version/workbch)](https://cran.r-project.or
 coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/workbch?branch=master)
 <!-- badges: end -->
 
-The workbch package provides a “work bench” of tools for project
-management within R, based around the concept of a “job” (which might
-map to a single RStudio project or a single git repository). Jobs can be
-linked to multiple URLs, etc. In addition to basic tracking, searching
-and filtering, the package provides some tools to navigate between jobs,
-browse relevant websites, and check the git status of repositories
-linked to a job. The package is intended to be used interactively,
-though most functions can be called from scripts if needed.
+The workbch (“work bench”) package provides simple utility functions to
+help the R user keep track of projects and navigate between them. The
+package is designed around the concept of jobs, where a job might
+correspond to an RStudio project, a git repository, a research project
+or indeed all of the above. Jobs are assumed to be stored in a single
+folder, but can be associated with URLs (e.g., on GitHub, Overleaf, OSF,
+or elsewhere). The package is intended to be used interactively, though
+most functions can be called from scripts if needed.
 
 ## Installation
 
@@ -34,145 +34,25 @@ development version from [GitHub](https://github.com/) with:
 remotes::install_github("djnavarro/workbch")
 ```
 
-## Example 1: Getting started
+## Overview
 
-The workbch package stores information in a few files that are stored
-within a directory referred to as the “workbch home”. The easiest way to
-set this location in a persistent way is to edit the .Rprofile file to
-include the following line:
+The package consists of nine functions. Three functions are used to
+create, modify, and delete jobs
 
-``` r
-options(workbch.home = "PATH_TO_FOLDER")
-```
+  - `job_create()`. Create a new job
+  - `job_modify()`. Modify or delete an existing job
+  - `job_seek()`. Scans a directory recursively to find jobs
 
-This ensures that when the workbch package is loaded it knows where to
-find information about jobs. Once this is done, you can start adding
-jobs\! A “job” is intended to have roughly the same meaning as a
-“project” in everyday life (i.e., a self-contained body of work), but
-to avoid confusion with “RStudio projects” I’ve used a different term.
-Here’s how to add and view the jobs you have stored:
+There are three functions that are useful for navigation:
 
-``` r
-library(workbch)
+  - `job_open()`. Opens an RStudio project or changes working directory
+  - `job_openurl()`. Opens a URL associated with a job in a browser
+    window
+  - `job_home()`. Returns the path to the job folder
 
-job_list()
-#> No known jobs
+There are three functions that are useful for keeping track of projects:
 
-job_create(
-  jobname = "workitout", 
-  description = "Sip martinis and party in France", 
-  owner = "Britney Spears"
-)
-
-job_list()
-#> # A tibble: 1 x 5
-#>   jobname   owner          priority status description                     
-#>   <chr>     <chr>             <int> <chr>  <chr>                           
-#> 1 workitout Britney Spears        1 active Sip martinis and party in France
-```
-
-## Example 3: Editing jobs
-
-To illustrate, suppose we make a new job, called “toxic”:
-
-``` r
-job_create(
-  jobname = "toxic",
-  description = "Estimate the LD50 dose",
-  owner = "Britney Spears",
-  priority = 2,
-  status = "active",
-  path = "~/projects/toxic"
-)
-job_list()
-#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
-#> # A tibble: 2 x 5
-#>   jobname   owner          priority status description                     
-#>   <chr>     <chr>             <int> <chr>  <chr>                           
-#> 1 workitout Britney Spears        1 active Sip martinis and party in France
-#> 2 toxic     Britney Spears        2 active Estimate the LD50 dose
-```
-
-If at this point we realise the priority should have been set at 1, or
-we want to add some URLS:
-
-``` r
-job_modify(jobname = "toxic", priority = 1)
-job_modify(jobname = "toxic", url = "github | https://github.com/djnavarro/toxic")
-job_modify(jobname = "toxic", url = "genius | https://genius.com/Britney-spears-toxic-lyrics")
-job_list()
-#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
-#> # A tibble: 2 x 5
-#>   jobname   owner          priority status description                     
-#>   <chr>     <chr>             <int> <chr>  <chr>                           
-#> 1 toxic     Britney Spears        1 active Estimate the LD50 dose          
-#> 2 workitout Britney Spears        1 active Sip martinis and party in France
-```
-
-If `jobname` argument is not specified, the workbch package attempts to
-see if the use is working within a known job. It checks for this in two
-ways. If the current RStudio project matches a known job, then that job
-is used by default. Failing that, the working directory is checked.
-
-## Example 4: Filtering and prioritising
-
-After a while one can easily end up with a lot of jobs, and it can be
-hard to find what you’re looking for (or, if you’re like me, get anxious
-at seeing so many things that you have to do). For example:
-
-``` r
-job_list()
-#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
-#> # A tibble: 5 x 5
-#>   jobname       owner         priority status description                  
-#>   <chr>         <chr>            <int> <chr>  <chr>                        
-#> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
-#> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
-#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities      
-#> 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   
-#> 5 boys          Lizzo                2 active Distributional assumptions
-```
-
-A simple way to only see the high priority jobs:
-
-``` r
-job_list(1)
-#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
-#> # A tibble: 3 x 5
-#>   jobname       owner         priority status description                  
-#>   <chr>         <chr>            <int> <chr>  <chr>                        
-#> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
-#> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
-#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities
-```
-
-``` r
-job_list("active")
-#> Warning: Some job folders have moved or been deleted. Use job_seek() to fix
-#> # A tibble: 5 x 5
-#>   jobname       owner         priority status description                  
-#>   <chr>         <chr>            <int> <chr>  <chr>                        
-#> 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       
-#> 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…
-#> 3 spinspinsugar Sneakerpimps         1 active Check for periodicities      
-#> 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   
-#> 5 boys          Lizzo                2 active Distributional assumptions
-```
-
-## Example 5: Navigation
-
-To open a webpage associated with a job
-
-``` r
-job_openurl("toxic", "github")
-```
-
-To open the corresponding RStudio project
-
-``` r
-job_open("toxic")
-```
-
-If there is no RStudio project at the relevant location, or the RStudio
-API is not available (i.e., RStudio is not running), all this function
-does is use `setwd()` to change the working directory.
+  - `job_gitreport()`. Shows the git status of all jobs
+  - `job_glimpse()`. Shows all information stored about a job
+  - `job_list()`. Displays a table summarising all jobs, or a subset of
+    them.

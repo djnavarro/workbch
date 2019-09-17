@@ -21,8 +21,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/djnavarro/workbch/branch/master/graph/badge.svg)](https://codecov.io/gh/djnavarro/workbch?branch=master)
 <!-- badges: end -->
 
-The workbch package provides a "work bench" of tools for project management  within R, based around the concept of a "job" (which might map to a single RStudio project or a single git repository). Jobs can be linked to multiple URLs, etc. In addition to basic tracking, searching and filtering, the package provides some tools to navigate between jobs, browse relevant websites, and check the git status of repositories linked to a job. The package is intended to be used interactively, though most functions can be called from scripts if needed. 
-
+The workbch (“work bench”) package provides simple utility functions to help the R user keep track of projects and navigate between them. The package is designed around the concept of jobs, where a job might correspond to an RStudio project, a git repository, a research project or indeed all of the above. Jobs are assumed to be stored in a single folder, but can be associated with URLs (e.g., on GitHub, Overleaf, OSF, or elsewhere). The package is intended to be used interactively, though most functions can be called from scripts if needed.
 
 ## Installation
 
@@ -35,101 +34,23 @@ remotes::install_github("djnavarro/workbch")
 ```
 
 
-## Example 1: Getting started
+## Overview
 
-The workbch package stores information in a few files that are stored
-within a directory referred to as the "workbch home". The easiest way to set
-this location in a persistent way is to edit the .Rprofile file to include
-the following line:
+The package consists of nine functions. Three functions are used to create, modify, and delete jobs
 
-```{r, eval = FALSE}
-options(workbch.home = "PATH_TO_FOLDER")
-```
-```{r, include=FALSE}
-# for the purposes of the demo, set the workbch home to a temp directory 
-options(workbch.home = tempdir())
-```
+- `job_create()`. Create a new job
+- `job_modify()`. Modify or delete an existing job
+- `job_seek()`. Scans a directory recursively to find jobs
 
-This ensures that when the workbch package is loaded it knows where to find information about jobs. Once this is done, you can start adding jobs! A "job" is intended to have roughly the same meaning as a "project" in everyday life (i.e., a self-contained body of work), but to avoid confusion with "RStudio projects" I've used a different term. Here's how to add and view the jobs you have stored:
+There are three functions that are useful for navigation:
 
-```{r makejobs}
-library(workbch)
+- `job_open()`. Opens an RStudio project or changes working directory
+- `job_openurl()`. Opens a URL associated with a job in a browser window
+- `job_home()`. Returns the path to the job folder
 
-job_list()
+There are three functions that are useful for keeping track of projects:
 
-job_create(
-  jobname = "workitout", 
-  description = "Sip martinis and party in France", 
-  owner = "Britney Spears"
-)
+- `job_gitreport()`. Shows the git status of all jobs
+- `job_glimpse()`. Shows all information stored about a job
+- `job_list()`. Displays a table summarising all jobs, or a subset of them.
 
-job_list()
-```
-
-## Example 3: Editing jobs
-
-To illustrate, suppose we make a new job, called "toxic":
-
-```{r maketoxic}
-job_create(
-  jobname = "toxic",
-  description = "Estimate the LD50 dose",
-  owner = "Britney Spears",
-  priority = 2,
-  status = "active",
-  path = "~/projects/toxic"
-)
-job_list()
-```
-
-If at this point we realise the priority should have been set at 1, or we want to add some URLS:
-
-```{r editteam}
-job_modify(jobname = "toxic", priority = 1)
-job_modify(jobname = "toxic", url = "github | https://github.com/djnavarro/toxic")
-job_modify(jobname = "toxic", url = "genius | https://genius.com/Britney-spears-toxic-lyrics")
-job_list()
-```
-
-If `jobname` argument is not specified, the workbch package attempts to see if the use is working within a known job. It checks for this in two ways. If the current RStudio project matches a known job, then that job is used by default. Failing that, the working directory is checked.
-
-## Example 4: Filtering and prioritising
-
-After a while one can easily end up with a lot of jobs, and it can be hard to find what you're looking for (or, if you're like me, get anxious at seeing so many things that you have to do). For example:
-
-```{r include=FALSE}
-job_create("hitmebaby", "Signal detection modelling", "Britney Spears", priority = 2)
-job_create("spinspinsugar", "Check for periodicities", "Sneakerpimps", priority = 1)
-job_create("boys", "Distributional assumptions", "Lizzo", priority = 2)
-```
-```{r busystate}
-job_list()
-```
-
-A simple way to only see the high priority jobs:
-
-```{r prioritise}
-job_list(1)
-```
-
-
-```{r filtering}
-job_list("active")
-```
-
-
-## Example 5: Navigation
-
-To open a webpage associated with a job
-
-```{r eval=FALSE}
-job_openurl("toxic", "github")
-```
-
-To open the corresponding RStudio project 
-
-```{r eval=FALSE}
-job_open("toxic")
-```
-
-If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function does is use `setwd()` to change the working directory.

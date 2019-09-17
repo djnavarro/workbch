@@ -9,3 +9,4 @@
 ^codecov\.yml$
 ^misc$
 ^\.workbch$
+^vignettes/setup\.Rmd$

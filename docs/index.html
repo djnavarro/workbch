@@ -92,7 +92,7 @@
 <a href="#workbch" class="anchor"></a>workbch</h1></div>
 <!-- badges: start -->
 
-<p>The workbch package provides a “work bench” of tools for project management within R, based around the concept of a “job” (which might map to a single RStudio project or a single git repository). Jobs can be linked to multiple URLs, etc. In addition to basic tracking, searching and filtering, the package provides some tools to navigate between jobs, browse relevant websites, and check the git status of repositories linked to a job. The package is intended to be used interactively, though most functions can be called from scripts if needed.</p>
+<p>The workbch (“work bench”) package provides simple utility functions to help the R user keep track of projects and navigate between them. The package is designed around the concept of jobs, where a job might correspond to an RStudio project, a git repository, a research project or indeed all of the above. Jobs are assumed to be stored in a single folder, but can be associated with URLs (e.g., on GitHub, Overleaf, OSF, or elsewhere). The package is intended to be used interactively, though most functions can be called from scripts if needed.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -100,103 +100,36 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"djnavarro/workbch"</span>)</a></code></pre></div>
 </div>
-<div id="example-1-getting-started" class="section level2">
+<div id="overview" class="section level2">
 <h2 class="hasAnchor">
-<a href="#example-1-getting-started" class="anchor"></a>Example 1: Getting started</h2>
-<p>The workbch package stores information in a few files that are stored within a directory referred to as the “workbch home”. The easiest way to set this location in a persistent way is to edit the .Rprofile file to include the following line:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="dt">workbch.home =</span> <span class="st">"PATH_TO_FOLDER"</span>)</a></code></pre></div>
-<p>This ensures that when the workbch package is loaded it knows where to find information about jobs. Once this is done, you can start adding jobs! A “job” is intended to have roughly the same meaning as a “project” in everyday life (i.e., a self-contained body of work), but to avoid confusion with “RStudio projects” I’ve used a different term. Here’s how to add and view the jobs you have stored:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(workbch)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="reference/job_list.html">job_list</a></span>()</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; No known jobs</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="kw"><a href="reference/job_create.html">job_create</a></span>(</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">  <span class="dt">jobname =</span> <span class="st">"workitout"</span>, </a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">  <span class="dt">description =</span> <span class="st">"Sip martinis and party in France"</span>, </a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  <span class="dt">owner =</span> <span class="st">"Britney Spears"</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">)</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="kw"><a href="reference/job_list.html">job_list</a></span>()</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; # A tibble: 1 x 5</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   jobname   owner          priority status description                     </span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                           </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt; 1 workitout Britney Spears        1 active Sip martinis and party in France</span></a></code></pre></div>
-</div>
-<div id="example-3-editing-jobs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-3-editing-jobs" class="anchor"></a>Example 3: Editing jobs</h2>
-<p>To illustrate, suppose we make a new job, called “toxic”:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="reference/job_create.html">job_create</a></span>(</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">  <span class="dt">jobname =</span> <span class="st">"toxic"</span>,</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">  <span class="dt">description =</span> <span class="st">"Estimate the LD50 dose"</span>,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">  <span class="dt">owner =</span> <span class="st">"Britney Spears"</span>,</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">  <span class="dt">priority =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">  <span class="dt">status =</span> <span class="st">"active"</span>,</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">  <span class="dt">path =</span> <span class="st">"~/projects/toxic"</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw"><a href="reference/job_list.html">job_list</a></span>()</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Use job_seek() to fix</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;   jobname   owner          priority status description                     </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                           </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 1 workitout Britney Spears        1 active Sip martinis and party in France</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 2 toxic     Britney Spears        2 active Estimate the LD50 dose</span></a></code></pre></div>
-<p>If at this point we realise the priority should have been set at 1, or we want to add some URLS:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="reference/job_modify.html">job_modify</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">priority =</span> <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/job_modify.html">job_modify</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">url =</span> <span class="st">"github | https://github.com/djnavarro/toxic"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw"><a href="reference/job_modify.html">job_modify</a></span>(<span class="dt">jobname =</span> <span class="st">"toxic"</span>, <span class="dt">url =</span> <span class="st">"genius | https://genius.com/Britney-spears-toxic-lyrics"</span>)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="reference/job_list.html">job_list</a></span>()</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Use job_seek() to fix</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; # A tibble: 2 x 5</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;   jobname   owner          priority status description                     </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                           </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt; 1 toxic     Britney Spears        1 active Estimate the LD50 dose          </span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; 2 workitout Britney Spears        1 active Sip martinis and party in France</span></a></code></pre></div>
-<p>If <code>jobname</code> argument is not specified, the workbch package attempts to see if the use is working within a known job. It checks for this in two ways. If the current RStudio project matches a known job, then that job is used by default. Failing that, the working directory is checked.</p>
-</div>
-<div id="example-4-filtering-and-prioritising" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-4-filtering-and-prioritising" class="anchor"></a>Example 4: Filtering and prioritising</h2>
-<p>After a while one can easily end up with a lot of jobs, and it can be hard to find what you’re looking for (or, if you’re like me, get anxious at seeing so many things that you have to do). For example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/job_list.html">job_list</a></span>()</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Use job_seek() to fix</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; # A tibble: 5 x 5</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;   jobname       owner         priority status description                  </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                        </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       </span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 3 spinspinsugar Sneakerpimps         1 active Check for periodicities      </span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 5 boys          Lizzo                2 active Distributional assumptions</span></a></code></pre></div>
-<p>A simple way to only see the high priority jobs:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="reference/job_list.html">job_list</a></span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Use job_seek() to fix</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;   jobname       owner         priority status description                  </span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                        </span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 3 spinspinsugar Sneakerpimps         1 active Check for periodicities</span></a></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="reference/job_list.html">job_list</a></span>(<span class="st">"active"</span>)</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Warning: Some job folders have moved or been deleted. Use job_seek() to fix</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; # A tibble: 5 x 5</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;   jobname       owner         priority status description                  </span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;         &lt;chr&gt;            &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;                        </span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 1 toxic         Britney Spea…        1 active Estimate the LD50 dose       </span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 2 workitout     Britney Spea…        1 active Sip martinis and party in Fr…</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 3 spinspinsugar Sneakerpimps         1 active Check for periodicities      </span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 4 hitmebaby     Britney Spea…        2 active Signal detection modelling   </span></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="co">#&gt; 5 boys          Lizzo                2 active Distributional assumptions</span></a></code></pre></div>
-</div>
-<div id="example-5-navigation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#example-5-navigation" class="anchor"></a>Example 5: Navigation</h2>
-<p>To open a webpage associated with a job</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="reference/job_openurl.html">job_openurl</a></span>(<span class="st">"toxic"</span>, <span class="st">"github"</span>)</a></code></pre></div>
-<p>To open the corresponding RStudio project</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="reference/job_open.html">job_open</a></span>(<span class="st">"toxic"</span>)</a></code></pre></div>
-<p>If there is no RStudio project at the relevant location, or the RStudio API is not available (i.e., RStudio is not running), all this function does is use <code><a href="https://rdrr.io/r/base/getwd.html">setwd()</a></code> to change the working directory.</p>
+<a href="#overview" class="anchor"></a>Overview</h2>
+<p>The package consists of nine functions. Three functions are used to create, modify, and delete jobs</p>
+<ul>
+<li>
+<code><a href="reference/job_create.html">job_create()</a></code>. Create a new job</li>
+<li>
+<code><a href="reference/job_modify.html">job_modify()</a></code>. Modify or delete an existing job</li>
+<li>
+<code><a href="reference/job_seek.html">job_seek()</a></code>. Scans a directory recursively to find jobs</li>
+</ul>
+<p>There are three functions that are useful for navigation:</p>
+<ul>
+<li>
+<code><a href="reference/job_open.html">job_open()</a></code>. Opens an RStudio project or changes working directory</li>
+<li>
+<code><a href="reference/job_openurl.html">job_openurl()</a></code>. Opens a URL associated with a job in a browser window</li>
+<li>
+<code><a href="reference/job_home.html">job_home()</a></code>. Returns the path to the job folder</li>
+</ul>
+<p>There are three functions that are useful for keeping track of projects:</p>
+<ul>
+<li>
+<code><a href="reference/job_gitreport.html">job_gitreport()</a></code>. Shows the git status of all jobs</li>
+<li>
+<code><a href="reference/job_glimpse.html">job_glimpse()</a></code>. Shows all information stored about a job</li>
+<li>
+<code><a href="reference/job_list.html">job_list()</a></code>. Displays a table summarising all jobs, or a subset of them.</li>
+</ul>
 </div>
 </div>
   </div>

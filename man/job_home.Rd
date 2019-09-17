@@ -9,6 +9,9 @@ job_home(jobname = NULL)
 \arguments{
 \item{jobname}{Name of job (defaults to current job)}
 }
+\value{
+Path to the job folder as a character string
+}
 \description{
 Path to the job home
 }

@@ -12,6 +12,8 @@
 #' or the RStudio API is not available it attempts to guess by looking at the
 #' working directory.
 #'
+#' @return Path to the job folder as a character string
+#'
 #' @export
 job_home <- function(jobname = NULL) {
 

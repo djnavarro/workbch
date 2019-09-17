@@ -26,3 +26,32 @@ job_seek(dirs = getOption("workbch.search"), seek = c("workbch", "git",
 \description{
 Scans for jobs
 }
+\details{
+The \code{job_seek()} searches the folders listed in \code{dirs}
+to find possible candidates that could be added as workbch jobs, or to
+recover the location of any such jobs that may have moved. When candidate
+folders are found, the user is presented with prompts asking if they would
+like to add the folder as a workbch job (or pair it with an existing job
+if a match is discovered).
+
+The search process uses a heuristic to discover possible jobs. A folder
+is considered a possible candidate if it has a \code{.Rproj} file, a
+\code{.workbch} file, or a git repository. If \code{nesting = FALSE} (the
+default), a directory that is contained within another directory that meets
+one of these criteria is not considered a candidate.
+
+As much as possible the \code{job_seek()} function attempts to guess values
+for the various parameters. For instance, if there is a git repository that
+has an upstream remote (on gitbub, bitbucket or gitlab), it attempts to guess
+an appropriate URL for the remote. Similarly, if there is a \code{.workbch}
+sentinel file, it uses the contents of the file to try to match the folder
+against a known job and takes the jobname from the sentinel file. Otherwise
+it guesses a default value using the folder name.
+For parameter values that cannot be guessed from the folder itself, default
+values are specified using the \code{owner}, \code{priority}, \code{status}
+and \code{tags} arguments.
+
+Regardless of the values guessed, the user is prompted either to confirm
+the guessed value (by hitting enter) or overriding the guess by supplying
+the value manually.
+}

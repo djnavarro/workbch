@@ -151,13 +151,42 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>job_seek()</code> searches the folders listed in <code>dirs</code>
+to find possible candidates that could be added as workbch jobs, or to
+recover the location of any such jobs that may have moved. When candidate
+folders are found, the user is presented with prompts asking if they would
+like to add the folder as a workbch job (or pair it with an existing job
+if a match is discovered).</p>
+<p>The search process uses a heuristic to discover possible jobs. A folder
+is considered a possible candidate if it has a <code>.Rproj</code> file, a
+<code>.workbch</code> file, or a git repository. If <code>nesting = FALSE</code> (the
+default), a directory that is contained within another directory that meets
+one of these criteria is not considered a candidate.</p>
+<p>As much as possible the <code>job_seek()</code> function attempts to guess values
+for the various parameters. For instance, if there is a git repository that
+has an upstream remote (on gitbub, bitbucket or gitlab), it attempts to guess
+an appropriate URL for the remote. Similarly, if there is a <code>.workbch</code>
+sentinel file, it uses the contents of the file to try to match the folder
+against a known job and takes the jobname from the sentinel file. Otherwise
+it guesses a default value using the folder name.
+For parameter values that cannot be guessed from the folder itself, default
+values are specified using the <code>owner</code>, <code>priority</code>, <code>status</code>
+and <code>tags</code> arguments.</p>
+<p>Regardless of the values guessed, the user is prompted either to confirm
+the guessed value (by hitting enter) or overriding the guess by supplying
+the value manually.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

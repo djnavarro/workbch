@@ -39,18 +39,21 @@ a number for \code{priority}). When used interactively, you do not need to inclu
 quote marks when entering a string: \code{job_create()} will coerce the input to
 the appropriate format, and then append the created job to the job file.
 
-When called with programmatically, the user must specify any arguments in the
+When called programmatically, the user must specify the arguments in the
 call to \code{job_create()}. The \code{jobname}, \code{description} and
 \code{owner} arguments should be character strings of length 1, and all three
 are mandatory. The \code{status} for a job should be one of the following
 values: \code{"active"}, \code{"inactive"}, \code{"complete"}, \code{"abandoned"}
-or \code{"masked"}. The \code{priority} for
-a job should be a positive integer: the intent is that priority 1 is the
-highest priority, followed by priority 2, and so one. The \code{tags} for a job
-can be specified as a single string, using \code{|} as a separator character
-(e.g., \code{tags = "research | statistics"} would create two tags for the job).
-Finally, the \code{path} should specify the location of a folder containing the
-project files.
+or \code{"masked"}. The \code{priority} for a job should be a positive integer:
+the intent is that priority 1 is the highest priority, followed by priority 2,
+and so one. The \code{tags} for a job can be specified as a single string, using
+\code{|} as a separator character (e.g., \code{tags = "research | statistics"}
+would create two tags for the job). Finally, the \code{path} should specify the
+location of a folder containing the project files.
+
+For non-mandatory arguments, if the user does not specify a value, the
+\code{job_create()} function applies the following defaults: \code{priority = 1},
+\code{status = "active"}, \code{tags = character(0)} and \code{path = NA}`.
 
 Note that, although jobs can also be associated with URLs (e.g., link to a
 GitHub repository or a document on Overleaf), the \code{job_create()} function

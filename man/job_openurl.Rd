@@ -14,3 +14,14 @@ job_openurl(site, jobname = NULL)
 \description{
 Navigate to a URL associated with a job
 }
+\details{
+The \code{job_openurl()} function opens a URL associated with a
+job in a browser window. The \code{site} argument is the site nickname
+(e.g. "github", "homepage", etc) and the \code{jobname} argument specifies
+the job to use.
+
+If no argument is specified \code{job_openurl()} will attempt to guess the
+current job by looking at any open RStudio projects. If no project is open
+or the RStudio API is not available it attempts to guess by looking at the
+working directory.
+}

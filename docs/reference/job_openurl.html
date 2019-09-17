@@ -129,13 +129,26 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The <code>job_openurl()</code> function opens a URL associated with a
+job in a browser window. The <code>site</code> argument is the site nickname
+(e.g. "github", "homepage", etc) and the <code>jobname</code> argument specifies
+the job to use.</p>
+<p>If no argument is specified <code>job_openurl()</code> will attempt to guess the
+current job by looking at any open RStudio projects. If no project is open
+or the RStudio API is not available it attempts to guess by looking at the
+working directory.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#details">Details</a></li>
+          </ul>
 
   </div>
 </div>

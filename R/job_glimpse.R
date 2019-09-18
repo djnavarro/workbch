@@ -32,7 +32,7 @@ job_glimpse <- function(jobname = NULL) {
   msg_str <- paste0(msg_str, "  priority:     ", jb$priority, "\n", collapse = "")
   msg_str <- paste0(msg_str, "  status:       ", jb$status, "\n", collapse = "")
   msg_str <- paste0(msg_str, "  path:         ", jb$path, "\n", collapse = "")
-  msg_str <- paste0(msg_str, "  tags:         ", jb$tags, "\n", collapse = "")
+  msg_str <- paste0(msg_str, "  tags:         ", paste0(jb$tags, collapse = " | "), "\n", collapse = "")
   if(nrow(jb$urls) > 0) {
     for(i in 1:nrow(jb$urls)) {
       site <- jb$urls$site[i]

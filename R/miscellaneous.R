@@ -1,13 +1,17 @@
 
 split_tags <- function(tags) {
+  verify_onestring(tags)
   tags <- strsplit(tags, "|", fixed = TRUE)[[1]]
   tags <- trimws(tags, which = "both")
+  tags <- tags[tags != ""]
   return(tags)
 }
 
 split_url <- function(url) {
+  verify_onestring(url)
   url <- strsplit(url, "|", fixed = TRUE)[[1]]
   url <- trimws(url, which = "both")
+  url <- url[url != ""]
   return(url)
 }
 

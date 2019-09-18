@@ -53,6 +53,7 @@ job_seek <- function(dirs = getOption("workbch.search"),
   # search for possible job paths
   cat("\n  Scanning for possible jobs... ")
   paths <- get_jobpaths(dirs, seek, nesting)
+  paths <- normalizePath(paths, mustWork = FALSE)
   cat("done.\n")
 
   # if there are no known jobs...
@@ -173,6 +174,7 @@ get_detachedsentinels <- function(job_ids, paths) {
   detached_sentinels <- purrr::map_chr(
     .x = paths,
     .f = function(x) {
+      x <- normalizePath(x, mustWork = FALSE)
       if(file.exists(file.path(x, ".workbch"))) {
         return(x)
       }
@@ -215,11 +217,15 @@ prompt_movedjobs <- function(detached_sentinels, job_ids, jobs, paths) {
   # the link to any matches
   if(nrow(moved_sentinels) > 0) {
     for(i in 1:nrow(moved_sentinels)) {
+
+      old_path <- normalizePath(moved_sentinels$path[i], mustWork = FALSE)
+      new_path <- normalizePath(moved_sentinels$found_path[i], mustWork = FALSE)
+
       cat("\n")
       cat("  The job '", moved_sentinels$jobname[i],
           "' may have moved\n", sep="")
-      cat("    Previous location: ", moved_sentinels$path[i], "\n")
-      cat("    New location:      ", moved_sentinels$found_path[i], "\n")
+      cat("    Previous location: ", old_path, "\n")
+      cat("    New location:      ", new_path, "\n")
       cat("\n")
       ans <- readline("  Set the job path to the new location? [y/n] ")
       if(ans == "y") {
@@ -227,7 +233,7 @@ prompt_movedjobs <- function(detached_sentinels, job_ids, jobs, paths) {
         jobs <- update_jobpath(
           jobs = jobs,
           jobname = moved_sentinels$jobname[i],
-          path = moved_sentinels$found_path[i]
+          path = new_path
         )
         job_write(jobs)
         cat("  Okay, path updated\n")

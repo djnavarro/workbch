@@ -57,7 +57,9 @@ job_getnames <- function(jobs) {
 
 job_getpaths <- function(jobs) {
   if(is.null(jobs)) { return(character(0)) }
-  return(purrr::map_chr(jobs, function(j) {j$path}))
+  return(purrr::map_chr(jobs, function(j) {
+    normalizePath(j$path, mustWork = FALSE)
+  }))
 }
 
 job_allpaths <- function(show_hidden = TRUE) {

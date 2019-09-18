@@ -1,6 +1,11 @@
 
-# write a sentinal file
+# write one sentinel file
 sentinel_write <- function(dir, jobname, idstring) {
+
+  verify_onestring(dir)
+  verify_onestring(jobname)
+  verify_onestring(idstring)
+
   dir <- normalizePath(dir)
   file <- normalizePath(file.path(dir, ".workbch"), mustWork = FALSE)
   writeLines(text = c(jobname, idstring), con = file)

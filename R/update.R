@@ -29,6 +29,7 @@ update_job <- function(
     verify_jobname(newname)
     verify_jobmissing(newname, jobs)
     jobs <- update_jobname(jobs, jobname, newname)
+    jobname <- newname # in case of multiple changes
   }
 
   # ------- job description -------
@@ -104,11 +105,13 @@ update_jobpath <- function(jobs, jobname, path) {
 }
 
 # jobname
-update_jobname <- function(job, jobname, newname) {
+update_jobname <- function(jobs, jobname, newname) {
   job_names <- names(jobs)
   ind <- which(job_names == jobname)
-  names(jobs)[ind] <- newname
-  jobs[[newname]]$jobname <- newname
+  jb <- jobs[[jobname]]
+  jb$jobname <- newname
+  jobs <- jobs[-ind]
+  jobs[[newname]] <- jb
   return(jobs)
 }
 

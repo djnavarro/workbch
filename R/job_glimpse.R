@@ -19,6 +19,9 @@ job_glimpse <- function(jobname = NULL) {
   jobs <- job_read()
   if(is.null(jobname)) {
     jobname <- suppressMessages(job_getcurrent(jobs))
+  } else {
+    verify_jobname(jobname)
+    verify_jobexists(jobname, jobs)
   }
 
   # obtain the job

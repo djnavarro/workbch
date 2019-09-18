@@ -10,3 +10,4 @@
 ^misc$
 ^\.workbch$
 ^vignettes/setup\.Rmd$
+^vignettes/usage\.Rmd$

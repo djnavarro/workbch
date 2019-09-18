@@ -80,12 +80,3 @@ test_that("job_getcurrent works", {
   setwd(wd)
 
 })
-
-
-test_that("job_pathcheck works", {
-
-  expect_true(job_pathcheck("toxic", loc))
-  expect_warning(job_pathcheck("toxic", "dfkjaskldjfha"), "but does not exist")
-
-})
-

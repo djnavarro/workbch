@@ -104,20 +104,3 @@ verify_jobexists <- function(jobname, jobs, strict = TRUE) {
   }
   return(invisible(TRUE))
 }
-
-
-# throw warning if a job path does not exist
-job_pathcheck <- function(jobname, path) {
-  if(length(path) > 0) {
-    bad <- which(!dir.exists(as.character(path)))
-    if(length(bad) > 0) {
-      for(b in bad) {
-        if(!is.na(path[b])) {
-          warning("The path for job '", jobname[b], "' is set to '",
-                  path[b], "' but does not exist", call. = FALSE)
-        }
-      }
-    }
-  }
-  return(invisible(TRUE))
-}

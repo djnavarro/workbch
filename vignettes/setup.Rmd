@@ -1,5 +1,5 @@
 ---
-title: "Getting Started"
+title: "Setting up your work bench"
 ---
 
 ```{r, include = FALSE}

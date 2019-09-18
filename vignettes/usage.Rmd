@@ -1,5 +1,5 @@
 ---
-title: "Using workbch"
+title: "Using the workbch package"
 ---
 
 ```{r, include = FALSE}
@@ -12,3 +12,33 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(workbch)
 ```
+
+## Navigation
+
+<video width="100%" controls>
+  <source src="navigation.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+## Git report
+
+<video width="100%" controls>
+  <source src="gitrep.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+## Modifying jobs
+
+<video width="100%" controls>
+  <source src="modify.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+## Moving jobs
+
+<video width="100%" controls>
+  <source src="moving.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+

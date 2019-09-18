@@ -38,7 +38,7 @@ new_job <- function(jobname, description, owner, status = NULL,
 
   # add sentinel file
   if(dir.exists(obj$path) & sentinel == TRUE) {
-    write_sentinel(obj$path, obj$jobname, obj$idstring)
+    sentinel_write(obj$path, obj$jobname, obj$idstring)
   }
 
   return(obj)

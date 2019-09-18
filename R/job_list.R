@@ -86,9 +86,16 @@ job_list <- function(
   # drop cols as needed
   if(!is.null(select)) job_tbl <- job_tbl[, select]
 
-  # check job paths to warn user
-  job_checksentinels()
+  # look for missing sentinels
+  missing <- sentinel_missing()
 
+  # throw warning if there are missing sentinel files
+  if(length(missing) > 0) {
+    warning(
+      "Some job folders have moved or been deleted. Use job_seek() to fix",
+      call. = FALSE
+    )
+  }
   return(as_wkbch_tbl(job_tbl))
 }
 

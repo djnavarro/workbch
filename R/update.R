@@ -98,7 +98,7 @@ update_jobother <- function(jobs, jobname, value) {
 update_jobpath <- function(jobs, jobname, path) {
   jobs[[jobname]]$path <- path
   if(dir.exists(path)) {
-    write_sentinel(path, jobname, jobs[[jobname]]$idstring)
+    sentinel_write(path, jobname, jobs[[jobname]]$idstring)
   }
   return(jobs)
 }

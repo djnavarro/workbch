@@ -62,7 +62,7 @@ job_getpaths <- function(jobs) {
   }))
 }
 
-job_allpaths <- function(show_hidden = TRUE) {
+job_allpaths <- function() {
   jobs <- job_read()
   job_tbl <- purrr::map_df(jobs, function(x){
     if(!is.null(x$path)) {
@@ -73,9 +73,6 @@ job_allpaths <- function(show_hidden = TRUE) {
   })
   job_tbl <- dplyr::arrange(job_tbl, jobname)
   job_tbl <- dplyr::filter(job_tbl, !is.na(path))
-
-  # remove the hidden jobs if need be
-  if(!show_hidden) {job_tbl <- apply_mask(job_tbl)}
 
   # throw warnings
   return(as_wkbch_tbl(job_tbl))
@@ -203,12 +200,6 @@ split_url <- function(url) {
 
 # miscellaneous helpers ---------------------------------------------------
 
-# find the jobs that need to be hidden and hide them
-apply_mask <- function(tbl) {
-  tbl <- dplyr::filter(tbl, status %in% c("active", "inactive"))
-  return(tbl)
-}
-
 # repeatedly ask user until a stop signal is reached
 multireadline <- function(prompt, stop = "") {
   out <- character(0)
@@ -266,10 +257,10 @@ de_wkbch_tbl <- function(x) {
 
 # utility functions -------------------------------------------------------
 
-# returns a list of expressions
-capture_dots <- function(...) {
-  as.list(substitute(list(...)))[-1L]
-}
+# # returns a list of expressions
+# capture_dots <- function(...) {
+#   as.list(substitute(list(...)))[-1L]
+# }
 
 #' @importFrom rlang %||%
 NULL

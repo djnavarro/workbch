@@ -78,9 +78,10 @@ empty_url <- function() {
 }
 
 
-empty_job <- function() {
-  new_job(jobname = character(0), description = character(0),
-          owner = character(0), status = character(0),
-          priority = numeric(0), tags = character(0),
-          path = character(0), urls = empty_url())
-}
+# --- not actually used anywhere ---
+# empty_job <- function() {
+#   new_job(jobname = character(0), description = character(0),
+#           owner = character(0), status = character(0),
+#           priority = numeric(0), tags = character(0),
+#           path = character(0), urls = empty_url())
+# }

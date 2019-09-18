@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Using workbch • workbch</title>
+<title>Using the workbch package • workbch</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using workbch">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Using the workbch package">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -54,10 +54,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/setup.html">Getting Started</a>
+      <a href="../articles/setup.html">Setting up your work bench</a>
     </li>
     <li>
-      <a href="../articles/usage.html">Using workbch</a>
+      <a href="../articles/usage.html">Using the workbch package</a>
     </li>
   </ul>
 </li>
@@ -82,7 +82,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Using workbch</h1>
+      <h1>Using the workbch package</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/djnavarro/workbch/blob/master/vignettes/usage.Rmd"><code>vignettes/usage.Rmd</code></a></small>
@@ -93,9 +93,58 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(workbch)</a></code></pre></div>
+<div id="navigation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#navigation" class="anchor"></a>Navigation</h2>
+<p>One function of the workbch package is to make navigation a little easier: <code><a href="../reference/job_open.html">job_open()</a></code> allows you to switch between jobs, and <code><a href="../reference/job_openurl.html">job_openurl()</a></code> opens a URL linked to the job in a browser window. The screencast below illustrates this:</p>
+<video width="100%" controls><source src="navigation.mp4" type="video/mp4"><p>Your browser does not support the video tag. </p></source></video>
+</div>
+<div id="git-report" class="section level2">
+<h2 class="hasAnchor">
+<a href="#git-report" class="anchor"></a>Git report</h2>
+<p>A second function of workbch is to keep track of the git status of various projects. A common workflow problem (for me, at least) is that I sometimes forget to commit changes or push them upstream, and then forget which projects I’ve left in this “unclean” state. The <code><a href="../reference/job_gitreport.html">job_gitreport()</a></code> function aims to make this easier by checking the git status for all jobs, and reporting those jobs that are not in a clean state. For example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="../reference/job_gitreport.html">job_gitreport</a></span>()</a></code></pre></div>
+<pre><code># A tibble: 3 x 6
+  jobname     staged unstaged untracked ahead behind
+  &lt;chr&gt;        &lt;int&gt;    &lt;int&gt;     &lt;int&gt; &lt;int&gt;  &lt;int&gt;
+1 conjunction      0        1         1     3      0
+2 psychtheory      0        0         1     0      0
+3 tidylsrbook      0       24        12     0      0</code></pre>
+<p>Screencast illustrating how <code><a href="../reference/job_gitreport.html">job_gitreport()</a></code> works:</p>
+<video width="100%" controls><source src="gitrep.mp4" type="video/mp4"><p>Your browser does not support the video tag. </p></source></video>
+</div>
+<div id="moving-jobs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#moving-jobs" class="anchor"></a>Moving jobs</h2>
+<p>A third function of the workbch package is keeping track of job locations when they move around on the local machine, as long as they stay somewhere on the workbch search path (i.e., the “workbch.search” option). It does this by matching information stored in the “.workbch” sentinel file to entries in the “workbch_jobs.json” file. There are two functions that are useful for this:</p>
+<ul>
+<li>
+<code><a href="../reference/job_list.html">job_list()</a></code> throws a warning if a job folder has moved</li>
+<li>
+<code><a href="../reference/job_seek.html">job_seek()</a></code> will ask if you want to update the location</li>
+</ul>
+<p>This is illustrated in the screencast below:</p>
+<video width="100%" controls><source src="moving.mp4" type="video/mp4"><p>Your browser does not support the video tag. </p></source></video>
+</div>
+<div id="modifying-jobs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modifying-jobs" class="anchor"></a>Modifying jobs</h2>
+<p>A common task is to update the information associated with a job. The priority may change, it may be assigned a new owner or acquire a new URL, etc. The <code><a href="../reference/job_modify.html">job_modify()</a></code> function can be used for this, as illustrated below:</p>
+<video width="100%" controls><source src="modify.mp4" type="video/mp4"><p>Your browser does not support the video tag. </p></source></video>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#navigation">Navigation</a></li>
+      <li><a href="#git-report">Git report</a></li>
+      <li><a href="#moving-jobs">Moving jobs</a></li>
+      <li><a href="#modifying-jobs">Modifying jobs</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

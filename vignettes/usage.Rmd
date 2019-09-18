@@ -15,30 +15,60 @@ library(workbch)
 
 ## Navigation
 
+One function of the workbch package is to make navigation a little easier: `job_open()` allows you to switch between jobs, and `job_openurl()` opens a URL linked to the job in a browser window. The screencast below illustrates this:
+
 <video width="100%" controls>
   <source src="navigation.mp4" type="video/mp4">
 Your browser does not support the video tag.
-</video> 
+</video>
 
 ## Git report
+
+A second function of workbch is to keep track of the git status of various projects. A common workflow problem (for me, at least) is that I sometimes forget to commit changes or push them upstream, and then forget which projects I've left in this "unclean" state. The `job_gitreport()` function aims to make this easier by checking the git status for all jobs, and reporting those jobs that are not in a clean state. For example:
+
+```{r, eval=FALSE}
+job_gitreport()
+```
+```
+# A tibble: 3 x 6
+  jobname     staged unstaged untracked ahead behind
+  <chr>        <int>    <int>     <int> <int>  <int>
+1 conjunction      0        1         1     3      0
+2 psychtheory      0        0         1     0      0
+3 tidylsrbook      0       24        12     0      0
+```
+
+Screencast illustrating how `job_gitreport()` works:
 
 <video width="100%" controls>
   <source src="gitrep.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video> 
 
+
+## Moving jobs
+
+A third function of the workbch package is keeping track of job locations when they move around on the local machine, as long as they stay somewhere on the workbch search path (i.e., the "workbch.search" option). It does this by matching information stored in the ".workbch" sentinel file to entries in the "workbch_jobs.json" file. There are two functions that are useful for this:
+
+- `job_list()` throws a warning if a job folder has moved
+- `job_seek()` will ask if you want to update the location 
+
+This is illustrated in the screencast below:
+
+<video width="100%" controls>
+  <source src="moving.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+
 ## Modifying jobs
+
+A common task is to update the information associated with a job. The priority may change, it may be assigned a new owner or acquire a new URL, etc. The `job_modify()` function can be used for this, as illustrated below:
 
 <video width="100%" controls>
   <source src="modify.mp4" type="video/mp4">
 Your browser does not support the video tag.
 </video> 
 
-## Moving jobs
-
-<video width="100%" controls>
-  <source src="moving.mp4" type="video/mp4">
-Your browser does not support the video tag.
-</video> 
 
 

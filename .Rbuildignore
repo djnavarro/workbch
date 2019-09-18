@@ -11,3 +11,5 @@
 ^\.workbch$
 ^vignettes/setup\.Rmd$
 ^vignettes/usage\.Rmd$
+^vignettes/.*\.mp4$
+^vignettes/.*\.gif$

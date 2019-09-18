@@ -11,6 +11,10 @@ split_url <- function(url) {
   return(url)
 }
 
+empty_url <- function() {
+  new_url(site = character(0), link = character(0), verify = FALSE)
+}
+
 idstring <- function() {
   paste0(sample(c(letters, LETTERS), 10, TRUE), collapse="")
 }

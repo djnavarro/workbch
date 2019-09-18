@@ -1,7 +1,3 @@
-# constructor functions
-
-
-# constructors for new objects with default values ------------------------
 
 new_job <- function(jobname, description, owner, status = NULL,
                     priority = NULL, tags = NULL, path = NULL, urls = NULL,
@@ -64,24 +60,3 @@ new_url <- function(site, link, verify = TRUE) {
   )
 }
 
-
-
-# constructors for empty objects ------------------------------------------
-
-# these sometimes skip the verification step because in normal usage the
-# user is expected to specify a string of length one (enforced in the
-# verification functions) but strictly speaking the empty object violates
-# this by using strings of length 0
-
-empty_url <- function() {
-  new_url(site = character(0), link = character(0), verify = FALSE)
-}
-
-
-# --- not actually used anywhere ---
-# empty_job <- function() {
-#   new_job(jobname = character(0), description = character(0),
-#           owner = character(0), status = character(0),
-#           priority = numeric(0), tags = character(0),
-#           path = character(0), urls = empty_url())
-# }

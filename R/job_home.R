@@ -24,10 +24,11 @@ job_home <- function(jobname = NULL) {
     jobname <- suppressMessages(job_getcurrent(jobs))
   } else {
     verify_jobname(jobname)
+    verify_jobexists(jobname, jobs)
   }
 
   path <- jobs[[jobname]]$path
-  if(length(path) == 0) {
+  if(length(path) == 0 || is.na(path)) {
     stop("No path known for job '", jobname, "'", call. = FALSE)
   }
   return(normalizePath(path))

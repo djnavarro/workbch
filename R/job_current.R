@@ -52,5 +52,5 @@ job_getcurrent <- function(jobs) {
     return(matched_job)
   }
 
-  stop("could not detect current job", call. = FALSE)
+  stop("Could not detect current job", call. = FALSE)
 }

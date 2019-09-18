@@ -100,7 +100,7 @@ verify_jobmissing <- function(jobname, jobs, strict = TRUE) {
 verify_jobexists <- function(jobname, jobs, strict = TRUE) {
   present <- jobname %in% pull_jobnames(jobs)
   if(strict & present == FALSE)  {
-    stop("no job exists with name '", jobname, "'", call. = FALSE)
+    stop("No job exists with name '", jobname, "'", call. = FALSE)
   }
   return(invisible(TRUE))
 }

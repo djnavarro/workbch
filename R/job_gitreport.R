@@ -29,7 +29,8 @@
 job_gitreport <- function(show_clean = FALSE) {
 
   # get the job locations
-  proj <- job_allpaths()
+  jobs <- job_read()
+  proj <- pull_jobinfo(jobs)
   x <- list()
 
   for(i in 1:nrow(proj)) {

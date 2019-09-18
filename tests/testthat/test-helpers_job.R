@@ -19,8 +19,8 @@ test_that("reading and writing jobs works", {
   expect_null(jobs)
 
   # while we're here, lets try to read empty jobnames and paths
-  expect_equal(job_getnames(jobs), character(0))
-  expect_equal(job_getpaths(jobs), character(0))
+  expect_equal(pull_jobnames(jobs), character(0))
+  expect_equal(pull_jobpaths(jobs), character(0))
 
   # verification tests (here because that was the original file structure)
   expect_true(verify_jobmissing("toxic", jobs, strict = FALSE))
@@ -36,8 +36,8 @@ test_that("reading and writing jobs works", {
   expect_equal(job_read(), jobs)
 
   # check job names and paths: named character vectors
-  expect_equal(job_getnames(jobs), c(toxic = "toxic"))
-  expect_equal(job_getpaths(jobs), c(toxic = NA_character_))
+  expect_equal(pull_jobnames(jobs), c(toxic = "toxic"))
+  expect_equal(pull_jobpaths(jobs), c(toxic = NA_character_))
 
   # verification tests (here because that was the original file structure)
   expect_true(verify_jobexists("toxic", jobs, strict = FALSE))
@@ -56,8 +56,8 @@ test_that("reading and writing jobs works", {
   expect_equal(job_read(), jobs)
 
   # check job names and paths: named character vectors
-  expect_equal(job_getnames(jobs), c(toxic = "toxic", hitmebaby = "hitmebaby"))
-  expect_equal(job_getpaths(jobs), c(toxic = NA_character_, hitmebaby = loc))
+  expect_equal(pull_jobnames(jobs), c(toxic = "toxic", hitmebaby = "hitmebaby"))
+  expect_equal(pull_jobpaths(jobs), c(toxic = NA_character_, hitmebaby = loc))
 
   # verification tests (here because that was the original file structure)
   expect_true(verify_jobexists("toxic", jobs, strict = FALSE))

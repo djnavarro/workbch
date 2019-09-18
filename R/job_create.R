@@ -79,7 +79,7 @@ job_create <- function(jobname = NULL, description = NULL, owner = NULL,
 
   # read jobs file and check the names of the jobs
   jobs <- job_read()
-  job_names <- job_getnames(jobs)
+  job_names <- pull_jobnames(jobs)
 
   # make sure no job exists with this name
   verify_jobname(jobname)

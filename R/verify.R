@@ -89,7 +89,7 @@ verify_owner <- function(owner) {
 
 # ensure there is no job called jobname
 verify_jobmissing <- function(jobname, jobs, strict = TRUE) {
-  missing <- !(jobname %in% job_getnames(jobs))
+  missing <- !(jobname %in% pull_jobnames(jobs))
   if(strict & missing == FALSE)  {
     stop("a job already exists with name '", jobname, "'", call. = FALSE)
   }
@@ -98,10 +98,26 @@ verify_jobmissing <- function(jobname, jobs, strict = TRUE) {
 
 # ensure there is no job called jobname
 verify_jobexists <- function(jobname, jobs, strict = TRUE) {
-  present <- jobname %in% job_getnames(jobs)
+  present <- jobname %in% pull_jobnames(jobs)
   if(strict & present == FALSE)  {
     stop("no job exists with name '", jobname, "'", call. = FALSE)
   }
   return(invisible(TRUE))
 }
 
+
+# throw warning if a job path does not exist
+job_pathcheck <- function(jobname, path) {
+  if(length(path) > 0) {
+    bad <- which(!dir.exists(as.character(path)))
+    if(length(bad) > 0) {
+      for(b in bad) {
+        if(!is.na(path[b])) {
+          warning("The path for job '", jobname[b], "' is set to '",
+                  path[b], "' but does not exist", call. = FALSE)
+        }
+      }
+    }
+  }
+  return(invisible(TRUE))
+}

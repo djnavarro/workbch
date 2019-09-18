@@ -159,3 +159,45 @@ test_that("verify_path works", {
 
 })
 
+
+test_that("verify_jobexists / verify_jobmissing work", {
+
+  loc <- tempdir()
+  options(workbch.home = loc)
+
+  # delete the job file if for some reason it exists
+  if(file.exists(job_file())) {
+    file.remove(job_file())
+  }
+  jobs <- job_read()
+
+  # verification tests (here because that was the original file structure)
+  expect_true(verify_jobmissing("toxic", jobs, strict = FALSE))
+  expect_true(verify_jobmissing("hitmebaby", jobs, strict = FALSE))
+
+  # create a list of jobs directly from the constructor
+  jobs <- suppressWarnings(list(toxic = new_job(
+    jobname = "toxic", description = "a song", owner = "britney"
+  )))
+  job_write(jobs)
+
+  # verification tests (here because that was the original file structure)
+  expect_true(verify_jobexists("toxic", jobs, strict = FALSE))
+  expect_true(verify_jobmissing("hitmebaby", jobs, strict = FALSE))
+
+  # add a second job that does have a path
+  jobs[["hitmebaby"]] <- suppressWarnings(new_job(
+    jobname = "hitmebaby",
+    description = "another song",
+    owner = "britney",
+    path = loc
+  ))
+  job_write(jobs)
+
+  # verification tests (here because that was the original file structure)
+  expect_true(verify_jobexists("toxic", jobs, strict = FALSE))
+  expect_true(verify_jobexists("hitmebaby", jobs, strict = FALSE))
+
+})
+
+

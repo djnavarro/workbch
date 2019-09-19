@@ -27,7 +27,7 @@ most functions can be called programmatically.
 ## Installation
 
 The workbch package has not been released on CRAN. You can install the
-development version from [GitHub](https://github.com/) with:
+development version from GitHub with:
 
 ``` r
 # install.packages("remotes")

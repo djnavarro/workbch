@@ -7,11 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "d.navarro@unsw.edu.au",
            comment = c(ORCID = "0000-0001-7648-6578"))
-Description: A "work bench" to manage projects from within R. The 'workbch' 
-    pcakge stores basic metadata (priority, deadlines, status) about projects, 
-    allows filtering and search for projects, stores notes and tasks linked to
-    projects, and assists navigation to web pages and folders linked to 
-    projects.
+Description: A "work bench" to manage projects from within R. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -22,7 +22,7 @@ correspond to an RStudio project, a git repository, a research project
 or indeed all of the above. Jobs are assumed to be stored in a single
 folder, but can be associated with URLs (e.g., on GitHub, Overleaf, OSF,
 or elsewhere). The package is intended to be used interactively, though
-most functions can be called from scripts if needed.
+most functions can be called programmatically.
 
 ## Installation
 
